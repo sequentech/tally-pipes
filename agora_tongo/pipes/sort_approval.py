@@ -8,4 +8,4 @@ def sort_approval(data):
         if "APPROVAL" not in question['a']:
             continue
         question['answers'] = sorted(question['answers'],
-                                     key=lambda a: a['total_count'])
+                                     key=lambda a: a['total_count'], reverse=True)
