@@ -1,0 +1,4 @@
+.kdev
+*.kdev4
+__pycache__
+*.egg-info

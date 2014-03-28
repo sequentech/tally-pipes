@@ -1,0 +1,2 @@
+recursive-include agora_tongo *.py
+include *md *txt AUTHORS

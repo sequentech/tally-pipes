@@ -1,0 +1,72 @@
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+
+import os
+import argparse
+import json
+import tempfile
+import tarfile
+
+def load_tally(fpath):
+    '''
+    extracts the tally and loads the results into a file for convenience
+    '''
+    extract_dir = tempfile.mkdtemp()
+    tar = tarfile.open(fpath)
+    tar.extractall(extract_dir)
+    tar.close()
+    result_path = os.path.join(extract_dir, "result_json")
+    with open(result_path, 'r', encoding="utf-8") as f:
+        result_json = json.loads(f.read())
+
+    return extract_dir, result_json
+
+def execute_pipeline(pipeline_info, data):
+    '''
+    Execute a pipeline of options. pipeline_info must be a list of
+    pairs. Each pair contains (pipe_func_path, params), where pipe_func_path is
+    the path to the module and a function name, and params is either
+    None or a dictionary with extra parameters accepted by the function.
+
+    Pipeline functions must accept always at least one parameter, 'data', which
+    will initially be the data parameter of this function, but each function is
+    allow to modify it as a way to process the data.
+
+    The other parameters of the function will be the "params" specified for
+    that function in 'pipeline_info', which can either be None or a dict, and
+    the format is of your choice as a developer.
+    '''
+    for func_path, kwargs in pipeline_info:
+        # get access to the function
+        func_name = func_path.split(".")[-1]
+        module = __import__(
+            ".".join(func_path.split(".")[:-1]), globals(), locals(),
+            [func_name], 0)
+        fargs = dict(data=data)
+        if kwargs is not None:
+            fargs.update(kwargs)
+        ret = getattr(module, func_name)(**fargs)
+
+    return data
+
+def main():
+    parser = argparse.ArgumentParser(description='Process and show tally results.')
+    parser.add_argument('-t', '--tally', help='tally path')
+    parser.add_argument('-c', '--config', help='config path')
+    parser.add_argument('-f', '--format', help='format', default="none")
+    pargs = parser.parse_args()
+
+    conf_mod = __import__(pargs.config, globals(), locals(),
+                          ["RESULT_PIPELINE"], 0)
+    pipeline_info = getattr(conf_mod, "RESULT_PIPELINE")
+
+    extract_dir, result_json = load_tally(pargs.tally)
+    data = dict(extract_dir=extract_dir, result=result_json)
+    execute_pipeline(pipeline_info, data)
+    if pargs.format == "none":
+        return
+    else:
+        print(json.dumps(data, indent=4))
+
+if __name__ == '__main__':
+    main()
