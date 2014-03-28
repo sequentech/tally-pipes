@@ -19,6 +19,7 @@ def stv_answers(question):
         print("%d. %s (votes)" % (i, answer['value']))
 
 def approval_answers(question):
+    print("Total votes: %d" % question['total_votes'])
     answers = question['answers']
     for i, answer in zip(range(len(answers)), answers):
         print("%d. %s (%d votes)" % (
