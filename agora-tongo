@@ -54,12 +54,15 @@ def main():
     parser = argparse.ArgumentParser(description='Process and show tally results.')
     parser.add_argument('-t', '--tally', help='tally path')
     parser.add_argument('-c', '--config', help='config path')
+    parser.add_argument('-v', '--variable',
+                        help='name of the config file variable with the pipeline',
+                        default="RESULT_PIPELINE")
     parser.add_argument('-f', '--format', help='format', default="none")
     pargs = parser.parse_args()
 
     conf_mod = __import__(pargs.config, globals(), locals(),
-                          ["RESULT_PIPELINE"], 0)
-    pipeline_info = getattr(conf_mod, "RESULT_PIPELINE")
+                          [pargs.variable], 0)
+    pipeline_info = getattr(conf_mod, pargs.variable)
 
     try:
         extract_dir, result_json = load_tally(pargs.tally)
