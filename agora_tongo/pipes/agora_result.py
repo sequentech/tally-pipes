@@ -11,7 +11,7 @@ def result_to_file(data, path):
     tallies = []
     result = agora_tally.tally.do_tally(data['extract_dir'],
                                         data['result']['counts'],
-                                        tallies)
+                                        tallies, ignore_invalid_votes=True)
     result["electorate_count"] = result["total_votes"]
 
     # remove ties
