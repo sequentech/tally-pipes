@@ -37,7 +37,8 @@ def podemos_tiebreak(data):
                 t = [t['data'] for t in question0_ties if cand_name in t['names']][0]
                 cand['tie_break'] = t[0]['total_count']
 
-            tie[:] = sorted(tie, key=lambda cand2: cand2['tie_break'])
+            tie[:] = sorted(tie, key=lambda cand2: cand2['tie_break'],
+                            reverse=True)
 
             # find if there's still subties
             subties = [list(g) for k, g in groupby(tie,
