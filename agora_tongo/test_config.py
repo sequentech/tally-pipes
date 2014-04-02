@@ -12,7 +12,9 @@ PODEMOS_PRIMARIES_RAW_PIPE = (
 )
 
 PODEMOS_PRIMARIES_FINAL_PIPE = (
-    ('agora_tongo.pipes.sort_approval.sort_approval', dict(show_ties=False)),
+    ('agora_tongo.pipes.sort_approval.sort_approval', dict(
+        show_ties=False,
+        withdrawals=['Antonio Manuel Rodríguez'])),
     ('agora_tongo.pipes.podemos_tiebreak.podemos_tiebreak', None),
     ('agora_tongo.pipes.parity.parity_zip_approval', dict(women_names=[
         'Estefanía Schweich Temprano',
@@ -66,10 +68,10 @@ PODEMOS_PRIMARIES_FINAL_PIPE = (
         'Cecilia Salazar-Alonso Revuelta',
         'Juana María Ripoll Alberti',
         'María Eugenia López',
-        'Paloma Aldir ',
+        'Paloma Aldir',
         'Isabel Serra Sánchez'
     ])),
-    #('agora_tongo.pipes.print_to_file.results_to_file',
-        #dict(path="podemos_results.json")),
+    ('agora_tongo.pipes.agora_result.result_to_file',
+        dict(path="podemos_results.json")),
     ('agora_tongo.pipes.pretty_print.pretty_print_approval', None),
 )
