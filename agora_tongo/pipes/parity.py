@@ -15,8 +15,10 @@ def parity_zip_approval(data, women_names):
             continue
         women = [a for a in question['answers'] if a['value'] in women_names]
         men = [a for a in question['answers'] if a['value'] not in women_names]
+        num_winners = question['num_seats']
+
         if len(women) == 0:
-            question['winners'] = [a['value'] for a in men]
+            question['winners'] = [a['value'] for a in men[:num_winners]]
             return
 
         # first is a women
@@ -35,5 +37,4 @@ def parity_zip_approval(data, women_names):
                     answers_sorted.append(woman)
         question['answers'] = answers_sorted
 
-        num_winners = question['num_seats']
         question['winners'] = [a['value'] for a in answers_sorted[:num_winners]]

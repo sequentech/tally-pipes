@@ -28,7 +28,7 @@ def sort_approval(data, withdrawals=[], show_ties=True):
                         print("   - %s (Q2 votes: %d)" % (
                             cand['value'], cand['total_count']))
 
-        possible_winners = [a for a in question['answers']
+        possible_winners = [a['value'] for a in question['answers']
             if a['value'] not in withdrawals]
 
         # winners without withdrawals

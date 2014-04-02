@@ -54,5 +54,6 @@ def podemos_tiebreak(data):
                     print("")
 
     question1['answers'] = list(chain.from_iterable(question1['ties']))
-    question1['winners'] = question1['answers'][:question1['num_seats']]
-
+    winners = question1['answers'][:question1['num_seats']]
+    winners = [winner['value'] for winner in winners]
+    question1['winners'] = winners
