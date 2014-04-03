@@ -13,7 +13,7 @@ PODEMOS_PRIMARIES_RAW_PIPE = (
 
 PODEMOS_PRIMARIES_FINAL_PIPE = (
     ('agora_tongo.pipes.sort_approval.sort_approval', dict(
-        show_ties=False,
+        show_ties=True,
         withdrawals=['Antonio Manuel Rodríguez'])),
     ('agora_tongo.pipes.podemos_tiebreak.podemos_tiebreak', None),
     ('agora_tongo.pipes.parity.parity_zip_approval', dict(women_names=[
