@@ -1,4 +1,4 @@
-# -*- coding:utf-8 -*-
+ #-*- coding:utf-8 -*-
 
 PIRATA_SECOND_ROUND_PIPE = (
     ('agora_tongo.pipes.stv_tiebreak.stv_first_round_tiebreak', None),
@@ -74,4 +74,10 @@ PODEMOS_PRIMARIES_FINAL_PIPE = (
     ('agora_tongo.pipes.agora_result.result_to_file',
         dict(path="podemos_results.json")),
     ('agora_tongo.pipes.pretty_print.pretty_print_approval', None),
+)
+
+
+MULTIREFERENDUM_RAW_PIPE = (
+    ('agora_tongo.pipes.pretty_print.pretty_print_one_choice',
+        dict(mark_winners=True)),
 )
