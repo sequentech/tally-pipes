@@ -81,3 +81,8 @@ MULTIREFERENDUM_RAW_PIPE = (
     ('agora_tongo.pipes.pretty_print.pretty_print_one_choice',
         dict(mark_winners=True)),
 )
+
+PODEMOS_CONFTEAM_RAW_PIPE = (
+    ('agora_tongo.pipes.pretty_print.pretty_print_approval',
+        dict(mark_winners=True)),
+)
