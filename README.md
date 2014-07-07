@@ -10,7 +10,7 @@ Piece of software that processes a tally and given a pipeline it modifies the re
 
 Just execute this (no stable release yet):
 
-    $ pip install git+https://github.com/edulix/agora-tongo.git
+    $ pip install git+https://github.com/agoraciudadana/agora-tongo.git
 
 # Usage
 
