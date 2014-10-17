@@ -8,7 +8,7 @@ PIRATA_SECOND_ROUND_PIPE = (
 PODEMOS_PRIMARIES_RAW_PIPE = (
     ('agora_tongo.pipes.sort_approval.sort_approval', None),
     ('agora_tongo.pipes.pretty_print.pretty_print_approval',
-        dict(mark_winners=False)),
+        dict(mark_winners=True)),
 )
 
 PODEMOS_PRIMARIES_FINAL_PIPE = (

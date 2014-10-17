@@ -18,7 +18,7 @@ Just execute this (no stable release yet):
 
 Or the same shorter:
 
-    $ agora-tongo -t tally.tar.gz -c agora_tongo.test_config
+    $ agora-tongo -t tally.tar.gz -c agora_tongo.test_config -v PODEMOS_PRIMARIES_RAW_PIPE
 
 # Configuration file
 
