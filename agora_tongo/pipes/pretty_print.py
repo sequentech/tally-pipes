@@ -27,7 +27,7 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_name, blank_plu
         print("Blank votes: %d (%0.2f%%)" % (
             question['blank_votes'], question['blank_votes']*100/total_votes))
         print("Invalid votes: %d (%0.2f%%)" % (
-            question['dirty_votes'], question['dirty_votes']*100/total_votes))
+            question['invalid_votes'], question['invalid_votes']*100/total_votes))
         print("Total valid votes (votes to options): %d (%0.2f%%)" % (
             question['valid_votes'], question['valid_votes']*100/total_votes))
         print("Options:")
