@@ -23,7 +23,7 @@ def load_tally(fpath):
 
     return extract_dir, result_json
 
-def execute_pipeline(pipeline_info, data):
+def execute_pipeline(pipeline_info, data_list):
     '''
     Execute a pipeline of options. pipeline_info must be a list of
     pairs. Each pair contains (pipe_func_path, params), where pipe_func_path is
@@ -44,16 +44,16 @@ def execute_pipeline(pipeline_info, data):
         module = __import__(
             ".".join(func_path.split(".")[:-1]), globals(), locals(),
             [func_name], 0)
-        fargs = dict(data=data)
+        fargs = dict(data_list=data_list)
         if kwargs is not None:
             fargs.update(kwargs)
         ret = getattr(module, func_name)(**fargs)
 
-    return data
+    return data_list
 
 def main():
     parser = argparse.ArgumentParser(description='Process and show tally results.')
-    parser.add_argument('-t', '--tally', help='tally path')
+    parser.add_argument('-t', '--tally', nargs='+', help='tally path')
     parser.add_argument('-c', '--config', help='config path')
     parser.add_argument('-v', '--variable',
                         help='name of the config file variable with the pipeline',
@@ -64,26 +64,35 @@ def main():
     conf_mod = __import__(pargs.config, globals(), locals(),
                           [pargs.variable], 0)
     pipeline_info = getattr(conf_mod, pargs.variable)
+    data_list = []
+
+    # remove files on abrupt external exit signal
+    def sig_handler(signum, frame):
+        print("\nTerminating: deleting temporal files..")
+        for data in data_list:
+            shutil.rmtree(data["extract_dir"])
+        exit(1)
+    signal.signal(signal.SIGTERM, sig_handler)
+    signal.signal(signal.SIGINT, sig_handler)
 
     try:
-        extract_dir, result_json = load_tally(pargs.tally)
+        # extract each tally, before starting the pipeline, and put the tally
+        # relevant data in a list that is processed by the pipeline
+        for tally in pargs.tally:
+            extract_dir, result_json = load_tally(tally)
+            print("Extracted tally %s in %s.." % (tally, extract_dir))
+            data_list.append(dict(extract_dir=extract_dir, result=result_json))
 
-        def sig_handler(signum, frame):
-            print("\nTerminating: deleting temporal files..")
-            shutil.rmtree(extract_dir)
-            exit(1)
-        signal.signal(signal.SIGTERM, sig_handler)
-        signal.signal(signal.SIGINT, sig_handler)
-
-        data = dict(extract_dir=extract_dir, result=result_json)
-        execute_pipeline(pipeline_info, data)
+        execute_pipeline(pipeline_info, data_list)
         if pargs.format == "none":
             return
         else:
             print(json.dumps(data, indent=4))
     finally:
-        if os.path.exists(extract_dir):
-          shutil.rmtree(extract_dir)
+        print("Deleting temporal files..")
+        for data in data_list:
+            if os.path.exists(extract_dir):
+                shutil.rmtree(data["extract_dir"])
 
 if __name__ == '__main__':
     main()

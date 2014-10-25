@@ -7,7 +7,7 @@ import subprocess
 import agora_tally.tally
 from itertools import groupby, chain
 
-def stv_first_round_tiebreak(data):
+def stv_first_round_tiebreak(data_list):
     '''
     Tie break algorithm for stv sorting of the winners.
 
@@ -17,6 +17,7 @@ def stv_first_round_tiebreak(data):
 
     NOTE: it only works to resolve ties in the first round!
     '''
+    data = data_list[0]
     # get the log to get the rounds
     tallies = []
     result = agora_tally.tally.do_tally(data['extract_dir'],

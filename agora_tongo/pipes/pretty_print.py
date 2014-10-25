@@ -3,7 +3,8 @@
 import os
 import subprocess
 
-def pretty_print_stv_winners(data):
+def pretty_print_stv_winners(data_list):
+    data = data_list[0]
     counts = data['result']['counts']
     for question, i in zip(counts, range(len(counts))):
         if "STV" not in question['a']:
@@ -78,10 +79,12 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_name, blank_plu
                         answer['total_count'],
                         answer['total_count']*100/total_votes))
 
-def pretty_print_approval(data, mark_winners=True):
+def pretty_print_approval(data_list, mark_winners=True):
+    data = data_list[0]
     __pretty_print_base(data, mark_winners, show_percent=True,
                         filter_name="APPROVAL", blank_plus=3)
 
-def pretty_print_one_choice(data, mark_winners=True):
+def pretty_print_one_choice(data_list, mark_winners=True):
+    data = data_list[0]
     __pretty_print_base(data, mark_winners, show_percent=True,
                         filter_name="ONE_CHOICE", blank_plus=2)

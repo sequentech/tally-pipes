@@ -7,7 +7,8 @@ import subprocess
 import agora_tally.tally
 from itertools import groupby, chain
 
-def result_to_file(data, path):
+def result_to_file(data_list, path):
+    data = data_list[0]
     tallies = []
 
     # use initial order for the counts or the tally log will be messed up
