@@ -2,6 +2,7 @@
 # -*- coding:utf-8 -*-
 
 import os
+import signal
 import argparse
 import json
 import tempfile
@@ -66,6 +67,14 @@ def main():
 
     try:
         extract_dir, result_json = load_tally(pargs.tally)
+
+        def sig_handler(signum, frame):
+            print("\nTerminating: deleting temporal files..")
+            shutil.rmtree(extract_dir)
+            exit(1)
+        signal.signal(signal.SIGTERM, sig_handler)
+        signal.signal(signal.SIGINT, sig_handler)
+
         data = dict(extract_dir=extract_dir, result=result_json)
         execute_pipeline(pipeline_info, data)
         if pargs.format == "none":
@@ -73,7 +82,8 @@ def main():
         else:
             print(json.dumps(data, indent=4))
     finally:
-        shutil.rmtree(extract_dir)
+        if os.path.exists(extract_dir):
+          shutil.rmtree(extract_dir)
 
 if __name__ == '__main__':
     main()
