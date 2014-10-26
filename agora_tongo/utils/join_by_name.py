@@ -35,8 +35,8 @@ if __name__ == "__main__":
                   answ_corrections.append(dict(
                     tally_id = j,
                     question_id= i,
-                    answ_id=result['answers_by_name'][i][answ['value']],
-                    answ_value=answ['value']
+                    answer_id=result['answers_by_name'][i][answ['value']],
+                    answer_value=answ['value']
                   ))
             q[str(answ['id'])] = answ_corrections
         corrections.append(q)
