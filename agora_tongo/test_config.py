@@ -180,13 +180,13 @@ PODEMOS_DOCUMENTS_FINAL_PIPE = (
         "6": [],
         "5": [
             {
-                "question_id": 0,
+                "question_id": 1,
                 "tally_id": 0,
                 "answer_value": "Equipo 10 C\u00edrculos",
                 "answer_id": 6
             },
             {
-                "question_id": 1,
+                "question_id": 0,
                 "tally_id": 1,
                 "answer_value": "Equipo 10 C\u00edrculos",
                 "answer_id": 5
