@@ -93,755 +93,767 @@ PODEMOS_DOCUMENTS_FINAL_PIPE = (
         {
             "questions_corrections": [
     {
+        "3": [
+            {
+                "question_id": 0,
+                "tally_id": 0,
+                "answer_value": "Juristas Madrid",
+                "answer_id": 3
+            },
+            {
+                "question_id": 0,
+                "tally_id": 1,
+                "answer_value": "Juristas Madrid",
+                "answer_id": 3
+            }
+        ],
         "10": [
             {
                 "question_id": 0,
-                "answer_value": "Equipo 97",
                 "tally_id": 0,
+                "answer_value": "Equipo 97",
                 "answer_id": 8
             },
             {
                 "question_id": 0,
+                "tally_id": 1,
                 "answer_value": "Equipo 97",
-                "tally_id": 1,
                 "answer_id": 9
-            }
-        ],
-        "11": [
-            {
-                "question_id": 0,
-                "answer_value": "S\u00ed se Puede",
-                "tally_id": 0,
-                "answer_id": 9
-            },
-            {
-                "question_id": 0,
-                "answer_value": "S\u00ed se Puede",
-                "tally_id": 1,
-                "answer_id": 10
-            }
-        ],
-        "12": [
-            {
-                "question_id": 0,
-                "answer_value": "Proceso constituyente - Equipo 159",
-                "tally_id": 0,
-                "answer_id": 10
-            },
-            {
-                "question_id": 0,
-                "answer_value": "Proceso constituyente - Equipo 159",
-                "tally_id": 1,
-                "answer_id": 11
             }
         ],
         "13": [
             {
                 "question_id": 0,
-                "answer_value": "La Hora de la Gente Decente",
                 "tally_id": 1,
+                "answer_value": "La Hora de la Gente Decente",
                 "answer_id": 12
-            }
-        ],
-        "8": [
-            {
-                "question_id": 0,
-                "answer_value": "Construyendo ciudadan\u00eda para todas las personas",
-                "tally_id": 0,
-                "answer_id": 6
             },
             {
-                "question_id": 0,
-                "answer_value": "Construyendo ciudadan\u00eda para todas las personas",
-                "tally_id": 1,
-                "answer_id": 7
+                "question_id": 1,
+                "tally_id": 0,
+                "answer_value": "La Hora de la Gente Decente",
+                "answer_id": 22
             }
         ],
         "9": [
             {
                 "question_id": 0,
-                "answer_value": "Equipo 64",
                 "tally_id": 0,
+                "answer_value": "Equipo 64",
                 "answer_id": 7
             },
             {
                 "question_id": 0,
-                "answer_value": "Equipo 64",
                 "tally_id": 1,
+                "answer_value": "Equipo 64",
                 "answer_id": 8
             }
         ],
-        "6": [],
+        "8": [
+            {
+                "question_id": 0,
+                "tally_id": 0,
+                "answer_value": "Construyendo ciudadan\u00eda para todas las personas",
+                "answer_id": 6
+            },
+            {
+                "question_id": 0,
+                "tally_id": 1,
+                "answer_value": "Construyendo ciudadan\u00eda para todas las personas",
+                "answer_id": 7
+            }
+        ],
         "7": [
             {
                 "question_id": 0,
-                "answer_value": "Podemos: participaci\u00f3n, transparencia y democracia.",
                 "tally_id": 0,
+                "answer_value": "Podemos: participaci\u00f3n, transparencia y democracia.",
                 "answer_id": 5
             },
             {
                 "question_id": 0,
-                "answer_value": "Podemos: participaci\u00f3n, transparencia y democracia.",
                 "tally_id": 1,
+                "answer_value": "Podemos: participaci\u00f3n, transparencia y democracia.",
                 "answer_id": 6
+            }
+        ],
+        "6": [],
+        "5": [
+            {
+                "question_id": 0,
+                "tally_id": 1,
+                "answer_value": "Equipo 10 C\u00edrculos",
+                "answer_id": 5
+            },
+            {
+                "question_id": 1,
+                "tally_id": 1,
+                "answer_value": "Equipo 10 C\u00edrculos",
+                "answer_id": 5
             }
         ],
         "4": [
             {
                 "question_id": 0,
-                "answer_value": "\u00c9tica y transparencia",
                 "tally_id": 0,
+                "answer_value": "\u00c9tica y transparencia",
                 "answer_id": 4
             },
             {
                 "question_id": 0,
-                "answer_value": "\u00c9tica y transparencia",
                 "tally_id": 1,
+                "answer_value": "\u00c9tica y transparencia",
                 "answer_id": 4
             }
         ],
-        "5": [
+        "11": [
             {
                 "question_id": 0,
-                "answer_value": "Equipo 10 C\u00edrculos",
+                "tally_id": 0,
+                "answer_value": "S\u00ed se Puede",
+                "answer_id": 9
+            },
+            {
+                "question_id": 0,
                 "tally_id": 1,
-                "answer_id": 5
+                "answer_value": "S\u00ed se Puede",
+                "answer_id": 10
             }
         ],
         "2": [
             {
                 "question_id": 0,
-                "answer_value": "Claro Que Podemos - Equipo Pablo Iglesias",
                 "tally_id": 0,
+                "answer_value": "Claro Que Podemos - Equipo Pablo Iglesias",
                 "answer_id": 2
             },
             {
                 "question_id": 0,
+                "tally_id": 1,
                 "answer_value": "Claro Que Podemos - Equipo Pablo Iglesias",
-                "tally_id": 1,
                 "answer_id": 2
-            }
-        ],
-        "3": [
-            {
-                "question_id": 0,
-                "answer_value": "Juristas Madrid",
-                "tally_id": 0,
-                "answer_id": 3
-            },
-            {
-                "question_id": 0,
-                "answer_value": "Juristas Madrid",
-                "tally_id": 1,
-                "answer_id": 3
             }
         ],
         "1": [
             {
                 "question_id": 0,
-                "answer_value": "Equipo Enfermeras",
                 "tally_id": 0,
+                "answer_value": "Equipo Enfermeras",
                 "answer_id": 1
             },
             {
                 "question_id": 0,
+                "tally_id": 1,
                 "answer_value": "Equipo Enfermeras",
-                "tally_id": 1,
                 "answer_id": 1
-            }
-        ]
-    },
-    {
-        "18": [
-            {
-                "question_id": 1,
-                "answer_value": "Proceso constituyente - Equipo 159",
-                "tally_id": 0,
-                "answer_id": 20
-            },
-            {
-                "question_id": 1,
-                "answer_value": "Proceso constituyente - Equipo 159",
-                "tally_id": 1,
-                "answer_id": 19
-            }
-        ],
-        "19": [
-            {
-                "question_id": 1,
-                "answer_value": "Instrumento de Transformaci\u00f3n",
-                "tally_id": 0,
-                "answer_id": 21
-            },
-            {
-                "question_id": 1,
-                "answer_value": "Instrumento de Transformaci\u00f3n",
-                "tally_id": 1,
-                "answer_id": 20
-            }
-        ],
-        "10": [
-            {
-                "question_id": 1,
-                "answer_value": "Equipo 63",
-                "tally_id": 0,
-                "answer_id": 12
-            },
-            {
-                "question_id": 1,
-                "answer_value": "Equipo 63",
-                "tally_id": 1,
-                "answer_id": 11
-            }
-        ],
-        "11": [
-            {
-                "question_id": 1,
-                "answer_value": "Equipo 67",
-                "tally_id": 0,
-                "answer_id": 13
-            },
-            {
-                "question_id": 1,
-                "answer_value": "Equipo 67",
-                "tally_id": 1,
-                "answer_id": 12
             }
         ],
         "12": [
             {
-                "question_id": 1,
-                "answer_value": "Equipo 73",
+                "question_id": 0,
                 "tally_id": 0,
-                "answer_id": 14
+                "answer_value": "Proceso constituyente - Equipo 159",
+                "answer_id": 10
             },
             {
-                "question_id": 1,
-                "answer_value": "Equipo 73",
+                "question_id": 0,
                 "tally_id": 1,
-                "answer_id": 13
+                "answer_value": "Proceso constituyente - Equipo 159",
+                "answer_id": 11
             }
-        ],
-        "13": [
-            {
-                "question_id": 1,
-                "answer_value": "Equipo 89",
-                "tally_id": 0,
-                "answer_id": 15
-            },
-            {
-                "question_id": 1,
-                "answer_value": "Equipo 89",
-                "tally_id": 1,
-                "answer_id": 14
-            }
-        ],
+        ]
+    },
+    {
         "14": [
             {
                 "question_id": 1,
-                "answer_value": "Claro que podemos,... Democracia Ciudadana",
                 "tally_id": 0,
+                "answer_value": "Claro que podemos,... Democracia Ciudadana",
                 "answer_id": 16
             },
             {
                 "question_id": 1,
-                "answer_value": "Claro que podemos,... Democracia Ciudadana",
                 "tally_id": 1,
+                "answer_value": "Claro que podemos,... Democracia Ciudadana",
                 "answer_id": 15
-            }
-        ],
-        "15": [
-            {
-                "question_id": 1,
-                "answer_value": "Junt@s podemos",
-                "tally_id": 0,
-                "answer_id": 17
-            },
-            {
-                "question_id": 1,
-                "answer_value": "Junt@s podemos",
-                "tally_id": 1,
-                "answer_id": 16
             }
         ],
         "16": [
             {
                 "question_id": 1,
-                "answer_value": "Equipo 137",
                 "tally_id": 0,
+                "answer_value": "Equipo 137",
                 "answer_id": 18
             },
             {
                 "question_id": 1,
-                "answer_value": "Equipo 137",
                 "tally_id": 1,
+                "answer_value": "Equipo 137",
                 "answer_id": 17
-            }
-        ],
-        "17": [
-            {
-                "question_id": 1,
-                "answer_value": "Sindicalismo y modelo econ\u00f3mico",
-                "tally_id": 0,
-                "answer_id": 19
-            },
-            {
-                "question_id": 1,
-                "answer_value": "Sindicalismo y modelo econ\u00f3mico",
-                "tally_id": 1,
-                "answer_id": 18
             }
         ],
         "20": [
             {
                 "question_id": 1,
-                "answer_value": "Rep\u00fablica Democr\u00e1tica y Social",
                 "tally_id": 0,
+                "answer_value": "Rep\u00fablica Democr\u00e1tica y Social",
                 "answer_id": 23
             },
             {
                 "question_id": 1,
-                "answer_value": "Rep\u00fablica Democr\u00e1tica y Social",
                 "tally_id": 1,
+                "answer_value": "Rep\u00fablica Democr\u00e1tica y Social",
                 "answer_id": 21
             }
         ],
         "21": [],
-        "8": [
+        "17": [
             {
                 "question_id": 1,
-                "answer_value": "Con tu Voz, S\u00ed se Puede",
                 "tally_id": 0,
-                "answer_id": 10
+                "answer_value": "Sindicalismo y modelo econ\u00f3mico",
+                "answer_id": 19
             },
             {
                 "question_id": 1,
-                "answer_value": "Con tu Voz, S\u00ed se Puede",
                 "tally_id": 1,
-                "answer_id": 9
+                "answer_value": "Sindicalismo y modelo econ\u00f3mico",
+                "answer_id": 18
             }
         ],
-        "9": [
+        "18": [
             {
                 "question_id": 1,
-                "answer_value": "Equipo 60",
                 "tally_id": 0,
-                "answer_id": 11
+                "answer_value": "Proceso constituyente - Equipo 159",
+                "answer_id": 20
             },
             {
                 "question_id": 1,
-                "answer_value": "Equipo 60",
                 "tally_id": 1,
-                "answer_id": 10
-            }
-        ],
-        "6": [
-            {
-                "question_id": 1,
-                "answer_value": "Construyendo Pueblo",
-                "tally_id": 0,
-                "answer_id": 8
-            },
-            {
-                "question_id": 1,
-                "answer_value": "Construyendo Pueblo",
-                "tally_id": 1,
-                "answer_id": 7
-            }
-        ],
-        "7": [
-            {
-                "question_id": 1,
-                "answer_value": "Con lxs trabajadorxs Podemos!",
-                "tally_id": 0,
-                "answer_id": 9
-            },
-            {
-                "question_id": 1,
-                "answer_value": "Con lxs trabajadorxs Podemos!",
-                "tally_id": 1,
-                "answer_id": 8
-            }
-        ],
-        "4": [
-            {
-                "question_id": 1,
-                "answer_value": "Democracia Radical",
-                "tally_id": 0,
-                "answer_id": 4
-            },
-            {
-                "question_id": 1,
-                "answer_value": "Democracia Radical",
-                "tally_id": 1,
-                "answer_id": 4
-            }
-        ],
-        "5": [
-            {
-                "question_id": 1,
-                "answer_value": "Democracia y Justicia Social",
-                "tally_id": 0,
-                "answer_id": 5
-            },
-            {
-                "question_id": 1,
-                "answer_value": "Democracia y Justicia Social",
-                "tally_id": 1,
-                "answer_id": 5
-            }
-        ],
-        "2": [
-            {
-                "question_id": 1,
-                "answer_value": "Claro Que Podemos - Equipo Pablo Iglesias",
-                "tally_id": 0,
-                "answer_id": 2
-            },
-            {
-                "question_id": 1,
-                "answer_value": "Claro Que Podemos - Equipo Pablo Iglesias",
-                "tally_id": 1,
-                "answer_id": 2
+                "answer_value": "Proceso constituyente - Equipo 159",
+                "answer_id": 19
             }
         ],
         "3": [
             {
                 "question_id": 1,
-                "answer_value": "Juristas Madrid",
                 "tally_id": 0,
+                "answer_value": "Juristas Madrid",
                 "answer_id": 3
             },
             {
                 "question_id": 1,
-                "answer_value": "Juristas Madrid",
                 "tally_id": 1,
+                "answer_value": "Juristas Madrid",
                 "answer_id": 3
+            }
+        ],
+        "10": [
+            {
+                "question_id": 1,
+                "tally_id": 0,
+                "answer_value": "Equipo 63",
+                "answer_id": 12
+            },
+            {
+                "question_id": 1,
+                "tally_id": 1,
+                "answer_value": "Equipo 63",
+                "answer_id": 11
+            }
+        ],
+        "15": [
+            {
+                "question_id": 1,
+                "tally_id": 0,
+                "answer_value": "Junt@s podemos",
+                "answer_id": 17
+            },
+            {
+                "question_id": 1,
+                "tally_id": 1,
+                "answer_value": "Junt@s podemos",
+                "answer_id": 16
+            }
+        ],
+        "19": [
+            {
+                "question_id": 1,
+                "tally_id": 0,
+                "answer_value": "Instrumento de Transformaci\u00f3n",
+                "answer_id": 21
+            },
+            {
+                "question_id": 1,
+                "tally_id": 1,
+                "answer_value": "Instrumento de Transformaci\u00f3n",
+                "answer_id": 20
+            }
+        ],
+        "13": [
+            {
+                "question_id": 1,
+                "tally_id": 0,
+                "answer_value": "Equipo 89",
+                "answer_id": 15
+            },
+            {
+                "question_id": 1,
+                "tally_id": 1,
+                "answer_value": "Equipo 89",
+                "answer_id": 14
+            }
+        ],
+        "9": [
+            {
+                "question_id": 1,
+                "tally_id": 0,
+                "answer_value": "Equipo 60",
+                "answer_id": 11
+            },
+            {
+                "question_id": 1,
+                "tally_id": 1,
+                "answer_value": "Equipo 60",
+                "answer_id": 10
+            }
+        ],
+        "8": [
+            {
+                "question_id": 1,
+                "tally_id": 0,
+                "answer_value": "Con tu Voz, S\u00ed se Puede",
+                "answer_id": 10
+            },
+            {
+                "question_id": 1,
+                "tally_id": 1,
+                "answer_value": "Con tu Voz, S\u00ed se Puede",
+                "answer_id": 9
+            }
+        ],
+        "7": [
+            {
+                "question_id": 1,
+                "tally_id": 0,
+                "answer_value": "Con lxs trabajadorxs Podemos!",
+                "answer_id": 9
+            },
+            {
+                "question_id": 1,
+                "tally_id": 1,
+                "answer_value": "Con lxs trabajadorxs Podemos!",
+                "answer_id": 8
+            }
+        ],
+        "6": [
+            {
+                "question_id": 1,
+                "tally_id": 0,
+                "answer_value": "Construyendo Pueblo",
+                "answer_id": 8
+            },
+            {
+                "question_id": 1,
+                "tally_id": 1,
+                "answer_value": "Construyendo Pueblo",
+                "answer_id": 7
+            }
+        ],
+        "5": [
+            {
+                "question_id": 1,
+                "tally_id": 0,
+                "answer_value": "Democracia y Justicia Social",
+                "answer_id": 5
+            },
+            {
+                "question_id": 1,
+                "tally_id": 1,
+                "answer_value": "Democracia y Justicia Social",
+                "answer_id": 5
+            }
+        ],
+        "4": [
+            {
+                "question_id": 1,
+                "tally_id": 0,
+                "answer_value": "Democracia Radical",
+                "answer_id": 4
+            },
+            {
+                "question_id": 1,
+                "tally_id": 1,
+                "answer_value": "Democracia Radical",
+                "answer_id": 4
+            }
+        ],
+        "11": [
+            {
+                "question_id": 1,
+                "tally_id": 0,
+                "answer_value": "Equipo 67",
+                "answer_id": 13
+            },
+            {
+                "question_id": 1,
+                "tally_id": 1,
+                "answer_value": "Equipo 67",
+                "answer_id": 12
+            }
+        ],
+        "2": [
+            {
+                "question_id": 1,
+                "tally_id": 0,
+                "answer_value": "Claro Que Podemos - Equipo Pablo Iglesias",
+                "answer_id": 2
+            },
+            {
+                "question_id": 1,
+                "tally_id": 1,
+                "answer_value": "Claro Que Podemos - Equipo Pablo Iglesias",
+                "answer_id": 2
             }
         ],
         "1": [
             {
                 "question_id": 1,
-                "answer_value": "Equipo Enfermeras",
                 "tally_id": 0,
+                "answer_value": "Equipo Enfermeras",
                 "answer_id": 1
             },
             {
                 "question_id": 1,
-                "answer_value": "Equipo Enfermeras",
                 "tally_id": 1,
+                "answer_value": "Equipo Enfermeras",
                 "answer_id": 1
+            }
+        ],
+        "12": [
+            {
+                "question_id": 1,
+                "tally_id": 0,
+                "answer_value": "Equipo 73",
+                "answer_id": 14
+            },
+            {
+                "question_id": 1,
+                "tally_id": 1,
+                "answer_value": "Equipo 73",
+                "answer_id": 13
             }
         ]
     },
     {
-        "21": [
-            {
-                "question_id": 2,
-                "answer_value": "M\u00e1ximas Competencias para la Asamblea",
-                "tally_id": 0,
-                "answer_id": 21
-            },
-            {
-                "question_id": 2,
-                "answer_value": "M\u00e1ximas Competencias para la Asamblea",
-                "tally_id": 1,
-                "answer_id": 21
-            }
-        ],
         "20": [
             {
                 "question_id": 2,
-                "answer_value": "Instrumento de Transformaci\u00f3n",
                 "tally_id": 0,
+                "answer_value": "Instrumento de Transformaci\u00f3n",
                 "answer_id": 20
             },
             {
                 "question_id": 2,
-                "answer_value": "Instrumento de Transformaci\u00f3n",
                 "tally_id": 1,
+                "answer_value": "Instrumento de Transformaci\u00f3n",
                 "answer_id": 20
             }
         ],
-        "23": [],
+        "21": [
+            {
+                "question_id": 2,
+                "tally_id": 0,
+                "answer_value": "M\u00e1ximas Competencias para la Asamblea",
+                "answer_id": 21
+            },
+            {
+                "question_id": 2,
+                "tally_id": 1,
+                "answer_value": "M\u00e1ximas Competencias para la Asamblea",
+                "answer_id": 21
+            }
+        ],
         "22": [
             {
                 "question_id": 2,
-                "answer_value": "Podemos ir M\u00e1s All\u00e1",
                 "tally_id": 0,
+                "answer_value": "Podemos ir M\u00e1s All\u00e1",
                 "answer_id": 22
             },
             {
                 "question_id": 2,
-                "answer_value": "Podemos ir M\u00e1s All\u00e1",
                 "tally_id": 1,
+                "answer_value": "Podemos ir M\u00e1s All\u00e1",
                 "answer_id": 22
             }
         ],
-        "18": [
+        "23": [],
+        "9": [
             {
                 "question_id": 2,
-                "answer_value": "Junt@s podemos",
                 "tally_id": 0,
-                "answer_id": 18
+                "answer_value": "Equipo 57",
+                "answer_id": 9
             },
             {
                 "question_id": 2,
-                "answer_value": "Junt@s podemos",
                 "tally_id": 1,
-                "answer_id": 18
+                "answer_value": "Equipo 57",
+                "answer_id": 9
+            }
+        ],
+        "8": [
+            {
+                "question_id": 2,
+                "tally_id": 0,
+                "answer_value": "Equipo 47",
+                "answer_id": 8
+            },
+            {
+                "question_id": 2,
+                "tally_id": 1,
+                "answer_value": "Equipo 47",
+                "answer_id": 8
+            }
+        ],
+        "7": [
+            {
+                "question_id": 2,
+                "tally_id": 0,
+                "answer_value": "Sumamos",
+                "answer_id": 7
+            },
+            {
+                "question_id": 2,
+                "tally_id": 1,
+                "answer_value": "Sumamos",
+                "answer_id": 7
+            }
+        ],
+        "6": [
+            {
+                "question_id": 2,
+                "tally_id": 0,
+                "answer_value": "Equipo 9",
+                "answer_id": 6
+            },
+            {
+                "question_id": 2,
+                "tally_id": 1,
+                "answer_value": "Equipo 9",
+                "answer_id": 6
+            }
+        ],
+        "5": [
+            {
+                "question_id": 2,
+                "tally_id": 0,
+                "answer_value": "Decide la Ciudadan\u00eda",
+                "answer_id": 5
+            },
+            {
+                "question_id": 2,
+                "tally_id": 1,
+                "answer_value": "Decide la Ciudadan\u00eda",
+                "answer_id": 5
+            }
+        ],
+        "4": [
+            {
+                "question_id": 2,
+                "tally_id": 0,
+                "answer_value": "Sumando Podemos",
+                "answer_id": 4
+            },
+            {
+                "question_id": 2,
+                "tally_id": 1,
+                "answer_value": "Sumando Podemos",
+                "answer_id": 4
+            }
+        ],
+        "3": [
+            {
+                "question_id": 2,
+                "tally_id": 0,
+                "answer_value": "Juristas Madrid",
+                "answer_id": 3
+            },
+            {
+                "question_id": 2,
+                "tally_id": 1,
+                "answer_value": "Juristas Madrid",
+                "answer_id": 3
+            }
+        ],
+        "2": [
+            {
+                "question_id": 2,
+                "tally_id": 0,
+                "answer_value": "Claro Que Podemos - Equipo Pablo Iglesias",
+                "answer_id": 2
+            },
+            {
+                "question_id": 2,
+                "tally_id": 1,
+                "answer_value": "Claro Que Podemos - Equipo Pablo Iglesias",
+                "answer_id": 2
+            }
+        ],
+        "1": [
+            {
+                "question_id": 2,
+                "tally_id": 0,
+                "answer_value": "Equipo Enfermeras",
+                "answer_id": 1
+            },
+            {
+                "question_id": 2,
+                "tally_id": 1,
+                "answer_value": "Equipo Enfermeras",
+                "answer_id": 1
             }
         ],
         "19": [
             {
                 "question_id": 2,
-                "answer_value": "Podemos M\u00e9xico. Propuesta sobre los c\u00edrculos del exterior",
                 "tally_id": 0,
+                "answer_value": "Podemos M\u00e9xico. Propuesta sobre los c\u00edrculos del exterior",
                 "answer_id": 19
             },
             {
                 "question_id": 2,
-                "answer_value": "Podemos M\u00e9xico. Propuesta sobre los c\u00edrculos del exterior",
                 "tally_id": 1,
+                "answer_value": "Podemos M\u00e9xico. Propuesta sobre los c\u00edrculos del exterior",
                 "answer_id": 19
             }
         ],
-        "10": [
+        "18": [
             {
                 "question_id": 2,
-                "answer_value": "Equipo 63",
                 "tally_id": 0,
-                "answer_id": 10
+                "answer_value": "Junt@s podemos",
+                "answer_id": 18
             },
             {
                 "question_id": 2,
-                "answer_value": "Equipo 63",
                 "tally_id": 1,
-                "answer_id": 10
-            }
-        ],
-        "11": [
-            {
-                "question_id": 2,
-                "answer_value": "Equipo 67",
-                "tally_id": 0,
-                "answer_id": 11
-            },
-            {
-                "question_id": 2,
-                "answer_value": "Equipo 67",
-                "tally_id": 1,
-                "answer_id": 11
-            }
-        ],
-        "12": [
-            {
-                "question_id": 2,
-                "answer_value": "Equipo 69",
-                "tally_id": 0,
-                "answer_id": 12
-            },
-            {
-                "question_id": 2,
-                "answer_value": "Equipo 69",
-                "tally_id": 1,
-                "answer_id": 12
-            }
-        ],
-        "13": [
-            {
-                "question_id": 2,
-                "answer_value": "Entre todos s\u00ed Podemos",
-                "tally_id": 0,
-                "answer_id": 13
-            },
-            {
-                "question_id": 2,
-                "answer_value": "Entre todos s\u00ed Podemos",
-                "tally_id": 1,
-                "answer_id": 13
-            }
-        ],
-        "14": [
-            {
-                "question_id": 2,
-                "answer_value": "Podemos Federarnos",
-                "tally_id": 0,
-                "answer_id": 14
-            },
-            {
-                "question_id": 2,
-                "answer_value": "Podemos Federarnos",
-                "tally_id": 1,
-                "answer_id": 14
+                "answer_value": "Junt@s podemos",
+                "answer_id": 18
             }
         ],
         "15": [
             {
                 "question_id": 2,
-                "answer_value": "Equipo 89",
                 "tally_id": 0,
+                "answer_value": "Equipo 89",
                 "answer_id": 15
             },
             {
                 "question_id": 2,
-                "answer_value": "Equipo 89",
                 "tally_id": 1,
+                "answer_value": "Equipo 89",
                 "answer_id": 15
             }
         ],
-        "16": [
+        "14": [
             {
                 "question_id": 2,
-                "answer_value": "Equipo 97",
                 "tally_id": 0,
-                "answer_id": 16
+                "answer_value": "Podemos Federarnos",
+                "answer_id": 14
             },
             {
                 "question_id": 2,
-                "answer_value": "Equipo 97",
                 "tally_id": 1,
-                "answer_id": 16
+                "answer_value": "Podemos Federarnos",
+                "answer_id": 14
             }
         ],
         "17": [
             {
                 "question_id": 2,
-                "answer_value": "S\u00ed se Puede",
                 "tally_id": 0,
+                "answer_value": "S\u00ed se Puede",
                 "answer_id": 17
             },
             {
                 "question_id": 2,
-                "answer_value": "S\u00ed se Puede",
                 "tally_id": 1,
+                "answer_value": "S\u00ed se Puede",
                 "answer_id": 17
             }
         ],
-        "8": [
+        "16": [
             {
                 "question_id": 2,
-                "answer_value": "Equipo 47",
                 "tally_id": 0,
-                "answer_id": 8
+                "answer_value": "Equipo 97",
+                "answer_id": 16
             },
             {
                 "question_id": 2,
-                "answer_value": "Equipo 47",
                 "tally_id": 1,
-                "answer_id": 8
+                "answer_value": "Equipo 97",
+                "answer_id": 16
             }
         ],
-        "9": [
+        "11": [
             {
                 "question_id": 2,
-                "answer_value": "Equipo 57",
                 "tally_id": 0,
-                "answer_id": 9
+                "answer_value": "Equipo 67",
+                "answer_id": 11
             },
             {
                 "question_id": 2,
-                "answer_value": "Equipo 57",
                 "tally_id": 1,
-                "answer_id": 9
+                "answer_value": "Equipo 67",
+                "answer_id": 11
             }
         ],
-        "6": [
+        "10": [
             {
                 "question_id": 2,
-                "answer_value": "Equipo 9",
                 "tally_id": 0,
-                "answer_id": 6
+                "answer_value": "Equipo 63",
+                "answer_id": 10
             },
             {
                 "question_id": 2,
-                "answer_value": "Equipo 9",
                 "tally_id": 1,
-                "answer_id": 6
+                "answer_value": "Equipo 63",
+                "answer_id": 10
             }
         ],
-        "7": [
+        "13": [
             {
                 "question_id": 2,
-                "answer_value": "Sumamos",
                 "tally_id": 0,
-                "answer_id": 7
+                "answer_value": "Entre todos s\u00ed Podemos",
+                "answer_id": 13
             },
             {
                 "question_id": 2,
-                "answer_value": "Sumamos",
                 "tally_id": 1,
-                "answer_id": 7
+                "answer_value": "Entre todos s\u00ed Podemos",
+                "answer_id": 13
             }
         ],
-        "4": [
+        "12": [
             {
                 "question_id": 2,
-                "answer_value": "Sumando Podemos",
                 "tally_id": 0,
-                "answer_id": 4
+                "answer_value": "Equipo 69",
+                "answer_id": 12
             },
             {
                 "question_id": 2,
-                "answer_value": "Sumando Podemos",
                 "tally_id": 1,
-                "answer_id": 4
-            }
-        ],
-        "5": [
-            {
-                "question_id": 2,
-                "answer_value": "Decide la Ciudadan\u00eda",
-                "tally_id": 0,
-                "answer_id": 5
-            },
-            {
-                "question_id": 2,
-                "answer_value": "Decide la Ciudadan\u00eda",
-                "tally_id": 1,
-                "answer_id": 5
-            }
-        ],
-        "2": [
-            {
-                "question_id": 2,
-                "answer_value": "Claro Que Podemos - Equipo Pablo Iglesias",
-                "tally_id": 0,
-                "answer_id": 2
-            },
-            {
-                "question_id": 2,
-                "answer_value": "Claro Que Podemos - Equipo Pablo Iglesias",
-                "tally_id": 1,
-                "answer_id": 2
-            }
-        ],
-        "3": [
-            {
-                "question_id": 2,
-                "answer_value": "Juristas Madrid",
-                "tally_id": 0,
-                "answer_id": 3
-            },
-            {
-                "question_id": 2,
-                "answer_value": "Juristas Madrid",
-                "tally_id": 1,
-                "answer_id": 3
-            }
-        ],
-        "1": [
-            {
-                "question_id": 2,
-                "answer_value": "Equipo Enfermeras",
-                "tally_id": 0,
-                "answer_id": 1
-            },
-            {
-                "question_id": 2,
-                "answer_value": "Equipo Enfermeras",
-                "tally_id": 1,
-                "answer_id": 1
+                "answer_value": "Equipo 69",
+                "answer_id": 12
             }
         ]
     }
