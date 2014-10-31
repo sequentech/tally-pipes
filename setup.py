@@ -11,15 +11,15 @@ install_reqs = parse_requirements("requirements.txt")
 reqs = [str(ir.req) for ir in install_reqs]
 
 setup(
-    name='Agora Tongo',
-    version='0.0.1',
-    author='Eduardo Robles Elvira',
-    author_email='edulix@agoravoting.com',
-    packages=['agora_tongo', 'agora_tongo.pipes'],
-    scripts=['agora-tongo'],
-    url='http://pypi.python.org/pypi/agora_tongo/',
+    name='Agora Results',
+    version='1.0.0',
+    author='Agora Voting Team',
+    author_email='agora@agoravoting.com',
+    packages=['agora_results', 'agora_results.pipes'],
+    scripts=['agora-results'],
+    url='http://pypi.python.org/pypi/agora_results/',
     license='LICENSE',
-    description='agora tongo results processing system',
+    description='agora results processing system',
     long_description=open('README.md').read(),
     install_requires=reqs,
     dependency_links = [

@@ -1,6 +1,6 @@
 # Introduction
 
-Piece of software that processes a tally and given a pipeline it modifies the results. The name is just a joke. This is useful for example to post-process a tally to:
+Piece of software that processes a tally and given a pipeline it modifies the results. This is useful for example to post-process a tally to:
  - resolve tie-breaks (there can be many different algorithms to do that)
  - apply egalitarian criteria for men and women (sometimes this is even legaly mandated)
  - sort the winners of stv (which by default doesn't sort winners, just elect them)
@@ -10,15 +10,15 @@ Piece of software that processes a tally and given a pipeline it modifies the re
 
 Just execute this (no stable release yet):
 
-    $ pip install git+https://github.com/agoraciudadana/agora-tongo.git
+    $ pip install git+https://github.com/agoravoting/agora-results.git
 
 # Usage
 
-    $ agora-tongo --tally tally.tar.gz --config agora_tongo.test_config
+    $ agora-results --tally tally.tar.gz --config agora_tongo.test_config
 
 Or the same shorter:
 
-    $ agora-tongo -t tally.tar.gz -c agora_tongo.test_config -v PODEMOS_PRIMARIES_RAW_PIPE
+    $ agora-results -t tally.tar.gz -c agora_tongo.test_config -v PODEMOS_PRIMARIES_RAW_PIPE
 
 # Configuration file
 
@@ -36,15 +36,15 @@ Configuration file specifies the pipeline of functions to be applied to the resu
 
 The available algorithms can be listed with:
 
-    $ agora-tongo --list-pipes
+    $ agora-results --list-pipes
 
 And you can see how to use it with:
 
-    $ agora-tongo --help "pipe.tiebreak_stv"
+    $ agora-results --help "pipe.tiebreak_stv"
 
 # Development
 
-You can of course take a look at the available pipes in the agora_tongo/pipes/ subdirectory and see how to develop your own pipe. Be careful, you might cook the results in an unexpected way!
+You can of course take a look at the available pipes in the agora_results/pipes/ subdirectory and see how to develop your own pipe. Be careful, you might cook the results in an unexpected way!
 
 This software is in development state, that's why we haven't released any stable version yet. Patches and new pipes are welcome. We will review the pipe so that it does what is expected.
 
@@ -52,6 +52,6 @@ This software is in development state, that's why we haven't released any stable
 
 You can see all the available commands with:
 
-    $ agora-tongo --help
+    $ agora-results --help
 
-You can contact us at agora-ciudadana-devel@googlegroups.com mailing list or at #agoraciudadana freenode.net channel.
+You can contact us at agora-voting@googlegroups.com mailing list or at #agoravoting freenode.net channel.
