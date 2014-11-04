@@ -8,6 +8,7 @@ import json
 import tempfile
 import shutil
 import tarfile
+import codecs
 
 def load_tally(fpath):
     '''
@@ -18,7 +19,7 @@ def load_tally(fpath):
     tar.extractall(extract_dir)
     tar.close()
     result_path = os.path.join(extract_dir, "result_json")
-    with open(result_path, 'r', encoding="utf-8") as f:
+    with codecs.open(result_path, 'r', encoding="utf-8") as f:
         result_json = json.loads(f.read())
 
     return extract_dir, result_json
