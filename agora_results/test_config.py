@@ -1,22 +1,22 @@
  #-*- coding:utf-8 -*-
 
 PIRATA_SECOND_ROUND_PIPE = (
-    ('agora_tongo.pipes.stv_tiebreak.stv_first_round_tiebreak', None),
-    ('agora_tongo.pipes.pretty_print.pretty_print_stv_winners', None),
+    ('agora_results.pipes.stv_tiebreak.stv_first_round_tiebreak', None),
+    ('agora_results.pipes.pretty_print.pretty_print_stv_winners', None),
 )
 
 PODEMOS_PRIMARIES_RAW_PIPE = (
-    ('agora_tongo.pipes.sort_approval.sort_approval', None),
-    ('agora_tongo.pipes.pretty_print.pretty_print_approval',
+    ('agora_results.pipes.sort_approval.sort_approval', None),
+    ('agora_results.pipes.pretty_print.pretty_print_approval',
         dict(mark_winners=True)),
 )
 
 PODEMOS_PRIMARIES_FINAL_PIPE = (
-    ('agora_tongo.pipes.sort_approval.sort_approval', dict(
+    ('agora_results.pipes.sort_approval.sort_approval', dict(
         show_ties=True,
         withdrawals=['Antonio Manuel Rodríguez'])),
-    ('agora_tongo.pipes.podemos_tiebreak.podemos_tiebreak', None),
-    ('agora_tongo.pipes.parity.parity_zip_approval', dict(women_names=[
+    ('agora_results.pipes.podemos_tiebreak.podemos_tiebreak', None),
+    ('agora_results.pipes.parity.parity_zip_approval', dict(women_names=[
         'Estefanía Schweich Temprano',
         'Marta Beatriz Pérez Cabanillas',
         'Paula Quinteiro Araujo',
@@ -71,25 +71,25 @@ PODEMOS_PRIMARIES_FINAL_PIPE = (
         'Paloma Aldir',
         'Isabel Serra Sánchez'
     ])),
-    ('agora_tongo.pipes.agora_result.result_to_file',
+    ('agora_results.pipes.agora_result.result_to_file',
         dict(path="podemos_results.json")),
-    ('agora_tongo.pipes.pretty_print.pretty_print_approval', None),
+    ('agora_results.pipes.pretty_print.pretty_print_approval', None),
 )
 
 
 MULTIREFERENDUM_RAW_PIPE = (
-    ('agora_tongo.pipes.pretty_print.pretty_print_one_choice',
+    ('agora_results.pipes.pretty_print.pretty_print_one_choice',
         dict(mark_winners=True)),
 )
 
 PODEMOS_CONFTEAM_RAW_PIPE = (
-    ('agora_tongo.pipes.pretty_print.pretty_print_approval',
+    ('agora_results.pipes.pretty_print.pretty_print_approval',
         dict(mark_winners=True)),
 )
 
 PODEMOS_DOCUMENTS_FINAL_PIPE = (
     (
-        'agora_tongo.pipes.multipart.reduce_with_corrections',
+        'agora_results.pipes.multipart.reduce_with_corrections',
         {
             "questions_corrections": [
     {
@@ -861,7 +861,7 @@ PODEMOS_DOCUMENTS_FINAL_PIPE = (
 
         }
     ),
-    ('agora_tongo.pipes.sort_approval.sort_approval', None),
-    ('agora_tongo.pipes.pretty_print.pretty_print_approval',
+    ('agora_results.pipes.sort_approval.sort_approval', None),
+    ('agora_results.pipes.pretty_print.pretty_print_approval',
         dict(mark_winners=True)),
 )
