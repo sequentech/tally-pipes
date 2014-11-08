@@ -15,7 +15,18 @@ def pretty_print_stv_winners(data_list):
         for i, winner in zip(range(len(winners)), winners):
             print("%d. %s" % (i+1, winner))
 
-def __pretty_print_base(data, mark_winners, show_percent, filter_name, blank_plus):
+def __pretty_print_base(data, mark_winners, show_percent, filter_name, blank_plus, percent_base="total"):
+    '''
+    percent_base:
+      "total" total of the votes, the default
+      "valid options" votes to options
+    '''
+    def get_percentage(num, base):
+      if base == 0:
+          return 0
+      else:
+        return num*100.0/base
+
     counts = data['result']['counts']
     for question, i in zip(counts, range(len(counts))):
         if filter_name not in question['a']:
@@ -24,6 +35,12 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_name, blank_plu
 
         total_votes = data['result']['total_votes']
 
+        if percent_base == "total":
+          base_num = data['result']['total_votes']
+        elif percent_base == "valid options":
+          base_num = question['valid_votes']
+
+
         print("Total votes: %d" % total_votes)
         print("Blank votes: %d (%0.2f%%)" % (
             question['blank_votes'], question['blank_votes']*100/total_votes))
@@ -31,7 +48,7 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_name, blank_plu
             question['invalid_votes'], question['invalid_votes']*100/total_votes))
         print("Total valid votes (votes to options): %d (%0.2f%%)" % (
             question['valid_votes'], question['valid_votes']*100/total_votes))
-        print("Options:")
+        print("Options (percentages over %s):" % percent_base)
 
         if mark_winners:
             i = 1
@@ -47,7 +64,7 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_name, blank_plu
                         i,
                         winner,
                         answer['total_count'],
-                        answer['total_count']*100/total_votes))
+                        get_percentage(answer['total_count'], base_num)))
                 i += 1
 
             losers = sorted([a for a in question['answers']
@@ -63,7 +80,7 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_name, blank_plu
                     print("N. %s (%d votes, %0.2f%%)" % (
                         loser['value'],
                         loser['total_count'],
-                        loser['total_count']*100/total_votes))
+                        get_percentage(loser['total_count'], base_num)))
         else:
             answers = sorted([a for a in question['answers']],
                 key=lambda a: float(a['total_count']), reverse=True)
@@ -77,12 +94,12 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_name, blank_plu
                     print("%d. %s (%d votes, %0.2f%%)" % (
                         i + 1, answer['value'],
                         answer['total_count'],
-                        answer['total_count']*100/total_votes))
+                        get_percentage(answer['total_count'], base_num)))
 
-def pretty_print_approval(data_list, mark_winners=True):
+def pretty_print_approval(data_list, mark_winners=True, percent_base="total"):
     data = data_list[0]
     __pretty_print_base(data, mark_winners, show_percent=True,
-                        filter_name="APPROVAL", blank_plus=3)
+        filter_name="APPROVAL", blank_plus=3, percent_base=percent_base)
 
 def pretty_print_one_choice(data_list, mark_winners=True):
     data = data_list[0]
