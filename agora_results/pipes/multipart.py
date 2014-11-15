@@ -91,25 +91,50 @@ def remove_duplicated_votes_and_invalid(data_list, actions):
       ...
     ]
     '''
-    actions = copy.deepcopy(actions)
+    actionscopy = copy.deepcopy(actions)
+    for action in actionscopy:
+      action['answer_ids'] = [aid-1 for aid in action['answer_ids']]
+
+    count = 0
+    for data in data_list:
+        for i in range(len(data['result']['counts'])):
+            for action in actions:
+                if action['question_id'] != i:
+                    continue
+                if action['action'] == "duplicated":
+                    l = action['answer_ids'][1:]
+                else:
+                    # to remove
+                    l = action['answer_ids']
+                answers = data['result']['counts'][i]['answers']
+                for id_to_remove in l:
+                    for j in range(len(answers)):
+                        if answers[j]['id'] == id_to_remove:
+                            answers[j]['value'] = "to_remove%d" % count
+                            count += 1
+                            break
 
     def monkey_patcher(tally):
         old_parse_vote = tally.parse_vote
 
         def parse_vote(self, number, question):
             ret = old_parse_vote(number, question)
+            ret_base = copy.deepcopy(ret)
             if not isinstance(ret, list):
                 print("not a list")
                 return ret
-            for action in actions:
+            for action in actionscopy:
                 if action['question_id'] != tally.question_num:
                     continue
                 if action['action'] == 'removed':
                     l = action['answer_ids']
+                    ret = sorted(list(set(ret).difference(set(l))))
                 else:
                     l = action['answer_ids'][1:]
-                ret = list(set(ret).difference(set(l)))
-
+                    # first replace all instances of items in l with action['answer_ids'][0]
+                    duplicated = action['answer_ids'][0]
+                    ret = [duplicated if item in l else item for item in ret]
+                    ret = sorted(list(set(ret)))
             return ret
 
         tally.parse_vote = types.MethodType(parse_vote, tally)

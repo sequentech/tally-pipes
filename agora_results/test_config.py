@@ -69,7 +69,7 @@ PODEMOS_CANDIDATES_PIPE = (
           {
             "question_id": 1,
             "action": "duplicated",
-            "answer_ids": [913, 166]
+            "answer_ids": [931, 166]
           },
           {
             "question_id": 1,
@@ -200,7 +200,7 @@ PODEMOS_CANDIDATES_PIPE = (
             "question_id": 2,
             "action": "removed",
             "answer_ids": [83, 98, 202, 232, 128]
-          },
+          }
         ]
       }
     ),
