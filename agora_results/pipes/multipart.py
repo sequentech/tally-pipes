@@ -102,13 +102,13 @@ def remove_duplicated_votes_and_invalid(data_list, actions):
                 print("not a list")
                 return ret
             for action in actions:
-                if action['action'] != 'duplicated':
-                    continue
                 if action['question_id'] != tally.question_num:
                     continue
-                if len(set(action['answer_ids']).intersection(set(ret))) > 1:
-                    # invalid vote
-                  raise Exception()
+                if action['action'] == 'removed':
+                    l = action['answer_ids']
+                else:
+                    l = action['answer_ids'][1:]
+                ret = list(set(ret).difference(set(l)))
 
             return ret
 
