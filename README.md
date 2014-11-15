@@ -10,6 +10,8 @@ Piece of software that processes a tally and given a pipeline it modifies the re
 
 Just execute this (no stable release yet):
 
+    $ mkvirtualenv agora-results -p $(which python3)
+    $ workon agora-results
     $ pip install git+https://github.com/agoravoting/agora-results.git
 
 # Usage

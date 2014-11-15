@@ -11,6 +11,205 @@ PODEMOS_PRIMARIES_RAW_PIPE = (
         dict(mark_winners=True)),
 )
 
+PODEMOS_CANDIDATES_RAW_PIPE = (
+    ('agora_results.pipes.sort_approval.sort_approval', None),
+    ('agora_results.pipes.pretty_print.pretty_print_approval',
+        dict(mark_winners=False, percent_base="valid options")),
+)
+
+PODEMOS_CANDIDATES_PIPE = (
+    ('agora_results.pipes.multipart.remove_duplicated_votes_and_invalid',
+      {
+        "actions": [
+          {
+            "question_id": 1,
+            "action": "duplicated",
+            "answer_ids": [913, 916]
+          },
+          {
+            "question_id": 1,
+            "action": "duplicated",
+            "answer_ids": [170, 975]
+          },
+          {
+            "question_id": 1,
+            "action": "duplicated",
+            "answer_ids": [62, 191]
+          },
+          {
+            "question_id": 1,
+            "action": "duplicated",
+            "answer_ids": [157, 974]
+          },
+          {
+            "question_id": 1,
+            "action": "duplicated",
+            "answer_ids": [579, 799]
+          },
+          {
+            "question_id": 1,
+            "action": "duplicated",
+            "answer_ids": [663, 787]
+          },
+          {
+            "question_id": 1,
+            "action": "duplicated",
+            "answer_ids": [460, 607]
+          },
+          {
+            "question_id": 1,
+            "action": "duplicated",
+            "answer_ids": [669, 670]
+          },
+          {
+            "question_id": 1,
+            "action": "duplicated",
+            "answer_ids": [914, 189]
+          },
+          {
+            "question_id": 1,
+            "action": "duplicated",
+            "answer_ids": [913, 166]
+          },
+          {
+            "question_id": 1,
+            "action": "duplicated",
+            "answer_ids": [71, 982]
+          },
+          {
+            "question_id": 1,
+            "action": "duplicated",
+            "answer_ids": [174, 811]
+          },
+          {
+            "question_id": 1,
+            "action": "duplicated",
+            "answer_ids": [956, 963]
+          },
+          {
+            "question_id": 1,
+            "action": "duplicated",
+            "answer_ids": [180, 895]
+          },
+          {
+            "question_id": 1,
+            "action": "duplicated",
+            "answer_ids": [612, 641]
+          },
+          {
+            "question_id": 1,
+            "action": "duplicated",
+            "answer_ids": [162, 940]
+          },
+          {
+            "question_id": 1,
+            "action": "duplicated",
+            "answer_ids": [479, 648]
+          },
+          {
+            "question_id": 1,
+            "action": "duplicated",
+            "answer_ids": [179, 823]
+          },
+          {
+            "question_id": 1,
+            "action": "duplicated",
+            "answer_ids": [163, 789]
+          },
+          {
+            "question_id": 1,
+            "action": "duplicated",
+            "answer_ids": [177, 903]
+          },
+          {
+            "question_id": 1,
+            "action": "duplicated",
+            "answer_ids": [66, 167, 853]
+          },
+          {
+            "question_id": 1,
+            "action": "duplicated",
+            "answer_ids": [168, 889]
+          },
+          {
+            "question_id": 1,
+            "action": "duplicated",
+            "answer_ids": [193, 780]
+          },
+          {
+            "question_id": 1,
+            "action": "duplicated",
+            "answer_ids": [172, 804]
+          },
+          {
+            "question_id": 1,
+            "action": "duplicated",
+            "answer_ids": [161, 949]
+          },
+          {
+            "question_id": 1,
+            "action": "duplicated",
+            "answer_ids": [194, 981]
+          },
+          {
+            "question_id": 1,
+            "action": "duplicated",
+            "answer_ids": [556, 560]
+          },
+          {
+            "question_id": 1,
+            "action": "duplicated",
+            "answer_ids": [160, 750]
+          },
+          {
+            "question_id": 1,
+            "action": "duplicated",
+            "answer_ids": [165, 742]
+          },
+          {
+            "question_id": 1,
+            "action": "duplicated",
+            "answer_ids": [184, 708]
+          },
+          {
+            "question_id": 1,
+            "action": "duplicated",
+            "answer_ids": [95, 890]
+          },
+          {
+            "question_id": 1,
+            "action": "duplicated",
+            "answer_ids": [175, 817]
+          },
+          {
+            "question_id": 1,
+            "action": "duplicated",
+            "answer_ids": [159, 969]
+          },
+          {
+            "question_id": 2,
+            "action": "duplicated",
+            "answer_ids": [247, 250]
+          },
+          {
+            "question_id": 1,
+            "action": "removed",
+            "answer_ids": [526, 547, 795, 879, 600, 756]
+          },
+          {
+            "question_id": 2,
+            "action": "removed",
+            "answer_ids": [83, 98, 202, 232, 128]
+          },
+        ]
+      }
+    ),
+    ('agora_results.pipes.sort_approval.sort_approval', None),
+    ('agora_results.pipes.pretty_print.pretty_print_approval',
+        dict(mark_winners=False, percent_base="valid options")),
+)
+
+
 PODEMOS_PRIMARIES_FINAL_PIPE = (
     ('agora_results.pipes.sort_approval.sort_approval', dict(
         show_ties=True,

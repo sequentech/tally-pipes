@@ -1,3 +1,6 @@
+import copy
+import types
+import agora_tally.tally
 
 def reduce_with_corrections(data_list, questions_corrections):
     '''
@@ -64,3 +67,77 @@ def reduce_with_corrections(data_list, questions_corrections):
                 dest_q['valid_votes'] += source_answer['total_count']
 
     data_list.reverse()
+
+def remove_duplicated_votes_and_invalid(data_list, actions):
+    '''
+    Assumes multiple <n> tallies with the same exact questions, and options
+    inside those questions.
+
+    The postprocessing done here is the mixing of the results of two candidates
+    that are duplicated. In that case, the duplicates mark as invalid votes to
+    the same question twice to a duplicate. Duplicates are only allowed in the
+    same question.
+
+    For example if an answer of voter to a given question is "01, 02, 03", and
+    01 and 02 candidates are duplicated, that ballot is deemed invalid.
+
+    duplicates follows the format of this example:
+    [
+      {
+        "question_id": 0,
+        "action": "duplicated",
+        "answer_ids": [1, 2]
+      },
+      ...
+    ]
+    '''
+    actions = copy.deepcopy(actions)
+
+    def monkey_patcher(tally):
+        old_parse_vote = tally.parse_vote
+
+        def parse_vote(self, number, question):
+            ret = old_parse_vote(number, question)
+            if not isinstance(ret, list):
+                print("not a list")
+                return ret
+            for action in actions:
+                if action['action'] != 'duplicated':
+                    continue
+                if action['question_id'] != tally.question_num:
+                    continue
+                if len(set(action['answer_ids']).intersection(set(ret))) > 1:
+                    # invalid vote
+                  raise Exception()
+
+            return ret
+
+        tally.parse_vote = types.MethodType(parse_vote, tally)
+
+
+    # use initial order for the counts or the tally log will be messed up
+    for data in data_list:
+        data['result'] = agora_tally.tally.do_tally(
+            data['extract_dir'],
+            data['result']['counts'],
+            encrypted_invalid_votes=0,
+            monkey_patcher=monkey_patcher)
+
+        for i in range(len(data['result']['counts'])):
+            for action in actions:
+                if action['question_id'] != i:
+                    continue
+                if action['action'] == "duplicated":
+                    l = action['answer_ids'][1:]
+                else:
+                    # to remove
+                    l = action['answer_ids']
+                answers = data['result']['counts'][i]['answers']
+                for id_to_remove in l:
+                    for j in range(len(answers)):
+                        if answers[j]['id'] == id_to_remove:
+                            print("removing answer id = %d value = %s" % (id_to_remove, answers[j]['value']))
+                            answers.pop(j)
+                            break
+
+
