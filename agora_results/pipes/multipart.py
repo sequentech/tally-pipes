@@ -73,13 +73,12 @@ def remove_duplicated_votes_and_invalid(data_list, actions):
     Assumes multiple <n> tallies with the same exact questions, and options
     inside those questions.
 
-    The postprocessing done here is the mixing of the results of two candidates
-    that are duplicated. In that case, the duplicates mark as invalid votes to
-    the same question twice to a duplicate. Duplicates are only allowed in the
-    same question.
+    The postprocessing done here is the mixing of the results of n candidates
+    that are duplicated. In that case, the duplicated options are blended into
+    one. If a person votes to two or more duplicates, it only counts once.
 
     For example if an answer of voter to a given question is "01, 02, 03", and
-    01 and 02 candidates are duplicated, that ballot is deemed invalid.
+    01 and 02 candidates are duplicated, then the vote is converted into "01 03".
 
     duplicates follows the format of this example:
     [
@@ -90,11 +89,17 @@ def remove_duplicated_votes_and_invalid(data_list, actions):
       },
       ...
     ]
+
+    It also allows to withdraw a list of candidates for a question, using action
+    "removed".
     '''
     actionscopy = copy.deepcopy(actions)
+    # openstv works with ids that are id-1
     for action in actionscopy:
       action['answer_ids'] = [aid-1 for aid in action['answer_ids']]
 
+    # rename the duplicated options to a unique (but irrelevant) value, because
+    # otherwise openstv messes up
     count = 0
     for data in data_list:
         for i in range(len(data['result']['counts'])):
@@ -115,6 +120,11 @@ def remove_duplicated_votes_and_invalid(data_list, actions):
                             break
 
     def monkey_patcher(tally):
+        '''
+        This monkey patcher wraps the tally object parse_vote function
+        to convert the ballot according to the duplicated/removed actions
+        set by the user
+        '''
         old_parse_vote = tally.parse_vote
 
         def parse_vote(self, number, question):
@@ -128,19 +138,31 @@ def remove_duplicated_votes_and_invalid(data_list, actions):
                     continue
                 if action['action'] == 'removed':
                     l = action['answer_ids']
+                    # delete the removed answer ids from this ballot
+                    # so if a ballot is [1,56, 39] and 56 is removed, the ballot
+                    # becomes [1, 39]
                     ret = sorted(list(set(ret).difference(set(l))))
                 else:
                     l = action['answer_ids'][1:]
                     # first replace all instances of items in l with action['answer_ids'][0]
+                    # So if a ballot is [191, 113, 123, 174] and the duplicated
+                    # answer ids are [123, 174], then the resulting ballot in
+                    # this step is [191, 113, 123, 123]
                     duplicated = action['answer_ids'][0]
                     ret = [duplicated if item in l else item for item in ret]
+                    # then remove duplicates, and sort again the list.
+                    # if the ballot is [191, 113, 123, 123], the resulting
+                    # ballot is [191, 113, 123]
                     ret = sorted(list(set(ret)))
             return ret
 
+        # monkey patch the function. We need the types.MethodType to be able to
+        # wrap an object member function for the "self" argument
         tally.parse_vote = types.MethodType(parse_vote, tally)
 
 
-    # use initial order for the counts or the tally log will be messed up
+    # finally, launch the tally with the monkey patcher and remove
+    # duplicated/removed answer ids from the result
     for data in data_list:
         data['result'] = agora_tally.tally.do_tally(
             data['extract_dir'],
@@ -155,7 +177,6 @@ def remove_duplicated_votes_and_invalid(data_list, actions):
                 if action['action'] == "duplicated":
                     l = action['answer_ids'][1:]
                 else:
-                    # to remove
                     l = action['answer_ids']
                 answers = data['result']['counts'][i]['answers']
                 for id_to_remove in l:

@@ -204,7 +204,7 @@ PODEMOS_CANDIDATES_PIPE = (
         ]
       }
     ),
-    ('agora_results.pipes.sort_approval.sort_approval', None),
+    ('agora_results.pipes.sort_approval.sort_approval', dict(show_ties=False)),
     ('agora_results.pipes.pretty_print.pretty_print_approval',
         dict(mark_winners=False, percent_base="valid options")),
 )
