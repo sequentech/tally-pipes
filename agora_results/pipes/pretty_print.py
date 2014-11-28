@@ -96,7 +96,7 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_name, blank_plu
                         answer['total_count'],
                         get_percentage(answer['total_count'], base_num)))
 
-def pretty_print_approval(data_list, mark_winners=True, percent_base="total"):
+def pretty_print_plurality_at_large(data_list, mark_winners=True, percent_base="total"):
     data = data_list[0]
     __pretty_print_base(data, mark_winners, show_percent=True,
         filter_name="APPROVAL", blank_plus=3, percent_base=percent_base)

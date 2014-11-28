@@ -3,9 +3,9 @@
 import json
 from itertools import groupby, chain
 
-def sort_approval(data_list, withdrawals=[], show_ties=True):
+def sort_plurality_at_large(data_list, withdrawals=[], show_ties=True):
     '''
-    Sort approval questions by total_count
+    Sort plurality_at_large questions by total_count
     '''
     data = data_list[0]
     for question in data['result']['counts']:

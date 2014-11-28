@@ -2,7 +2,7 @@
 
 from itertools import zip_longest
 
-def parity_zip_approval(data_list, women_names):
+def parity_zip_plurality_at_large(data_list, women_names):
     '''
     Given a list of women names, sort the winners creating two lists, women and
     men, and then zip the list one man, one woman, one man, one woman.

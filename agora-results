@@ -10,6 +10,18 @@ import shutil
 import tarfile
 import codecs
 
+# For now, only prints results by default with plurality at large
+DEFAULT_PIPELINE = [
+    [
+      'agora_results.pipes.sort_plurality_at_large.sort_plurality_at_large',
+      None
+    ],
+    [
+      'agora_results.pipes.pretty_print.pretty_print_plurality_at_large',
+      {"mark_winners":True}
+    ]
+]
+
 def load_tally(fpath):
     '''
     extracts the tally and loads the results into a file for convenience
@@ -53,18 +65,19 @@ def execute_pipeline(pipeline_info, data_list):
     return data_list
 
 def main():
-    parser = argparse.ArgumentParser(description='Process and show tally results.')
+    parser = argparse.ArgumentParser(description='Process and show tally '
+                                     'results. If no config is specified, it '
+                                     'parses results in raw.')
     parser.add_argument('-t', '--tally', nargs='+', help='tally path')
     parser.add_argument('-c', '--config', help='config path')
-    parser.add_argument('-v', '--variable',
-                        help='name of the config file variable with the pipeline',
-                        default="RESULT_PIPELINE")
     parser.add_argument('-f', '--format', help='format', default="none")
     pargs = parser.parse_args()
 
-    conf_mod = __import__(pargs.config, globals(), locals(),
-                          [pargs.variable], 0)
-    pipeline_info = getattr(conf_mod, pargs.variable)
+    if pargs.config is not None:
+      with codecs.open(pargs.config, 'r', encoding="utf-8") as f:
+          pipeline_info = json.loads(f.read())
+    else:
+      pipeline_info = DEFAULT_PIPELINE
     data_list = []
 
     # remove files on abrupt external exit signal
