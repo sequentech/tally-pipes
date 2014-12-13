@@ -5,17 +5,24 @@ import subprocess
 
 def pretty_print_stv_winners(data_list):
     data = data_list[0]
-    counts = data['result']['counts']
+    counts = data['results']['questions']
+    print("Total votes: %d\n", data['results']['total_votes'])
     for question, i in zip(counts, range(len(counts))):
-        if "STV" not in question['a']:
+        if "stv" not in question['tally_type']:
             continue
 
-        print("Q: %s\n" % question['question'])
-        winners = question['winners']
-        for i, winner in zip(range(len(winners)), winners):
-            print("%d. %s" % (i+1, winner))
+        print("Q: %s\n" % question['title'])
+        winners = [answer for answer in question['answers']
+            if answer['winner_position'] != None]
+        question['answers'].sort(key=itemgetter('winner_position'))
 
-def __pretty_print_base(data, mark_winners, show_percent, filter_name, blank_plus, percent_base="total"):
+        i = 0
+        for answer in question['answers']:
+            if answer['winner_position'] != None:
+                print("%d. %s" % (i+1, winner))
+                i += 1
+
+def __pretty_print_base(data, mark_winners, show_percent, filter_name):
     '''
     percent_base:
       "total" total of the votes, the default
@@ -27,58 +34,68 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_name, blank_plu
       else:
         return num*100.0/base
 
-    counts = data['result']['counts']
+    counts = data['results']['questions']
     for question, i in zip(counts, range(len(counts))):
-        if filter_name not in question['a']:
+        if filter_name not in question['tally_type']:
             continue
-        print("\n\nQ: %s\n" % question['question'])
+        print("\n\nQ: %s\n" % question['title'])
 
-        total_votes = data['result']['total_votes']
+        total_votes = data['results']['total_votes']
 
-        if percent_base == "total":
-          base_num = data['result']['total_votes']
-        elif percent_base == "valid options":
-          base_num = question['valid_votes']
+        percent_base = question['answer_total_votes_percentage']
+        if percent_base == "over-total-votes":
+          base_num = data['results']['total_votes']
+        elif percent_base == "over-total-valid-votes":
+          base_num = question['totals']['valid_votes']
 
+        blank_votes = question['totals']['blank_votes']
+        null_votes = question['totals']['null_votes']
+        valid_votes = question['totals']['valid_votes']
 
         print("Total votes: %d" % total_votes)
         print("Blank votes: %d (%0.2f%%)" % (
-            question['blank_votes'], question['blank_votes']*100/total_votes))
-        print("Invalid votes: %d (%0.2f%%)" % (
-            question['invalid_votes'], question['invalid_votes']*100/total_votes))
+            blank_votes,
+            get_percentage(blank_votes, total_votes)))
+
+        print("Null votes: %d (%0.2f%%)" % (
+            blank_votes,
+            get_percentage(null_votes, total_votes)))
+
         print("Total valid votes (votes to options): %d (%0.2f%%)" % (
-            question['valid_votes'], question['valid_votes']*100/total_votes))
-        print("Options (percentages over %s):" % percent_base)
+            valid_votes,
+            get_percentage(valid_votes, total_votes)))
+        print("\nOptions (percentages over %s):" % percent_base)
 
         if mark_winners:
             i = 1
-            for winner in question['winners']:
-                answer = [a for a in question['answers'] if a['value'] == winner][0]
+            winners = [answer for answer in question['answers']
+                if answer['winner_position'] != None]
+            for answer in winners:
                 if not show_percent:
                     print("%d. %s (%d votes)" % (
                         i,
-                        winner,
+                        answer['text'],
                         answer['total_count']))
                 else:
                     print("%d. %s (%d votes, %0.2f%%)" % (
                         i,
-                        winner,
+                        answer['text'],
                         answer['total_count'],
                         get_percentage(answer['total_count'], base_num)))
                 i += 1
 
-            losers = sorted([a for a in question['answers']
-                            if a['value'] not in question['winners']],
+            losers = sorted([answer for answer in question['answers']
+                if answer['winner_position'] == None],
                 key=lambda a: float(a['total_count']), reverse=True)
 
             for loser in losers:
                 if not show_percent:
                     print("N. %s (%d votes)" % (
-                        loser['value'],
+                        loser['text'],
                         loser['total_count']))
                 else:
                     print("N. %s (%d votes, %0.2f%%)" % (
-                        loser['value'],
+                        loser['text'],
                         loser['total_count'],
                         get_percentage(loser['total_count'], base_num)))
         else:
@@ -88,20 +105,16 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_name, blank_plu
             for i, answer in zip(range(len(answers)), answers):
                 if not show_percent:
                     print("%d. %s (%d votes)" % (
-                        i + 1, answer['value'],
+                        i + 1, answer['text'],
                         answer['total_count']))
                 else:
                     print("%d. %s (%d votes, %0.2f%%)" % (
-                        i + 1, answer['value'],
+                        i + 1, answer['text'],
                         answer['total_count'],
                         get_percentage(answer['total_count'], base_num)))
+    print("")
 
-def pretty_print_plurality_at_large(data_list, mark_winners=True, percent_base="total"):
+def pretty_print_plurality_at_large(data_list, mark_winners=True):
     data = data_list[0]
     __pretty_print_base(data, mark_winners, show_percent=True,
-        filter_name="APPROVAL", blank_plus=3, percent_base=percent_base)
-
-def pretty_print_one_choice(data_list, mark_winners=True):
-    data = data_list[0]
-    __pretty_print_base(data, mark_winners, show_percent=True,
-                        filter_name="ONE_CHOICE", blank_plus=2)
+        filter_name="plurality-at-large")

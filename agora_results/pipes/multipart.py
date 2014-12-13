@@ -45,14 +45,14 @@ def reduce_with_corrections(data_list, questions_corrections):
     # all votes must be counted, so sum total_votes, so sum total_votes for all
     # tallies
     for tally_num in range(len(data_list[:-1])):
-        last_data['result']['total_votes'] += data_list[tally_num]['result']['total_votes']
+        last_data['results']['total_votes'] += data_list[tally_num]['results']['total_votes']
 
     for dest_question_id, question in zip(range(len(questions_corrections)), questions_corrections):
-        dest_q = last_data['result']['counts'][dest_question_id]
+        dest_q = last_data['results']['counts'][dest_question_id]
 
         # sum the invalid votes for this question
         for tally_num in range(len(data_list[:-1])):
-            tally_q = data_list[tally_num]['result']['counts'][dest_question_id]
+            tally_q = data_list[tally_num]['results']['counts'][dest_question_id]
             dest_q['invalid_votes'] += tally_q['invalid_votes']
             dest_q['blank_votes'] += tally_q['blank_votes']
 
@@ -62,7 +62,7 @@ def reduce_with_corrections(data_list, questions_corrections):
                 question_id = vote_source['question_id']
                 answer_id = vote_source['answer_id']
 
-                source_answer = data_list[tally_id]['result']['counts'][question_id]['answers'][answer_id - 1]
+                source_answer = data_list[tally_id]['results']['counts'][question_id]['answers'][answer_id - 1]
                 dest_q['answers'][int(answerid) - 1]['total_count'] += source_answer['total_count']
                 dest_q['valid_votes'] += source_answer['total_count']
 
@@ -102,7 +102,7 @@ def remove_duplicated_votes_and_invalid(data_list, actions):
     # otherwise openstv messes up
     count = 0
     for data in data_list:
-        for i in range(len(data['result']['counts'])):
+        for i in range(len(data['results']['counts'])):
             for action in actions:
                 if action['question_id'] != i:
                     continue
@@ -111,7 +111,7 @@ def remove_duplicated_votes_and_invalid(data_list, actions):
                 else:
                     # to remove
                     l = action['answer_ids']
-                answers = data['result']['counts'][i]['answers']
+                answers = data['results']['counts'][i]['answers']
                 for id_to_remove in l:
                     for j in range(len(answers)):
                         if answers[j]['id'] == id_to_remove:
@@ -164,13 +164,13 @@ def remove_duplicated_votes_and_invalid(data_list, actions):
     # finally, launch the tally with the monkey patcher and remove
     # duplicated/removed answer ids from the result
     for data in data_list:
-        data['result'] = agora_tally.tally.do_tally(
+        data['results'] = agora_tally.tally.do_tally(
             data['extract_dir'],
-            data['result']['counts'],
+            data['results']['counts'],
             encrypted_invalid_votes=0,
             monkey_patcher=monkey_patcher)
 
-        for i in range(len(data['result']['counts'])):
+        for i in range(len(data['results']['counts'])):
             for action in actions:
                 if action['question_id'] != i:
                     continue
@@ -178,7 +178,7 @@ def remove_duplicated_votes_and_invalid(data_list, actions):
                     l = action['answer_ids'][1:]
                 else:
                     l = action['answer_ids']
-                answers = data['result']['counts'][i]['answers']
+                answers = data['results']['counts'][i]['answers']
                 for id_to_remove in l:
                     for j in range(len(answers)):
                         if answers[j]['id'] == id_to_remove:

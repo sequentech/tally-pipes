@@ -13,8 +13,8 @@ import codecs
 # For now, only prints results by default with plurality at large
 DEFAULT_PIPELINE = [
     [
-      'agora_results.pipes.sort_plurality_at_large.sort_plurality_at_large',
-      None
+      'agora_results.pipes.results.do_tallies',
+      {}
     ],
     [
       'agora_results.pipes.pretty_print.pretty_print_plurality_at_large',
@@ -22,7 +22,7 @@ DEFAULT_PIPELINE = [
     ]
 ]
 
-def load_tally(fpath):
+def extract_tally(fpath):
     '''
     extracts the tally and loads the results into a file for convenience
     '''
@@ -30,11 +30,7 @@ def load_tally(fpath):
     tar = tarfile.open(fpath)
     tar.extractall(extract_dir)
     tar.close()
-    result_path = os.path.join(extract_dir, "result_json")
-    with codecs.open(result_path, 'r', encoding="utf-8") as f:
-        result_json = json.loads(f.read())
-
-    return extract_dir, result_json
+    return extract_dir
 
 def execute_pipeline(pipeline_info, data_list):
     '''
@@ -70,7 +66,6 @@ def main():
                                      'parses results in raw.')
     parser.add_argument('-t', '--tally', nargs='+', help='tally path')
     parser.add_argument('-c', '--config', help='config path')
-    parser.add_argument('-f', '--format', help='format', default="none")
     pargs = parser.parse_args()
 
     if pargs.config is not None:
@@ -84,7 +79,8 @@ def main():
     def sig_handler(signum, frame):
         print("\nTerminating: deleting temporal files..")
         for data in data_list:
-            shutil.rmtree(data["extract_dir"])
+            if os.path.exists(data["extract_dir"]):
+                shutil.rmtree(data["extract_dir"])
         exit(1)
     signal.signal(signal.SIGTERM, sig_handler)
     signal.signal(signal.SIGINT, sig_handler)
@@ -93,19 +89,17 @@ def main():
         # extract each tally, before starting the pipeline, and put the tally
         # relevant data in a list that is processed by the pipeline
         for tally in pargs.tally:
-            extract_dir, result_json = load_tally(tally)
+            extract_dir = extract_tally(tally)
             print("Extracted tally %s in %s.." % (tally, extract_dir))
-            data_list.append(dict(extract_dir=extract_dir, result=result_json))
+            data_list.append(dict(extract_dir=extract_dir))
 
         execute_pipeline(pipeline_info, data_list)
-        if pargs.format == "none":
-            return
-        else:
-            print(json.dumps(data, indent=4))
+        data = ""
+
     finally:
         print("Deleting temporal files..")
         for data in data_list:
-            if os.path.exists(extract_dir):
+            if os.path.exists(data["extract_dir"]):
                 shutil.rmtree(data["extract_dir"])
 
 if __name__ == '__main__':
