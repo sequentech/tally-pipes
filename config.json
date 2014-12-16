@@ -2,9 +2,5 @@
     [
       "agora_results.pipes.results.do_tallies",
       {"ignore_invalid_votes": true}
-    ],
-    [
-      "agora_results.pipes.results.to_files",
-      {"paths": ["results.json"]}
     ]
 ]

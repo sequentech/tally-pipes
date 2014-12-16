@@ -66,6 +66,8 @@ def main():
                                      'parses results in raw.')
     parser.add_argument('-t', '--tally', nargs='+', help='tally path')
     parser.add_argument('-c', '--config', help='config path')
+    parser.add_argument('-s', '--stdout', help='print result json to stdout',
+        action='store_true')
     pargs = parser.parse_args()
 
     if pargs.config is not None:
@@ -77,7 +79,8 @@ def main():
 
     # remove files on abrupt external exit signal
     def sig_handler(signum, frame):
-        print("\nTerminating: deleting temporal files..")
+        if not pargs.stdout:
+            print("\nTerminating: deleting temporal files..")
         for data in data_list:
             if os.path.exists(data["extract_dir"]):
                 shutil.rmtree(data["extract_dir"])
@@ -90,14 +93,19 @@ def main():
         # relevant data in a list that is processed by the pipeline
         for tally in pargs.tally:
             extract_dir = extract_tally(tally)
-            print("Extracted tally %s in %s.." % (tally, extract_dir))
+            if not pargs.stdout:
+                print("Extracted tally %s in %s.." % (tally, extract_dir))
             data_list.append(dict(extract_dir=extract_dir))
 
         execute_pipeline(pipeline_info, data_list)
+        if pargs.stdout and len(data_list) > 0 and 'results' in data_list[0]:
+          print(json.dumps(data_list[0]['results'], indent=4, ensure_ascii=False,
+                  sort_keys=True, separators=(',', ': ')))
         data = ""
 
     finally:
-        print("Deleting temporal files..")
+        if not pargs.stdout:
+            print("Deleting temporal files..")
         for data in data_list:
             if os.path.exists(data["extract_dir"]):
                 shutil.rmtree(data["extract_dir"])

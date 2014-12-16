@@ -21,6 +21,9 @@ def do_tallies(data_list, ignore_invalid_votes=True):
 
 def to_files(data_list, paths):
     i = 0
+    # do not allow strange paths
+    paths = [os.path.basename(path) for path in paths]
+
     for data in data_list:
         with open(paths[i], 'w', encoding="utf-8") as f:
             f.write(json.dumps(data['results'], indent=4, ensure_ascii=False,
