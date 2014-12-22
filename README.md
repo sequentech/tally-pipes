@@ -20,29 +20,22 @@ Just execute this (no stable release yet):
 
 Or the same shorter:
 
-    $ agora-results -t tally.tar.gz -c agora_tongo.test_config -v PODEMOS_PRIMARIES_RAW_PIPE
+    $ agora-results -t tally.tar.gz -c config.json
 
 # Configuration file
 
 Configuration file specifies the pipeline of functions to be applied to the results. This is an example configuration file (yes just one variable for the pipeline, at least for now):
 
-    # -*- coding:utf-8 -*-
-    RESULT_PIPELINE = (
-        ("agora_tongo.pipes.tiebreak_stv", None),
-        ("agora_tongo.pipes.zip_women_men", dict(
-            questions=[0,1],
-            women_names=["Enma Goldstein", "Ada Lovelace"],
-            men_names=["Thomas Jefferson", "John Doe"]
-            )),
-    )
+    [
+        [
+          "agora_results.pipes.results.do_tallies",
+          {"ignore_invalid_votes": true}
+        ]
+    ]
 
-The available algorithms can be listed with:
+# Available pipes
 
-    $ agora-results --list-pipes
-
-And you can see how to use it with:
-
-    $ agora-results --help "pipe.tiebreak_stv"
+Available pipes are documented in python, in the agora_results/pipes directory.
 
 # Development
 
