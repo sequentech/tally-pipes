@@ -32,6 +32,58 @@ def extract_tally(fpath):
     tar.close()
     return extract_dir
 
+def print_csv(data, separator):
+    counts = data['results']['questions']
+    for question, i in zip(counts, range(len(counts))):
+        if "plurality-at-large" not in question['tally_type']:
+            continue
+
+        print(separator.join(["Question"]))
+        print(separator.join(["Number", "Title"]))
+        print(separator.join([str(i + 1), question['title']]))
+        print(separator*2)
+
+        print(separator.join(["Totals"]))
+
+        print(separator.join(["Total votes", str(data['results']['total_votes'])]))
+        print(separator.join(["Blank votes", str(question['totals']['blank_votes'])]))
+        print(separator.join(["Null votes", str(question['totals']['null_votes'])]))
+        print(separator.join(["Valid votes", str(question['totals']['valid_votes'])]))
+        print(separator*2)
+
+        print(separator.join(["Answers"]))
+        print(separator.join(["Id", "Text", "Category", "Total votes", "Winner position"]))
+        for answer in question['answers']:
+            print(separator.join([
+                str(answer['id']),
+                answer['text'],
+                answer['category'],
+                str(answer['total_count']),
+                str(answer['winner_position'])]))
+
+
+def pretty_print(data):
+    from agora_results.pipes.pretty_print import pretty_print_plurality_at_large
+    pretty_print_plurality_at_large([data])
+
+def print_results(data, output_format):
+  '''
+  print results in the specified output format
+  '''
+  if output_format == "json":
+    print(json.dumps(
+        data['results'],
+        indent=4,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(',', ': ')))
+  elif output_format == "csv":
+      print_csv(data, separator=",")
+  elif output_format == "tsv":
+      print_csv(data, separator=",")
+  elif output_format == "pretty":
+      pretty_print(data)
+
 def execute_pipeline(pipeline_info, data_list):
     '''
     Execute a pipeline of options. pipeline_info must be a list of
@@ -66,8 +118,10 @@ def main():
                                      'parses results in raw.')
     parser.add_argument('-t', '--tally', nargs='+', help='tally path')
     parser.add_argument('-c', '--config', help='config path')
-    parser.add_argument('-s', '--stdout', help='print result json to stdout',
+    parser.add_argument('-s', '--stdout', help='print output to stdout',
         action='store_true')
+    parser.add_argument('-o', '--output-format', help='select the output format',
+        default="json", choices=["json", "csv", "pretty"])
     pargs = parser.parse_args()
 
     if pargs.config is not None:
@@ -99,8 +153,7 @@ def main():
 
         execute_pipeline(pipeline_info, data_list)
         if pargs.stdout and len(data_list) > 0 and 'results' in data_list[0]:
-          print(json.dumps(data_list[0]['results'], indent=4, ensure_ascii=False,
-                  sort_keys=True, separators=(',', ': ')))
+          print_results(data_list[0], pargs.output_format)
         data = ""
 
     finally:
