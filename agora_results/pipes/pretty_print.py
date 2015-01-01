@@ -58,13 +58,13 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_name):
             get_percentage(blank_votes, total_votes)))
 
         print("Null votes: %d (%0.2f%%)" % (
-            blank_votes,
+            null_votes,
             get_percentage(null_votes, total_votes)))
 
         print("Total valid votes (votes to options): %d (%0.2f%%)" % (
             valid_votes,
             get_percentage(valid_votes, total_votes)))
-        print("\nOptions (percentages over %s):" % percent_base)
+        print("\nOptions (percentages over %s, %d winners):" % (percent_base, question['num_winners']))
 
         if mark_winners:
             i = 1

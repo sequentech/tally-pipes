@@ -80,7 +80,7 @@ def print_results(data, output_format):
   elif output_format == "csv":
       print_csv(data, separator=",")
   elif output_format == "tsv":
-      print_csv(data, separator=",")
+      print_csv(data, separator="\t")
   elif output_format == "pretty":
       pretty_print(data)
 
@@ -121,7 +121,7 @@ def main():
     parser.add_argument('-s', '--stdout', help='print output to stdout',
         action='store_true')
     parser.add_argument('-o', '--output-format', help='select the output format',
-        default="json", choices=["json", "csv", "pretty"])
+        default="json", choices=["json", "csv", "tsv", "pretty"])
     pargs = parser.parse_args()
 
     if pargs.config is not None:
