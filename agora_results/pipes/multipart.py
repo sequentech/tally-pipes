@@ -17,9 +17,9 @@ def election_max_size_corrections(data_list, corrections):
     '''
     def apply_to_question(question, corrections):
         if question['tally_type'] == 'plurality-at-large' and\
-            question['max'] == question['num_winners'] and\
-            str(question['max']) in corrections.keys():
-            question['max'] = question['num_winners'] = corrections[str(question['max'])]
+            question['num_winners'] in list(corrections.keys()):
+            question['num_winners'] = corrections[question['num_winners']]
+            question['max'] = max(question['max'], question['num_winners'])
 
     for data in data_list:
         # used by do_talies
