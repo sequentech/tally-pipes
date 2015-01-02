@@ -49,7 +49,7 @@ def podemos_proportion_rounded_and_duplicates(data_list, women_names, proportion
                 for a in question['answers']
                 if a['text'] in first_question_winners and a['total_count'] >= last_winner_count]
             if len(removed_candidates) > 0:
-                print("removed candidates that could have won: [%s]" % ", ".join(removed_candidates))
+                print("removed candidates that could have won: [%s]" % ", ".join(removed_candidates), file=sys.stderr)
 
             if question_index == 0:
                 first_question_winners = [a['text'] for a in question['answers'] if a['winner_position'] is not None]
@@ -59,26 +59,29 @@ def podemos_proportion_rounded_and_duplicates(data_list, women_names, proportion
         for answer, i in zip(question['answers'], range(len(question['answers']))):
             answer['winner_position'] = None
 
-        def filter_women(l, women_names, question_index, first_question_winners, q_withdrawed):
+        def filter_women(l, women_names, question_index):
           return [
             a
             for a in l
             if a['text'] in women_names and a['text'] not in first_question_winners and\
             a['id'] not in q_withdrawed]
-        def filter_men(l, women_names, question_index, first_question_winners, q_withdrawed):
+        def filter_men(l, women_names, question_index):
           return [
               a
               for a in l
               if a['text'] not in women_names and a['text'] not in first_question_winners and\
                 a['id'] not in q_withdrawed]
 
-        women = filter_women(question['answers'], women_names, question_index, first_question_winners, q_withdrawed)
-        men = filter_men(question['answers'], women_names, question_index, first_question_winners, q_withdrawed)
+        # remove withdrawed candidates
+        running_candidates = [a for a in question['answers'] if a['text'] not in first_question_winners and\
+                a['id'] not in q_withdrawed]
+        women = filter_women(running_candidates, women_names, question_index)
+        men = filter_men(running_candidates, women_names, question_index)
         num_winners = question['num_winners']
 
-        base_winners = question['answers'][:num_winners]
-        base_women_winners = filter_women(base_winners, women_names, question_index, first_question_winners, q_withdrawed)
-        base_men_winners = filter_men(base_winners, women_names, question_index, first_question_winners, q_withdrawed)
+        base_winners = running_candidates[:num_winners]
+        base_women_winners = filter_women(base_winners, women_names, question_index)
+        base_men_winners = filter_men(base_winners, women_names, question_index)
 
         winners = base_women_winners + base_men_winners
         if len(base_women_winners) > max_samesex:
