@@ -117,7 +117,7 @@ def podemos_proportion_rounded_and_duplicates(data_list, women_names, proportion
             for a in question['answers']
             if a['text'] in first_question_winners and a['total_count'] >= tie_val]
         if len(removed_candidates) > 0:
-            print("removed candidates that could have won: [%s]" % ", ".join(removed_candidates))
+            print("removed candidates that could have won: [%s]" % ", ".join(removed_candidates), file=sys.stderr)
 
         if question_index == 0:
           first_question_winners = [a['text'] for a in winners]
