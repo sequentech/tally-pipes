@@ -34,7 +34,9 @@ def question_totals_with_corrections(data_list, mappings):
     {
       'source_election_id': 0,
       'source_question_num': 0,
+      'source_question_title': "what?",
       'dest_question_num': 0
+      'dest_question_title': "what?",
     },
     ...
    ]
@@ -48,11 +50,16 @@ def question_totals_with_corrections(data_list, mappings):
     for mapping in mappings:
         src_eid = mapping['source_election_id']
         src_qnum = mapping['source_question_num']
+        src_qtitle = mapping['source_question_title']
         dst_qnum = mapping['dest_question_num']
+        dst_qtitle = mapping['dest_question_title']
 
         src_election =[data for data in data_list if data['id'] == src_eid][0]
         src_q = src_election['results']['questions'][src_qnum]
+        assert src_q['title'] == src_qtitle
         dst_q = last_data['results']['questions'][dst_qnum]
+        assert dst_q['title'] == dst_qtitle
+
         dst_q['totals']['blank_votes'] += src_q['totals']['blank_votes']
         dst_q['totals']['null_votes'] += src_q['totals']['null_votes']
         dst_q['totals']['valid_votes'] += src_q['totals']['valid_votes']

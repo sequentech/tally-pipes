@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 
 from itertools import zip_longest
-
+import sys
 
 def proportion_rounded(data_list, women_names, proportions):
     '''
@@ -17,7 +17,7 @@ def proportion_rounded(data_list, women_names, proportions):
         num_winners = question['num_winners']
         max_samesex = round(num_winners*(proportions[1]/total))
 
-        if question['tally_type'] not in ["plurality-at-large"] or len(question['answers']) == 0 or question['num_winners'] < 2:
+        if question['tally_type'] not in ["plurality-at-large"] or len(question['answers']) < 2 or question['num_winners'] < 2:
             continue
 
         for answer, i in zip(question['answers'], range(len(question['answers']))):
@@ -40,9 +40,11 @@ def proportion_rounded(data_list, women_names, proportions):
         if len(base_women_winners) > max_samesex:
             n_diff =len(base_women_winners) - max_samesex
             winners = base_women_winners[:max_samesex] + men[:num_winners - max_samesex]
+            print("too many women, len(base_women_winners)(%d) > max_samesex(%d)" % (len(base_women_winners), max_samesex), file=sys.stderr)
         elif len(base_men_winners) > max_samesex:
             n_diff =len(base_men_winners) - max_samesex
             winners = base_men_winners[:max_samesex] + women[:num_winners - max_samesex]
+            print("too many men, len(base_men_winners)(%d) > max_samesex(%d)" % (len(base_men_winners), max_samesex), file=sys.stderr)
 
         winners = sorted(winners, reverse=True, key=lambda a: a['total_count'])
 
