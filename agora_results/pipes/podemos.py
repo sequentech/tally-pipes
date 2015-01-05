@@ -22,7 +22,7 @@ def podemos_proportion_rounded_and_duplicates(data_list, women_names, proportion
     first_question_winner_is_woman = None
     for question, question_index in zip(questions, range(len(questions))):
         num_winners = question['num_winners']
-        max_samesex = round(num_winners*(proportions[1]/total))
+        max_samesex = int(num_winners*(proportions[1]/total))
         q_withdrawed = [a['id'] for a in withdrawed_candidates if a['question_num'] == question_index]
 
         if question['tally_type'] not in ["plurality-at-large"] or len(question['answers']) < 2 or question['num_winners'] < 2:
