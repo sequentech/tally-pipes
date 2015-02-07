@@ -17,7 +17,7 @@ DEFAULT_PIPELINE = [
       {}
     ],
     [
-      'agora_results.pipes.pretty_print.pretty_print_plurality_at_large',
+      'agora_results.pipes.pretty_print.pretty_print_not_iterative',
       {"mark_winners":True}
     ]
 ]
@@ -63,8 +63,8 @@ def print_csv(data, separator):
 
 
 def pretty_print(data):
-    from agora_results.pipes.pretty_print import pretty_print_plurality_at_large
-    pretty_print_plurality_at_large([data])
+    from agora_results.pipes.pretty_print import pretty_print_not_iterative
+    pretty_print_not_iterative([data])
 
 def print_results(data, output_format):
   '''

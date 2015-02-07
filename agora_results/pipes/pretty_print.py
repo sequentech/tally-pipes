@@ -22,7 +22,7 @@ def pretty_print_stv_winners(data_list):
                 print("%d. %s" % (i+1, winner))
                 i += 1
 
-def __pretty_print_base(data, mark_winners, show_percent, filter_name):
+def __pretty_print_base(data, mark_winners, show_percent, filter_names):
     '''
     percent_base:
       "total" total of the votes, the default
@@ -36,7 +36,7 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_name):
 
     counts = data['results']['questions']
     for question, i in zip(counts, range(len(counts))):
-        if filter_name not in question['tally_type']:
+        if question['tally_type'] not in filter_names:
             continue
         print("\n\nQ: %s\n" % question['title'])
 
@@ -114,7 +114,7 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_name):
                         get_percentage(answer['total_count'], base_num)))
     print("")
 
-def pretty_print_plurality_at_large(data_list, mark_winners=True):
+def pretty_print_not_iterative(data_list, mark_winners=True):
     data = data_list[0]
     __pretty_print_base(data, mark_winners, show_percent=True,
-        filter_name="plurality-at-large")
+        filter_names=["plurality-at-large", "borda-nauru"])
