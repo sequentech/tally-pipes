@@ -117,6 +117,7 @@ def main():
                                      'results. If no config is specified, it '
                                      'parses results in raw.')
     parser.add_argument('-t', '--tally', nargs='+', help='tally path')
+    parser.add_argument('-x', '--tar',   nargs='?', help='tar tallies output path')
     parser.add_argument('-c', '--config', help='config path')
     parser.add_argument('-s', '--stdout', help='print output to stdout',
         action='store_true')
@@ -155,6 +156,12 @@ def main():
         if pargs.stdout and len(data_list) > 0 and 'results' in data_list[0]:
           print_results(data_list[0], pargs.output_format)
         data = ""
+
+        # tar tallies
+        if pargs.tar:
+            from agora_results.utils.tallies import tar_tallies
+            for tally in pargs.tally:
+                tar_tallies(data_list[0], pipeline_info, tally, pargs.tar)
 
     finally:
         if not pargs.stdout:
