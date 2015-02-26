@@ -84,6 +84,19 @@ def print_results(data, output_format):
   elif output_format == "pretty":
       pretty_print(data)
 
+def func_path_sanity_checks(func_path):
+    '''
+    Check that the func path is valid and reasonably secure
+    '''
+    values = func_path.split(".")
+    if " " in func_path or len(values) == 0 or len(values) > 4 or\
+        values[0] != "agora_results":
+        raise Exception()
+
+    for val in values:
+        if len(val) == 0 or val.startswith("_"):
+            raise Exception()
+
 def execute_pipeline(pipeline_info, data_list):
     '''
     Execute a pipeline of options. pipeline_info must be a list of
@@ -101,6 +114,7 @@ def execute_pipeline(pipeline_info, data_list):
     '''
     for func_path, kwargs in pipeline_info:
         # get access to the function
+        func_path_sanity_checks(func_path)
         func_name = func_path.split(".")[-1]
         module = __import__(
             ".".join(func_path.split(".")[:-1]), globals(), locals(),
