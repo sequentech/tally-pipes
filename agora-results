@@ -10,15 +10,16 @@ import shutil
 import tarfile
 import codecs
 
-# For now, only prints results by default with plurality at large
 DEFAULT_PIPELINE = [
     [
       'agora_results.pipes.results.do_tallies',
       {}
     ],
     [
-      'agora_results.pipes.pretty_print.pretty_print_not_iterative',
-      {"mark_winners":True}
+      "agora_results.pipes.sort.sort_non_iterative",
+      {
+        "question_indexes": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
+      }
     ]
 ]
 
@@ -90,7 +91,7 @@ def func_path_sanity_checks(func_path):
     '''
     values = func_path.split(".")
     if " " in func_path or len(values) == 0 or len(values) > 4 or\
-        values[0] != "agora_results":
+        values[0] != "agora_results" or values[1] != "pipes":
         raise Exception()
 
     for val in values:
