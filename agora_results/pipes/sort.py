@@ -68,7 +68,8 @@ def sort_non_iterative(data_list, question_indexes=[], withdrawals=[], ties_sort
                 i += 1
 
         # final sort based on winners
-        question['answers'] = sorted(question['answers'], reverse=True,
+        question['answers'] = sorted(
+            question['answers'],
             key=itemgetter('winner_position'))
 
         # remove temp data
