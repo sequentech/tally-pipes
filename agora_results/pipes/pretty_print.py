@@ -72,12 +72,12 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_names):
                 if answer['winner_position'] != None]
             for answer in winners:
                 if not show_percent:
-                    print("%d. %s (%d votes)" % (
+                    print("%d. %s (%0.2f votes)" % (
                         i,
                         answer['text'],
                         answer['total_count']))
                 else:
-                    print("%d. %s (%d votes, %0.2f%%)" % (
+                    print("%d. %s (%0.2f votes, %0.2f%%)" % (
                         i,
                         answer['text'],
                         answer['total_count'],
@@ -90,11 +90,11 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_names):
 
             for loser in losers:
                 if not show_percent:
-                    print("N. %s (%d votes)" % (
+                    print("N. %s (%0.2f votes)" % (
                         loser['text'],
                         loser['total_count']))
                 else:
-                    print("N. %s (%d votes, %0.2f%%)" % (
+                    print("N. %s (%0.2f votes, %0.2f%%)" % (
                         loser['text'],
                         loser['total_count'],
                         get_percentage(loser['total_count'], base_num)))
@@ -104,11 +104,11 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_names):
 
             for i, answer in zip(range(len(answers)), answers):
                 if not show_percent:
-                    print("%d. %s (%d votes)" % (
+                    print("%d. %s (%0.2f votes)" % (
                         i + 1, answer['text'],
                         answer['total_count']))
                 else:
-                    print("%d. %s (%d votes, %0.2f%%)" % (
+                    print("%d. %s (%0.2f votes, %0.2f%%)" % (
                         i + 1, answer['text'],
                         answer['total_count'],
                         get_percentage(answer['total_count'], base_num)))
