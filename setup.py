@@ -18,7 +18,7 @@ setup(
     packages=['agora_results', 'agora_results.pipes'],
     scripts=['agora-results'],
     url='http://pypi.python.org/pypi/agora_results/',
-    license='LICENSE',
+    license='LICENSE.AGPL3',
     description='agora results processing system',
     long_description=open('README.md').read(),
     install_requires=reqs,
