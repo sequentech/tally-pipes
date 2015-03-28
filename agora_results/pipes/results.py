@@ -16,7 +16,7 @@ def __patcher(tally):
 
     tally.parse_vote = parse_vote_f
 
-def do_tallies(data_list, ignore_invalid_votes=True, print_as_csv=False):
+def do_tallies(data_list, ignore_invalid_votes=True, print_as_csv=False, question_indexes=None):
     for data in data_list:
       tallies = []
       questions_path = os.path.join(data['extract_dir'], "questions_json")
@@ -36,6 +36,7 @@ def do_tallies(data_list, ignore_invalid_votes=True, print_as_csv=False):
           data['extract_dir'],
           questions_json,
           tallies,
+          question_indexes=question_indexes,
           ignore_invalid_votes=ignore_invalid_votes,
           monkey_patcher=monkey_patcher)
 
