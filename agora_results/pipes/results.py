@@ -3,6 +3,7 @@
 import os
 import json
 import agora_tally.tally
+from collections import defaultdict
 
 def __patcher(tally):
     parse_vote = tally.parse_vote
@@ -17,7 +18,8 @@ def __patcher(tally):
     tally.parse_vote = parse_vote_f
 
 def do_tallies(data_list, ignore_invalid_votes=True, print_as_csv=False,
-               question_indexes=None, reuse_results=False, truncate_votes=None):
+               question_indexes=None, reuse_results=False,
+               extra_args=defaultdict()):
     for data in data_list:
       tallies = []
       if not reuse_results:
@@ -36,8 +38,6 @@ def do_tallies(data_list, ignore_invalid_votes=True, print_as_csv=False,
       if print_as_csv:
           monkey_patcher = __patcher
 
-      if "truncate_votes" in data and truncate_votes is None:
-          truncate_votes = data["truncate_votes"]
       results = agora_tally.tally.do_tally(
           data['extract_dir'],
           questions_json,
@@ -45,7 +45,6 @@ def do_tallies(data_list, ignore_invalid_votes=True, print_as_csv=False,
           question_indexes=question_indexes,
           ignore_invalid_votes=ignore_invalid_votes,
           monkey_patcher=monkey_patcher,
-          truncate_votes=truncate_votes,
           withdrawals=data.get('withdrawals', []))
 
       def get_log(tally, index):

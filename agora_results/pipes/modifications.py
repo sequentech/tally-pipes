@@ -116,14 +116,10 @@ def apply_modifications(data_list, modifications=[], help="this-parameter-is-ign
         elif modif['action'] == "modify-number-of-winners":
             qjson[qindex]['num_winners'] = modif['num_winners']
 
-        elif modif['action'] == "truncate-votes":
-            if 'truncate-votes' not in data:
-                data['truncate_votes'] = []
+            if modif['policy'] == 'truncate-max-overload':
+                qjson[qindex]['max'] = qjson[qindex]['num_winners']
+                qjson[qindex]['truncate-max-overload'] = True
 
-            data['truncate_votes'].append(dict(
-                question_index=modif['question_index'],
-                truncate_votes=modif['truncate_votes']
-            ))
         else:
             raise Exception("unrecognized-action %s" % modif['action'])
 
