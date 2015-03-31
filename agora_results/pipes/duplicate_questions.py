@@ -51,7 +51,9 @@ def duplicate_questions(data_list, duplications=[], help="this-parameter-is-igno
         dir_path = data['extract_dir']
         qjson = read_config(data)
         for dest_q in dupl["duplicated_question_indexes"]:
-            qjson.insert(dest_q, copy.deepcopy(qjson[orig_q]))
+            copyq = copy.deepcopy(qjson[orig_q])
+            copyq['source_question_index'] = orig_q
+            qjson.insert(dest_q, copyq)
             # +1 to the indexes of the directory of the next questions
             for i in reversed(range(dest_q, len(qjson) - 1)):
                 do_action(os.rename, dir_path, "%d-*" % i, "%d-" % i, "%d-" % (i + 1))
