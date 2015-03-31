@@ -51,17 +51,31 @@ def proportion_rounded(data_list, women_names, proportions):
         for answer, i in zip(winners, range(len(winners))):
             answer['winner_position'] = i
 
-def parity_zip_plurality_at_large(data_list, women_names):
+def parity_zip_non_iterative(data_list, women_names, question_indexes=None):
     '''
     Given a list of women names, sort the winners creating two lists, women and
     men, and then zip the list one man, one woman, one man, one woman.
 
+    if question_indexes is set, then the zip is applied to that list of
+    questions. If not, then it's applied to all the non-iterative questions .
+
+    When zip is applied to multiple questions, it's applied as if all the
+    winners were in a single question. This means that if the previous question
+    last winner is a women, next question first winner will be a man and so on.
+
     NOTE: it assumes the list of answers is already sorted.
     '''
     data = data_list[0]
-    for question in data['results']['questions']:
-        if "plurality-at-large" not in question['tally_type'] or len(question['answers']) == 0:
+    lastq_is_woman = None
+    WOMAN_FLAG = 44565676 # any thing, but not a string
+
+    for qindex, question in enumerate(data['results']['questions']):
+        if question_indexes is not None and qindex not in question_indexes:
             continue
+
+        if question['tally_type'] not in ["plurality-at-large", "borda", "borda-nauru"] or len(question['answers']) == 0:
+            continue
+
 
         women = [a for a in question['answers'] if a['text'] in women_names]
         men = [a for a in question['answers'] if a['text'] not in women_names]
@@ -71,8 +85,11 @@ def parity_zip_plurality_at_large(data_list, women_names):
 
         # check if first should be a man, add FLAG to the first item of the list
         # then remove it when processing is done
-        if men[0]['text'] == question['answers'][0]['text']:
-            women.insert(0, "FLAG")
+        if lastq_is_woman is not None:
+            if lastq_is_woman == True:
+                women.insert(0, WOMAN_FLAG)
+        elif men[0]['text'] == question['answers'][0]['text']:
+            women.insert(0, WOMAN_FLAG)
 
         for woman, man in zip_longest(women, men):
             if woman is not None:
@@ -80,13 +97,32 @@ def parity_zip_plurality_at_large(data_list, women_names):
             if man is not None:
                 answers_sorted.append(man)
 
-        if answers_sorted[0] == "FLAG":
+        if answers_sorted[0] == WOMAN_FLAG:
             answers_sorted.pop(0)
 
         for answer, i in zip(answers_sorted, range(len(answers_sorted))):
             if i < question['num_winners']:
                 answer['winner_position'] = i
+                lastq_is_woman = (answer['text'] in women_names)
             else:
                 answer['winner_position'] = None
 
         question['answers'] = answers_sorted
+
+def reorder_winners(data_list, question_index, winners_positions=[]):
+    '''
+    Generic function to set winners based on external criteria
+    '''
+    data = data_list[0]
+
+    def get_winner_position(answer):
+        pos = None
+        for position in winners_positions:
+            if position['text'] == answer['text'] and\
+                position['id'] == answer['id']:
+                return position['winner_position']
+        return None
+
+    for question in data['results']['questions'][question_index]:
+        for answer in question['answers']:
+            answer['winner_position'] = get_winner_position(answer, qid)
