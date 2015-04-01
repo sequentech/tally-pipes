@@ -36,7 +36,8 @@ def extract_tally(fpath):
 def print_csv(data, separator):
     counts = data['results']['questions']
     for question, i in zip(counts, range(len(counts))):
-        if question['tally_type'] not in ["plurality-at-large", "borda", "borda-nauru"]:
+        if question['tally_type'] not in ["plurality-at-large", "borda", "borda-nauru"] or\
+           question.get('no-tally', False):
             continue
 
         print(separator.join(["Question"]))

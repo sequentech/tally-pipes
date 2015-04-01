@@ -120,6 +120,9 @@ def apply_modifications(data_list, modifications=[], help="this-parameter-is-ign
                 qjson[qindex]['max'] = qjson[qindex]['num_winners']
                 qjson[qindex]['truncate-max-overload'] = True
 
+        elif modif['action'] == "dont-tally-question":
+            data['results']['questions'][qindex]['no-tally'] = True
+
         else:
             raise Exception("unrecognized-action %s" % modif['action'])
 

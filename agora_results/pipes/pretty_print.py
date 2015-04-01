@@ -36,7 +36,7 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_names):
 
     counts = data['results']['questions']
     for question, i in zip(counts, range(len(counts))):
-        if question['tally_type'] not in filter_names:
+        if question['tally_type'] not in filter_names or question.get('no-tally', False):
             continue
         print("\n\nQ: %s\n" % question['title'])
 
