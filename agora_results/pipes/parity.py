@@ -88,7 +88,7 @@ def parity_zip_non_iterative(data_list, women_names, question_indexes=None):
         if lastq_is_woman is not None:
             if lastq_is_woman == True:
                 women.insert(0, WOMAN_FLAG)
-        elif men[0]['text'] == question['answers'][0]['text']:
+        elif len(men) > 0 and men[0]['text'] == question['answers'][0]['text']:
             women.insert(0, WOMAN_FLAG)
 
         for woman, man in zip_longest(women, men):
