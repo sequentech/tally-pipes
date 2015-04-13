@@ -18,11 +18,27 @@ def sort_non_iterative(data_list, question_indexes=[], withdrawals=[], ties_sort
     {"question_num": 0, "answer_text": "Foo", "answer_id": 0}
     '''
     data = data_list[0]
+
+    # append already listed withdrawals
+    if 'withdrawls' in data:
+        withdrawals = withdrawals + data['withdrawls']
+
     for q_num, question in enumerate(data['results']['questions']):
         # filter first
         if question['tally_type'] not in ["plurality-at-large", "borda", "borda-nauru"] or\
             q_num not in question_indexes:
             continue
+
+        # apply removals
+        if "removed-candidates" in data:
+            q_removed = [
+                removed['answer_id']
+                for removed in data["removed-candidates"]
+                if removed['question_index'] == qindex]
+            question['answers'][:] = [
+                answer
+                for answer in question['answers']
+                if answer['id'] not in q_removed]
 
         q_withdrawals = list(filter(lambda w: w['question_num'] == q_num, withdrawals))
         q_withdrawals_ids = list(map(lambda w: w['answer_id'], q_withdrawals))

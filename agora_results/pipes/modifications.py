@@ -123,6 +123,15 @@ def apply_modifications(data_list, modifications=[], help="this-parameter-is-ign
         elif modif['action'] == "dont-tally-question":
             data['results']['questions'][qindex]['no-tally'] = True
 
+        elif modif['action'] == "set-min":
+            qjson[qindex]['min'] = modif['min']
+
+        elif modif['action'] == "set-max":
+            qjson[qindex]['max'] = modif['max']
+
+        elif modif['action'] == "set-tally-type":
+            qjson[qindex]['tally_type'] = modif['tally-type']
+
         else:
             raise Exception("unrecognized-action %s" % modif['action'])
 
