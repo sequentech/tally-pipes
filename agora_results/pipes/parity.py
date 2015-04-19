@@ -77,8 +77,13 @@ def parity_zip_non_iterative(data_list, women_names, question_indexes=None):
             continue
 
 
-        women = [a for a in question['answers'] if a['text'] in women_names]
-        men = [a for a in question['answers'] if a['text'] not in women_names]
+        withdrawal_names = [w["answer_text"] for w in data.get("withdrawals", [])
+                            if w['question_index'] == qindex]
+        withdrawals = [a for a in question['answers'] if a['text'] in withdrawal_names]
+        women = [a for a in question['answers']
+          if a['text'] in women_names and a['text'] not in withdrawal_names]
+        men = [a for a in question['answers']
+          if a['text'] not in women_names and a['text'] not in withdrawal_names]
         num_winners = question['num_winners']
 
         answers_sorted = []
@@ -99,6 +104,8 @@ def parity_zip_non_iterative(data_list, women_names, question_indexes=None):
 
         if answers_sorted[0] == WOMAN_FLAG:
             answers_sorted.pop(0)
+
+        answers_sorted = answers_sorted + withdrawals
 
         for answer, i in zip(answers_sorted, range(len(answers_sorted))):
             if i < question['num_winners']:

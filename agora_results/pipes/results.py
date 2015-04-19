@@ -38,6 +38,11 @@ def do_tallies(data_list, ignore_invalid_votes=True, print_as_csv=False,
       if print_as_csv:
           monkey_patcher = __patcher
 
+      withdrawals = []
+      for question in questions_json:
+          if question['tally_type'] != 'plurality-at-large':
+              withdrawals = data.get('withdrawals', [])
+
       results = agora_tally.tally.do_tally(
           data['extract_dir'],
           questions_json,
@@ -45,7 +50,7 @@ def do_tallies(data_list, ignore_invalid_votes=True, print_as_csv=False,
           question_indexes=question_indexes,
           ignore_invalid_votes=ignore_invalid_votes,
           monkey_patcher=monkey_patcher,
-          withdrawals=data.get('withdrawals', []))
+          withdrawals=withdrawals)
 
       def get_log(tally, index):
           if question_indexes is not None and index not in question_indexes:

@@ -15,13 +15,13 @@ def sort_non_iterative(data_list, question_indexes=[], withdrawals=[], ties_sort
     - ties_sorting is a list of answer items in order
 
     An answer items follows this format:
-    {"question_num": 0, "answer_text": "Foo", "answer_id": 0}
+    {"question_index": 0, "answer_text": "Foo", "answer_id": 0}
     '''
     data = data_list[0]
 
     # append already listed withdrawals
-    if 'withdrawls' in data:
-        withdrawals = withdrawals + data['withdrawls']
+    if 'withdrawals' in data:
+        withdrawals = withdrawals + data['withdrawals']
 
     for q_num, question in enumerate(data['results']['questions']):
         # filter first
@@ -40,9 +40,9 @@ def sort_non_iterative(data_list, question_indexes=[], withdrawals=[], ties_sort
                 for answer in question['answers']
                 if answer['id'] not in q_removed]
 
-        q_withdrawals = list(filter(lambda w: w['question_num'] == q_num, withdrawals))
+        q_withdrawals = list(filter(lambda w: w['question_index'] == q_num, withdrawals))
         q_withdrawals_ids = list(map(lambda w: w['answer_id'], q_withdrawals))
-        q_ties_sorting = list(filter(lambda w: w['question_num'] == q_num, ties_sorting))
+        q_ties_sorting = list(filter(lambda w: w['question_index'] == q_num, ties_sorting))
 
         # add default tie sort
         for answer in question['answers']:
