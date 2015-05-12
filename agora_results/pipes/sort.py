@@ -25,7 +25,7 @@ def sort_non_iterative(data_list, question_indexes=[], withdrawals=[], ties_sort
 
     for q_num, question in enumerate(data['results']['questions']):
         # filter first
-        if question['tally_type'] not in ["plurality-at-large", "borda", "borda-nauru"] or\
+        if question['tally_type'] not in ["plurality-at-large", "borda", "borda-nauru", "pairwise-beta"] or\
             q_num not in question_indexes:
             continue
 

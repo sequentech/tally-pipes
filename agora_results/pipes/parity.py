@@ -73,7 +73,7 @@ def parity_zip_non_iterative(data_list, women_names, question_indexes=None):
         if question_indexes is not None and qindex not in question_indexes:
             continue
 
-        if question['tally_type'] not in ["plurality-at-large", "borda", "borda-nauru"] or len(question['answers']) == 0:
+        if question['tally_type'] not in ["plurality-at-large", "borda", "borda-nauru", "pairwise-beta"] or len(question['answers']) == 0:
             continue
 
 
