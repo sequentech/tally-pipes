@@ -19,8 +19,11 @@ def __patcher(tally):
 
 def do_tallies(data_list, ignore_invalid_votes=True, print_as_csv=False,
                question_indexes=None, reuse_results=False,
-               extra_args=defaultdict()):
-    for data in data_list:
+               extra_args=defaultdict(), tallies_indexes=None):
+    for dindex, data in enumerate(data_list):
+      if tallies_indexes is not None and dindex not in tallies_indexes:
+          continue
+
       tallies = []
       if not reuse_results:
           questions_path = os.path.join(data['extract_dir'], "questions_json")
