@@ -24,6 +24,9 @@ def duplicate_questions(data_list, duplications=[], help="this-parameter-is-igno
     end the resulting data_list is:
 
     [<question_0>, <question_0_duplicated>, <question_1>]
+
+    Optionally, a duplication parameter item can also have a
+    "dest_election_index" option indicating what's the destination election.
     '''
 
     def read_config(data):
@@ -47,16 +50,21 @@ def duplicate_questions(data_list, duplications=[], help="this-parameter-is-igno
     for dupl in duplications:
         orig_q = dupl["base_question_index"]
         orig_el = dupl["source_election_index"]
+        dest_el = dupl.get("dest_election_index", dupl["source_election_index"])
         data = data_list[orig_el]
-        dir_path = data['extract_dir']
+        data_dest = data_list[dest_el]
+        dir_path = data_dest['extract_dir']
         qjson = read_config(data)
+        qjson_dest = read_config(data_dest)
+
         for dest_q in dupl["duplicated_question_indexes"]:
             copyq = copy.deepcopy(qjson[orig_q])
             copyq['source_question_index'] = orig_q
-            qjson.insert(dest_q, copyq)
+            copyq['source_election_index'] = orig_el
+            qjson_dest.insert(dest_q, copyq)
             # +1 to the indexes of the directory of the next questions
-            for i in reversed(range(dest_q, len(qjson) - 1)):
+            for i in reversed(range(dest_q, len(qjson_dest) - 1)):
                 do_action(os.rename, dir_path, "%d-*" % i, "%d-" % i, "%d-" % (i + 1))
             # duplicate question dir
             do_action(shutil.copytree, dir_path, "%d-*" % orig_q, "%d-" % orig_q, "%d-" % dest_q)
-        write_config(data, qjson)
+        write_config(data_dest, qjson_dest)

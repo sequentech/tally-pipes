@@ -69,7 +69,7 @@ def question_totals_with_corrections(data_list, mappings):
         dst_q['totals']['null_votes'] += src_q['totals']['null_votes']
         dst_q['totals']['valid_votes'] += src_q['totals']['valid_votes']
 
-def reduce_answers_with_corrections(data_list, mappings):
+def reduce_answers_with_corrections(data_list, mappings, reverse=True):
     '''
     Reduce the param tallies, with the given corrections. The tallies should be
     given in historical order <first> <second> <last>. The last tally is the
@@ -120,9 +120,52 @@ def reduce_answers_with_corrections(data_list, mappings):
 
         dst_answer['total_count'] += src_answer['total_count']
 
+    if reverse:
+        data_list.reverse()
+
+
+def multipart_tally_plaintexts_append_joiner(data_list, dst_election_id,
+    question_num=0, src_election_ids=[], silent=False, reverse=True):
+    '''
+    Does a multipart tally where the ballots from different question
+    '''
+    # preload questions
+    for dindex, data in enumerate(data_list):
+        data['id'] = dindex
+        questions_path = os.path.join(data['extract_dir'], "questions_json")
+        with open(questions_path, 'r', encoding="utf-8") as f:
+            data['questions'] = json.loads(f.read())
+
+    dst_plaintexts_path = glob(os.path.join(
+          data_list[dst_election_id]['extract_dir'],
+          "%d*" % question_num, "plaintexts_json"))[0]
+
+    with codecs.open(dst_plaintexts_path, encoding='utf-8', mode='a') as final_plaintexts:
+        # open the plaintexts file from other tallies, and convert each ballot
+        # and append it to the last_tally plaintexts file
+        for dindex, data in enumerate(data_list):
+            if dindex == dst_election_id or dindex not in src_election_ids:
+                continue
+
+            src_question = data['questions'][question_num]
+            plaintexts_path = glob(os.path.join(
+                  data['extract_dir'], "%d*" % question_num, "plaintexts_json"))[0]
+            with codecs.open(plaintexts_path, encoding='utf-8', mode='r') as plaintexts:
+                for line in plaintexts.readlines():
+                    final_plaintexts.write(line)
+
+    if reverse:
+        data_list.reverse()
+
+def data_list_reverse(data_list):
+
+    '''
+    reverses the data_list
+    '''
     data_list.reverse()
 
-def multipart_tally_plaintexts_joiner(data_list, mappings, silent=False):
+def multipart_tally_plaintexts_joiner(data_list, mappings, silent=False,
+    reverse=True):
     '''
     Converts ballots (plaintexts) from different election tallies that share some
     candidates, into a common "final" ballots format, then saves it to be tallied
@@ -362,4 +405,5 @@ def multipart_tally_plaintexts_joiner(data_list, mappings, silent=False):
     # 3. reverse data list so that the last election is the first one, as it is
     # starting from now the only one that should really be used for any
     # tallying, as we have consolidated all the ballots in that one.
-    data_list.reverse()
+    if reverse:
+        data_list.reverse()
