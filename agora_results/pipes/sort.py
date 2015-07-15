@@ -34,7 +34,7 @@ def sort_non_iterative(data_list, question_indexes=[], withdrawals=[], ties_sort
             q_removed = [
                 removed['answer_id']
                 for removed in data["removed-candidates"]
-                if removed['question_index'] == qindex]
+                if removed['question_index'] == q_num]
             question['answers'][:] = [
                 answer
                 for answer in question['answers']

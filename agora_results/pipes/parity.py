@@ -3,7 +3,23 @@
 from itertools import zip_longest
 import sys
 
-def proportion_rounded(data_list, women_names, proportions):
+def __get_women_names_from_question(question):
+    '''
+    Internal: automatically extract women_names from question when they are set
+    as Gender urls
+    '''
+    # calculate the list from Gender urls
+    women_names = []
+    for answer in question['answers']:
+        for url in answer['urls']:
+            if url['title'] != 'Gender':
+                continue
+            if url['url'] == 'https://agoravoting.com/api/gender/M':
+                women_names.append(answer['text'])
+                break
+    return women_names
+
+def proportion_rounded(data_list, women_names, proportions, add_missing_from_unbalanced_sex=False):
     '''
     Given a list of woman names, returns a list of winners where the proportions
     of each sex is between the number provided.
@@ -13,7 +29,11 @@ def proportion_rounded(data_list, women_names, proportions):
     data = data_list[0]
     total = sum(proportions)
     proportions.sort()
+
     for question in data['results']['questions']:
+        if women_names == None:
+            women_names = __get_women_names_from_question(question)
+
         num_winners = question['num_winners']
         max_samesex = round(num_winners*(proportions[1]/total))
 
@@ -41,10 +61,15 @@ def proportion_rounded(data_list, women_names, proportions):
             n_diff =len(base_women_winners) - max_samesex
             winners = base_women_winners[:max_samesex] + men[:num_winners - max_samesex]
             print("too many women, len(base_women_winners)(%d) > max_samesex(%d)" % (len(base_women_winners), max_samesex), file=sys.stderr)
+            if len(winners) < num_winners and add_missing_from_unbalanced_sex:
+                winners += base_women_winners[max_samesex:num_winners - max_samesex - len(men) + 1]
+
         elif len(base_men_winners) > max_samesex:
             n_diff =len(base_men_winners) - max_samesex
             winners = base_men_winners[:max_samesex] + women[:num_winners - max_samesex]
             print("too many men, len(base_men_winners)(%d) > max_samesex(%d)" % (len(base_men_winners), max_samesex), file=sys.stderr)
+            if len(winners) < num_winners and add_missing_from_unbalanced_sex:
+                winners += base_men_winners[max_samesex:num_winners - max_samesex - len(women) + 1]
 
         winners = sorted(winners, reverse=True, key=lambda a: a['total_count'])
 
@@ -70,6 +95,8 @@ def parity_zip_non_iterative(data_list, women_names, question_indexes=None):
     WOMAN_FLAG = 44565676 # any thing, but not a string
 
     for qindex, question in enumerate(data['results']['questions']):
+        if women_names == None:
+            women_names = __get_women_names_from_question(question)
         if question_indexes is not None and qindex not in question_indexes:
             continue
 

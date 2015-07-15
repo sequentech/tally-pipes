@@ -61,6 +61,30 @@ def apply_modifications(data_list, modifications=[], help="this-parameter-is-ign
                             answer_id=answer['id'],
                             answer_text=answer['text']))
 
+            elif modif['policy'] == 'match-url':
+                for answer in qjson[qindex]['answers']:
+                    for url in answer['urls']:
+                        if url['title'] != modif['title']:
+                            continue
+                        if re.match(modif['regex'], url['url']):
+                            data['withdrawals'].append(dict(
+                                question_index=qindex,
+                                answer_id=answer['id'],
+                                answer_text=answer['text']))
+
+            elif modif['policy'] == 'not-match-url':
+                for answer in qjson[qindex]['answers']:
+                    match = False
+                    for url in answer['urls']:
+                        if url['title'] != modif['title']:
+                            continue
+                        match = match or re.match(modif['regex'], url['url'])
+                    if not match:
+                        data['withdrawals'].append(dict(
+                            question_index=qindex,
+                            answer_id=answer['id'],
+                            answer_text=answer['text']))
+
             elif modif['policy'] == 'withdraw-winners-by-name-from-other-question':
                 dest_qindex = modif['dest_question_index']
                 for answer in data['results']['questions'][qindex]['answers']:
@@ -93,6 +117,30 @@ def apply_modifications(data_list, modifications=[], help="this-parameter-is-ign
                 field = modif['field']
                 for answer in qjson[qindex]['answers']:
                     if re.match(modif['regex'], answer[field]):
+                        data['removed-candidates'].append(dict(
+                            question_index=qindex,
+                            answer_id=answer['id'],
+                            answer_text=answer['text']))
+
+            elif modif['policy'] == 'match-url':
+                for answer in qjson[qindex]['answers']:
+                    for url in answer['urls']:
+                        if url['title'] != modif['title']:
+                            continue
+                        if re.match(modif['regex'], url['url']):
+                            data['removed-candidates'].append(dict(
+                                question_index=qindex,
+                                answer_id=answer['id'],
+                                answer_text=answer['text']))
+
+            elif modif['policy'] == 'not-match-url':
+                for answer in qjson[qindex]['answers']:
+                    match = False
+                    for url in answer['urls']:
+                        if url['title'] != modif['title']:
+                            continue
+                        match = match or re.match(modif['regex'], url['url'])
+                    if not match:
                         data['removed-candidates'].append(dict(
                             question_index=qindex,
                             answer_id=answer['id'],
