@@ -19,7 +19,7 @@ def __get_women_names_from_question(question):
                 break
     return women_names
 
-def proportion_rounded(data_list, women_names, proportions, add_missing_from_unbalanced_sex=False):
+def proportion_rounded(data_list, women_names, proportions, add_missing_from_unbalanced_sex=False, question_indexes=None):
     '''
     Given a list of woman names, returns a list of winners where the proportions
     of each sex is between the number provided.
@@ -30,9 +30,12 @@ def proportion_rounded(data_list, women_names, proportions, add_missing_from_unb
     total = sum(proportions)
     proportions.sort()
 
-    for question in data['results']['questions']:
+    for qindex, question in enumerate(data['results']['questions']):
         if women_names == None:
             women_names = __get_women_names_from_question(question)
+
+        if question_indexes is not None and qindex not in question_indexes:
+            continue
 
         num_winners = question['num_winners']
         max_samesex = round(num_winners*(proportions[1]/total))
