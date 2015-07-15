@@ -3,6 +3,8 @@
 from itertools import zip_longest
 import sys
 
+__BIGGEST_COUNT=1**10
+
 def __get_women_names_from_question(question):
     '''
     Internal: automatically extract women_names from question when they are set
@@ -19,10 +21,19 @@ def __get_women_names_from_question(question):
                 break
     return women_names
 
-def proportion_rounded(data_list, women_names, proportions, add_missing_from_unbalanced_sex=False, question_indexes=None):
+def proportion_rounded(data_list, women_names, proportions,
+                       add_missing_from_unbalanced_sex=False,
+                       question_indexes=None,
+                       phantom_precalc_list=[]):
     '''
     Given a list of woman names, returns a list of winners where the proportions
     of each sex is between the number provided.
+
+    Use phantom_precalc_list to add at the begning of the list of winners on
+    computation time a list of candidates with specific sexes. For example, use
+    ['H', 'M'] to add a Man first and a Women in second place during
+    computation. It's a phantom list because it's only used for computation
+    purposes: the phantom elements will never be shown on the results.
 
     NOTE: it assumes the list of answers is already sorted.
     '''
@@ -55,6 +66,30 @@ def proportion_rounded(data_list, women_names, proportions, add_missing_from_unb
         men = filter_men(question['answers'], women_names)
         num_winners = question['num_winners']
 
+        # add the elements from phantom_precalc_list
+        if len(phantom_precalc_list) > 0:
+            num_winners += len(phantom_precalc_list)
+            women_names.append("___WOMAN_PHANTOM_M")
+
+            def mapped(el):
+                if el == 'H':
+                    return "___MAN_PHANTOM_H" # last char used later in url
+                else:
+                    return "___WOMAN_PHANTOM_M"
+
+            phantom_l = [mapped(el) for el in phantom_precalc_list]
+
+            for i, phantom in enumerate(phantom_l):
+                question['answers'].insert(
+                  i,
+                  dict(
+                      text=phantom,
+                      is_phantom=True,
+                      urls=[dict(
+                          title="Gender",
+                          url="https://agoravoting.com/api/gender/" + phantom[-1])],
+                      total_count=__BIGGEST_COUNT - i))
+
         base_winners = question['answers'][:num_winners]
         base_women_winners = filter_women(base_winners, women_names)
         base_men_winners = filter_men(base_winners, women_names)
@@ -74,7 +109,13 @@ def proportion_rounded(data_list, women_names, proportions, add_missing_from_unb
             if len(winners) < num_winners and add_missing_from_unbalanced_sex:
                 winners += base_men_winners[max_samesex:num_winners - max_samesex - len(women) + 1]
 
+
+        if len(phantom_precalc_list) > 0:
+            winners = [w for w in winners if 'is_phantom' not in w]
+            question['answers'] = [a for a in question['answers'] if 'is_phantom' not in a]
+
         winners = sorted(winners, reverse=True, key=lambda a: a['total_count'])
+
 
         for answer, i in zip(winners, range(len(winners))):
             answer['winner_position'] = i
