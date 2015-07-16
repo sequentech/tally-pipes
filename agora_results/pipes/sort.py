@@ -30,6 +30,7 @@ def sort_non_iterative(data_list, question_indexes=[], withdrawals=[], ties_sort
             continue
 
         # apply removals
+        q_removed = []
         if "removed-candidates" in data:
             q_removed = [
                 removed['answer_id']
@@ -61,10 +62,17 @@ def sort_non_iterative(data_list, question_indexes=[], withdrawals=[], ties_sort
 
         # sanity check withdrawals
         for item in q_withdrawals:
-            item2 = question['answers'][item['answer_id']]
+            if item['answer_id'] in q_removed:
+                continue
+
+            item2 = None
+            for item_find in question['answers']:
+                if item_find['id'] == item['answer_id']:
+                    item2 = item_find
+                    break
 
             # first do some checks
-            assert item2['id'] == item['answer_id']
+            assert item2 is not None
             assert item2['text'] == item['answer_text']
 
         # first sort by id, to have a stable sort
