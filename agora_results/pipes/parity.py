@@ -49,7 +49,6 @@ def proportion_rounded(data_list, women_names, proportions,
             continue
 
         num_winners = question['num_winners']
-        max_samesex = round(num_winners*(proportions[1]/total))
 
         if question['tally_type'] not in ["plurality-at-large"] or len(question['answers']) < 2 or question['num_winners'] < 2:
             continue
@@ -62,8 +61,6 @@ def proportion_rounded(data_list, women_names, proportions,
         def filter_men(l, women_names):
           return [a for a in l if a['text'] not in women_names]
 
-        women = filter_women(question['answers'], women_names)
-        men = filter_men(question['answers'], women_names)
         num_winners = question['num_winners']
 
         # add the elements from phantom_precalc_list
@@ -90,6 +87,9 @@ def proportion_rounded(data_list, women_names, proportions,
                           url="https://agoravoting.com/api/gender/" + phantom[-1])],
                       total_count=__BIGGEST_COUNT - i))
 
+        women = filter_women(question['answers'], women_names)
+        men = filter_men(question['answers'], women_names)
+        max_samesex = round(num_winners*(proportions[1]/total))
         base_winners = question['answers'][:num_winners]
         base_women_winners = filter_women(base_winners, women_names)
         base_men_winners = filter_men(base_winners, women_names)
@@ -108,7 +108,6 @@ def proportion_rounded(data_list, women_names, proportions,
             print("too many men, len(base_men_winners)(%d) > max_samesex(%d)" % (len(base_men_winners), max_samesex), file=sys.stderr)
             if len(winners) < num_winners and add_missing_from_unbalanced_sex:
                 winners += base_men_winners[max_samesex:num_winners - max_samesex - len(women) + 1]
-
 
         if len(phantom_precalc_list) > 0:
             winners = [w for w in winners if 'is_phantom' not in w]
