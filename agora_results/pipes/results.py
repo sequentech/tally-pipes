@@ -43,8 +43,7 @@ def do_tallies(data_list, ignore_invalid_votes=True, print_as_csv=False,
 
       withdrawals = []
       for question in questions_json:
-          if question['tally_type'] != 'plurality-at-large':
-              withdrawals = data.get('withdrawals', [])
+          withdrawals = data.get('withdrawals', [])
 
       results = agora_tally.tally.do_tally(
           data['extract_dir'],
