@@ -6,7 +6,7 @@ from operator import itemgetter
 
 _MAX = 999999999
 
-def sort_non_iterative(data_list, question_indexes=[], withdrawals=[], ties_sorting=[]):
+def sort_non_iterative(data_list, question_indexes=[], withdrawals=[], ties_sorting=[], help=""):
     '''
     Sort non iterative questions of the first tally  by total_count
 

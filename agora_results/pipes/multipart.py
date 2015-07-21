@@ -7,14 +7,14 @@ import types
 from glob import glob
 import agora_tally.tally
 
-def make_multipart(data_list, election_ids):
+def make_multipart(data_list, election_ids, help=""):
     '''
     check that the agora-results is being correctly invoked
     '''
     for election_id, data in zip(election_ids, data_list):
         data['id'] = election_id
 
-def election_max_size_corrections(data_list, corrections):
+def election_max_size_corrections(data_list, corrections, help=""):
     '''
     correct max and min number of options allowed in an election.
     corrections are in the form [[src_max, dest_max], [src_max, dest_max], ..]
@@ -31,7 +31,7 @@ def election_max_size_corrections(data_list, corrections):
         data['size_corrections'] = dict(corrections)
         data['size_corrections_apply_to_question'] = apply_to_question
 
-def question_totals_with_corrections(data_list, mappings):
+def question_totals_with_corrections(data_list, mappings, help=""):
     '''
     Given a list of question corrections, fix totals in the questions and in
     the election. Example mappings:
@@ -69,7 +69,7 @@ def question_totals_with_corrections(data_list, mappings):
         dst_q['totals']['null_votes'] += src_q['totals']['null_votes']
         dst_q['totals']['valid_votes'] += src_q['totals']['valid_votes']
 
-def reduce_answers_with_corrections(data_list, mappings, reverse=True):
+def reduce_answers_with_corrections(data_list, mappings, reverse=True, help=""):
     '''
     Reduce the param tallies, with the given corrections. The tallies should be
     given in historical order <first> <second> <last>. The last tally is the
@@ -125,7 +125,7 @@ def reduce_answers_with_corrections(data_list, mappings, reverse=True):
 
 
 def multipart_tally_plaintexts_append_joiner(data_list, dst_election_id,
-    question_num=0, src_election_ids=[], silent=False, reverse=True):
+    question_num=0, src_election_ids=[], silent=False, reverse=True, help=""):
     '''
     Does a multipart tally where the ballots from different question
     '''
@@ -157,7 +157,7 @@ def multipart_tally_plaintexts_append_joiner(data_list, dst_election_id,
     if reverse:
         data_list.reverse()
 
-def data_list_reverse(data_list):
+def data_list_reverse(data_list, help=""):
 
     '''
     reverses the data_list
@@ -165,7 +165,7 @@ def data_list_reverse(data_list):
     data_list.reverse()
 
 def multipart_tally_plaintexts_joiner(data_list, mappings, silent=False,
-    reverse=True):
+    reverse=True, help=""):
     '''
     Converts ballots (plaintexts) from different election tallies that share some
     candidates, into a common "final" ballots format, then saves it to be tallied

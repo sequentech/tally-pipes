@@ -40,17 +40,18 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_names):
             continue
         print("\n\nQ: %s\n" % question['title'])
 
-        total_votes = data['results']['total_votes']
-
-        percent_base = question['answer_total_votes_percentage']
-        if percent_base == "over-total-votes":
-          base_num = data['results']['total_votes']
-        elif percent_base == "over-total-valid-votes":
-          base_num = question['totals']['valid_votes']
-
         blank_votes = question['totals']['blank_votes']
         null_votes = question['totals']['null_votes']
         valid_votes = question['totals']['valid_votes']
+
+        total_votes = blank_votes + null_votes + valid_votes
+
+        percent_base = question['answer_total_votes_percentage']
+        if percent_base == "over-total-votes":
+          base_num = total_votes
+        elif percent_base == "over-total-valid-votes":
+          base_num = question['totals']['valid_votes']
+
 
         print("Total votes: %d" % total_votes)
         print("Blank votes: %d (%0.2f%%)" % (

@@ -19,7 +19,7 @@ def __patcher(tally):
 
 def do_tallies(data_list, ignore_invalid_votes=True, print_as_csv=False,
                question_indexes=None, reuse_results=False,
-               extra_args=defaultdict(), tallies_indexes=None):
+               extra_args=defaultdict(), tallies_indexes=None, help=""):
     for dindex, data in enumerate(data_list):
       if tallies_indexes is not None and dindex not in tallies_indexes:
           continue
@@ -65,7 +65,7 @@ def do_tallies(data_list, ignore_invalid_votes=True, print_as_csv=False,
       data['results'] = results
       data['log'] = [get_log(t, i) for i, t in enumerate(tallies)]
 
-def to_files(data_list, paths):
+def to_files(data_list, paths, help=""):
     i = 0
     # do not allow strange paths
     paths = [os.path.basename(path) for path in paths]
