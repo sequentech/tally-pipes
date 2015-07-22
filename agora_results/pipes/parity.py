@@ -47,11 +47,12 @@ def __get_zip_group(l, l_men, l_women, zip_size, women_names):
     assert(len(l_men) + len(l_women) >= zip_size)
 
     ret_list = [l[0]]
-    prev_is_woman = __is_woman(ret_list[0], women_names) and len(l_men2) > 0
+    prev_is_woman = __is_woman(ret_list[0], women_names)
     if prev_is_woman:
         l_women2 = l_women2[1:]
     else:
         l_men2 = l_men2[1:]
+    prev_is_woman = prev_is_woman and len(l_men2) > 0
 
     # add the remaning members in zip order when possible
     for i in range(1, zip_size):
