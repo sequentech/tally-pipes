@@ -47,7 +47,11 @@ def print_csv(data, separator):
 
         print(separator.join(["Totals"]))
 
-        print(separator.join(["Total votes", str(data['results']['total_votes'])]))
+        question_total = (question['totals']['null_votes']
+            + question['totals']['blank_votes']
+            + question['totals']['valid_votes'])
+
+        print(separator.join(["Total votes", str(question_total)]))
         print(separator.join(["Blank votes", str(question['totals']['blank_votes'])]))
         print(separator.join(["Null votes", str(question['totals']['null_votes'])]))
         print(separator.join(["Valid votes", str(question['totals']['valid_votes'])]))
