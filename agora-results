@@ -9,6 +9,7 @@ import tempfile
 import shutil
 import tarfile
 import codecs
+import uuid
 
 DEFAULT_PIPELINE = [
     [
@@ -132,11 +133,43 @@ def execute_pipeline(pipeline_info, data_list):
 
     return data_list
 
+def read_file(path):
+    with codecs.open(path, 'r', encoding="utf-8") as f:
+        return f.read()
+
+def write_file(path, data):
+    with codecs.open(path, 'w', encoding="utf-8") as f:
+        f.write(data)
+
+def serialize(data):
+    return json.dumps(data,
+        indent=4, ensure_ascii=False, sort_keys=True, separators=(',', ': '))
+
+def create_ephemeral_tally(econfig_path):
+    '''
+    Creates a tally in a temporal directory from an election config
+    '''
+    tmp_dir = tempfile.mkdtemp()
+    econfig_txt = read_file(econfig_path)
+    econfig = json.loads(econfig_txt)
+
+    write_file(
+        os.path.join(tmp_dir, "questions_json"),
+        serialize(econfig["questions"]))
+
+    for i in range(len(econfig["questions"])):
+        session_id = "%d-%s" % (i, str(uuid.uuid4()))
+        os.mkdir(os.path.join(tmp_dir, session_id))
+        write_file(os.path.join(tmp_dir, session_id, "plaintexts_json"), "")
+
+    return tmp_dir
+
 def main():
     parser = argparse.ArgumentParser(description='Process and show tally '
                                      'results. If no config is specified, it '
                                      'parses results in raw.')
-    parser.add_argument('-t', '--tally', nargs='+', help='tally path')
+    parser.add_argument('-t', '--tally', nargs='*', help='tally path', default=[])
+    parser.add_argument('-e', '--election-config', nargs='*', help='Instead of specifying a tally, you can specify an json election config and an empty ephemeral tally with zero votes will be created. recommended to use together with the multipart.append_ballots pipe.', default=[])
     parser.add_argument('-x', '--tar',   nargs='?', help='tar tallies output path')
     parser.add_argument('-c', '--config', help='config path')
     parser.add_argument('-s', '--stdout', help='print output to stdout',
@@ -164,13 +197,29 @@ def main():
     signal.signal(signal.SIGINT, sig_handler)
 
     try:
-        # extract each tally, before starting the pipeline, and put the tally
-        # relevant data in a list that is processed by the pipeline
-        for tally in pargs.tally:
-            extract_dir = extract_tally(tally)
-            if not pargs.stdout:
-                print("Extracted tally %s in %s.." % (tally, extract_dir))
-            data_list.append(dict(extract_dir=extract_dir))
+        if len(pargs.tally) == 0 and len(pargs.election_config) == 0:
+            print("You need to specify at least one tally or election-config")
+            exit(1)
+
+        if len(pargs.tally) > 0 and len(pargs.election_config) > 0:
+            print("You can't specify both a tally and an election-config")
+            exit(1)
+
+        if len(pargs.election_config) > 0:
+            for econfig_path in pargs.election_config:
+                tmp_dir = create_ephemeral_tally(econfig_path)
+                if not pargs.stdout:
+                    print("Ephemeral tally for config %s in %s.." %
+                        (econfig_path, tmp_dir))
+                data_list.append(dict(extract_dir=tmp_dir))
+        else:
+            # extract each tally, before starting the pipeline, and put the tally
+            # relevant data in a list that is processed by the pipeline
+            for tally in pargs.tally:
+                extract_dir = extract_tally(tally)
+                if not pargs.stdout:
+                    print("Extracted tally %s in %s.." % (tally, extract_dir))
+                data_list.append(dict(extract_dir=extract_dir))
 
         execute_pipeline(pipeline_info, data_list)
         if pargs.stdout and len(data_list) > 0 and 'results' in data_list[0]:
