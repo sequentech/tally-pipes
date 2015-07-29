@@ -445,8 +445,13 @@ def append_ballots(data_list, ballots, dst_election_id=0,
             return str(len(answer_text_to_id) + 2).zfill(fill_size)
 
         inverse_ballot = {str(v): answer_text_to_id[k] for k, v in ballot.items()}
+
         return str(int("".join([
-            str(inverse_ballot[str(i)] + 1).zfill(fill_size)
+            str(
+              inverse_ballot.get(
+                  str(i),
+                  len(answer_text_to_id) + 2) + 1 # null if not found
+              ).zfill(fill_size)
             for i in range(0,len(inverse_ballot))
         ])) + 1)
 
@@ -460,13 +465,13 @@ def append_ballots(data_list, ballots, dst_election_id=0,
             if len(value) > 0:
                 int(value, 10)
 
-        if allow_null_votes:
-            continue
-
         selection = dict([(k, int(v, 10)-1) for k, v in ballot.items() if len(v) > 0])
-        assert(len(set(selection.values())) == len(selection.values()))
-        # selection should be ints, sequential and starting from 1
-        assert(set(range(0, len(selection))) == set(selection.values()))
+
+        if not allow_null_votes:
+            assert(len(set(selection.values())) == len(selection.values()))
+            # selection should be ints, sequential and starting from 1
+            assert(set(range(0, len(selection))) == set(selection.values()))
+
         parsed_ballots.append("\"%s\"\n" % encode_ballot(selection, answer_text_to_id, fill_size))
 
     dst_plaintexts_path = glob(os.path.join(
