@@ -8,8 +8,8 @@ from collections import defaultdict
 def __patcher(tally):
     parse_vote = tally.parse_vote
 
-    def parse_vote_f(number, question):
-        vote = parse_vote(number, question)
+    def parse_vote_f(number, question, q_withdrawals):
+        vote = parse_vote(number, question, q_withdrawals)
         l = [tally.question_num] + vote
         to_str = [str(i) for i in l]
         print(",".join(to_str))
