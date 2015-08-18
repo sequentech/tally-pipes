@@ -3,15 +3,18 @@
 import os
 import json
 import agora_tally.tally
+from agora_tally.voting_systems.base import BlankVoteException
 from collections import defaultdict
 
 def __patcher(tally):
     parse_vote = tally.parse_vote
 
     def parse_vote_f(number, question, q_withdrawals):
-        vote = parse_vote(number, question, q_withdrawals)
-        l = [tally.question_num] + vote
-        to_str = [str(i) for i in l]
+        try:
+            vote = parse_vote(number, question, q_withdrawals)
+        except BlankVoteException as blank:
+            vote = []
+        to_str = [str(tally.question_num)] + ["\"%d. %s\"" % (i, question['answers'][i]['text']) for i in vote]
         print(",".join(to_str))
         return vote
 
