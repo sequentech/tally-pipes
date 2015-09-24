@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 
 from itertools import zip_longest
+from operator import itemgetter
 import sys
 
 __BIGGEST_COUNT=1**10
@@ -34,34 +35,28 @@ def __filter_women(l, women_names, is_woman):
 def __filter_men(l, women_names, is_woman):
     return [a for a in l if not is_woman(a, women_names)]
 
-def __get_zip_group(l, l_men, l_women, zip_size, women_names):
+def __get_zip_group(group, women_names, is_woman):
     '''
-    returns a list of the next group of size zip_size in parity zip order
+    reorders a group in zip sex order, putting first the first person of the
+    most numerous sex in the group
     '''
     # create a shallow copy of the input lists, so that we don't modify
     # them. we of course asume the lists are in order
-    l_men2 = list(l_men)
-    l_women2 = list(l_women)
+    men = __filter_women(group, women_names, is_woman)
+    women = __filter_women(group, women_names, is_woman)
 
-    # sanity check
-    assert(len(l_men) + len(l_women) >= zip_size)
+    first = women
+    second = men
+    if len(men) > len(women):
+      first = men
+      second = women
 
-    ret_list = [l[0]]
-    prev_is_woman = __is_woman(ret_list[0], women_names)
-    if prev_is_woman:
-        l_women2 = l_women2[1:]
-    else:
-        l_men2 = l_men2[1:]
-    prev_is_woman = prev_is_woman and len(l_men2) > 0
-
-    # add the remaning members in zip order when possible
-    for i in range(1, zip_size):
-      if prev_is_woman or len(l_women2) == 0:
-          ret_list.append(l_men2.pop(0))
-          prev_is_woman = False
-      else:
-          ret_list.append(l_women2.pop(0))
-          prev_is_woman = True
+    ret_list = []
+    for a, b in zip_longest(first, second):
+        if a is not None:
+            ret_list.append(a)
+        if b is not None:
+            ret_list.append(b)
 
     return ret_list
 
@@ -284,52 +279,18 @@ def podemos_parity_loreg_zip_non_iterative(data_list, question_indexes,
 
     Implementa este algoritmo:
 
-    0.Partimos de la lista ordenada por voto en bruto (L), así como de la
-    lista ordenada de mujeres (Lm) y la lista ordenada de hombres (Lh), que
-    pueden extraerse a partir de la lista L si se tiene el parámetro 'sexo' de
-    los elementos de L. Asimismo generamos una lista vacía Ld, que será la
-    lista definitiva corregida.
+    Previo: El mínimo de hombres y mujeres por grupo es 2. El de mujeres sube a
+    3 si en el grupo anterior había 3 hombres.
 
-    0.1.Definimos una función que extraiga un tramo -lista de 5- en cremallera,
-    empezando por el primer elemento de L (L[0]), siguiendo por el primer
-    elemento de Lm si L[0] es un hombre o por el primer elemento de Lh si L[0]
-    es mujer;continuando por el segundo elemento de Lh si L[0] es un hombre o
-    por el segundo elemento de Lm si L[0] es mujer, y así sucesivamente.
-    Llamaremos a esta función tramo_cremallera(L,Lm,Lh).
+    1. Se coge un grupo de 5, se mira si hay menos mujeres u hombres de los que
+    debería y se arregla si hace falta (se añaden mujeres u hombres por el final
+    hasta alcanzar el mínimo).
 
-    0.2.Definimos una segunda función que extraiga un tramo -lista de 5- de L
-    en su orden natural, pero que respete la proporción 60/40 que exige la
-    LOREG, el tramo debe contener por tanto 2 mujeres, 2 hombres y un quinto
-    elemento que puede ser tanto una mujer como un hombre. Para ello podemos
-    sacar a los dos hombres y las dos mujeres más votadas y en último lugar al
-    elemento más votado de la lista restante y luego reordenar el tramo por
-    número de votos, o utilizar cualquier otro procedimiento análogo.
-    Llamaremos a esta función tramo_loreg (L,Lm,Lh).
+    2. Se aplica cremallera en el grupo resultante (HMHMH o MHMHM según el
+    número de mujeres y hombres).
 
-    0.3.Definimos una función que evalúe un tramo -lista de 5- y devuelva un
-    booleano. Si en el tramo en cuestión alguna mujer ocupa un puesto inferior
-    a un hombre teniendo ésta un mayor número de votos que él, entonces la
-    función devolverá FALSE; en cualquier otro caso devolverá TRUE. Llamaremos
-    a la función check (tramo).
-
-    1.Extraemos el tramo cremallera de los puestos iniciales de la lista,
-    utilizando tramo_cremallera(L,Lm,Lh).
-
-    2.Aplicamos la función check sobre el tramo resultante de (1):
-
-    2a.Si la función devuelve TRUE, entonces nos quedamos con el tramo
-    resultante de (1).
-
-    2b.Si la función devuelve FALSE, entonces extraemos un nuevo tramo de L,
-    utilizando tramo_loreg (L,Lm,Lh) y desechamos el tramo anterior.
-
-    3.Añadimos el tramo en cuestión a Ld y borramos los elementos del tramo de
-    L, Lm y Lh.
-
-    4.Volvemos a (1) a no ser que L tenga menos de 5 elementos.
-
-    5.Ordenamos en cremallera los elementos restantes de L y los añadimos al
-    final de Ld.
+    3. En el primer grupo, si al aplicar cremallera en el paso 2 se redujese el
+    número de mujeres, se deja el grupo como estaba al aplicar el paso 1.
     '''
     def parity_check(group, women_names):
         '''
@@ -378,19 +339,14 @@ def podemos_parity_loreg_zip_non_iterative(data_list, question_indexes,
         # the number of groups to create equals to the number of iterations of
         # the main loop
         num_groups = int(question['num_winners'] / group_size)
-        final_group_size = question['num_winners'] % group_size
 
         # main loop
         winners_l = []
         for i in range(num_groups):
-            # use either a zip group or a proportional group, depending on the check
-            group = __get_zip_group(candidates, men, women, group_size, women_names)
-            if not parity_check(group, women_names):
-                group = __get_proportional_group(candidates, men, women, proportions)
-
-            # some checks
-            assert(len(group) == group_size)
-            assert(len([a for a in group if a in winners_l]) == 0)
+            corrected_group = __get_proportional_group(
+                candidates, men, women, proportions)
+            zip_group = __get_zip_group(corrected_group, women_names,
+                __is_woman)
 
             # update winners list, candidates, women and men
             winners_l = winners_l + group
@@ -409,3 +365,75 @@ def podemos_parity_loreg_zip_non_iterative(data_list, question_indexes,
             cand['winner_position'] = None
         for i, cand in enumerate(winners_l):
             cand['winner_position'] = i
+
+if __name__ == '__main__':
+    '''
+    executes some unittests on podemos_parity_loreg_zip_non_iterative.
+    '''
+    def generate_test_data(sexes):
+        '''
+        Given a string of sexes in order (for example "HHHMMH"), generates a test
+        election data to be used with podemos_parity_loreg_zip_non_iterative.
+        '''
+        q = {
+          "tally_type": "plurality-at-large",
+          "num_winners": len(sexes),
+          "answers": [
+            {
+              "total_count": len(sexes) + 1 - i,
+              "text": "cand #%d" % i,
+              "id": i,
+              "urls": [
+                {
+                  "title": "Gender",
+                  "url": "https://agoravoting.com/api/gender/" + sex
+                }
+              ]
+            }
+            for i, sex in enumerate(sexes)
+          ]
+        }
+
+        return {
+          "results": {
+            "questions": [q]
+          }
+        }
+
+    def get_output_sexes(data):
+        '''
+        Given a question similar to the one outputed from
+        podemos_parity_loreg_zip_non_iterative, returns the sexes string from the
+        results.
+        '''
+        q = data['results']['questions'][0]
+        return "".join([
+            a['urls'][0]['url'][-1]
+            for a in sorted(q['answers'], key=itemgetter('winner_position'))])
+
+    def print_groups(sexes, group_size=5):
+        '''
+        separate groups with a point
+        '''
+        ret = ""
+        for i, sex in enumerate(sexes[::-1]):
+            if i % group_size == 4:
+                ret = ret + sex + "."
+            else:
+                ret = ret + sex
+
+        return ret
+
+    test_data = [
+      ["MHHMM", "MHMHMM"]
+    ]
+
+    for initial_sex_order, expected_results_order in test_data:
+        data = generate_test_data(initial_sex_order)
+        podemos_parity_loreg_zip_non_iterative([data], [0])
+        output = get_output_sexes(data)
+        if output != expected_results_order:
+            print("failed test_data: input(%s) -> expected(%s) but got(%s)" % (
+                print_groups(initial_sex_order),
+                print_groups(expected_results_order),
+                print_groups(output)))
