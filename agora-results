@@ -24,6 +24,33 @@ DEFAULT_PIPELINE = [
     ]
 ]
 
+# By default we only allow the most used pipes to reduce default attack surface
+# NOTE: keep the list sorted
+DEFAULT_PIPES_WHITELIST = [
+    #"agora_resuts.pipes.duplicate_questions.duplicate_questions",
+    "agora_resuts.pipes.modifications.apply_modifications",
+    #"agora_resuts.pipes.multipart.make_multipart",
+    #"agora_resuts.pipes.multipart.election_max_size_corrections",
+    #"agora_resuts.pipes.multipart.question_totals_with_corrections",
+    #"agora_resuts.pipes.multipart.reduce_answers_with_corrections",
+    #"agora_resuts.pipes.multipart.multipart_tally_plaintexts_append_joiner",
+    #"agora_resuts.pipes.multipart.data_list_reverse",
+    #"agora_resuts.pipes.multipart.multipart_tally_plaintexts_joiner",
+    #"agora_resuts.pipes.multipart.append_ballots",
+    "agora_resuts.pipes.parity.proportion_rounded",
+    "agora_resuts.pipes.parity.parity_zip_non_iterative",
+    #"agora_resuts.pipes.parity.reorder_winners",
+    #"agora_resuts.pipes.parity.podemos_parity_loreg_zip_non_iterative",
+    #"agora_resuts.pipes.podemos.podemos_proportion_rounded_and_duplicates",
+    #"agora_resuts.pipes.pretty_print.pretty_print_stv_winners",
+    "agora_resuts.pipes.pretty_print.pretty_print_not_iterative",
+    #"agora_resuts.pipes.results.do_tallies",
+    #"agora_resuts.pipes.results.to_files",
+    #"agora_resuts.pipes.results.apply_removals",
+    "agora_resuts.pipes.sort.sort_non_iterative",
+    #"agora_resuts.pipes.stv_tiebreak.stv_first_round_tiebreak"
+]
+
 def extract_tally(fpath):
     '''
     extracts the tally and loads the results into a file for convenience
@@ -91,10 +118,13 @@ def print_results(data, output_format):
   elif output_format == "pretty":
       pretty_print(data)
 
-def func_path_sanity_checks(func_path):
+def func_path_sanity_checks(func_path, pipes_whitelist):
     '''
     Check that the func path is valid and reasonably secure
     '''
+    if pipes_whitelist is not None and func_path not in pipes_whitelist:
+        raise Exception("Pipe not in the whitelist")
+
     values = func_path.split(".")
     if " " in func_path or len(values) == 0 or len(values) > 4 or\
         values[0] != "agora_results" or values[1] != "pipes":
@@ -104,7 +134,7 @@ def func_path_sanity_checks(func_path):
         if len(val) == 0 or val.startswith("_"):
             raise Exception()
 
-def execute_pipeline(pipeline_info, data_list):
+def execute_pipeline(pipeline_info, data_list, pipes_whitelist=None):
     '''
     Execute a pipeline of options. pipeline_info must be a list of
     pairs. Each pair contains (pipe_func_path, params), where pipe_func_path is
@@ -121,7 +151,7 @@ def execute_pipeline(pipeline_info, data_list):
     '''
     for func_path, kwargs in pipeline_info:
         # get access to the function
-        func_path_sanity_checks(func_path)
+        func_path_sanity_checks(func_path, pipes_whitelist)
         func_name = func_path.split(".")[-1]
         module = __import__(
             ".".join(func_path.split(".")[:-1]), globals(), locals(),
@@ -171,6 +201,7 @@ def main():
     parser.add_argument('-t', '--tally', nargs='*', help='tally path', default=[])
     parser.add_argument('-e', '--election-config', nargs='*', help='Instead of specifying a tally, you can specify an json election config and an empty ephemeral tally with zero votes will be created. recommended to use together with the multipart.append_ballots pipe.', default=[])
     parser.add_argument('-x', '--tar',   nargs='?', help='tar tallies output path')
+    parser.add_argument('-p', '--pipes-whitelist', help='path to the file containing the allowed pipes')
     parser.add_argument('-c', '--config', help='config path')
     parser.add_argument('-s', '--stdout', help='print output to stdout',
         action='store_true')
@@ -178,11 +209,20 @@ def main():
         default="json", choices=["json", "csv", "tsv", "pretty", "none"])
     pargs = parser.parse_args()
 
+    # load config
     if pargs.config is not None:
       with codecs.open(pargs.config, 'r', encoding="utf-8") as f:
           pipeline_info = json.loads(f.read())
     else:
       pipeline_info = DEFAULT_PIPELINE
+
+    # load allowed pipes: Format of the file should simply be: one pipe per line
+    if pargs.pipes_whitelist is not None:
+        with codecs.open(pargs.pipes_whitelist, 'r', encoding="utf-8") as f:
+            pipes_whitelist = [l.strip() for l in f.readlines()]
+    else:
+      pipes_whitelist = DEFAULT_PIPES_WHITELIST
+
     data_list = []
 
     # remove files on abrupt external exit signal
@@ -221,7 +261,8 @@ def main():
                     print("Extracted tally %s in %s.." % (tally, extract_dir))
                 data_list.append(dict(extract_dir=extract_dir))
 
-        execute_pipeline(pipeline_info, data_list)
+        execute_pipeline(pipeline_info, data_list,
+                         pipes_whitelist=pipes_whitelist)
         if pargs.stdout and len(data_list) > 0 and 'results' in data_list[0]:
           print_results(data_list[0], pargs.output_format)
         data = ""
