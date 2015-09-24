@@ -175,7 +175,7 @@ def main():
     parser.add_argument('-s', '--stdout', help='print output to stdout',
         action='store_true')
     parser.add_argument('-o', '--output-format', help='select the output format',
-        default="json", choices=["json", "csv", "tsv", "pretty"])
+        default="json", choices=["json", "csv", "tsv", "pretty", "none"])
     pargs = parser.parse_args()
 
     if pargs.config is not None:
