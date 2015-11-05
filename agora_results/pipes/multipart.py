@@ -1,11 +1,28 @@
 import os
 import json
+import re
 import codecs
+import unicodedata
+import string
 import traceback
 import copy
 import types
 from glob import glob
 import agora_tally.tally
+
+def curate_text(text):
+    text = text.replace("&#34;", '"')
+    text = text.replace("&#43;", '+')
+    text = text.replace("&#64;", '@')
+    text = text.replace("&#39;", "'")
+    text = text.replace("\xa0", ' ')
+    text = re.sub("[ \n\t]+", " ", text)
+    text = remove_accents(text)
+    return text
+
+def remove_accents(text):
+    return ''.join(x for x in unicodedata.normalize('NFKD', text) if x in string.ascii_letters).lower()
+
 
 def make_multipart(data_list, election_ids, help=""):
     '''
@@ -113,10 +130,22 @@ def reduce_answers_with_corrections(data_list, mappings, reverse=True, help=""):
         src_election =[data for data in data_list if data['id'] == src_eid][0]
         src_q = src_election['results']['questions'][src_qnum]
         src_answer = [a for a in src_q['answers'] if a['id'] == src_ansid][0]
-        assert src_answer['text'] == src_anstxt
+        try:
+          assert curate_text(src_answer['text']) == curate_text(src_anstxt)
+        except Exception as e:
+          print("source_text != expected_source_text, '%s' != '%s'" %
+                (curate_text(src_answer['text']),
+                 curate_text(src_anstxt)))
+          raise e
 
         dst_answer = [a for a in dst_q['answers'] if a['id'] == dst_ansid][0]
-        assert dst_answer['text'] == dst_anstxt
+        try:
+          assert curate_text(dst_answer['text']) == curate_text(dst_anstxt)
+        except Exception as e:
+          print("source_text != expected_source_text, '%s' != '%s'" %
+                (curate_text(dst_answer['text']),
+                 curate_text(dst_anstxt)))
+          raise e
 
         dst_answer['total_count'] += src_answer['total_count']
 
