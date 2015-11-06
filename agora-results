@@ -44,7 +44,7 @@ DEFAULT_PIPES_WHITELIST = [
     #"agora_results.pipes.podemos.podemos_proportion_rounded_and_duplicates",
     #"agora_results.pipes.pretty_print.pretty_print_stv_winners",
     "agora_results.pipes.pretty_print.pretty_print_not_iterative",
-    #"agora_results.pipes.results.do_tallies",
+    "agora_results.pipes.results.do_tallies",
     #"agora_results.pipes.results.to_files",
     #"agora_results.pipes.results.apply_removals",
     "agora_results.pipes.sort.sort_non_iterative",
@@ -123,7 +123,7 @@ def func_path_sanity_checks(func_path, pipes_whitelist):
     Check that the func path is valid and reasonably secure
     '''
     if pipes_whitelist is not None and func_path not in pipes_whitelist:
-        raise Exception("Pipe not in the whitelist")
+        raise Exception("Pipe not in the whitelist: %s" % func_path)
 
     values = func_path.split(".")
     if " " in func_path or len(values) == 0 or len(values) > 4 or\
