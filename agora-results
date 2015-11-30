@@ -153,13 +153,15 @@ def execute_pipeline(pipeline_info, data_list, pipes_whitelist=None):
         # get access to the function
         func_path_sanity_checks(func_path, pipes_whitelist)
         func_name = func_path.split(".")[-1]
+        class_name = func_path.split(".")[-2]
         module = __import__(
             ".".join(func_path.split(".")[:-1]), globals(), locals(),
-            [func_name], 0)
+            [class_name], 0)
         fargs = dict(data_list=data_list)
         if kwargs is not None:
             fargs.update(kwargs)
-        ret = getattr(module, func_name)(**fargs)
+        class_ = getattr(module, class_name)
+        ret = getattr(class_, func_name)(**fargs)
 
     return data_list
 
