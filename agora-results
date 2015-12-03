@@ -11,6 +11,7 @@ import tarfile
 import codecs
 import uuid
 from pipes.base import Pipe
+from pipes import PipeReturnvalue
 
 DEFAULT_PIPELINE = [
     [
@@ -135,36 +136,53 @@ def class_path_sanity_checks(class_path, pipes_whitelist):
         if len(val) == 0 or val.startswith("_"):
             raise Exception()
 
-def execute_pipeline(pipeline_info, data_list, pipes_whitelist=None):
+def check_pipeline_conf(pipeline_conf, name):
     '''
-    Execute a pipeline of options. pipeline_info must be a list of
-    pairs. Each pair contains (pipe_func_path, params), where pipe_func_path is
-    the path to the module and a function name, and params is either
-    None or a dictionary with extra parameters accepted by the function.
+    Check configuration of each pipe
+    '''
+    pipeline_pipes = Pipe.get_pipes(name)
+    for class_path, pipe_conf in pipeline_conf:
+        class_name = class_path.split(".")[-1]
+        pipeline_pipes[class_name].check_config(pipe_conf)
 
-    Pipeline functions must accept always at least one parameter, 'data', which
-    will initially be the data parameter of this function, but each function is
+def register_pipes(pipeline_conf, name):
+    '''
+    Register each pipe on a pipeline
+    '''
+    for class_path, kwargs in pipeline_conf:
+    # get access to the function
+        class_name = class_path.split(".")[-1]
+        module = __import__(
+            ".".join(class_path.split(".")[:-1]), globals(), locals(),
+            [class_name], 0)
+        imported_class = getattr(module, class_name)
+        Pipe.register_pipe(imported_class, name)
+
+def execute_pipeline(pipeline_conf, data_list, name, pipes_whitelist=None):
+    '''
+    Execute a pipeline of options. pipeline_conf must be a list of
+    pairs. Each pair contains (pipe_class_path, params), where pipe_class_path is
+    the path to the module and a class name, and params is either
+    None or a dictionary with extra parameters accepted by the class.
+
+    Method execute of pipeline classes must accept always at least one parameter, 'data', which
+    will initially be the data parameter of this class, but each pipe class is
     allow to modify it as a way to process the data.
 
-    The other parameters of the function will be the "params" specified for
-    that function in 'pipeline_info', which can either be None or a dict, and
+    The other parameters of the method execute will be the "params" specified for
+    that function in 'pipeline_conf', which can either be None or a dict, and
     the format is of your choice as a developer.
-    '''
-    for func_path, kwargs in pipeline_info:
-        # get access to the function
-        func_path_sanity_checks(func_path, pipes_whitelist)
-        func_name = func_path.split(".")[-1]
-        class_name = func_path.split(".")[-2]
-        module = __import__(
-            ".".join(func_path.split(".")[:-1]), globals(), locals(),
-            [class_name], 0)
-        fargs = dict(data_list=data_list)
-        if kwargs is not None:
-            fargs.update(kwargs)
-        class_ = getattr(module, class_name)
-        ret = getattr(class_, func_name)(**fargs)
+    '''   
+    valid_pipes = Pipe.get_pipes(name)
 
-    return data_list
+    for class_path, pipe_conf in pipeline_conf:
+        class_path_sanity_checks(class_path, pipes_whitelist)
+        pipe_name = class_path.split(".")[-1]
+        ret = valid_pipes[pipe_name].execute(data=data_list, config=pipe_conf)
+        if ret != PipeReturnvalue.CONTINUE:
+            return ret
+
+    return PipeReturnvalue.CONTINUE
 
 def read_file(path):
     with codecs.open(path, 'r', encoding="utf-8") as f:
@@ -263,9 +281,12 @@ def main():
                 if not pargs.stdout:
                     print("Extracted tally %s in %s.." % (tally, extract_dir))
                 data_list.append(dict(extract_dir=extract_dir))
-
-        execute_pipeline(pipeline_conf, data_list,
-                         pipes_whitelist=pipes_whitelist)
+                
+        register_pipes(pipeline_conf, 'register-pipeline') # register pipes necessary                
+        check_pipeline_conf(pipeline_conf, 'register-pipeline') # check pipeline configuration
+        execute_pipeline(pipeline_conf, data_list, 'register-pipeline',
+                         pipes_whitelist=pipes_whitelist) # execute pipeline
+        
         if pargs.stdout and len(data_list) > 0 and 'results' in data_list[0]:
           print_results(data_list[0], pargs.output_format)
         data = ""
