@@ -10,6 +10,7 @@ import shutil
 import tarfile
 import codecs
 import uuid
+from pipes.base import Pipe
 
 DEFAULT_PIPELINE = [
     [
@@ -118,15 +119,15 @@ def print_results(data, output_format):
   elif output_format == "pretty":
       pretty_print(data)
 
-def func_path_sanity_checks(func_path, pipes_whitelist):
+def class_path_sanity_checks(class_path, pipes_whitelist):
     '''
-    Check that the func path is valid and reasonably secure
+    Check that the class path is valid and reasonably secure
     '''
-    if pipes_whitelist is not None and func_path not in pipes_whitelist:
-        raise Exception("Pipe not in the whitelist: %s" % func_path)
+    if pipes_whitelist is not None and class_path not in pipes_whitelist:
+        raise Exception("Pipe not in the whitelist: %s" % class_path)
 
-    values = func_path.split(".")
-    if " " in func_path or len(values) == 0 or len(values) > 4 or\
+    values = class_path.split(".")
+    if " " in class_path or len(values) == 0 or len(values) > 4 or\
         values[0] != "agora_results" or values[1] != "pipes":
         raise Exception()
 
