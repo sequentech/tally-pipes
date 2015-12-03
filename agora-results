@@ -214,9 +214,9 @@ def main():
     # load config
     if pargs.config is not None:
       with codecs.open(pargs.config, 'r', encoding="utf-8") as f:
-          pipeline_info = json.loads(f.read())
+          pipeline_conf = json.loads(f.read())
     else:
-      pipeline_info = DEFAULT_PIPELINE
+      pipeline_conf = DEFAULT_PIPELINE
 
     # load allowed pipes: Format of the file should simply be: one pipe per line
     if pargs.pipes_whitelist is not None:
@@ -263,7 +263,7 @@ def main():
                     print("Extracted tally %s in %s.." % (tally, extract_dir))
                 data_list.append(dict(extract_dir=extract_dir))
 
-        execute_pipeline(pipeline_info, data_list,
+        execute_pipeline(pipeline_conf, data_list,
                          pipes_whitelist=pipes_whitelist)
         if pargs.stdout and len(data_list) > 0 and 'results' in data_list[0]:
           print_results(data_list[0], pargs.output_format)
@@ -273,7 +273,7 @@ def main():
         if pargs.tar:
             from agora_results.utils.tallies import tar_tallies
             for tally in pargs.tally:
-                tar_tallies(data_list[0], pipeline_info, tally, pargs.tar)
+                tar_tallies(data_list[0], pipeline_conf, tally, pargs.tar)
 
     finally:
         if not pargs.stdout:
