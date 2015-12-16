@@ -7,6 +7,7 @@ from agora_tally.voting_systems.base import BlankVoteException
 from collections import defaultdict
 from pipes.base import Pipe
 from pipes import PipeReturnvalue
+from jsonschema import validate
 
 class do_tallies(Pipe):
         
@@ -20,6 +21,7 @@ class do_tallies(Pipe):
         '''
         TO DO: Aqui usar 'json_scheme' para comprobar que la configuración de config.json para este pipe es correcta.
         Los propiedades que puede recibir son:
+        
             @ignore_invalid_votes : ['True' o 'False' o '']
             @print_as_csv : ['True' o 'False' o '']
             @question_indexes : [List() o '']
@@ -27,6 +29,9 @@ class do_tallies(Pipe):
             @tallies_indexes : [List() o '']
         En caso contrario lanzar una excepción.
         '''
+        schema = {"type":"object","properties":{"ignore_invalid_votes":{"type":"boolean"},"print_as_csv":{"type":"boolean"},"question_indexes":{"type":"array"},"reuse_results":{"type":"boolean"},"tallies_indexes":{"type":"array"}},"required":["ignore_invalid_votes"]};
+ 
+        validate(config, schema);
         
         if len(config) == 0:
             raise Exception("Pipe do_tallies is not correctly configured.")
