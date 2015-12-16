@@ -1,2 +1,2 @@
--e git+https://github.com/agoravoting/openstv.git@next#egg=openstv
--e git+https://github.com/agoravoting/agora-tally.git@next#egg=agora-tally
+-e git+https://github.com/agoravoting/openstv.git@master#egg=openstv
+-e git+https://github.com/agoravoting/agora-tally.git@master#egg=agora-tally
