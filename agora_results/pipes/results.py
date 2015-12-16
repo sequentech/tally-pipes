@@ -116,27 +116,82 @@ class do_tallies(Pipe):
 # END class do_tallies
 
 # Others pipes to convert to class --------------------------
-def to_files(data_list, paths, help=""):
-    i = 0
-    # do not allow strange paths
-    paths = [os.path.basename(path) for path in paths]
+class to_files(Pipe):
+    
+    @staticmethod
+    def check_config(config):
+        '''
+        Implement this method to check that the input data is valid. It should
+        be as strict as possible. By default, config is checked to be empty.
+        '''
 
-    for data in data_list:
-        with open(paths[i], 'w', encoding="utf-8") as f:
-            f.write(json.dumps(data['results'], indent=4, ensure_ascii=False,
-                  sort_keys=True, separators=(',', ': ')))
-        i += 1
-
-def apply_removals(data_list, help=""):
-    data = data_list[0]
-
-    if "removed-candidates" not in data:
-        return
-
-    removed_list = data["removed-candidates"]
-    for qindex, question in enumerate(data['results']['questions']):
-        q_removed = [
-            removed['answer_id']
-            for removed in removed_list
-            if removed['question_index'] == qindex]
-        question['answers'] = [answer for answer in question['answers'] if answer['id'] not in q_removed]
+        '''
+        TO DO: Aqui usar 'json_scheme' para comprobar que la configuración de config.json para este pipe es correcta.
+        Los propiedades que puede recibir son:
+            @paths : [List() o '']
+        En caso contrario lanzar una excepción.
+        '''
+        
+        if len(config) == 0:
+            raise Exception("Pipe do_tallies is not correctly configured.")
+        
+        return True   
+    
+    @staticmethod
+    def execute(data, config):
+        '''
+        Executes the pipe. Should return a PipeReturnValue. "data" is the value
+        that one pipe passes to the other, and config is the specific config of
+        a pipe.
+        '''
+        to_files.to_files(data_list=data, **config)
+        
+        return PipeReturnvalue.CONTINUE
+    
+    @staticmethod
+    def to_files(data_list, paths, help=""):
+        i = 0
+        # do not allow strange paths
+        paths = [os.path.basename(path) for path in paths]
+     
+        for data in data_list:
+            with open(paths[i], 'w', encoding="utf-8") as f:
+                f.write(json.dumps(data['results'], indent=4, ensure_ascii=False,
+                      sort_keys=True, separators=(',', ': ')))
+            i += 1
+            
+class apply_removals(Pipe):
+    
+    @staticmethod
+    def apply_removals(data_list, help=""):
+        data = data_list[0]
+    
+        if "removed-candidates" not in data:
+            return
+    
+        removed_list = data["removed-candidates"]
+        for qindex, question in enumerate(data['results']['questions']):
+            q_removed = [
+                removed['answer_id']
+                for removed in removed_list
+                if removed['question_index'] == qindex]
+            question['answers'] = [answer for answer in question['answers'] if answer['id'] not in q_removed]
+            
+    @staticmethod
+    def check_config(config):
+        
+        if len(config) == 0:
+            raise Exception("Pipe do_tallies is not correctly configured.")
+        
+        return True   
+    
+    @staticmethod
+    def execute(data, config):
+        '''
+        Executes the pipe. Should return a PipeReturnValue. "data" is the value
+        that one pipe passes to the other, and config is the specific config of
+        a pipe.
+        '''
+        apply_removals.apply_removals(data_list=data, **config)
+        
+        return PipeReturnvalue.CONTINUE
