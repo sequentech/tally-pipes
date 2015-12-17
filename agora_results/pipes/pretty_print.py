@@ -2,6 +2,8 @@
 
 import os
 import subprocess
+from agora_results.pipes.base import Pipe
+from agora_results.pipes import PipeReturnvalue
 
 def pretty_print_stv_winners(data_list):
     data = data_list[0]

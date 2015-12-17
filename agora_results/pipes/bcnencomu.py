@@ -1,6 +1,8 @@
 # -*- coding:utf-8 -*-
 
 from collections import defaultdict
+from agora_results.pipes.base import Pipe
+from agora_results.pipes import PipeReturnvalue
 
 def team_count_weight_correction(data_list, original_count_weight, team_count_weight, question_indexes, help=""):
     data = data_list[0]

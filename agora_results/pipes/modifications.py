@@ -3,6 +3,8 @@
 import re
 import os
 import json
+from agora_results.pipes.base import Pipe
+from agora_results.pipes import PipeReturnvalue
 
 def apply_modifications(data_list, modifications=[], help="this-parameter-is-ignored"):
     '''

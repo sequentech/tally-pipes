@@ -9,6 +9,10 @@ import copy
 import types
 from glob import glob
 import agora_tally.tally
+from agora_results.pipes.base import Pipe
+from agora_results.pipes import PipeReturnvalue
+from agora_results.pipes.base import Pipe
+from agora_results.pipes import PipeReturnvalue
 
 def curate_text(text):
     text = text.replace("&#34;", '"')

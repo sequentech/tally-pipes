@@ -5,8 +5,8 @@ import json
 import agora_tally.tally
 from agora_tally.voting_systems.base import BlankVoteException
 from collections import defaultdict
-from pipes.base import Pipe
-from pipes import PipeReturnvalue
+from agora_results.pipes.base import Pipe
+from agora_results.pipes import PipeReturnvalue
 from jsonschema import validate
 
 class do_tallies(Pipe):

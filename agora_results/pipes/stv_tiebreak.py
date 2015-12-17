@@ -6,6 +6,8 @@ import json
 import subprocess
 import agora_tally.tally
 from itertools import groupby, chain
+from agora_results.pipes.base import Pipe
+from agora_results.pipes import PipeReturnvalue
 
 # TODO OUTDATED
 def stv_first_round_tiebreak(data_list):

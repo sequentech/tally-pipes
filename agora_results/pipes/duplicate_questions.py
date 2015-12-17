@@ -5,6 +5,8 @@ import copy
 import shutil
 import glob
 import os
+from agora_results.pipes.base import Pipe
+from agora_results.pipes import PipeReturnvalue
 
 def duplicate_questions(data_list, duplications=[], help="this-parameter-is-ignored"):
     '''

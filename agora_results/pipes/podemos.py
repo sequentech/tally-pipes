@@ -3,8 +3,8 @@
 import json
 from itertools import groupby, chain
 import sys
-from pipes.base import Pipe
-from pipes import PipeReturnvalue
+from agora_results.pipes.base import Pipe
+from agora_results.pipes import PipeReturnvalue
 class podemos_proportion_rounded_and_duplicates(Pipe):
     
     @staticmethod

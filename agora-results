@@ -10,8 +10,8 @@ import shutil
 import tarfile
 import codecs
 import uuid
-from pipes.base import Pipe
-from pipes import PipeReturnvalue
+from agora_results.pipes.base import Pipe
+from agora_results.pipes import PipeReturnvalue
 
 DEFAULT_PIPELINE = [
     [
