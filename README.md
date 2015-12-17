@@ -12,7 +12,7 @@ Just execute this (no stable release yet):
 
     $ mkvirtualenv agora-results -p $(which python3)
     $ workon agora-results
-    $ pip install git+https://github.com/agoravoting/agora-results.git
+    $ pip install git+https://github.com/garridev/agora-results.git@next --process-dependency-links
 
 # Usage
 

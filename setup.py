@@ -24,7 +24,7 @@ setup(
     long_description=open('README.md').read(),
     install_requires=reqs,
     dependency_links = [
-        'git+https://github.com/agoravoting/openstv.git',
-        'git+https://github.com/agoravoting/agora-tally.git'
+        'git+https://github.com/agoravoting/openstv.git@next#egg=openstv-1.7',
+        'git+https://github.com/agoravoting/agora-tally.git@next#egg=agora-tally-0.0.1'
     ]
 )
