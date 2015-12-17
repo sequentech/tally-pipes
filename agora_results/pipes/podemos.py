@@ -5,6 +5,8 @@ from itertools import groupby, chain
 import sys
 from agora_results.pipes.base import Pipe
 from agora_results.pipes import PipeReturnvalue
+from jsonschema import validate
+
 class podemos_proportion_rounded_and_duplicates(Pipe):
     
     @staticmethod
@@ -23,9 +25,12 @@ class podemos_proportion_rounded_and_duplicates(Pipe):
         @withdrawed_candidates=[]
         En caso contrario lanzar una excepción.
         '''
+        schema = {"type":"object", "properties":{"data_list":{"type":"array"}, "women_names":{"type":"array"}, "proportions":{"type":"array"}, "withdrawed_candidates":{"type":"array"}}, "required":["data_list"]};
+ 
+        validate(config, schema);
         
         if len(config) == 0:
-            raise Exception("Pipe do_tallies is not correctly configured.")
+            raise Exception("Pipe podemos_proportion_rounded_and_duplicates is not correctly configured.")
         
         return True 
     
@@ -65,7 +70,7 @@ class podemos_proportion_rounded_and_duplicates(Pipe):
         first_question_winner_is_woman = None
         for question, question_index in zip(questions, range(len(questions))):
             num_winners = question['num_winners']
-            max_samesex = int(num_winners*(proportions[1]/total))
+            max_samesex = int(num_winners * (proportions[1] / total))
             q_withdrawed = [a['id'] for a in withdrawed_candidates if a['question_num'] == question_index]
     
             if question['tally_type'] not in ["plurality-at-large"] or len(question['answers']) < 2 or question['num_winners'] < 2:
@@ -128,11 +133,11 @@ class podemos_proportion_rounded_and_duplicates(Pipe):
     
             winners = base_women_winners + base_men_winners
             if len(base_women_winners) > max_samesex:
-                n_diff =len(base_women_winners) - max_samesex
+                n_diff = len(base_women_winners) - max_samesex
                 winners = base_women_winners[:max_samesex] + men[:num_winners - max_samesex]
                 print("too many women, len(base_women_winners)(%d) > max_samesex(%d)" % (len(base_women_winners), max_samesex), file=sys.stderr)
             elif len(base_men_winners) > max_samesex:
-                n_diff =len(base_men_winners) - max_samesex
+                n_diff = len(base_men_winners) - max_samesex
                 winners = base_men_winners[:max_samesex] + women[:num_winners - max_samesex]
                 print("too many men, len(base_men_winners)(%d) > max_samesex(%d)" % (len(base_men_winners), max_samesex), file=sys.stderr)
     
