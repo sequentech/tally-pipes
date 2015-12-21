@@ -5,6 +5,7 @@ from itertools import groupby, chain
 from operator import itemgetter
 from pipes.base import Pipe
 from pipes import PipeReturnvalue
+from jsonschema import validate
 
 class sort_non_iterative(Pipe):
 
@@ -25,6 +26,9 @@ class sort_non_iterative(Pipe):
             @ties_sorting=[List() o '']
         En caso contrario lanzar una excepción.
         '''
+        schema = {"type":"object","properties":{"question_indexes":{"type":"array"},"withdrawals":{"type":"array"},"ties_sorting":{"type":"array"}},"required":["question_indexes"]};
+        
+        validate(config, schema);
         
         if len(config) == 0:
             raise Exception("Pipe do_tallies is not correctly configured.")
