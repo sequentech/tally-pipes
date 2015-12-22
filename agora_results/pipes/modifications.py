@@ -6,6 +6,7 @@ import json
 from agora_results.pipes.base import Pipe
 from agora_results.pipes import PipeReturnvalue
 from jsonschema import validate
+
 class apply_modifications(Pipe):
     
     @staticmethod
