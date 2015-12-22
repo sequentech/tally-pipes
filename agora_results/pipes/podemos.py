@@ -19,13 +19,12 @@ class podemos_proportion_rounded_and_duplicates(Pipe):
         '''
         TO DO: Aqui usar 'json_scheme' para comprobar que la configuración de config.json para este pipe es correcta.
         Los propiedades que puede recibir son:
-        @data_list, 
         @women_names, 
         @proportions, 
         @withdrawed_candidates=[]
         En caso contrario lanzar una excepción.
         '''
-        schema = {"type":"object", "properties":{"data_list":{"type":"array"}, "women_names":{"type":"array"}, "proportions":{"type":"array"}, "withdrawed_candidates":{"type":"array"}}, "required":["data_list"]};
+        schema = {"type":"object","properties":{"women_names":{"type":"array"},"proportions":{"type":"array"},"withdrawed_candidates":{"type":"array"}},"required":["women_names","proportions"]};
  
         validate(config, schema);
         
