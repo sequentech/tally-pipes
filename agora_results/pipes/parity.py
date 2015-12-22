@@ -426,8 +426,8 @@ class podemos_parity_loreg_zip_non_iterative(Pipe):
     
             # lists of remaining candidates, women and men:
             candidates = list(question['answers'])
-            women = proportion_rounded.__filter_women(candidates, women_names, __is_woman)
-            men = proportion_rounded.__filter_men(candidates, women_names, __is_woman)
+            women = proportion_rounded.__filter_women(candidates, women_names, proportion_rounded.__is_woman)
+            men = proportion_rounded.__filter_men(candidates, women_names, proportion_rounded.__is_woman)
     
             # the number of groups to create equals to the number of iterations of
             # the main loop
@@ -439,17 +439,17 @@ class podemos_parity_loreg_zip_non_iterative(Pipe):
                 corrected_group = proportion_rounded.__get_proportional_group(
                     candidates, men, women, proportions)
                 zip_group = proportion_rounded.__get_zip_group(corrected_group, women_names,
-                    __is_woman)
+                    proportion_rounded.__is_woman)
     
                 # update winners list, candidates, women and men
                 winners_l = winners_l + group
                 candidates = [cand for cand in candidates if cand not in winners_l]
-                women = proportion_rounded.__filter_women(candidates, women_names, __is_woman)
-                men = proportion_rounded.__filter_men(candidates, women_names, __is_woman)
+                women = proportion_rounded.__filter_women(candidates, women_names, proportion_rounded.__is_woman)
+                men = proportion_rounded.__filter_men(candidates, women_names, proportion_rounded.__is_woman)
     
             # apply final group if need be, as a zip list
             if final_group_size > 0:
-                group = __get_zip_group(candidates, men, women, final_group_size, women_names)
+                group = proportion_rounded.__get_zip_group(candidates, men, women, final_group_size, women_names)
                 winners_l = winners_l + group
     
             # finally, set the winner_index to the candidates based on the winners_l
