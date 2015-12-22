@@ -132,6 +132,11 @@ class to_files(Pipe):
         En caso contrario lanzar una excepción.
         '''
         
+        schema = {"type":"object","properties":{"paths":{"type":"array"}},"required":["paths"]};
+        
+        validate(config, schema);
+        
+        
         if len(config) == 0:
             raise Exception("Pipe do_tallies is not correctly configured.")
         
