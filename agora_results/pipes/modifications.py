@@ -17,13 +17,12 @@ class apply_modifications(Pipe):
 
         '''
         TO DO: Aqui usar 'json_scheme' para comprobar que la configuración de config.json para este pipe es correcta.
-        Los propiedades que puede recibir son:
-        @data_list, 
+        Los propiedades que puede recibir son: 
         @modifications=[] 
 
         En caso contrario lanzar una excepción.
         '''
-        schema = {"type":"object", "properties":{"data_list":{"type":"array"}, "modifications":{"type":"array"}}, "required":["data_list"]};
+        schema = {"type":"object","properties":{"modifications":{"type":"array"}},"required":["modifications"]};
  
         validate(config, schema);
         
