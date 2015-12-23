@@ -21,11 +21,6 @@ class pretty_print_stv_winners(Pipe):
 
         En caso contrario lanzar una excepción.
         '''
-
- 
-        
-        if len(config) == 0:
-            raise Exception("Pipe do_tallies is not correctly configured.")
         
         return True   
     

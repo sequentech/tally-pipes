@@ -24,12 +24,7 @@ class stv_first_round_tiebreak(Pipe):
 
         En caso contrario lanzar una excepción.
         '''
-        #schema = {"type":"object","properties":{"question_indexes":{"type":"array"},"withdrawals":{"type":"array"},"ties_sorting":{"type":"array"}},"required":["question_indexes"]};
-        #TENER EN CUENTA QUE SOLO SE PASA POR PARÁMETROS UN DATA_LIST, Y NO SE PRUEBA, POR LO QUE NO TIENE SENTIDO AÑADIR UN CHECK_CONFIG
-        #validate(config, schema);
         
-        if len(config) == 0:
-            raise Exception("Pipe stv_first_round_tiebreak is not correctly configured.")
         
         return True 
     

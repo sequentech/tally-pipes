@@ -28,10 +28,13 @@ class proportion_rounded(Pipe):
             @proportions : 
             @question_indexes:
             @add_missing_from_unbalanced_sex: ['True' o 'False' o '']
-            @proportions : 
             @phantom_precalc_list : [List() o '']
         En caso contrario lanzar una excepción.
         '''
+        
+        schema = {"type":"object","properties":{"women_names":{"type":"array"},"proportions":{"type":"array"},"question_indexes":{"type":"array"},"add_missing_from_unbalanced_sex":{"type":"boolean"},"phantom_precalc_list":{"type":"array"}},"required":["women_names","proportions"]};
+        
+        validate(config, schema);
         
         if len(config) == 0:
             raise Exception("Pipe do_tallies is not correctly configured.")
@@ -247,13 +250,13 @@ class proparity_zip_non_iterative(Pipe):
         Los propiedades que puede recibir son:
         
             @women_names : 
-            @proportions : 
             @question_indexes:
-            @add_missing_from_unbalanced_sex: ['True' o 'False' o '']
-            @proportions : 
-            @phantom_precalc_list : [List() o '']
         En caso contrario lanzar una excepción.
         '''
+        
+        schema = {"type":"object","properties":{"women_names":{"type":"array"},"question_indexes":{"type":"array"}},"required":["women_names"]};
+        
+        validate(config, schema);
         
         if len(config) == 0:
             raise Exception("Pipe do_tallies is not correctly configured.")
@@ -358,6 +361,42 @@ class proparity_zip_non_iterative(Pipe):
                 answer['winner_position'] = get_winner_position(answer, qid)
 
 class podemos_parity_loreg_zip_non_iterative(Pipe):
+    
+    @staticmethod
+    def check_config(config):
+        '''
+        Implement this method to check that the input data is valid. It should
+        be as strict as possible. By default, config is checked to be empty.
+        '''
+
+        '''
+        TO DO: Aqui usar 'json_scheme' para comprobar que la configuración de config.json para este pipe es correcta.
+        Los propiedades que puede recibir son:
+        
+            @question_indexes : 
+            @proportions:
+        En caso contrario lanzar una excepción.
+        '''
+        
+        schema = {"type":"object","properties":{"proportions":{"type":"array"},"question_indexes":{"type":"array"}},"required":["question_indexes"]};
+        
+        validate(config, schema);
+        
+        if len(config) == 0:
+            raise Exception("Pipe do_tallies is not correctly configured.")
+        
+        return True   
+    
+    @staticmethod
+    def execute(data, config):
+        '''
+        Executes the pipe. Should return a PipeReturnValue. "data" is the value
+        that one pipe passes to the other, and config is the specific config of
+        a pipe.
+        '''
+        podemos_parity_loreg_zip_non_iterative.podemos_parity_loreg_zip_non_iterative(data_list=data, **config)
+        
+        return PipeReturnvalue.CONTINUE
     
     @staticmethod
     def podemos_parity_loreg_zip_non_iterative(data_list, question_indexes,
