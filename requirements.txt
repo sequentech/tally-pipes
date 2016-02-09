@@ -1,2 +1,3 @@
--e git+https://github.com/agoravoting/openstv.git@next#egg=openstv
--e git+https://github.com/agoravoting/agora-tally.git@next#egg=agora-tally
+-e git+https://github.com/agoravoting/openstv.git@master#egg=openstv-1.7
+-e git+https://github.com/agoravoting/agora-tally.git@master#egg=agora-tally-0.0.1
+-e git+https://github.com/Julian/jsonschema.git@v2.5.1#egg=jsonschema-2.5.1

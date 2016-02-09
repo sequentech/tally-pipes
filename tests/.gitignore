@@ -1,0 +1,8 @@
+*~
+*.xml
+*.pyc
+target/reports/
+target/dist/
+target/logs/
+*.err
+results

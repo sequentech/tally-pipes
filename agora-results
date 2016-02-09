@@ -10,6 +10,8 @@ import shutil
 import tarfile
 import codecs
 import uuid
+from agora_results.pipes.base import Pipe
+from agora_results.pipes import PipeReturnvalue
 
 DEFAULT_PIPELINE = [
     [
@@ -22,6 +24,33 @@ DEFAULT_PIPELINE = [
         "question_indexes": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
       }
     ]
+]
+
+# By default we only allow the most used pipes to reduce default attack surface
+# NOTE: keep the list sorted
+DEFAULT_PIPES_WHITELIST = [
+    #"agora_results.pipes.duplicate_questions.duplicate_questions",
+    "agora_results.pipes.modifications.apply_modifications",
+    #"agora_results.pipes.multipart.make_multipart",
+    #"agora_results.pipes.multipart.election_max_size_corrections",
+    #"agora_results.pipes.multipart.question_totals_with_corrections",
+    #"agora_results.pipes.multipart.reduce_answers_with_corrections",
+    #"agora_results.pipes.multipart.multipart_tally_plaintexts_append_joiner",
+    #"agora_results.pipes.multipart.data_list_reverse",
+    #"agora_results.pipes.multipart.multipart_tally_plaintexts_joiner",
+    #"agora_results.pipes.multipart.append_ballots",
+    "agora_results.pipes.parity.proportion_rounded",
+    "agora_results.pipes.parity.parity_zip_non_iterative",
+    #"agora_results.pipes.parity.reorder_winners",
+    #"agora_results.pipes.parity.podemos_parity_loreg_zip_non_iterative",
+    #"agora_results.pipes.podemos.podemos_proportion_rounded_and_duplicates",
+    #"agora_results.pipes.pretty_print.pretty_print_stv_winners",
+    "agora_results.pipes.pretty_print.pretty_print_not_iterative",
+    "agora_results.pipes.results.do_tallies",
+    #"agora_results.pipes.results.to_files",
+    #"agora_results.pipes.results.apply_removals",
+    "agora_results.pipes.sort.sort_non_iterative",
+    #"agora_results.pipes.stv_tiebreak.stv_first_round_tiebreak"
 ]
 
 def extract_tally(fpath):
@@ -91,12 +120,15 @@ def print_results(data, output_format):
   elif output_format == "pretty":
       pretty_print(data)
 
-def func_path_sanity_checks(func_path):
+def class_path_sanity_checks(class_path, pipes_whitelist):
     '''
-    Check that the func path is valid and reasonably secure
+    Check that the class path is valid and reasonably secure
     '''
-    values = func_path.split(".")
-    if " " in func_path or len(values) == 0 or len(values) > 4 or\
+    if pipes_whitelist is not None and class_path not in pipes_whitelist:
+        raise Exception("Pipe not in the whitelist: %s" % class_path)
+
+    values = class_path.split(".")
+    if " " in class_path or len(values) == 0 or len(values) > 4 or\
         values[0] != "agora_results" or values[1] != "pipes":
         raise Exception()
 
@@ -104,34 +136,53 @@ def func_path_sanity_checks(func_path):
         if len(val) == 0 or val.startswith("_"):
             raise Exception()
 
-def execute_pipeline(pipeline_info, data_list):
+def check_pipeline_conf(pipeline_conf, name):
     '''
-    Execute a pipeline of options. pipeline_info must be a list of
-    pairs. Each pair contains (pipe_func_path, params), where pipe_func_path is
-    the path to the module and a function name, and params is either
-    None or a dictionary with extra parameters accepted by the function.
+    Check configuration of each pipe
+    '''
+    pipeline_pipes = Pipe.get_pipes(name)
+    for class_path, pipe_conf in pipeline_conf:
+        class_name = class_path.split(".")[-1]
+        pipeline_pipes[class_name].check_config(pipe_conf)
 
-    Pipeline functions must accept always at least one parameter, 'data', which
-    will initially be the data parameter of this function, but each function is
+def register_pipes(pipeline_conf, name):
+    '''
+    Register each pipe on a pipeline
+    '''
+    for class_path, kwargs in pipeline_conf:
+    # get access to the function
+        class_name = class_path.split(".")[-1]
+        module = __import__(
+            ".".join(class_path.split(".")[:-1]), globals(), locals(),
+            [class_name], 0)
+        imported_class = getattr(module, class_name)
+        Pipe.register_pipe(imported_class, name)
+
+def execute_pipeline(pipeline_conf, data_list, name, pipes_whitelist=None):
+    '''
+    Execute a pipeline of options. pipeline_conf must be a list of
+    pairs. Each pair contains (pipe_class_path, params), where pipe_class_path is
+    the path to the module and a class name, and params is either
+    None or a dictionary with extra parameters accepted by the class.
+
+    Method execute of pipeline classes must accept always at least one parameter, 'data', which
+    will initially be the data parameter of this class, but each pipe class is
     allow to modify it as a way to process the data.
 
-    The other parameters of the function will be the "params" specified for
-    that function in 'pipeline_info', which can either be None or a dict, and
+    The other parameters of the method execute will be the "params" specified for
+    that function in 'pipeline_conf', which can either be None or a dict, and
     the format is of your choice as a developer.
-    '''
-    for func_path, kwargs in pipeline_info:
-        # get access to the function
-        func_path_sanity_checks(func_path)
-        func_name = func_path.split(".")[-1]
-        module = __import__(
-            ".".join(func_path.split(".")[:-1]), globals(), locals(),
-            [func_name], 0)
-        fargs = dict(data_list=data_list)
-        if kwargs is not None:
-            fargs.update(kwargs)
-        ret = getattr(module, func_name)(**fargs)
+    '''   
+    valid_pipes = Pipe.get_pipes(name)
 
-    return data_list
+    for class_path, pipe_conf in pipeline_conf:
+        class_path_sanity_checks(class_path, pipes_whitelist)
+        pipe_name = class_path.split(".")[-1]
+        ret = valid_pipes[pipe_name].execute(data=data_list, config=pipe_conf)
+        if ret != PipeReturnvalue.CONTINUE:
+            return ret
+
+    return PipeReturnvalue.CONTINUE
 
 def read_file(path):
     with codecs.open(path, 'r', encoding="utf-8") as f:
@@ -171,6 +222,7 @@ def main():
     parser.add_argument('-t', '--tally', nargs='*', help='tally path', default=[])
     parser.add_argument('-e', '--election-config', nargs='*', help='Instead of specifying a tally, you can specify an json election config and an empty ephemeral tally with zero votes will be created. recommended to use together with the multipart.append_ballots pipe.', default=[])
     parser.add_argument('-x', '--tar',   nargs='?', help='tar tallies output path')
+    parser.add_argument('-p', '--pipes-whitelist', help='path to the file containing the allowed pipes')
     parser.add_argument('-c', '--config', help='config path')
     parser.add_argument('-s', '--stdout', help='print output to stdout',
         action='store_true')
@@ -178,11 +230,20 @@ def main():
         default="json", choices=["json", "csv", "tsv", "pretty", "none"])
     pargs = parser.parse_args()
 
+    # load config
     if pargs.config is not None:
       with codecs.open(pargs.config, 'r', encoding="utf-8") as f:
-          pipeline_info = json.loads(f.read())
+          pipeline_conf = json.loads(f.read())
     else:
-      pipeline_info = DEFAULT_PIPELINE
+      pipeline_conf = DEFAULT_PIPELINE
+
+    # load allowed pipes: Format of the file should simply be: one pipe per line
+    if pargs.pipes_whitelist is not None:
+        with codecs.open(pargs.pipes_whitelist, 'r', encoding="utf-8") as f:
+            pipes_whitelist = [l.strip() for l in f.readlines()]
+    else:
+      pipes_whitelist = DEFAULT_PIPES_WHITELIST
+
     data_list = []
 
     # remove files on abrupt external exit signal
@@ -220,8 +281,12 @@ def main():
                 if not pargs.stdout:
                     print("Extracted tally %s in %s.." % (tally, extract_dir))
                 data_list.append(dict(extract_dir=extract_dir))
-
-        execute_pipeline(pipeline_info, data_list)
+                
+        register_pipes(pipeline_conf, 'register-pipeline') # register pipes necessary                
+        check_pipeline_conf(pipeline_conf, 'register-pipeline') # check pipeline configuration
+        execute_pipeline(pipeline_conf, data_list, 'register-pipeline',
+                         pipes_whitelist=pipes_whitelist) # execute pipeline
+        
         if pargs.stdout and len(data_list) > 0 and 'results' in data_list[0]:
           print_results(data_list[0], pargs.output_format)
         data = ""
@@ -230,7 +295,7 @@ def main():
         if pargs.tar:
             from agora_results.utils.tallies import tar_tallies
             for tally in pargs.tally:
-                tar_tallies(data_list[0], pipeline_info, tally, pargs.tar)
+                tar_tallies(data_list[0], pipeline_conf, tally, pargs.tar)
 
     finally:
         if not pargs.stdout:
