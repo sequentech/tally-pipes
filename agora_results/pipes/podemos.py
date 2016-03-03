@@ -24,7 +24,6 @@ def podemos_proportion_rounded_and_duplicates(data_list, women_names, proportion
         num_winners = question['num_winners']
         max_samesex = int(num_winners*(proportions[1]/total))
         q_withdrawed = [a['id'] for a in withdrawed_candidates if a['question_num'] == question_index]
-
         if question_indexes is not None and question_index not in question_indexes:
             continue
 
