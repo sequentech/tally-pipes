@@ -1,5 +1,20 @@
 # -*- coding:utf-8 -*-
 
+# This file is part of agora-results.
+# Copyright (C) 2014-2016  Agora Voting SL <agora@agoravoting.com>
+
+# agora-results is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License.
+
+# agora-results  is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+
+# You should have received a copy of the GNU Affero General Public License
+# along with agora-results.  If not, see <http://www.gnu.org/licenses/>.
+
 import os
 import copy
 import json
@@ -7,6 +22,7 @@ import subprocess
 import agora_tally.tally
 from itertools import groupby, chain
 
+# TODO OUTDATED
 def stv_first_round_tiebreak(data_list):
     '''
     Tie break algorithm for stv sorting of the winners.
@@ -31,7 +47,7 @@ def stv_first_round_tiebreak(data_list):
             continue
 
         q_winners = []
-        choices = get_choices(data['extract_dir'], tally, question)
+        choices = __get_choices(data['extract_dir'], tally, question)
         for iteration, i in zip(log['iterations'], range(len(log['iterations']))):
             it_winners = [cand for cand in iteration['candidates']
                 if cand['status'] == 'won']
@@ -42,7 +58,7 @@ def stv_first_round_tiebreak(data_list):
             # check if there are repeated counts
             len_set = len(set([i['count'] for i in it_winners]))
             if len_set != len(it_winners) and i == 0:
-                it_winners = stv_first_iteration_tie_break(
+                it_winners = __stv_first_iteration_tie_break(
                     it_winners, iteration, i, data['extract_dir'], question,
                     choices, 1)
             for winner in it_winners:
@@ -50,7 +66,7 @@ def stv_first_round_tiebreak(data_list):
 
         question['winners'] = q_winners
 
-def get_choices(extract_dir, tally, question):
+def __get_choices(extract_dir, tally, question):
     question_num = tally.question_num
     dirs = [os.path.join(extract_dir, d)
             for d in sorted(os.listdir(extract_dir))
@@ -72,7 +88,7 @@ def get_choices(extract_dir, tally, question):
                 print("invalid vote: %s" % line)
     return choices
 
-def stv_first_iteration_tie_break(
+def __stv_first_iteration_tie_break(
         it_winners, iteration, question_num, extract_dir, question, choices,
         break_position=1):
     '''
@@ -123,7 +139,7 @@ def stv_first_iteration_tie_break(
             for tie2 in recursive_ties:
                 if len(tie2) == 1:
                     continue
-                tie2 = stv_first_iteration_tie_break(tie2, iteration,
+                tie2 = __stv_first_iteration_tie_break(tie2, iteration,
                                                     question_num, extract_dir,
                                                     question, choices,
                                                     break_position + 1)

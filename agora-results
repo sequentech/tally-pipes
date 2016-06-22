@@ -1,6 +1,21 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 
+# This file is part of agora-results.
+# Copyright (C) 2014-2016  Agora Voting SL <agora@agoravoting.com>
+
+# agora-results is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License.
+
+# agora-results  is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+
+# You should have received a copy of the GNU Affero General Public License
+# along with agora-results.  If not, see <http://www.gnu.org/licenses/>.
+
 import os
 import signal
 import argparse
@@ -22,6 +37,33 @@ DEFAULT_PIPELINE = [
         "question_indexes": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
       }
     ]
+]
+
+# By default we only allow the most used pipes to reduce default attack surface
+# NOTE: keep the list sorted
+DEFAULT_PIPES_WHITELIST = [
+    #"agora_results.pipes.duplicate_questions.duplicate_questions",
+    "agora_results.pipes.modifications.apply_modifications",
+    #"agora_results.pipes.multipart.make_multipart",
+    #"agora_results.pipes.multipart.election_max_size_corrections",
+    #"agora_results.pipes.multipart.question_totals_with_corrections",
+    #"agora_results.pipes.multipart.reduce_answers_with_corrections",
+    #"agora_results.pipes.multipart.multipart_tally_plaintexts_append_joiner",
+    #"agora_results.pipes.multipart.data_list_reverse",
+    #"agora_results.pipes.multipart.multipart_tally_plaintexts_joiner",
+    #"agora_results.pipes.multipart.append_ballots",
+    "agora_results.pipes.parity.proportion_rounded",
+    "agora_results.pipes.parity.parity_zip_non_iterative",
+    #"agora_results.pipes.parity.reorder_winners",
+    #"agora_results.pipes.parity.podemos_parity_loreg_zip_non_iterative",
+    #"agora_results.pipes.podemos.podemos_proportion_rounded_and_duplicates",
+    #"agora_results.pipes.pretty_print.pretty_print_stv_winners",
+    "agora_results.pipes.pretty_print.pretty_print_not_iterative",
+    "agora_results.pipes.results.do_tallies",
+    #"agora_results.pipes.results.to_files",
+    #"agora_results.pipes.results.apply_removals",
+    "agora_results.pipes.sort.sort_non_iterative",
+    #"agora_results.pipes.stv_tiebreak.stv_first_round_tiebreak"
 ]
 
 def extract_tally(fpath):
@@ -91,10 +133,13 @@ def print_results(data, output_format):
   elif output_format == "pretty":
       pretty_print(data)
 
-def func_path_sanity_checks(func_path):
+def func_path_sanity_checks(func_path, pipes_whitelist):
     '''
     Check that the func path is valid and reasonably secure
     '''
+    if pipes_whitelist is not None and func_path not in pipes_whitelist:
+        raise Exception("Pipe not in the whitelist: %s" % func_path)
+
     values = func_path.split(".")
     if " " in func_path or len(values) == 0 or len(values) > 4 or\
         values[0] != "agora_results" or values[1] != "pipes":
@@ -104,7 +149,7 @@ def func_path_sanity_checks(func_path):
         if len(val) == 0 or val.startswith("_"):
             raise Exception()
 
-def execute_pipeline(pipeline_info, data_list):
+def execute_pipeline(pipeline_info, data_list, pipes_whitelist=None):
     '''
     Execute a pipeline of options. pipeline_info must be a list of
     pairs. Each pair contains (pipe_func_path, params), where pipe_func_path is
@@ -121,7 +166,7 @@ def execute_pipeline(pipeline_info, data_list):
     '''
     for func_path, kwargs in pipeline_info:
         # get access to the function
-        func_path_sanity_checks(func_path)
+        func_path_sanity_checks(func_path, pipes_whitelist)
         func_name = func_path.split(".")[-1]
         module = __import__(
             ".".join(func_path.split(".")[:-1]), globals(), locals(),
@@ -171,6 +216,7 @@ def main():
     parser.add_argument('-t', '--tally', nargs='*', help='tally path', default=[])
     parser.add_argument('-e', '--election-config', nargs='*', help='Instead of specifying a tally, you can specify an json election config and an empty ephemeral tally with zero votes will be created. recommended to use together with the multipart.append_ballots pipe.', default=[])
     parser.add_argument('-x', '--tar',   nargs='?', help='tar tallies output path')
+    parser.add_argument('-p', '--pipes-whitelist', help='path to the file containing the allowed pipes')
     parser.add_argument('-c', '--config', help='config path')
     parser.add_argument('-s', '--stdout', help='print output to stdout',
         action='store_true')
@@ -178,11 +224,20 @@ def main():
         default="json", choices=["json", "csv", "tsv", "pretty", "none"])
     pargs = parser.parse_args()
 
+    # load config
     if pargs.config is not None:
       with codecs.open(pargs.config, 'r', encoding="utf-8") as f:
           pipeline_info = json.loads(f.read())
     else:
       pipeline_info = DEFAULT_PIPELINE
+
+    # load allowed pipes: Format of the file should simply be: one pipe per line
+    if pargs.pipes_whitelist is not None:
+        with codecs.open(pargs.pipes_whitelist, 'r', encoding="utf-8") as f:
+            pipes_whitelist = [l.strip() for l in f.readlines()]
+    else:
+      pipes_whitelist = DEFAULT_PIPES_WHITELIST
+
     data_list = []
 
     # remove files on abrupt external exit signal
@@ -221,7 +276,8 @@ def main():
                     print("Extracted tally %s in %s.." % (tally, extract_dir))
                 data_list.append(dict(extract_dir=extract_dir))
 
-        execute_pipeline(pipeline_info, data_list)
+        execute_pipeline(pipeline_info, data_list,
+                         pipes_whitelist=pipes_whitelist)
         if pargs.stdout and len(data_list) > 0 and 'results' in data_list[0]:
           print_results(data_list[0], pargs.output_format)
         data = ""
