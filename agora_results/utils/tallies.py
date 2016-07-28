@@ -20,10 +20,9 @@ import shutil
 from agora_results.utils.deterministic_tar import deterministic_tar_open, deterministic_tar_add
 
 
-def tar_tallies(data, config, tar, destdir):
-    eid = int(os.path.dirname(tar).split("/")[-1])
+def tar_tallies(data_list, config, tar_list, destdir, eid):
     results_config = json.dumps(config)
-    results = json.dumps(data['results'], indent=4, ensure_ascii=False, sort_keys=True, separators=(',', ': '))
+    results = json.dumps(data_list[0]['results'], indent=4, ensure_ascii=False, sort_keys=True, separators=(',', ': '))
 
     tempdir = tempfile.mkdtemp()
     results_path = os.path.join(tempdir, "%d.results.json" % eid)
@@ -35,8 +34,11 @@ def tar_tallies(data, config, tar, destdir):
     with open(config_path, 'w') as f:
         f.write(results_config)
 
-    paths = [results_path, config_path, tar]
-    arc_names = ["results.json", "config.json", "%d.tar.gz" % eid]
+    paths = [results_path, config_path] + tar_list
+    arc_names = ["results.json", "config.json"] + [
+      for tar2 in tar_list
+      "%d.tar.gz" % int(os.path.dirname(tar2).split("/")[-1])
+    ]
 
     # create tar
     tar_path = os.path.join(destdir, "%d.tar" % eid)

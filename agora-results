@@ -218,6 +218,8 @@ def main():
     parser.add_argument('-x', '--tar',   nargs='?', help='tar tallies output path')
     parser.add_argument('-p', '--pipes-whitelist', help='path to the file containing the allowed pipes')
     parser.add_argument('-c', '--config', help='config path')
+    parser.add_argument('-eid', '--election-id', help='election id')
+
     parser.add_argument('-s', '--stdout', help='print output to stdout',
         action='store_true')
     parser.add_argument('-o', '--output-format', help='select the output format',
@@ -285,8 +287,7 @@ def main():
         # tar tallies
         if pargs.tar:
             from agora_results.utils.tallies import tar_tallies
-            for tally in pargs.tally:
-                tar_tallies(data_list[0], pipeline_info, tally, pargs.tar)
+            tar_tallies(data_list, pipeline_info, pargs.tally, pargs.tar, pargs.eid)
 
     finally:
         if not pargs.stdout:
