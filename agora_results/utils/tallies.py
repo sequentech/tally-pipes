@@ -36,8 +36,8 @@ def tar_tallies(data_list, config, tar_list, destdir, eid):
 
     paths = [results_path, config_path] + tar_list
     arc_names = ["results.json", "config.json"] + [
-      for tar2 in tar_list
       "%d.tar.gz" % int(os.path.dirname(tar2).split("/")[-1])
+      for tar2 in tar_list
     ]
 
     # create tar
