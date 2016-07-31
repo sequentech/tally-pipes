@@ -331,7 +331,7 @@ def main():
                 )
                 with open(fpath, "w") as f:
                   output_func = lambda s: f.write(s + "\n")
-                  print_results(data_list[0], pargs.output_format, output_func)
+                  print_results(data_list[0], res_format, output_func)
 
 
         if pargs.stdout and len(data_list) > 0 and 'results' in data_list[0]:
