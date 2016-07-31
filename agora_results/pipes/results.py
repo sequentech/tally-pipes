@@ -27,10 +27,10 @@ def do_tallies(data_list, ignore_invalid_votes=True, print_as_csv=False,
 
     fprint = print
     monkey_patcher=None
+
     # ballots_fprint is indicated by agora-results to write ballots.csv
     if 'ballots_fprint' in data_list[0]:
-        fprint = print
-          monkey_patcher = __patcher
+        fprint = data_list[0]['ballots_fprint']
 
     def __patcher(tally):
       parse_vote = tally.parse_vote
@@ -45,6 +45,10 @@ def do_tallies(data_list, ignore_invalid_votes=True, print_as_csv=False,
           return vote
 
       tally.parse_vote = parse_vote_f
+
+    # ballots_fprint is indicated by agora-results to write ballots.csv
+    if 'ballots_fprint' in data_list[0]:
+        monkey_patcher = __patcher
 
 
     for dindex, data in enumerate(data_list):
