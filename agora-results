@@ -76,34 +76,34 @@ def extract_tally(fpath):
     tar.close()
     return extract_dir
 
-def print_csv(data, separator):
+def print_csv(data, separator, output_func=print):
     counts = data['results']['questions']
     for question, i in zip(counts, range(len(counts))):
         if question['tally_type'] not in ["plurality-at-large", "borda", "borda-nauru"] or\
            question.get('no-tally', False):
             continue
 
-        print(separator.join(["Question"]))
-        print(separator.join(["Number", "Title"]))
-        print(separator.join([str(i + 1), question['title']]))
-        print(separator*2)
+        output_func(separator.join(["Question"]))
+        output_func(separator.join(["Number", "Title"]))
+        output_func(separator.join([str(i + 1), question['title']]))
+        output_func(separator*2)
 
-        print(separator.join(["Totals"]))
+        output_func(separator.join(["Totals"]))
 
         question_total = (question['totals']['null_votes']
             + question['totals']['blank_votes']
             + question['totals']['valid_votes'])
 
-        print(separator.join(["Total votes", str(question_total)]))
-        print(separator.join(["Blank votes", str(question['totals']['blank_votes'])]))
-        print(separator.join(["Null votes", str(question['totals']['null_votes'])]))
-        print(separator.join(["Valid votes", str(question['totals']['valid_votes'])]))
-        print(separator*2)
+        output_func(separator.join(["Total votes", str(question_total)]))
+        output_func(separator.join(["Blank votes", str(question['totals']['blank_votes'])]))
+        output_func(separator.join(["Null votes", str(question['totals']['null_votes'])]))
+        output_func(separator.join(["Valid votes", str(question['totals']['valid_votes'])]))
+        output_func(separator*2)
 
-        print(separator.join(["Answers"]))
-        print(separator.join(["Id", "Text", "Category", "Total votes", "Winner position"]))
+        output_func(separator.join(["Answers"]))
+        output_func(separator.join(["Id", "Text", "Category", "Total votes", "Winner position"]))
         for answer in question['answers']:
-            print(separator.join([
+            output_func(separator.join([
                 str(answer['id']),
                 answer['text'],
                 answer['category'],
@@ -111,27 +111,27 @@ def print_csv(data, separator):
                 str(answer['winner_position'])]))
 
 
-def pretty_print(data):
+def pretty_print(data, output_func=print):
     from agora_results.pipes.pretty_print import pretty_print_not_iterative
-    pretty_print_not_iterative([data])
+    pretty_print_not_iterative([data], output_func=output_func)
 
-def print_results(data, output_format):
+def print_results(data, output_format, output_func=print):
   '''
   print results in the specified output format
   '''
   if output_format == "json":
-    print(json.dumps(
+    output_func(json.dumps(
         data['results'],
         indent=4,
         ensure_ascii=False,
         sort_keys=True,
         separators=(',', ': ')))
   elif output_format == "csv":
-      print_csv(data, separator=",")
+      print_csv(data, separator=",", output_func=output_func)
   elif output_format == "tsv":
-      print_csv(data, separator="\t")
+      print_csv(data, separator="\t", output_func=output_func)
   elif output_format == "pretty":
-      pretty_print(data)
+      pretty_print(data, output_func=output_func)
 
 def func_path_sanity_checks(func_path, pipes_whitelist):
     '''
@@ -278,16 +278,55 @@ def main():
                     print("Extracted tally %s in %s.." % (tally, extract_dir))
                 data_list.append(dict(extract_dir=extract_dir))
 
+        # tar tallies generates a tar file containing everything related to
+        # the results. It also creates a randomly named subdirectory with
+        # all the exportable data.
+        if pargs.tar and len(data_list) > 0 and 'results' in data_list[0]:
+            from uuid import uuid4
+            priv_results_uuid = str(uuid4())
+            priv_results_dirname = "priv-results-%s" % priv_results_uuid
+            priv_results_path = os.path.join(pargs.tar, priv_results_dirname)
+            data_list[0]['results']['results_dirname'] = priv_results_dirname
+
+            # create the priv results
+            os.mkdir(priv_results_path)
+
+            ballots_path = os.path.join(priv_results_path, "ballots.csv")
+            ballots_file = open(ballots_path, "w")
+            # this indicates do_tallies to dump the ballots
+            data_list[0]['ballots_fprint'] = lambda s: f.write(s + "\n")
+
         execute_pipeline(pipeline_info, data_list,
                          pipes_whitelist=pipes_whitelist)
-        if pargs.stdout and len(data_list) > 0 and 'results' in data_list[0]:
-          print_results(data_list[0], pargs.output_format)
-        data = ""
 
-        # tar tallies
-        if pargs.tar:
+        # tar tallies generates a tar file containing everything related to
+        # the results. It also creates a randomly named subdirectory with
+        # all the exportable data.
+        if pargs.tar and len(data_list) > 0 and 'results' in data_list[0]:
+            ballots_file.close()
             from agora_results.utils.tallies import tar_tallies
             tar_tallies(data_list, pipeline_info, pargs.tally, pargs.tar, pargs.election_id)
+
+            # if there's any existing priv_results_path, remove it
+            existing_priv_results = glob(os.path.join(pargs.tar, "priv-results-*"))
+            if len(existing_priv_results) > 0:
+                for existing_priv_result in existing_priv_results:
+                    shutil.rmtree(existing_priv_result)
+
+            # dump the results in CSV,JSON and PRETTY format in the
+            # priv-results dir
+            for res_format in ['csv', 'tsv', 'json']:
+                fpath = os.path.join(
+                    priv_results_path,
+                    "%d.%s" % (pargs.election_id, res_format)
+                )
+                with open(fpath, "w") as f:
+                  output_func = lambda s: f.write(s + "\n")
+                  print_results(data_list[0], pargs.output_format, output_func)
+
+
+        if pargs.stdout and len(data_list) > 0 and 'results' in data_list[0]:
+          print_results(data_list[0], pargs.output_format)
 
     finally:
         if not pargs.stdout:

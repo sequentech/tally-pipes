@@ -18,15 +18,15 @@
 import os
 import subprocess
 
-def pretty_print_stv_winners(data_list):
+def pretty_print_stv_winners(data_list, output_func=print):
     data = data_list[0]
     counts = data['results']['questions']
-    print("Total votes: %d\n", data['results']['total_votes'])
+    output_func("Total votes: %d\n", data['results']['total_votes'])
     for question, i in zip(counts, range(len(counts))):
         if "stv" not in question['tally_type']:
             continue
 
-        print("Q: %s\n" % question['title'])
+        output_func("Q: %s\n" % question['title'])
         winners = [answer for answer in question['answers']
             if answer['winner_position'] != None]
         question['answers'].sort(key=itemgetter('winner_position'))
@@ -34,10 +34,10 @@ def pretty_print_stv_winners(data_list):
         i = 0
         for answer in question['answers']:
             if answer['winner_position'] != None:
-                print("%d. %s" % (i+1, winner))
+                output_func("%d. %s" % (i+1, winner))
                 i += 1
 
-def __pretty_print_base(data, mark_winners, show_percent, filter_names):
+def __pretty_print_base(data, mark_winners, show_percent, filter_names, output_func=print):
     '''
     percent_base:
       "total" total of the votes, the default
@@ -53,7 +53,7 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_names):
     for question, i in zip(counts, range(len(counts))):
         if question['tally_type'] not in filter_names or question.get('no-tally', False):
             continue
-        print("\n\nQ: %s\n" % question['title'])
+        output_func("\n\nQ: %s\n" % question['title'])
 
         blank_votes = question['totals']['blank_votes']
         null_votes = question['totals']['null_votes']
@@ -68,19 +68,19 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_names):
           base_num = question['totals']['valid_votes']
 
 
-        print("Total votes: %d" % total_votes)
-        print("Blank votes: %d (%0.2f%%)" % (
+        output_func("Total votes: %d" % total_votes)
+        output_func("Blank votes: %d (%0.2f%%)" % (
             blank_votes,
             get_percentage(blank_votes, total_votes)))
 
-        print("Null votes: %d (%0.2f%%)" % (
+        output_func("Null votes: %d (%0.2f%%)" % (
             null_votes,
             get_percentage(null_votes, total_votes)))
 
-        print("Total valid votes (votes to options): %d (%0.2f%%)" % (
+        output_func("Total valid votes (votes to options): %d (%0.2f%%)" % (
             valid_votes,
             get_percentage(valid_votes, total_votes)))
-        print("\nOptions (percentages over %s, %d winners):" % (percent_base, question['num_winners']))
+        output_func("\nOptions (percentages over %s, %d winners):" % (percent_base, question['num_winners']))
 
         if mark_winners:
             i = 1
@@ -88,12 +88,12 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_names):
                 if answer['winner_position'] != None]
             for answer in winners:
                 if not show_percent:
-                    print("%d. %s (%0.2f votes)" % (
+                    output_func("%d. %s (%0.2f votes)" % (
                         i,
                         answer['text'],
                         answer['total_count']))
                 else:
-                    print("%d. %s (%0.2f votes, %0.2f%%)" % (
+                    output_func("%d. %s (%0.2f votes, %0.2f%%)" % (
                         i,
                         answer['text'],
                         answer['total_count'],
@@ -106,11 +106,11 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_names):
 
             for loser in losers:
                 if not show_percent:
-                    print("N. %s (%0.2f votes)" % (
+                    output_func("N. %s (%0.2f votes)" % (
                         loser['text'],
                         loser['total_count']))
                 else:
-                    print("N. %s (%0.2f votes, %0.2f%%)" % (
+                    output_func("N. %s (%0.2f votes, %0.2f%%)" % (
                         loser['text'],
                         loser['total_count'],
                         get_percentage(loser['total_count'], base_num)))
@@ -120,17 +120,18 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_names):
 
             for i, answer in zip(range(len(answers)), answers):
                 if not show_percent:
-                    print("%d. %s (%0.2f votes)" % (
+                    output_func("%d. %s (%0.2f votes)" % (
                         i + 1, answer['text'],
                         answer['total_count']))
                 else:
-                    print("%d. %s (%0.2f votes, %0.2f%%)" % (
+                    output_func("%d. %s (%0.2f votes, %0.2f%%)" % (
                         i + 1, answer['text'],
                         answer['total_count'],
                         get_percentage(answer['total_count'], base_num)))
-    print("")
+    output_func("")
 
-def pretty_print_not_iterative(data_list, mark_winners=True):
+def pretty_print_not_iterative(data_list, mark_winners=True, output_func=print):
     data = data_list[0]
     __pretty_print_base(data, mark_winners, show_percent=True,
-        filter_names=["plurality-at-large", "borda-nauru", "borda", "pairwise-beta", "cup"])
+        filter_names=["plurality-at-large", "borda-nauru", "borda", "pairwise-beta", "cup"],
+        output_func=output_func)
