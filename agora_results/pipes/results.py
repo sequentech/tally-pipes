@@ -36,12 +36,23 @@ def do_tallies(data_list, ignore_invalid_votes=True, print_as_csv=False,
       parse_vote = tally.parse_vote
 
       def parse_vote_f(number, question, q_withdrawals):
+          exception = None
+          to_str = [str(tally.question_num)]
+
           try:
               vote = parse_vote(number, question, q_withdrawals)
-          except BlankVoteException as blank:
+              to_str += ["\"%d. %s\"" % (i, question['answers'][i]['text']) for i in vote]
+          except BlankVoteException as e:
+              exception = e
               vote = []
-          to_str = [str(tally.question_num)] + ["\"%d. %s\"" % (i, question['answers'][i]['text']) for i in vote]
+              to_str += ["BLANK_VOTE"]
+          except Exception as e:
+              exception = e
+              to_str += ["NULL_VOTE"]
           fprint(",".join(to_str))
+
+          if exception is not None:
+              raise exception
           return vote
 
       tally.parse_vote = parse_vote_f
