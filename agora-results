@@ -306,7 +306,7 @@ def main():
             ballots_path = os.path.join(priv_results_path, "ballots.csv")
             ballots_file = open(ballots_path, "w")
             # this indicates do_tallies to dump the ballots
-            data_list[0]['ballots_fprint'] = lambda s: f.write(s + "\n")
+            data_list[0]['ballots_fprint'] = lambda s: ballots_file.write(s + "\n")
 
         execute_pipeline(pipeline_info, data_list,
                          pipes_whitelist=pipes_whitelist)
