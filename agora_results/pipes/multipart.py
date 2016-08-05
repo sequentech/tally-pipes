@@ -182,7 +182,7 @@ def multipart_tally_plaintexts_append_joiner(data_list, dst_election_id,
 
     dst_plaintexts_path = glob(os.path.join(
           data_list[dst_election_id]['extract_dir'],
-          "%d*" % question_num, "plaintexts_json"))[0]
+          "%d-*" % question_num, "plaintexts_json"))[0]
 
     with codecs.open(dst_plaintexts_path, encoding='utf-8', mode='a') as final_plaintexts:
         # open the plaintexts file from other tallies, and convert each ballot
@@ -193,7 +193,7 @@ def multipart_tally_plaintexts_append_joiner(data_list, dst_election_id,
 
             src_question = data['questions'][question_num]
             plaintexts_path = glob(os.path.join(
-                  data['extract_dir'], "%d*" % question_num, "plaintexts_json"))[0]
+                  data['extract_dir'], "%d-*" % question_num, "plaintexts_json"))[0]
             with codecs.open(plaintexts_path, encoding='utf-8', mode='r') as plaintexts:
                 for line in plaintexts.readlines():
                     final_plaintexts.write(line)
@@ -420,14 +420,14 @@ def multipart_tally_plaintexts_joiner(data_list, mappings, silent=False,
         # open last_tally plaintexts file, only used for "append-only", adding
         # more ballots at the end of the file from the other tallies
         last_plaintexts_path = glob(os.path.join(
-              last_data['extract_dir'], "%d*" % qindex, "plaintexts_json"))[0]
+              last_data['extract_dir'], "%d-*" % qindex, "plaintexts_json"))[0]
         with codecs.open(last_plaintexts_path, encoding='utf-8', mode='a') as final_plaintexts:
             # open the plaintexts file from other tallies, and convert each ballot
             # and append it to the last_tally plaintexts file
             for dindex, data in enumerate(data_list[:-1]):
                 src_question = data['questions'][qindex]
                 plaintexts_path = glob(os.path.join(
-                      data['extract_dir'], "%d*" % qindex, "plaintexts_json"))[0]
+                      data['extract_dir'], "%d-*" % qindex, "plaintexts_json"))[0]
                 with codecs.open(plaintexts_path, encoding='utf-8', mode='r') as plaintexts:
                     for line in plaintexts.readlines():
                         try:
@@ -520,7 +520,7 @@ def append_ballots(data_list, ballots, dst_election_id=0,
 
     dst_plaintexts_path = glob(os.path.join(
           data_list[dst_election_id]['extract_dir'],
-          "%d*" % question_num, "plaintexts_json"))[0]
+          "%d-*" % question_num, "plaintexts_json"))[0]
 
     with codecs.open(dst_plaintexts_path, encoding='utf-8', mode='a') as final_plaintexts:
           for ballot in parsed_ballots:
