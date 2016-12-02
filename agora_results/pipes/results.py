@@ -21,23 +21,47 @@ import agora_tally.tally
 from agora_tally.voting_systems.base import BlankVoteException
 from collections import defaultdict
 
-def __patcher(tally):
-    parse_vote = tally.parse_vote
-
-    def parse_vote_f(number, question, q_withdrawals):
-        try:
-            vote = parse_vote(number, question, q_withdrawals)
-        except BlankVoteException as blank:
-            vote = []
-        to_str = [str(tally.question_num)] + ["\"%d. %s\"" % (i, question['answers'][i]['text']) for i in vote]
-        print(",".join(to_str))
-        return vote
-
-    tally.parse_vote = parse_vote_f
-
 def do_tallies(data_list, ignore_invalid_votes=True, print_as_csv=False,
                question_indexes=None, reuse_results=False,
                extra_args=defaultdict(), tallies_indexes=None, help=""):
+
+    fprint = print
+    monkey_patcher=None
+
+    # ballots_fprint is indicated by agora-results to write ballots.csv
+    if 'ballots_fprint' in data_list[0]:
+        fprint = data_list[0]['ballots_fprint']
+
+    def __patcher(tally):
+      parse_vote = tally.parse_vote
+
+      def parse_vote_f(number, question, q_withdrawals):
+          exception = None
+          to_str = [str(tally.question_num)]
+
+          try:
+              vote = parse_vote(number, question, q_withdrawals)
+              to_str += ["\"%d. %s\"" % (i, question['answers'][i]['text']) for i in vote]
+          except BlankVoteException as e:
+              exception = e
+              vote = []
+              to_str += ["BLANK_VOTE"]
+          except Exception as e:
+              exception = e
+              to_str += ["NULL_VOTE"]
+          fprint(",".join(to_str))
+
+          if exception is not None:
+              raise exception
+          return vote
+
+      tally.parse_vote = parse_vote_f
+
+    # ballots_fprint is indicated by agora-results to write ballots.csv
+    if 'ballots_fprint' in data_list[0]:
+        monkey_patcher = __patcher
+
+
     for dindex, data in enumerate(data_list):
       if tallies_indexes is not None and dindex not in tallies_indexes:
           continue
@@ -55,8 +79,7 @@ def do_tallies(data_list, ignore_invalid_votes=True, print_as_csv=False,
               f = data['size_corrections_apply_to_question']
               f(question, data['size_corrections'])
 
-      monkey_patcher=None
-      if print_as_csv:
+      if print_as_csv and monkey_patcher is None:
           monkey_patcher = __patcher
 
       withdrawals = []
