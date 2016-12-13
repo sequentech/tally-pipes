@@ -17,6 +17,10 @@
 
 import os
 import subprocess
+from reportlab.lib import colors
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
+from reportlab.lib.enums import TA_RIGHT
 
 def pretty_print_stv_winners(data_list, output_func=print):
     data = data_list[0]
@@ -129,6 +133,44 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_names, output_f
                         answer['total_count'],
                         get_percentage(answer['total_count'], base_num)))
     output_func("")
+
+def gen_text(text, size=None, bold=False, align=None, color='black', fontName=None):
+    if not isinstance(text, str):
+        text = text.__str__()
+    p = ParagraphStyle('test')
+    if fontName:
+        p.fontName = fontName
+    if size:
+        p.fontSize = size
+        p.leading = size * 1.2
+    if bold:
+        text = '<b>%s</b>' % text
+    p.textColor = color
+    if align:
+        p.alignment = align
+    return Paragraph(text, p)
+
+def pdf_print(data, config_folder, election_id):
+
+    function read_file(filepath):
+        with open(epath, mode='r', encoding="utf-8", errors='strict') as f:
+            return json.loads(f.read())
+
+    config_path = os.path.join(config_folder, "%s.config.json" % election_id)
+    jsonconfig = read_file(config_path)
+
+    pdf_path = os.path.join(config_folder, "%s.results.pdf" % election_id)
+    styleSheet = getSampleStyleSheet()
+    doc = SimpleDocTemplate(pdf_path, rightMargin=30,leftMargin=30, topMargin=30,bottomMargin=18)
+    elements = []
+    tx_title = 'Resultados del escrutinio de la votación %d'
+    tx_description = 'A continunación se detallan, pregunta por pregunta, los resultados de la votación %d titulada <u>"%s"</u> realizada con <font color="blue"><u><a href ="https://www.nvotes.com">nVotes</a></u></font>, que una vez publicados podrán ser verificados en su <font color="blue"><u><a href ="%s">página pública de votación</a></u></font>.'
+    tx_question_title = 'Pregunta %d: %s'
+    elements.append(gen_text("nVotes", size=16, bold=True, color = "#374859", align = TA_RIGHT))
+    elements.append(Spacer(0, 15))
+    elements.append(gen_text(tx_title % election_id, size=12, align = TA_LEFT))
+    elements.append(gen_text(tx_description % (election_id, jsonconfig['payload']['configuration']['title'], 'https://url/publica'), size=12, align = TA_LEFT))
+    doc.build(elements)
 
 def pretty_print_not_iterative(data_list, mark_winners=True, output_func=print):
     data = data_list[0]

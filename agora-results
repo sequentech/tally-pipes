@@ -110,28 +110,30 @@ def print_csv(data, separator, output_func=print):
                 str(answer['total_count']),
                 str(answer['winner_position'])]))
 
-
 def pretty_print(data, output_func=print):
     from agora_results.pipes.pretty_print import pretty_print_not_iterative
     pretty_print_not_iterative([data], output_func=output_func)
 
-def print_results(data, output_format, output_func=print):
+def print_results(data, output_format, output_func=print, election_config=None, election_id=None):
   '''
   print results in the specified output format
   '''
-  if output_format == "json":
+  if "json" == output_format:
     output_func(json.dumps(
         data['results'],
         indent=4,
         ensure_ascii=False,
         sort_keys=True,
         separators=(',', ': ')))
-  elif output_format == "csv":
+  elif "csv" == output_format:
       print_csv(data, separator=",", output_func=output_func)
-  elif output_format == "tsv":
+  elif "tsv" == output_format:
       print_csv(data, separator="\t", output_func=output_func)
-  elif output_format == "pretty":
+  elif "pretty" == output_format:
       pretty_print(data, output_func=output_func)
+  elif "pdf" == output_format:
+      from agora_results.pipes.pretty_print import pdf_print
+      pdf_print(data, election_config, election_id)
 
 def func_path_sanity_checks(func_path, pipes_whitelist):
     '''
@@ -331,11 +333,11 @@ def main():
                 )
                 with open(fpath, "w") as f:
                   output_func = lambda s: f.write(s + "\n")
-                  print_results(data_list[0], res_format, output_func)
+                  print_results(data_list[0], res_format, output_func, election_config=pargs.election_config, election_id=pargs.election_id)
 
 
         if pargs.stdout and len(data_list) > 0 and 'results' in data_list[0]:
-          print_results(data_list[0], pargs.output_format)
+          print_results(data_list[0], pargs.output_format, print, election_config=pargs.election_config, election_id=pargs.election_id)
 
     finally:
         if not pargs.stdout:
