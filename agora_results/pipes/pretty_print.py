@@ -274,7 +274,7 @@ def pdf_print(election_results, config_folder, election_id):
             gen_text("%d (%0.2f%% sobre el número total de votos)" % (valid_votes, get_percentage(valid_votes, total_votes)), align = TA_LEFT)
           ],
           [
-            gen_text('Fecha de inicio del período de recuento', align = TA_RIGHT).
+            gen_text('Fecha de inicio del período de recuento', align = TA_RIGHT),
             gen_text(str(datetime.strptime(jsonconfig['payload']['configuration']['start_date'], '%Y-%m-%dT%H:%M:%S.%f')), align = TA_LEFT)
           ],
           [
