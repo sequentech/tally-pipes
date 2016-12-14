@@ -225,7 +225,7 @@ def main():
     parser.add_argument('-s', '--stdout', help='print output to stdout',
         action='store_true')
     parser.add_argument('-o', '--output-format', help='select the output format',
-        default="json", choices=["json", "csv", "tsv", "pretty", "none"])
+        default="json", choices=["json", "csv", "tsv", "pretty", "none", "pdf"])
     pargs = parser.parse_args()
 
     # load config
@@ -313,10 +313,13 @@ def main():
         execute_pipeline(pipeline_info, data_list,
                          pipes_whitelist=pipes_whitelist)
 
+        config_folder = ''
+        if pargs.config is not None:
+            config_folder = os.path.dirname(pargs.config)
+
         # tar tallies generates a tar file containing everything related to
         # the results. It also creates a randomly named subdirectory with
         # all the exportable data.
-
         if ballots_file:
             ballots_file.close()
         if pargs.tar and len(data_list) > 0 and 'results' in data_list[0]:
@@ -333,11 +336,11 @@ def main():
                 )
                 with open(fpath, "w") as f:
                   output_func = lambda s: f.write(s + "\n")
-                  print_results(data_list[0], res_format, output_func, election_config=pargs.election_config, election_id=pargs.election_id)
+                  print_results(data_list[0], res_format, output_func, election_config=config_folder, election_id=pargs.election_id)
 
 
         if pargs.stdout and len(data_list) > 0 and 'results' in data_list[0]:
-          print_results(data_list[0], pargs.output_format, print, election_config=pargs.election_config, election_id=pargs.election_id)
+          print_results(data_list[0], pargs.output_format, print, election_config=config_folder, election_id=pargs.election_id)
 
     finally:
         if not pargs.stdout:

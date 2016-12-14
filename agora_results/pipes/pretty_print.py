@@ -17,10 +17,11 @@
 
 import os
 import subprocess
+import json
 from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
-from reportlab.lib.enums import TA_RIGHT
+from reportlab.lib.enums import TA_RIGHT, TA_LEFT
 
 def pretty_print_stv_winners(data_list, output_func=print):
     data = data_list[0]
@@ -151,13 +152,12 @@ def gen_text(text, size=None, bold=False, align=None, color='black', fontName=No
     return Paragraph(text, p)
 
 def pdf_print(data, config_folder, election_id):
-
-    function read_file(filepath):
-        with open(epath, mode='r', encoding="utf-8", errors='strict') as f:
+    def read_jsonfile(filepath):
+        with open(filepath, mode='r', encoding="utf-8", errors='strict') as f:
             return json.loads(f.read())
 
     config_path = os.path.join(config_folder, "%s.config.json" % election_id)
-    jsonconfig = read_file(config_path)
+    jsonconfig = read_jsonfile(config_path)
 
     pdf_path = os.path.join(config_folder, "%s.results.pdf" % election_id)
     styleSheet = getSampleStyleSheet()
