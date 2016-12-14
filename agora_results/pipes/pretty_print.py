@@ -185,7 +185,7 @@ def pdf_print(election_results, config_folder, election_id):
       else:
         return num*100.0/base
 
-    counts = data['results']['questions']
+    counts = election_results['results']['questions']
     for question, i in zip(counts, range(len(counts))):
     #for question in jsonconfig['payload']['configuration']['questions']:
 
@@ -233,11 +233,11 @@ def pdf_print(election_results, config_folder, election_id):
           [
             gen_text('Las opciones aparecen en la cabina de votación en orden aleatorio', align = TA_RIGHT), 
             gen_text('Sí' if 'shuffle_all_options' in question['extra_options'] and question['extra_options']['shuffle_all_options'] else 'No', align = TA_LEFT)
-          ],
-          [
-            gen_text('Configuración adicional del recuento', align = TA_RIGHT),
-            gen_text('', align = TA_LEFT)
-          ]
+          ]#,
+          #[
+            #gen_text('Configuración adicional del recuento', align = TA_RIGHT),
+            #gen_text('', align = TA_LEFT)
+          #]
         ]
         table_style = TableStyle([('BACKGROUND',(0,0),(0,-1),'#efefef'),
                                   ('INNERGRID', (0,0), (-1,-1), 0.5, colors.grey),
@@ -274,16 +274,16 @@ def pdf_print(election_results, config_folder, election_id):
             gen_text("%d (%0.2f%% sobre el número total de votos)" % (valid_votes, get_percentage(valid_votes, total_votes)), align = TA_LEFT)
           ],
           [
-            'Fecha de inicio del período de recuento',
-            str(datetime.strptime(jsonconfig['payload']['configuration']['start_date'], '%Y-%m-%dT%H:%M:%S.%f')
+            gen_text('Fecha de inicio del período de recuento', align = TA_RIGHT).
+            gen_text(str(datetime.strptime(jsonconfig['payload']['configuration']['start_date'], '%Y-%m-%dT%H:%M:%S.%f')), align = TA_LEFT)
           ],
           [
-            'Fecha de fin del período de recuento',
-            str(datetime.strptime(jsonconfig['payload']['configuration']['end_date'], '%Y-%m-%dT%H:%M:%S.%f')
+            gen_text('Fecha de fin del período de recuento', align = TA_RIGHT),
+            gen_text(str(datetime.strptime(jsonconfig['payload']['configuration']['end_date'], '%Y-%m-%dT%H:%M:%S.%f')), align = TA_LEFT)
           ],
           [
-            'Fecha de finalización del escrutinio',
-            str(datetime.strptime(jsonconfig['date'], '%Y-%d-%m %H:%M:%S.%f')
+            gen_text('Fecha de finalización del escrutinio', align = TA_RIGHT),
+            gen_text(str(datetime.strptime(jsonconfig['date'], '%Y-%m-%d %H:%M:%S.%f')), align = TA_LEFT)
           ]
         ]
         table_style = TableStyle([('BACKGROUND',(0,0),(0,-1),'#efefef'),
@@ -322,7 +322,7 @@ def pdf_print(election_results, config_folder, election_id):
               [
                 gen_text(answer['text'], bold = True, align = TA_RIGHT),
                 gen_text('%d (%0.2f%%)' % (answer['total_count'], get_percentage(answer['total_count'], base_num)), bold = True, align = TA_CENTER),
-                gen_text(str(answer['winner_position']), bold = True, align = TA_LEFT)
+                gen_text('%dº' % ( answer['winner_position'] + 1 ), bold = True, align = TA_LEFT)
               ]
             )
         for answer in losers:
