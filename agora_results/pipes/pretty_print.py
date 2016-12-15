@@ -182,6 +182,7 @@ def pdf_print(election_results, config_folder, election_id):
     elements.append(Spacer(0, 15))
     elements.append(gen_text(tx_description % (election_id, jsonconfig['payload']['configuration']['title']), size=12, align = TA_LEFT))
     elements.append(Spacer(0, 15))
+    doc.title = tx_title % (election_id, jsonconfig['payload']['configuration']['title'])
 
     '''
     percent_base:
