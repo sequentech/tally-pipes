@@ -133,7 +133,10 @@ def print_results(data, output_format, output_func=print, election_config=None, 
       pretty_print(data, output_func=output_func)
   elif "pdf" == output_format:
       from agora_results.pipes.pretty_print import pdf_print
-      pdf_print(data, election_config, election_id)
+      try:
+          pdf_print(data, election_config, election_id)
+      except Exception:
+          pass
 
 def func_path_sanity_checks(func_path, pipes_whitelist):
     '''
@@ -329,7 +332,7 @@ def main():
 
             # dump the results in CSV,JSON and PRETTY format in the
             # priv-results dir
-            for res_format in ['csv', 'json', 'pretty']:
+            for res_format in ['csv', 'json', 'pretty', 'pdf']:
                 fpath = os.path.join(
                     priv_results_path,
                     "%d.results.%s" % (pargs.election_id, res_format)
@@ -338,8 +341,7 @@ def main():
                   output_func = lambda s: f.write(s + "\n")
                   print_results(data_list[0], res_format, output_func, election_config=config_folder, election_id=pargs.election_id)
 
-
-        if pargs.stdout and len(data_list) > 0 and 'results' in data_list[0]:
+        if (pargs.stdout or (pargs.output_format and 'pdf' == pargs.output_format)) and len(data_list) > 0 and 'results' in data_list[0]:
           print_results(data_list[0], pargs.output_format, print, election_config=config_folder, election_id=pargs.election_id)
 
     finally:

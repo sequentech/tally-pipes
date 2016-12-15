@@ -164,12 +164,12 @@ def pdf_print(election_results, config_folder, election_id):
     styleSheet = getSampleStyleSheet()
     doc = SimpleDocTemplate(pdf_path, rightMargin=30,leftMargin=30, topMargin=30,bottomMargin=18)
     elements = []
-    tx_title = 'Resultados del escrutinio de la votación %d'
-    tx_description = 'A continunación se detallan, pregunta por pregunta, los resultados de la votación %d titulada <u>"%s"</u> realizada con <font color="blue"><u><a href ="https://www.nvotes.com">nVotes</a></u></font>, que una vez publicados podrán ser verificados en su <font color="blue"><u><a href ="%s">página pública de votación</a></u></font>.'
+    tx_title = 'Resultados del escrutinio de la votación %d - %s'
+    tx_description = 'A continuación se detallan, pregunta por pregunta, los resultados de la votación %d titulada <u>"%s"</u> realizada con <font color="blue"><u><a href ="https://www.nvotes.com">nVotes</a></u></font>, que una vez publicados podrán ser verificados en su página pública de votación.'
     tx_question_title = 'Pregunta %d: %s'
     elements.append(gen_text("nVotes", size=16, bold=True, color = "#374859", align = TA_RIGHT))
     elements.append(Spacer(0, 15))
-    elements.append(gen_text(tx_title % election_id, size=15, bold=True, align = TA_LEFT))
+    elements.append(gen_text(tx_title % (election_id, jsonconfig['payload']['configuration']['title']), size=20, bold=True, align = TA_LEFT))
     elements.append(Spacer(0, 15))
     elements.append(gen_text(tx_description % (election_id, jsonconfig['payload']['configuration']['title'], 'https://url/publica'), size=12, align = TA_LEFT))
     elements.append(Spacer(0, 15))
@@ -202,6 +202,7 @@ def pdf_print(election_results, config_folder, election_id):
           base_num = question['totals']['valid_votes']
 
         elements.append(gen_text(tx_question_title % (i+1, question['title']), size = 15, bold = True, align = TA_LEFT))
+        elements.append(Spacer(0, 15))
         t = Table([[gen_text('Datos de configuración', align=TA_CENTER)]])
         table_style = TableStyle([('BACKGROUND',(0,0),(-1,-1),'#b6d7a8'),
                                   ('BOX', (0,0), (-1,-1), 0.5, colors.grey)])
