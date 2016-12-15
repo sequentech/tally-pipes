@@ -339,7 +339,7 @@ def main():
                 )
                 with open(fpath, "w") as f:
                   output_func = lambda s: f.write(s + "\n")
-                  print_results(data_list[0], res_format, output_func, election_config=config_folder, election_id=pargs.election_id)
+                  print_results(data_list[0], res_format, output_func, election_config=priv_results_path, election_id=pargs.election_id)
 
         if (pargs.stdout or (pargs.output_format and 'pdf' == pargs.output_format)) and len(data_list) > 0 and 'results' in data_list[0]:
           print_results(data_list[0], pargs.output_format, print, election_config=config_folder, election_id=pargs.election_id)

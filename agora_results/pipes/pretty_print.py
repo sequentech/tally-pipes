@@ -233,7 +233,7 @@ def pdf_print(election_results, config_folder, election_id):
             gen_text(str(question['min']), align = TA_LEFT)
           ],
           [
-            gen_text('Número mínimo de opciones que puede seleccionar un votante', align = TA_RIGHT),
+            gen_text('Número máximo de opciones que puede seleccionar un votante', align = TA_RIGHT),
             gen_text(str(question['max']), align = TA_LEFT)
           ],
           [
