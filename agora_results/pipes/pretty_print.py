@@ -18,6 +18,7 @@
 import os
 import subprocess
 import json
+import requests
 from datetime import datetime
 from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
@@ -152,17 +153,25 @@ def gen_text(text, size=None, bold=False, align=None, color='black', fontName=No
         p.alignment = align
     return Paragraph(text, p)
 
-def pdf_print(election_results, config_folder, election_id):
-    def read_jsonfile(filepath):
-        with open(filepath, mode='r', encoding="utf-8", errors='strict') as f:
-            return json.loads(f.read())
+def get_election_cfg(election_id):
+    headers = {'content-type': 'application/json'}
+    base_url = 'http://localhost:9000/api'
 
-    config_path = os.path.join(config_folder, "%s.config.json" % election_id)
-    jsonconfig = read_jsonfile(config_path)
+    url = '%s/election/%d' % (base_url, election_id)
+    r = requests.get(url, headers=headers)
+
+    if r.status_code != 200:
+        print(r.status_code, r.text)
+        raise Exception('Invalid status code: %d for election_id = %s' % (r.status_code, election_id))
+
+    return r.json()
+
+def pdf_print(election_results, config_folder, election_id):
+    jsonconfig = get_election_cfg(election_id)
 
     pdf_path = os.path.join(config_folder, "%s.results.pdf" % election_id)
     styleSheet = getSampleStyleSheet()
-    doc = SimpleDocTemplate(pdf_path, rightMargin=30,leftMargin=30, topMargin=30,bottomMargin=18)
+    doc = SimpleDocTemplate(pdf_path, rightMargin=50,leftMargin=50, topMargin=50,bottomMargin=28)
     elements = []
     tx_title = 'Resultados del escrutinio de la votación %d - %s'
     tx_description = 'A continuación se detallan, pregunta por pregunta, los resultados de la votación %d titulada <u>"%s"</u> realizada con <font color="blue"><u><a href ="https://www.nvotes.com">nVotes</a></u></font>, que una vez publicados podrán ser verificados en su página pública de votación.'
@@ -171,7 +180,7 @@ def pdf_print(election_results, config_folder, election_id):
     elements.append(Spacer(0, 15))
     elements.append(gen_text(tx_title % (election_id, jsonconfig['payload']['configuration']['title']), size=20, bold=True, align = TA_LEFT))
     elements.append(Spacer(0, 15))
-    elements.append(gen_text(tx_description % (election_id, jsonconfig['payload']['configuration']['title'], 'https://url/publica'), size=12, align = TA_LEFT))
+    elements.append(gen_text(tx_description % (election_id, jsonconfig['payload']['configuration']['title']), size=12, align = TA_LEFT))
     elements.append(Spacer(0, 15))
 
     '''
