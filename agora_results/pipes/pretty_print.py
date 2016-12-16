@@ -286,11 +286,11 @@ def pdf_print(election_results, config_folder, election_id):
           ],
           [
             gen_text('Fecha de inicio del período de recuento', align = TA_RIGHT),
-            gen_text(str(datetime.strptime(jsonconfig['payload']['configuration']['start_date'], '%Y-%m-%dT%H:%M:%S.%f')), align = TA_LEFT)
+            gen_text(str(datetime.strptime(jsonconfig['payload']['startDate'], '%Y-%m-%dT%H:%M:%S.%f')), align = TA_LEFT)
           ],
           [
             gen_text('Fecha de fin del período de recuento', align = TA_RIGHT),
-            gen_text(str(datetime.strptime(jsonconfig['payload']['configuration']['end_date'], '%Y-%m-%dT%H:%M:%S.%f')), align = TA_LEFT)
+            gen_text(str(datetime.strptime(jsonconfig['payload']['endDate'], '%Y-%m-%dT%H:%M:%S.%f')), align = TA_LEFT)
           ],
           [
             gen_text('Fecha de finalización del escrutinio', align = TA_RIGHT),
