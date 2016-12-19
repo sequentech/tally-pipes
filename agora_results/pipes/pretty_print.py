@@ -21,7 +21,7 @@ import json
 import requests
 from datetime import datetime
 from reportlab.lib import colors
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, Image
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.enums import TA_RIGHT, TA_LEFT, TA_CENTER
 
@@ -166,17 +166,60 @@ def get_election_cfg(election_id):
 
     return r.json()
 
+class NumberedCanvas(canvas.Canvas):
+    def __init__(self, *args, **kwargs):
+        canvas.Canvas.__init__(self, *args, **kwargs)
+        self._saved_page_states = []
+
+    def showPage(self):
+        self._saved_page_states.append(dict(self.__dict__))
+        self._startPage()
+
+    def save(self):
+        """add page info to each page (page x of y)"""
+        num_pages = len(self._saved_page_states)
+        for state in self._saved_page_states:
+            self.__dict__.update(state)
+            self.draw_page_number(num_pages)
+            canvas.Canvas.showPage(self)
+        canvas.Canvas.save(self)
+
+    def draw_page_number(self, page_count):
+        self.setFont("Helvetica", 7)
+        self.drawRightString(200*mm, 20*mm,
+            "Page %d of %d" % (self._pageNumber, page_count))
+
+
+def _header_footer(canvas, doc):
+    # Save the state of our canvas so we can draw on it
+    canvas.saveState()
+    styles = getSampleStyleSheet()
+
+    # Header
+    #header = Paragraph('This is a multi-line header.  It goes on every page.   ' * 5, styles['Normal'])
+    header = Image('/home/agoraelections/agora-results/img/nvotes_logo.jpg', height=30,width=120)
+    header.hAlign = 'RIGHT'
+    w, h = header.wrap(doc.width, doc.topMargin)
+    header.drawOn(canvas, doc.width - w + doc.rightMargin, doc.height + h + doc.bottomMargin - doc.topMargin)
+
+    # Footer
+    #footer = Paragraph('This is a multi-line footer.  It goes on every page.' * 5, styles['Normal'])
+    #w, h = footer.wrap(doc.width, doc.bottomMargin)
+    #footer.drawOn(canvas, doc.leftMargin, h)
+
+    # Release the canvas
+    canvas.restoreState()
+
 def pdf_print(election_results, config_folder, election_id):
     jsonconfig = get_election_cfg(election_id)
 
     pdf_path = os.path.join(config_folder, "%s.results.pdf" % election_id)
     styleSheet = getSampleStyleSheet()
-    doc = SimpleDocTemplate(pdf_path, rightMargin=50,leftMargin=50, topMargin=50,bottomMargin=28)
+    doc = SimpleDocTemplate(pdf_path, rightMargin=50,leftMargin=50, topMargin=50,bottomMargin=50)
     elements = []
     tx_title = 'Resultados del escrutinio de la votación %d - %s'
     tx_description = 'A continuación se detallan, pregunta por pregunta, los resultados de la votación %d titulada <u>"%s"</u> realizada con <font color="blue"><u><a href ="https://www.nvotes.com">nVotes</a></u></font>, que una vez publicados podrán ser verificados en su página pública de votación.'
     tx_question_title = 'Pregunta %d: %s'
-    elements.append(gen_text("nVotes", size=16, bold=True, color = "#374859", align = TA_RIGHT))
     elements.append(Spacer(0, 15))
     elements.append(gen_text(tx_title % (election_id, jsonconfig['payload']['configuration']['title']), size=20, bold=True, align = TA_LEFT))
     elements.append(Spacer(0, 15))
@@ -348,7 +391,7 @@ def pdf_print(election_results, config_folder, election_id):
         t.setStyle(table_style)
         elements.append(t)
         elements.append(Spacer(0, 15))
-    doc.build(elements)
+    doc.build(elements, onFirstPage=_header_footer, onLaterPages=_header_footer, canvasmaker = NumberedCanvas)
 
 def pretty_print_not_iterative(data_list, mark_winners=True, output_func=print):
     data = data_list[0]
