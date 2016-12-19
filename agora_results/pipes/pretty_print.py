@@ -24,6 +24,8 @@ from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, Image
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.enums import TA_RIGHT, TA_LEFT, TA_CENTER
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import mm
 
 def pretty_print_stv_winners(data_list, output_func=print):
     data = data_list[0]
@@ -197,7 +199,7 @@ def _header_footer(canvas, doc):
 
     # Header
     #header = Paragraph('This is a multi-line header.  It goes on every page.   ' * 5, styles['Normal'])
-    header = Image('/home/agoraelections/agora-results/img/nvotes_logo.jpg', height=30,width=120)
+    header = Image('/home/agoraelections/agora-results/img/nvotes_logo.jpg', height = 30, width = 120)
     header.hAlign = 'RIGHT'
     w, h = header.wrap(doc.width, doc.topMargin)
     header.drawOn(canvas, doc.width - w + doc.rightMargin, doc.height + h + doc.bottomMargin - doc.topMargin)
@@ -215,7 +217,7 @@ def pdf_print(election_results, config_folder, election_id):
 
     pdf_path = os.path.join(config_folder, "%s.results.pdf" % election_id)
     styleSheet = getSampleStyleSheet()
-    doc = SimpleDocTemplate(pdf_path, rightMargin=50,leftMargin=50, topMargin=50,bottomMargin=50)
+    doc = SimpleDocTemplate(pdf_path, rightMargin=50,leftMargin=50, topMargin=35,bottomMargin=80)
     elements = []
     tx_title = 'Resultados del escrutinio de la votación %d - %s'
     tx_description = 'A continuación se detallan, pregunta por pregunta, los resultados de la votación %d titulada <u>"%s"</u> realizada con <font color="blue"><u><a href ="https://www.nvotes.com">nVotes</a></u></font>, que una vez publicados podrán ser verificados en su página pública de votación.'
@@ -240,8 +242,6 @@ def pdf_print(election_results, config_folder, election_id):
 
     counts = election_results['results']['questions']
     for question, i in zip(counts, range(len(counts))):
-    #for question in jsonconfig['payload']['configuration']['questions']:
-
         blank_votes = question['totals']['blank_votes']
         null_votes = question['totals']['null_votes']
         valid_votes = question['totals']['valid_votes']
