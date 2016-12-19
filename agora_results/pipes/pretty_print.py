@@ -199,7 +199,7 @@ def _header_footer(canvas, doc):
 
     # Header
     #header = Paragraph('This is a multi-line header.  It goes on every page.   ' * 5, styles['Normal'])
-    header = Image('/home/agoraelections/agora-results/img/nvotes_logo.jpg', height = 30, width = 120)
+    header = Image('/home/agoraelections/agora-results/img/nvotes_logo.jpg', height = 20, width = 80)
     header.hAlign = 'RIGHT'
     w, h = header.wrap(doc.width, doc.topMargin)
     header.drawOn(canvas, doc.width - w + doc.rightMargin, doc.height + h + doc.bottomMargin - doc.topMargin)
