@@ -27,12 +27,15 @@ from reportlab.lib.enums import TA_RIGHT, TA_LEFT, TA_CENTER
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import mm
 
-def configure_pdf(data_list, title = None):
+def configure_pdf(data_list, title = None, first_description_paragraph = None, last_description_paragraph = None):
     data = data_list[0]
+    data['pdf'] = {}
     if title:
-        data['pdf'] = {
-            "title": title
-        }
+        data['pdf']['title'] = title
+    if first_description_paragraph:
+        data['pdf']['first_description_paragraph'] = first_description_paragraph
+    if last_description_paragraph:
+        data['pdf']['last_description_paragraph'] = last_description_paragraph
 
 def gen_text(text, size=None, bold=False, align=None, color='black', fontName=None):
     if not isinstance(text, str):
@@ -117,14 +120,20 @@ def pdf_print(election_results, config_folder, election_id):
     tx_title = 'Resultados del escrutinio de la votación %d - %s'
     tx_description = 'A continuación se detallan, pregunta por pregunta, los resultados de la votación %d titulada <u>"%s"</u> realizada con <font color="blue"><u><a href ="https://www.nvotes.com">nVotes</a></u></font>, que una vez publicados podrán ser verificados en su página pública de votación.'
     tx_question_title = 'Pregunta %d: %s'
-    the_title = jsonconfig['payload']['configuration']['title']
-    if 'pdf' in election_results and 'title' in election_results['pdf']
+    the_title = tx_title % (election_id, jsonconfig['payload']['configuration']['title'])
+    if 'pdf' in election_results and 'title' in election_results['pdf']:
         the_title = election_results['pdf']['title']
     elements.append(Spacer(0, 15))
-    elements.append(gen_text(tx_title % (election_id, the_title), size=20, bold=True, align = TA_LEFT))
+    elements.append(gen_text(the_title, size=20, bold=True, align = TA_LEFT))
     elements.append(Spacer(0, 15))
+    if 'pdf' in election_results and 'first_description_paragraph' in election_results['pdf']:
+        elements.append(gen_text(election_results['pdf']['first_description_paragraph'], size=12, align = TA_LEFT))
+        elements.append(Spacer(0, 15))
     elements.append(gen_text(tx_description % (election_id, jsonconfig['payload']['configuration']['title']), size=12, align = TA_LEFT))
     elements.append(Spacer(0, 15))
+    if 'pdf' in election_results and 'last_description_paragraph' in election_results['pdf']:
+        elements.append(gen_text(election_results['pdf']['last_description_paragraph'], size=12, align = TA_LEFT))
+        elements.append(Spacer(0, 15))
     doc.title = tx_title % (election_id, jsonconfig['payload']['configuration']['title'])
 
     '''
