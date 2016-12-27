@@ -17,6 +17,9 @@
 
 import os
 import subprocess
+import json
+import requests
+from datetime import datetime
 
 def pretty_print_stv_winners(data_list, output_func=print):
     data = data_list[0]
@@ -129,6 +132,7 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_names, output_f
                         answer['total_count'],
                         get_percentage(answer['total_count'], base_num)))
     output_func("")
+
 
 def pretty_print_not_iterative(data_list, mark_winners=True, output_func=print):
     data = data_list[0]
