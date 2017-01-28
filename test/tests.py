@@ -56,5 +56,11 @@ class TestStringMethods(unittest.TestCase):
     def test_desborda_1(self):
         self.do_test(test.desborda_test_data.test_desborda_1)
 
+    def test_desborda_2(self):
+        self.do_test(test.desborda_test_data.test_desborda_2)
+
+    def test_desborda_3(self):
+        self.do_test(test.desborda_test_data.test_desborda_3)
+
 if __name__ == '__main__':
   unittest.main()
