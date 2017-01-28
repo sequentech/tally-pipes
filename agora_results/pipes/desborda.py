@@ -43,22 +43,24 @@ def podemos_desborda(data_list, women_names):
         if women_names == None:
             women_names = __get_women_names_from_question(question)
 
-        if question['tally_type'] not in ["desborda"] or len(question['answers']) < 62 or question['num_winners'] != 62:
+        if "desborda" != question['tally_type'] or len(question['answers']) < 62 or question['num_winners'] != 62:
             continue
 
         # calculate women indexes
         women_indexes =
-            [ index 
-                  for index, answer in enumerate(question['answers'])
-                  if answer['text'] in women_names ]
+            [ index
+              for index, answer in enumerate(question['answers'])
+              if answer['text'] in women_names ]
 
         def get_women_indexes(people_list):
             return [ person for person in people_list if person in women_indexes ]
 
         def get_list_by_points(winners):
+            # first sort by name
             sorted_winners = sorted(
                winners,
                key = lambda j: question['answers'][j]['text'])
+            # reverse sort by points
             sorted_winners = sorted(
                sorted_winners,
                key = lambda j: question['answers'][j]['total_count'],
@@ -77,16 +79,15 @@ def podemos_desborda(data_list, women_names):
                 zipped_list.append(sorted_men_list[j])
             return zipped_list
 
-        # first round
-        winners_index_1stround = range(len(question['answers']))
-        winners_index_1stround = sorted(
-            winners_index_1stround,
-            lambda j: question['answers'][j]['winner_position'])
-        winners_index_1stround = winners_index_1stround[:question['num_winners']]
+        def filter_groups(indexed_list, groups_list):
+            return [ j
+                     for j in indexed_list
+                     if question['answers'][j]['category'] not in groups_list ]
 
-        # reset winner positions
-        for answer in question['answers']:
-            answer['winner_position'] = None
+        # first round
+        winners_index_complete = range(len(question['answers']))
+        winners_index_complete = get_list_by_points(winners_index_complete)
+        winners_index_1stround = winners_index_complete[:question['num_winners']]
 
         groups = dict()
 
@@ -99,107 +100,64 @@ def podemos_desborda(data_list, women_names):
                 groups[category] = dict(
                     indexes = [],          # index of the answers of this category/group
                     winners = [],          # winners in the first round
-                    points_group = 0,
-                    has_minorities_correction = False)
+                    points_group = 0)
+            group = groups[category]
             # add answer index to category
-            groups[category]['indexes'].append(index)
+            group['indexes'].append(index)
             # add points to group
-            groups[category]['points_group'] += answer['total_count']
+            group['points_group'] += answer['total_count']
             # add total points
             total_points += answer['total_count']
             # add to number of winners
             if index in winners_index_1stround:
-                groups[category]['winners'].append(index)
+                group['winners'].append(index)
 
-        # True if there is a minorities correction
-        has_minorities_correction = False
         minorities_15 = []
         minorities_5 = []
         percent_15_limit = total_points * 0.15
         percent_5_limit = total_points * 0.05
+        num_winners_23_rounds = question['num_winners']
 
+        minorities_winners = []
         # mark minorities corrections
         for group_name in groups:
             group = groups[group_name]
 
             # check 15%
             if len(group['winners']) < 4 and group['points_group'] >= percent_15_limit:
-                has_minorities_correction = True
                 minorities_15.append(group_name)
-                group['has_minorities_correction'] = True
-                group['winners'] = get_zipped_parity(group['indexes'], 4)
+                minorities_winners += get_zipped_parity(group['indexes'], 4)
+                num_winners_23_rounds -= 4
             # check 5%
             elif len(group['winners']) < 2 and group['points_group'] >= percent_5_limit:
-                has_minorities_correction = True
                 minorities_5.append(group_name)
-                group['has_minorities_correction'] = True
-                group['winners'] = get_zipped_parity(group['indexes'], 2)
-
-        if has_minorities_correction: # make second/third round with minorities
-            
-        else: # make second round if there are more men than women
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                minorities_winners += get_zipped_parity(group['indexes'], 2)
+                num_winners_23_rounds -= 2
+
+        # exclude minorities for second round
+        minorities_groups = minorities_15 + minorities_5
+        winners_index_2ndround_complete = filter_groups(
+            winners_index_complete,
+            minorities_groups)
+        winners_index_2ndround_complete = get_list_by_points(winners_index_2ndround_complete)
+        # winners on the second round
+        winners_index_2ndround = winners_index_2ndround_complete[:num_winners_23_rounds]
+        women_2nd_round = get_women_indexes(winners_index_2ndround)
+        num_women_2nd_round = len(women_2nd_round)
+        final_list = copy.deepcopy(winners_index_2ndround)
+        # if there are more men, do third round
+        if num_winners_23_rounds - num_women_2nd_round > num_women_2nd_round:
+            # third round: zipped
+            winners_index_3rdround = get_zipped_parity(
+                winners_index_2ndround_complete, 
+                num_winners_23_rounds)
+            final_list = copy.deepcopy(winners_index_3rdround)
+        # add minorities
+        final_list += minorities_winners
+        # order by points, zipped female/male
+        final_list = get_zipped_parity(final_list, len(final_list))
+        for aindex, answer in enumerate(question['answers']):
+            if aindex in final_list:
+                answer['winner_position'] = final_list.index(aindex)
+            else:
+                answer['winner_position'] = None
