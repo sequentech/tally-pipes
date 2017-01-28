@@ -25,10 +25,12 @@ import sys
 import subprocess
 
 class TestStringMethods(unittest.TestCase):
-
-    def test_desborda_1(self):
+    def do_test(self, test_data):
+        if test_data is None:
+            pass
+        print("\nTest name: %s" % test_data["name"])
         agora_results_bin_path = "python3 agora-results"
-        tally_path = test.desborda_test.create_desborda_test(test.desborda_test_data.test_desborda_1)
+        tally_path = test.desborda_test.create_desborda_test(test_data)
         try:
             tally_targz_path = os.path.join(tally_path, "tally.tar.gz")
             config_results_path = os.path.join(tally_path, "12345.config.results.json")
@@ -42,7 +44,7 @@ class TestStringMethods(unittest.TestCase):
                 subprocess.check_call(cmd, stdout=f, stderr=sys.stderr, shell=True)
             results = test.desborda_test.create_simple_results(results_path)
             file_helpers.write_file(os.path.join(tally_path, "output"), results)
-            shouldresults = test.desborda_test_data.test_desborda_1["output"]
+            shouldresults = test_data["output"]
             self.assertEqual(results, shouldresults)
         except:
             # remove the temp test folder if there's an error
@@ -50,7 +52,9 @@ class TestStringMethods(unittest.TestCase):
             raise
         # remove the temp test folder also in a successful test
         file_helpers.remove_tree(tally_path)
-        self.assertEqual(True, True)
+
+    def test_desborda_1(self):
+        self.do_test(test.desborda_test_data.test_desborda_1)
 
 if __name__ == '__main__':
   unittest.main()
