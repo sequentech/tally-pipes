@@ -47,10 +47,9 @@ def podemos_desborda(data_list, women_names):
             continue
 
         # calculate women indexes
-        women_indexes =
-            [ index
-              for index, answer in enumerate(question['answers'])
-              if answer['text'] in women_names ]
+        women_indexes = [ index
+            for index, answer in enumerate(question['answers'])
+            if answer['text'] in women_names ]
 
         def get_women_indexes(people_list):
             return [ person for person in people_list if person in women_indexes ]
@@ -70,7 +69,7 @@ def podemos_desborda(data_list, women_names):
         def get_zipped_parity(mixed_list, max_people):
             women_list = get_women_indexes(mixed_list)
             men_list = [ person for person in mixed_list if person not in women_list]
-            max2 = max_people / 2
+            max2 = int(max_people / 2)
             sorted_women_list = get_list_by_points(women_list)[:max2]
             sorted_men_list = get_list_by_points(men_list)[:max2]
             zipped_list = []
@@ -81,8 +80,8 @@ def podemos_desborda(data_list, women_names):
 
         def filter_groups(indexed_list, groups_list):
             return [ j
-                     for j in indexed_list
-                     if question['answers'][j]['category'] not in groups_list ]
+                for j in indexed_list
+                if question['answers'][j]['category'] not in groups_list ]
 
         # first round
         winners_index_complete = range(len(question['answers']))
