@@ -81,6 +81,38 @@ def create_simple_results(results_path):
         text += "%s, %i\n" %(winner["text"], winner["total_count"])
     return text
 
+def read_testfile(testfile_path):
+    file_raw_text = file_helpers.read_file(testfile_path)
+    file_lines = file_raw_text.splitlines(keepends = True)
+    ballots = ""
+    results = ""
+    name = ""
+    states = ["ballots_first_line", "reading_ballots", "results_first_line", "reading_results"]
+    state = "ballots_first_line"
+    for line in file_lines:
+        if "ballots_first_line" == state:
+            if "\n" == line:
+                continue
+            else:
+                name = line
+                state = "reading_ballots"
+        elif "reading_ballots" == state:
+            if "\n" == line:
+                state = "results_first_line"
+            else:
+                ballots += line
+        elif "results_first_line" == state:
+            if "\n" == line:
+                continue
+            else:
+                state = "reading_results"
+        elif "reading_results" == state:
+            if "\n" == line:
+                break
+            else:
+                results += line
+    return { "input": ballots, "output": results, "name": name }
+
 def create_desborda_test(test_data):
     if not has_input_format(test_data["input"]):
         raise Exception("Error: test data input with format errors")
@@ -147,7 +179,7 @@ def create_desborda_test(test_data):
             cand_index += 1
 
     questions_json = [question]
-    config = json.loads(test_data["config"])
+    config = test_data["config"]
     config[1][1]["women_names"] = women_names
 
     # encode ballots in plaintexts_json format

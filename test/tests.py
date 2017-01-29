@@ -23,11 +23,29 @@ import test.desborda_test_data
 import os
 import sys
 import subprocess
+import copy
 
-class TestStringMethods(unittest.TestCase):
-    def do_test(self, test_data):
+tally_config = [
+    [
+        "agora_results.pipes.results.do_tallies",
+        {
+            "ignore_invalid_votes": True
+        }
+    ],
+    [
+        "agora_results.pipes.desborda.podemos_desborda",
+        {
+            "women_names": [
+            ]
+        }
+    ]
+]
+
+class TestDesBorda(unittest.TestCase):
+
+    def do_test(self, test_data=None):
         if test_data is None:
-            pass
+            return
         print("\nTest name: %s" % test_data["name"])
         agora_results_bin_path = "python3 agora-results"
         tally_path = test.desborda_test.create_desborda_test(test_data)
@@ -53,20 +71,13 @@ class TestStringMethods(unittest.TestCase):
         # remove the temp test folder also in a successful test
         file_helpers.remove_tree(tally_path)
 
-    def test_desborda_1(self):
-        self.do_test(test.desborda_test_data.test_desborda_1)
-
-    def test_desborda_2(self):
-        self.do_test(test.desborda_test_data.test_desborda_2)
-
-    def test_desborda_3(self):
-        self.do_test(test.desborda_test_data.test_desborda_3)
-
-    def test_desborda_4(self):
-        self.do_test(test.desborda_test_data.test_desborda_4)
-
-    def test_desborda_5(self):
-        self.do_test(test.desborda_test_data.test_desborda_5)
+    def test_all(self):
+        desborda_tests_path = os.path.join("test", "desborda_tests")
+        test_files = [ os.path.join(desborda_tests_path, f) for f in os.listdir(desborda_tests_path) if os.path.isfile(os.path.join(desborda_tests_path, f)) ]
+        for testfile_path in test_files:
+            data = test.desborda_test.read_testfile(testfile_path)
+            data["config"] = copy.deepcopy(tally_config)
+            self.do_test(test_data=data)
 
 if __name__ == '__main__':
   unittest.main()
