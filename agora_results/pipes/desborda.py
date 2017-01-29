@@ -104,15 +104,22 @@ def podemos_desborda(data_list, women_names, question_indexes=None):
             women_index__list_sorted = get_list_by_points(women_index_list)
             men_index_list_sorted = get_list_by_points(men_index_list)
             zipped_parity = []
-            for a, b in zip_longest(women_index__list_sorted, men_index_list_sorted):
+            for r, w in zip_longest(women_index__list_sorted, men_index_list_sorted):
+                a = r
+                b = w
+                if r and w and question['answers'][w]['total_count'] > question['answers'][r]['total_count']:
+                    a = w
+                    b = r
                 has_None = False
-                if a is not None:
+                if a is None:
                     has_None = True
+                else:
                     zipped_parity.append(a)
                     if len(zipped_parity) >= max_people:
                         break
-                if b is not None:
+                if b is None:
                     has_None = True
+                else:
                     zipped_parity.append(b)
                     if len(zipped_parity) >= max_people:
                         break
@@ -169,7 +176,7 @@ def podemos_desborda(data_list, women_names, question_indexes=None):
         for category_name, category in categories.items():
             # check 15%
             if len(category['winners_index_1stround']) < 4 and category['points_category'] >= percent_15_limit:
-                this_category_minority_winners = get_zipped_parity(category['candidates_index'], 4)
+                this_category_minority_winners = get_zipped_parity(category['candidates_index'], 4, True)
                 minorities_winners_indexes += this_category_minority_winners
                 # normally len(this_category_minority_winners) will be 4, but it
                 # can be less if this category has less than 2 men or less than
@@ -177,7 +184,7 @@ def podemos_desborda(data_list, women_names, question_indexes=None):
                 num_winners_23_rounds -= len(this_category_minority_winners)
             # check 5%
             elif len(category['winners_index_1stround']) < 2 and category['points_category'] >= percent_5_limit:
-                this_category_minority_winners = get_zipped_parity(category['candidates_index'], 2)
+                this_category_minority_winners = get_zipped_parity(category['candidates_index'], 2, True)
                 minorities_winners_indexes += this_category_minority_winners
                 # normally len(this_category_minority_winners) will be 4, but it
                 # can be less if this category has less than 2 men or less than
