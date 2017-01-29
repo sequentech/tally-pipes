@@ -100,7 +100,7 @@ def podemos_desborda(data_list, women_names, question_indexes=None):
             than max_people, in order to preserve parity strictly.
             '''
             women_index_list = get_women_indexes(mixed_list)
-            men_index_list = list( set(mixed_list) - set(women_list) )
+            men_index_list = list( set(mixed_list) - set(women_index_list) )
             women_index__list_sorted = get_list_by_points(women_index_list)
             men_index_list_sorted = get_list_by_points(men_index_list)
             zipped_parity = []
