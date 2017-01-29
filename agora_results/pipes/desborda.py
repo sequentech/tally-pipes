@@ -65,7 +65,7 @@ def podemos_desborda(data_list, women_names, question_indexes=None):
             '''
             filters the list of indexes of candidates returning only women
             '''
-            return [ person_index for person_index in people_indexes_list if person_index in women_indexes ]
+            return list( set(people_indexes_list) - set(women_indexes) )
 
         def get_list_by_points(winners_indexes):
             '''
@@ -95,7 +95,7 @@ def podemos_desborda(data_list, women_names, question_indexes=None):
             If with_break=False and there are more male than female (or
             viceversa), the remaining people will be of the same sex (ie fmfmmm)
 
-            If with_break=True and for example the number of females are less
+            If with_break=True and for example the number of females is less
             than max_people/2, then the returned list will have a length lower
             than max_people, in order to preserve parity strictly.
             '''
@@ -120,66 +120,84 @@ def podemos_desborda(data_list, women_names, question_indexes=None):
                     break
             return zipped_parity
 
-        # first round
+        # first round:
+        # array of indexes (list of indexes to question['answers']) 
+        # of all candidates for first round
         allcands_index_1stround = range(len(question['answers']))
+        # same array, sorted by points (and text)
         allcands_index_1stround_sorted = get_list_by_points(allcands_index_1stround)
-        # winners on 1st round (list of indexes to question['answers'])
+        # same array but only the winners, which are the first 62 with higher score
+        # winners on 1st round 
         winners_index_1stround = allcands_index_1stround_sorted[:question['num_winners']]
 
         categories = dict()
 
+        # total points on the whole first round
         total_points = 0
-        # get grouped options
+        # get info (winners, candidates, points) by category
         for index, answer in enumerate(question['answers']):
             # category
             category_name = answer['category']
             # add category
             if category_name not in categories:
                 categories[category_name] = dict(
-                    indexes = [],          # index of the answers of this category
-                    winners = [],          # winners in the first round
-                    points_group = 0)
+                    candidates_index = [],       # list of indexes of the candidates from this category
+                    winners_index_1stround = [], # winners in the first round
+                    points_category = 0)
             category = categories[category_name]
             # add answer index to category
-            category['indexes'].append(index)
+            category['candidates_index'].append(index)
             # add points to category
-            category['points_group'] += answer['total_count']
+            category['points_category'] += answer['total_count']
             # add total points
             total_points += answer['total_count']
             # add to number of winners
             if index in winners_index_1stround:
-                category['winners'].append(index)
+                category['winners_index_1stround'].append(index)
 
+        # number of points for the 15% of total points trigger
         percent_15_limit = total_points * 0.15
+        # number of points for the 5% of total points trigger
         percent_5_limit = total_points * 0.05
+        # number of 'normal' winners on rounds 2 and 3
+        # which is 62 minus the number of winners chosen by the minority rules
         num_winners_23_rounds = question['num_winners']
 
+        # list of indexes of winners chosen by the minority rules
         minorities_winners_indexes = []
         # mark minorities corrections
         for category_name, category in categories.items():
             # check 15%
-            if len(category['winners']) < 4 and category['points_group'] >= percent_15_limit:
-                this_group_minority_winners = get_zipped_parity(category['indexes'], 4)
-                minorities_winners_indexes += this_group_minority_winners
-                num_winners_23_rounds -= len(this_group_minority_winners)
+            if len(category['winners_index_1stround']) < 4 and category['points_category'] >= percent_15_limit:
+                this_category_minority_winners = get_zipped_parity(category['candidates_index'], 4)
+                minorities_winners_indexes += this_category_minority_winners
+                # normally len(this_category_minority_winners) will be 4, but it
+                # can be less if this category has less than 2 men or less than
+                # 2 women
+                num_winners_23_rounds -= len(this_category_minority_winners)
             # check 5%
-            elif len(category['winners']) < 2 and category['points_group'] >= percent_5_limit:
-                this_group_minority_winners = get_zipped_parity(category['indexes'], 2)
-                minorities_winners_indexes += this_group_minority_winners
-                num_winners_23_rounds -= len(this_group_minority_winners)
+            elif len(category['winners_index_1stround']) < 2 and category['points_category'] >= percent_5_limit:
+                this_category_minority_winners = get_zipped_parity(category['candidates_index'], 2)
+                minorities_winners_indexes += this_category_minority_winners
+                # normally len(this_category_minority_winners) will be 4, but it
+                # can be less if this category has less than 2 men or less than
+                # 2 women
+                num_winners_23_rounds -= len(this_category_minority_winners)
 
-        # winners_index_2ndround_complete
-        # exclude winners from minorities for second round
+        # exclude winners chosen by the minority rules for calculating winners
+        # by normal rules on the second round
         no_minorities_index_2ndround  = list( set(allcands_index_1stround) - set(minorities_winners_indexes) )
         no_minorities_index_2ndround_sorted = get_list_by_points(no_minorities_index_2ndround)
-        # winners on the second round
+        # normal (not minorities) winners on the second round
         winners_index_2ndround = no_minorities_index_2ndround_sorted[:num_winners_23_rounds]
         women_2nd_round = get_women_indexes(winners_index_2ndround)
         num_women_2nd_round = len(women_2nd_round)
         normal_winners = copy.deepcopy(winners_index_2ndround)
         # if there are more men, do third round
         if num_winners_23_rounds - num_women_2nd_round > num_women_2nd_round:
-            # third round: zipped
+            # third round: zipped, but with_break=False so that we get exactly
+            # num_winners_23_rounds winners even if this means not having
+            # strict parity because we need 62 winners in the end!
             winners_index_3rdround = get_zipped_parity(
                 no_minorities_index_2ndround, 
                 num_winners_23_rounds)
@@ -188,7 +206,10 @@ def podemos_desborda(data_list, women_names, question_indexes=None):
         minorities_winners_sorted = get_list_by_points(minorities_winners_indexes)
         normal_winners_sorted = get_list_by_points(normal_winners)
         # add normal winners and minorities winners
+        # the order of final_list is stable/reproducible: it has first the 
+        # minorities (sorted), and then the normal winners, also sorted
         final_list = minorities_winners_sorted + normal_winners_sorted
+        # set the winner_position
         for aindex, answer in enumerate(question['answers']):
             if aindex in final_list:
                 answer['winner_position'] = final_list.index(aindex)
