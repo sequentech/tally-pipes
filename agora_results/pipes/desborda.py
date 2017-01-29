@@ -148,7 +148,7 @@ def podemos_desborda(data_list, women_names, question_indexes=None):
             total_points += answer['total_count']
             # add to number of winners
             if index in winners_index_1stround:
-                group['winners'].append(index)
+                category['winners'].append(index)
 
         percent_15_limit = total_points * 0.15
         percent_5_limit = total_points * 0.05
