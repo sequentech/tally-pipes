@@ -81,6 +81,15 @@ def create_simple_results(results_path):
         text += "%s, %i\n" %(winner["text"], winner["total_count"])
     return text
 
+def check_results(text_a, text_b):
+    '''
+    Check results so that the order of the winners doesn't matter
+    '''
+    results_a = set( tuple(re.split(r",", line)) for line in remove_spaces(text_a).splitlines() )
+    results_b = set( tuple(re.split(r",", line)) for line in remove_spaces(text_b).splitlines() )
+    ret = (results_b == results_a)
+    return ret
+
 def read_testfile(testfile_path):
     file_raw_text = file_helpers.read_file(testfile_path)
     file_lines = file_raw_text.splitlines(keepends = True)

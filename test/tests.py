@@ -19,7 +19,6 @@
 import unittest
 from agora_results.utils import file_helpers
 import test.desborda_test
-import test.desborda_test_data
 import os
 import sys
 import subprocess
@@ -63,7 +62,8 @@ class TestDesBorda(unittest.TestCase):
             results = test.desborda_test.create_simple_results(results_path)
             file_helpers.write_file(os.path.join(tally_path, "output"), results)
             shouldresults = test_data["output"]
-            self.assertEqual(results, shouldresults)
+            check_results = test.desborda_test.check_results(results, shouldresults)
+            self.assertTrue(check_results)
         except:
             # remove the temp test folder if there's an error
             file_helpers.remove_tree(tally_path)
