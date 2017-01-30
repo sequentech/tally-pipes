@@ -23,6 +23,7 @@ import os
 import sys
 import subprocess
 import copy
+import time
 
 tally_config = [
     [
@@ -78,6 +79,32 @@ class TestDesBorda(unittest.TestCase):
             data = test.desborda_test.read_testfile(testfile_path)
             data["config"] = copy.deepcopy(tally_config)
             self.do_test(test_data=data)
+
+    def test_100k_votes_same(self):
+        start_time = time.time()
+        vote_a = "A1f,A2m,A3f,A4m,A5f,A6m,A7f,A8m,A9f,A10m,A11f,A12m,A13f,A14m,A15f,A16m,A17f,A18m,A19f,A20m,A21f,A22m,A23f,A24m,A25f,A26m,A27f,A28m,A29f,A30m,A31f,A32m,A33f,A34m,A35f,A36m,A37f,A38m,A39f,A40m,A41f,A42m,A43f,A44m,A45f,A46m,A47f,A48m,A49f,A50m,A51f,A52m,A53f,A54m,A55f,A56m,A57f,A58m,A59f,A60m,A61f,A62m\n"
+        vote_b = "B1f,B2m,B3f,B4m,B5f,B6m,B7f,B8m,B9f,B10m,B11f,B12m,B13f,B14m,B15f,B16m,B17f,B18m,B19f,B20m,B21f,B22m,B23f,B24m,B25f,B26m,B27f,B28m,B29f,B30m,B31f,B32m,B33f,B34m,B35f,B36m,B37f,B38m,B39f,B40m,B41f,B42m,B43f,B44m,B45f,B46m,B47f,B48m,B49f,B50m,B51f,B52m,B53f,B54m,B55f,B56m,B57f,B58m,B59f,B60m,B61f,B62m\n"
+        list_a = ["A1f","A2m","A3f","A4m","A5f","A6m","A7f","A8m","A9f","A10m","A11f","A12m","A13f","A14m","A15f","A16m","A17f","A18m","A19f","A20m","A21f","A22m","A23f","A24m","A25f","A26m","A27f","A28m","A29f","A30m","A31f","A32m","A33f","A34m","A35f","A36m","A37f","A38m","A39f","A40m","A41f","A42m","A43f","A44m","A45f","A46m","A47f","A48m","A49f","A50m","A51f","A52m","A53f","A54m","A55f","A56m","A57f","A58m","A59f","A60m"]
+        print("creating 100k votes")
+        total_votes = int(1e5)
+        num_votes_a = int(total_votes * 0.95)
+        num_votes_b = total_votes - num_votes_a
+        ballots = vote_a * num_votes_a + vote_b * num_votes_b
+        # create results
+        results = "B1f, %i\nB2m, %i\n" % (80 * num_votes_b, 79 * num_votes_b)
+        for index, el in enumerate(list_a):
+            results += "%s, %i\n" % (el, ((80 - index) * num_votes_a) )
+        data = {
+            "input": ballots,
+            "output": results,
+            "config": copy.deepcopy(tally_config),
+            "name": "test 100k votes. 95% to A, 5% to B. All ballots for each team are the same"
+        }
+        self.do_test(test_data=data)
+        end_time = time.time()
+        print("test_100k_votes_same elapsed time: %f secs" % (end_time - start_time))
+        # do tally
+        self.assertTrue(True)
 
 if __name__ == '__main__':
   unittest.main()
