@@ -65,7 +65,7 @@ def podemos_desborda(data_list, women_names, question_indexes=None):
             '''
             filters the list of indexes of candidates returning only women
             '''
-            return list( set(people_indexes_list) - set(women_indexes) )
+            return list( set(people_indexes_list) & set(women_indexes) )
 
         def get_list_by_points(winners_indexes):
             '''
@@ -101,15 +101,10 @@ def podemos_desborda(data_list, women_names, question_indexes=None):
             '''
             women_index_list = get_women_indexes(mixed_list)
             men_index_list = list( set(mixed_list) - set(women_index_list) )
-            women_index__list_sorted = get_list_by_points(women_index_list)
+            women_index_list_sorted = get_list_by_points(women_index_list)
             men_index_list_sorted = get_list_by_points(men_index_list)
             zipped_parity = []
-            for r, w in zip_longest(women_index__list_sorted, men_index_list_sorted):
-                a = r
-                b = w
-                if r and w and question['answers'][w]['total_count'] > question['answers'][r]['total_count']:
-                    a = w
-                    b = r
+            for a, b in zip_longest(women_index_list_sorted, men_index_list_sorted):
                 has_None = False
                 if a is None:
                     has_None = True
