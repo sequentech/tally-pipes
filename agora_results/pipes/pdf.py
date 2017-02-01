@@ -172,7 +172,7 @@ def pdf_print(election_results, config_folder, election_id):
           "plurality-at-large": "Voto en bloque o Escrutinio Mayoritario Plurinominal", 
           "borda-nauru": "Borda de Nauru o Borda Dowdall (1/n)", 
           "borda": "Borda Count (tradicional)", 
-          "pairwise-beta": "Comparación de pares (distribución beta)"
+          "pairwise-beta": "Comparación de pares (distribución beta)",
           "desborda": "Desborda"
         }
         data = [
