@@ -42,6 +42,7 @@ DEFAULT_PIPELINE = [
 # By default we only allow the most used pipes to reduce default attack surface
 # NOTE: keep the list sorted
 DEFAULT_PIPES_WHITELIST = [
+    #"agora_results.pipes.desborda.podemos_desborda"
     #"agora_results.pipes.duplicate_questions.duplicate_questions",
     "agora_results.pipes.modifications.apply_modifications",
     #"agora_results.pipes.multipart.make_multipart",
@@ -65,7 +66,6 @@ DEFAULT_PIPES_WHITELIST = [
     "agora_results.pipes.sort.sort_non_iterative",
     #"agora_results.pipes.stv_tiebreak.stv_first_round_tiebreak",
     #"agora_results.pipes.pdf.configure_pdf",
-    #"agora_results.pipes.desborda.podemos_desborda"
 ]
 
 def extract_tally(fpath):
