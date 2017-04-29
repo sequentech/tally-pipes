@@ -42,6 +42,7 @@ DEFAULT_PIPELINE = [
 # By default we only allow the most used pipes to reduce default attack surface
 # NOTE: keep the list sorted
 DEFAULT_PIPES_WHITELIST = [
+    #"agora_results.pipes.desborda.podemos_desborda"
     #"agora_results.pipes.duplicate_questions.duplicate_questions",
     "agora_results.pipes.modifications.apply_modifications",
     #"agora_results.pipes.multipart.make_multipart",
@@ -63,7 +64,8 @@ DEFAULT_PIPES_WHITELIST = [
     #"agora_results.pipes.results.to_files",
     #"agora_results.pipes.results.apply_removals",
     "agora_results.pipes.sort.sort_non_iterative",
-    #"agora_results.pipes.stv_tiebreak.stv_first_round_tiebreak"
+    #"agora_results.pipes.stv_tiebreak.stv_first_round_tiebreak",
+    #"agora_results.pipes.pdf.configure_pdf",
 ]
 
 def extract_tally(fpath):
@@ -79,7 +81,7 @@ def extract_tally(fpath):
 def print_csv(data, separator, output_func=print):
     counts = data['results']['questions']
     for question, i in zip(counts, range(len(counts))):
-        if question['tally_type'] not in ["plurality-at-large", "borda", "borda-nauru"] or\
+        if question['tally_type'] not in ["plurality-at-large", "desborda", "borda", "borda-nauru"] or\
            question.get('no-tally', False):
             continue
 
@@ -110,28 +112,33 @@ def print_csv(data, separator, output_func=print):
                 str(answer['total_count']),
                 str(answer['winner_position'])]))
 
-
 def pretty_print(data, output_func=print):
     from agora_results.pipes.pretty_print import pretty_print_not_iterative
     pretty_print_not_iterative([data], output_func=output_func)
 
-def print_results(data, output_format, output_func=print):
+def print_results(data, output_format, output_func=print, election_config=None, election_id=None):
   '''
   print results in the specified output format
   '''
-  if output_format == "json":
+  if "json" == output_format:
     output_func(json.dumps(
         data['results'],
         indent=4,
         ensure_ascii=False,
         sort_keys=True,
         separators=(',', ': ')))
-  elif output_format == "csv":
+  elif "csv" == output_format:
       print_csv(data, separator=",", output_func=output_func)
-  elif output_format == "tsv":
+  elif "tsv" == output_format:
       print_csv(data, separator="\t", output_func=output_func)
-  elif output_format == "pretty":
+  elif "pretty" == output_format:
       pretty_print(data, output_func=output_func)
+  elif "pdf" == output_format:
+      from agora_results.pipes.pdf import pdf_print
+      try:
+          pdf_print(data, election_config, election_id)
+      except Exception:
+          pass
 
 def func_path_sanity_checks(func_path, pipes_whitelist):
     '''
@@ -223,7 +230,7 @@ def main():
     parser.add_argument('-s', '--stdout', help='print output to stdout',
         action='store_true')
     parser.add_argument('-o', '--output-format', help='select the output format',
-        default="json", choices=["json", "csv", "tsv", "pretty", "none"])
+        default="json", choices=["json", "csv", "tsv", "pretty", "none", "pdf"])
     pargs = parser.parse_args()
 
     # load config
@@ -311,10 +318,13 @@ def main():
         execute_pipeline(pipeline_info, data_list,
                          pipes_whitelist=pipes_whitelist)
 
+        config_folder = ''
+        if pargs.config is not None:
+            config_folder = os.path.dirname(pargs.config)
+
         # tar tallies generates a tar file containing everything related to
         # the results. It also creates a randomly named subdirectory with
         # all the exportable data.
-
         if ballots_file:
             ballots_file.close()
         if pargs.tar and len(data_list) > 0 and 'results' in data_list[0]:
@@ -324,18 +334,17 @@ def main():
 
             # dump the results in CSV,JSON and PRETTY format in the
             # priv-results dir
-            for res_format in ['csv', 'json', 'pretty']:
+            for res_format in ['csv', 'json', 'pretty', 'pdf']:
                 fpath = os.path.join(
                     priv_results_path,
                     "%d.results.%s" % (pargs.election_id, res_format)
                 )
                 with open(fpath, "w") as f:
                   output_func = lambda s: f.write(s + "\n")
-                  print_results(data_list[0], res_format, output_func)
+                  print_results(data_list[0], res_format, output_func, election_config=priv_results_path, election_id=pargs.election_id)
 
-
-        if pargs.stdout and len(data_list) > 0 and 'results' in data_list[0]:
-          print_results(data_list[0], pargs.output_format)
+        if (pargs.stdout or (pargs.output_format and 'pdf' == pargs.output_format)) and len(data_list) > 0 and 'results' in data_list[0]:
+          print_results(data_list[0], pargs.output_format, print, election_config=config_folder, election_id=pargs.election_id)
 
     finally:
         if not pargs.stdout:
