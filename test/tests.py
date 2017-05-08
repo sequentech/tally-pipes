@@ -65,7 +65,7 @@ class TestDesBorda2(unittest.TestCase):
             return
         print("\nTest name: %s" % test_data["name"])
         agora_results_bin_path = "python3 agora-results"
-        tally_path = test.desborda_test.create_desborda_test(test_data, tally_type = "desborda2", num_winners = 10)
+        tally_path = test.desborda_test.create_desborda_test(test_data, tally_type = "desborda2")
         try:
             tally_targz_path = os.path.join(tally_path, "tally.tar.gz")
             config_results_path = os.path.join(tally_path, "12345.config.results.json")

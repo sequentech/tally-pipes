@@ -122,7 +122,7 @@ def read_testfile(testfile_path):
                 results += line
     return { "input": ballots, "output": results, "name": name }
 
-def create_desborda_test(test_data, tally_type = "desborda", num_winners = 62):
+def create_desborda_test(test_data, tally_type = "desborda"):
     if not has_input_format(test_data["input"]):
         raise Exception("Error: test data input with format errors")
     if not has_output_format(test_data["output"]):
@@ -131,6 +131,7 @@ def create_desborda_test(test_data, tally_type = "desborda", num_winners = 62):
     # test_struct
     ballots = [re.split(r",", line) for line in remove_spaces(test_data["input"]).splitlines()]
     results = [re.split(r",", line) for line in remove_spaces(test_data["output"]).splitlines()]
+    num_winners = len(results)
     teams = {}
     all_candidates = []
     women_names = []
