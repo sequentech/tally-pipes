@@ -122,7 +122,7 @@ def read_testfile(testfile_path):
                 results += line
     return { "input": ballots, "output": results, "name": name }
 
-def create_desborda_test(test_data):
+def create_desborda_test(test_data, tally_type = "desborda", num_winners = 62):
     if not has_input_format(test_data["input"]):
         raise Exception("Error: test data input with format errors")
     if not has_output_format(test_data["output"]):
@@ -164,11 +164,11 @@ def create_desborda_test(test_data):
         "answers": [],
         "description": "Desborda question",
         "layout": "simple",
-        "max": 62,
+        "max": num_winners,
         "min": 0,
-        "num_winners": 62,
+        "num_winners": num_winners,
         "randomize_answer_order": True,
-        "tally_type": "desborda",
+        "tally_type": tally_type,
         "title": "Desborda question"
     }
     cand_index = 0
@@ -193,7 +193,11 @@ def create_desborda_test(test_data):
 
     # encode ballots in plaintexts_json format
     plaintexts_json = ""
+    counter = 0
     for ballot in ballots:
+        counter += 1
+        if counter % 1000 == 0:
+            print("%i votes encoded" % counter)
         encoded_ballot = encode_ballot(ballot, indexed_candidates)
         plaintexts_json = plaintexts_json + '"' + encoded_ballot + '"\n'
 

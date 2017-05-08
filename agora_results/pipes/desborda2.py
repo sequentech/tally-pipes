@@ -248,9 +248,10 @@ def podemos_desborda2(data_list, women_names, question_indexes=None):
         # by normal rules on the second round
         no_minorities_index_2ndround  = list( set(allcands_index_1stround) - set(minorities_winners_indexes) )
         no_minorities_index_2ndround_sorted = get_list_by_points(no_minorities_index_2ndround)
+
         # normal (not minorities) winners on the second round
-        winners_index_2ndround =
-            minorities_winners_indexes +
+        winners_index_2ndround =            \
+            minorities_winners_indexes +    \
             no_minorities_index_2ndround_sorted[:num_winners_23_rounds]
         women_2nd_round = get_women_indexes(winners_index_2ndround)
         num_women_2nd_round = len(women_2nd_round)
@@ -263,8 +264,8 @@ def podemos_desborda2(data_list, women_names, question_indexes=None):
             # third round: zipped, but with_break=False so that we get exactly
             # num_winners_23_rounds winners even if this means not having
             # strict parity because we need 62 winners in the end!
-            allcands_sorted_index_3rdround =
-                minorities_winners_indexes +
+            allcands_sorted_index_3rdround =         \
+                minorities_winners_indexes +         \
                 no_minorities_index_2ndround_sorted
 
             winners_index_3rdround = get_zipped_parity(
