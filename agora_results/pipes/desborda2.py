@@ -61,12 +61,36 @@ def podemos_desborda2(data_list, women_names, question_indexes=None):
         women_indexes = [ index
             for index, answer in enumerate(question['answers'])
             if answer['text'] in women_names ]
+        
+        
+        # remove elements from index_list preserving order
+        def remove_elements_from_list(index_list, elements):
+            elements_set = set(elements)
+            out_set = set()
+            out = []
+            for el in index_list:
+                if el not in out_set and el not in elements_set:
+                    out.append(el)
+                    out_set.add(el)
+            return out
+        
+        # remove elements from index_list preserving order
+        def include_elements_from_list(index_list, elements):
+            elements_set = set(elements)
+            out_set = set()
+            out = []
+            for el in index_list:
+                if el not in out_set and el in elements_set:
+                    out.append(el)
+                    out_set.add(el)
+            return out
 
         def get_women_indexes(people_indexes_list):
             '''
             filters the list of indexes of candidates returning only women
             '''
-            return list( set(people_indexes_list) & set(women_indexes) )
+            return include_elements_from_list(people_indexes_list, women_indexes)
+            
 
         def get_list_by_points(winners_indexes):
             '''
@@ -115,7 +139,7 @@ def podemos_desborda2(data_list, women_names, question_indexes=None):
             than max_people, in order to preserve parity strictly.
             '''
             women_index_list = get_women_indexes(mixed_list)
-            men_index_list = list( set(mixed_list) - set(women_index_list) )
+            men_index_list = remove_elements_from_list(mixed_list, women_index_list)
             women_index_list_sorted = get_list_by_points(women_index_list)
             men_index_list_sorted = get_list_by_points(men_index_list)
             if no_sort:
@@ -252,7 +276,7 @@ def podemos_desborda2(data_list, women_names, question_indexes=None):
 
         # exclude winners chosen by the minority rules for calculating winners
         # by normal rules on the second round
-        no_minorities_index_2ndround  = list( set(allcands_index_1stround) - set(minorities_candidates_indexes) )
+        no_minorities_index_2ndround  = remove_elements_from_list(allcands_index_1stround, minorities_candidates_indexes)
         no_minorities_index_2ndround_sorted = get_list_by_points(no_minorities_index_2ndround)
 
         # normal (not minorities) winners on the second round
@@ -277,7 +301,8 @@ def podemos_desborda2(data_list, women_names, question_indexes=None):
             winners_index_3rdround = get_zipped_parity(
                 allcands_sorted_index_3rdround, 
                 question['num_winners'],
-                no_sort = True)
+                True,
+                True)
             final_list = copy.deepcopy(winners_index_3rdround)
 
         # set the winner_position
