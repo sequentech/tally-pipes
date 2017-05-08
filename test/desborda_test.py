@@ -135,7 +135,11 @@ def create_desborda_test(test_data, tally_type = "desborda"):
     teams = {}
     all_candidates = []
     women_names = []
+    max_num = 0
     for ballot in ballots:
+        len_ballot = len(ballot)
+        if len_ballot > max_num:
+            max_num = len_ballot
         for candidate in ballot:
             team = candidate[:1]
             female = "f" is candidate[-1]
@@ -165,7 +169,7 @@ def create_desborda_test(test_data, tally_type = "desborda"):
         "answers": [],
         "description": "Desborda question",
         "layout": "simple",
-        "max": num_winners,
+        "max": max_num,
         "min": 0,
         "num_winners": num_winners,
         "randomize_answer_order": True,
