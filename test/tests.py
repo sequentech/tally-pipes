@@ -59,7 +59,6 @@ tally_config_desborda2 = [
 ]
 
 class TestDesBorda2(unittest.TestCase):
-
     def do_test(self, test_data=None):
         if test_data is None:
             return
