@@ -51,7 +51,8 @@ def podemos_desborda2(data_list, women_names, question_indexes=None):
         if women_names == None:
             women_names = __get_women_names_from_question(question)
 
-        if "desborda2" != question['tally_type'] or len(question['answers']) < question['num_winners']:
+        if "desborda2" != question['tally_type'] \
+            or len(question['answers']) < question['num_winners']:
             continue
 
         if question_indexes is not None and qindex not in question_indexes:
@@ -74,7 +75,7 @@ def podemos_desborda2(data_list, women_names, question_indexes=None):
                     out_set.add(el)
             return out
         
-        # remove elements from index_list preserving order
+        # include elements from index_list preserving order
         def include_elements_from_list(index_list, elements):
             elements_set = set(elements)
             out_set = set()
@@ -89,7 +90,7 @@ def podemos_desborda2(data_list, women_names, question_indexes=None):
             '''
             filters the list of indexes of candidates returning only women
             '''
-            return include_elements_from_list(people_indexes_list, women_indexes)
+            return include_elements_from_list(people_indexes_list,women_indexes)
             
 
         def get_list_by_points(winners_indexes):
@@ -122,7 +123,11 @@ def podemos_desborda2(data_list, women_names, question_indexes=None):
                 return round_1_list
 
 
-        def get_zipped_parity(mixed_list, max_people, with_break=False, no_sort = False):
+        def get_zipped_parity(
+            mixed_list,
+            max_people,
+            with_break=False,
+            no_sort = False):
             '''
             returns a list composed of the indexes of mixed_list ordered by
             points, but in a zipped way (female, male, female, male...)
@@ -139,15 +144,20 @@ def podemos_desborda2(data_list, women_names, question_indexes=None):
             than max_people, in order to preserve parity strictly.
             '''
             women_index_list = get_women_indexes(mixed_list)
-            men_index_list = remove_elements_from_list(mixed_list, women_index_list)
-            women_index_list_sorted = get_list_by_points(women_index_list)
-            men_index_list_sorted = get_list_by_points(men_index_list)
+            men_index_list = remove_elements_from_list(
+                mixed_list,
+                women_index_list)
             if no_sort:
                 women_index_list_sorted = copy.deepcopy(women_index_list)
                 men_index_list_sorted = copy.deepcopy(men_index_list)
+            else:
+                women_index_list_sorted = get_list_by_points(women_index_list)
+                men_index_list_sorted = get_list_by_points(men_index_list)
 
             zipped_parity = []
-            for a, b in zip_longest(women_index_list_sorted, men_index_list_sorted):
+            for a, b in zip_longest(     \
+                women_index_list_sorted, \
+               men_index_list_sorted):
                 has_None = False
                 if a is None:
                     has_None = True
@@ -199,9 +209,6 @@ def podemos_desborda2(data_list, women_names, question_indexes=None):
             # add to number of winners
             if index in winners_index_1stround:
                 category['winners_index_1stround'].append(index)
-
-
-        ########################################################################
         
         # list of indexes of winners chosen by the minority rules
         minorities_winners_indexes = []
@@ -224,8 +231,10 @@ def podemos_desborda2(data_list, women_names, question_indexes=None):
             # mark minorities corrections
             for category_name, category in categories.items():
                 # check 15%
-                if len(category['winners_index_1stround']) < 3 and category['points_category'] > percent_15_limit:
-                    this_category_minority_winners = get_minorities(category['candidates_index'], 3)
+                if len(category['winners_index_1stround']) < 3 \
+                    and category['points_category'] > percent_15_limit:
+                    this_category_minority_winners = \
+                        get_minorities(category['candidates_index'], 3)
                     minorities_winners_indexes += this_category_minority_winners
                     minorities_candidates_indexes += category['candidates_index']
                     # normally len(this_category_minority_winners) will be 4, but it
@@ -233,16 +242,20 @@ def podemos_desborda2(data_list, women_names, question_indexes=None):
                     # 2 women
                     num_winners_23_rounds -= len(this_category_minority_winners)
                 # check 10%
-                elif len(category['winners_index_1stround']) < 2 and category['points_category'] > percent_10_limit:
-                    this_category_minority_winners = get_minorities(category['candidates_index'], 2)
+                elif len(category['winners_index_1stround']) < 2 \
+                    and category['points_category'] > percent_10_limit:
+                    this_category_minority_winners = \
+                        get_minorities(category['candidates_index'], 2)
                     minorities_winners_indexes += this_category_minority_winners
                     # normally len(this_category_minority_winners) will be 4, but it
                     # can be less if this category has less than 2 men or less than
                     # 2 women
                     num_winners_23_rounds -= len(this_category_minority_winners)
                 # check 5%
-                elif len(category['winners_index_1stround']) < 1 and category['points_category'] > percent_5_limit:
-                    this_category_minority_winners = get_list_by_points(category['candidates_index'])[:1]
+                elif len(category['winners_index_1stround']) < 1 \
+                    and category['points_category'] > percent_5_limit:
+                    this_category_minority_winners = \
+                        get_list_by_points(category['candidates_index'])[:1]
                     minorities_winners_indexes += this_category_minority_winners
                     # normally len(this_category_minority_winners) will be 4, but it
                     # can be less if this category has less than 2 men or less than
@@ -256,8 +269,10 @@ def podemos_desborda2(data_list, women_names, question_indexes=None):
             # mark minorities corrections
             for category_name, category in categories.items():
                 # check 20%
-                if len(category['winners_index_1stround']) < 2 and category['points_category'] > percent_20_limit:
-                    this_category_minority_winners = get_minorities(category['candidates_index'], 2)
+                if len(category['winners_index_1stround']) < 2 \
+                    and category['points_category'] > percent_20_limit:
+                    this_category_minority_winners = \
+                        get_minorities(category['candidates_index'], 2)
                     minorities_winners_indexes += this_category_minority_winners
                     minorities_candidates_indexes += category['candidates_index']
                     # normally len(this_category_minority_winners) will be 4, but it
@@ -265,8 +280,10 @@ def podemos_desborda2(data_list, women_names, question_indexes=None):
                     # 2 women
                     num_winners_23_rounds -= len(this_category_minority_winners)
                 # check 10%
-                elif len(category['winners_index_1stround']) < 1 and category['points_category'] > percent_10_limit:
-                    this_category_minority_winners = get_list_by_points(category['candidates_index'])[:1]
+                elif len(category['winners_index_1stround']) < 1 \
+                    and category['points_category'] > percent_10_limit:
+                    this_category_minority_winners = \
+                        get_list_by_points(category['candidates_index'])[:1]
                     minorities_winners_indexes += this_category_minority_winners
                     minorities_candidates_indexes += category['candidates_index']
                     # normally len(this_category_minority_winners) will be 4, but it
@@ -276,8 +293,11 @@ def podemos_desborda2(data_list, women_names, question_indexes=None):
 
         # exclude winners chosen by the minority rules for calculating winners
         # by normal rules on the second round
-        no_minorities_index_2ndround  = remove_elements_from_list(allcands_index_1stround, minorities_candidates_indexes)
-        no_minorities_index_2ndround_sorted = get_list_by_points(no_minorities_index_2ndround)
+        no_minorities_index_2ndround  = remove_elements_from_list(
+            allcands_index_1stround,
+            minorities_candidates_indexes)
+        no_minorities_index_2ndround_sorted = \
+            get_list_by_points(no_minorities_index_2ndround)
 
         # normal (not minorities) winners on the second round
         winners_index_2ndround =            \
