@@ -160,6 +160,9 @@ def pdf_print(election_results, config_folder, election_id):
           base_num = total_votes
         elif percent_base == "over-total-valid-votes":
           base_num = question['totals']['valid_votes']
+        elif "over-total-valid-points" == percent_base \
+          and "valid_points" in question['totals']:
+          base_num = question['totals']['valid_points']
 
         elements.append(gen_text(tx_question_title % (i+1, question['title']), size = 15, bold = True, align = TA_LEFT))
         elements.append(Spacer(0, 15))

@@ -209,6 +209,7 @@ def podemos_desborda2(data_list, women_names, question_indexes=None):
             # add to number of winners
             if index in winners_index_1stround:
                 category['winners_index_1stround'].append(index)
+        question['totals']['valid_points'] = total_points
         
         # list of indexes of winners chosen by the minority rules
         minorities_winners_indexes = []
