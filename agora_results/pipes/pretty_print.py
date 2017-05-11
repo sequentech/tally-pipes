@@ -69,6 +69,8 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_names, output_f
           base_num = total_votes
         elif percent_base == "over-total-valid-votes":
           base_num = question['totals']['valid_votes']
+        elif "over-total-valid-points" == percent_base:
+          base_num = question['totals']['valid_points']
 
 
         output_func("Total votes: %d" % total_votes)
