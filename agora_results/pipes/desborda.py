@@ -47,8 +47,10 @@ def podemos_desborda(data_list, women_names, question_indexes=None):
     '''
     data = data_list[0]
     for qindex, question in enumerate(data['results']['questions']):
-        if women_names == None:
-            women_names = __get_women_names_from_question(question)
+        if women_names is None:
+            women_names_question = __get_women_names_from_question(question)
+        else:
+            women_names_question = copy.deepcopy(women_names)
 
         if "desborda" != question['tally_type'] or len(question['answers']) < 62 or question['num_winners'] != 62:
             continue
@@ -59,7 +61,7 @@ def podemos_desborda(data_list, women_names, question_indexes=None):
         # calculate women indexes
         women_indexes = [ index
             for index, answer in enumerate(question['answers'])
-            if answer['text'] in women_names ]
+            if answer['text'] in women_names_question ]
 
         def get_women_indexes(people_indexes_list):
             '''
