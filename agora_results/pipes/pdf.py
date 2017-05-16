@@ -266,11 +266,15 @@ def pdf_print(election_results, config_folder, election_id):
         t.setStyle(table_style)
         elements.append(t)
 
-        winners = [answer for answer in question['answers']
-            if answer['winner_position'] != None]
-        losers = sorted([answer for answer in question['answers']
-            if answer['winner_position'] == None],
-            key=lambda a: float(a['total_count']), reverse=True)
+        winners = sorted([answer for answer in question['answers']
+            if answer['winner_position'] is not None],
+            key=lambda a: a['winner_position'])
+        losers_by_name = sorted([answer for answer in question['answers']
+            if answer['winner_position'] is None],
+            key=lambda a: a['text'])
+        losers = sorted(losers_by_name,
+            key=lambda a: float(a['total_count']),
+            reverse=True)
         data = [
           [
             gen_text('Nombre', align = TA_RIGHT),
