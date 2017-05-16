@@ -16,7 +16,42 @@
 # along with agora-results.  If not, see <http://www.gnu.org/licenses/>. 
 
 # Definition of this system: 
+# Desborda 2 is a modification/generalization of desborda. 
+# Desborda is defined here:
 # http://pabloechenique.info/wp-content/uploads/2016/12/DesBorda-sistema-Echenique.pdf
+# It is assumed that the desborda2 method in agora-tally has been already applied
+
+# If N is the number of winners, then the maximum points for a candidate per
+# ballot will be:
+
+# MAXP=floor(1.3*N)
+
+# If M is the maximum number of candidates a voter can include in a ballot,
+# the points that the ballot adds to each candidate will be:
+
+# POINTS=max(1, MAXP - order)
+
+# where 'order' is the preferential order of the candidate in the ballot (for
+# example 0 for the first option, and M-1 for the last one).
+
+# The number of female winners can be greater than the number of male winners,
+# but if the number of male winners is greater than the female ones, a zipped
+# parity algorithm will be applied.
+
+# When the number of winners is more than 29, if a group of candidates has
+# more than 5% of all the points, the group will be guaranteed 1 winner
+# position. Also in this case, if a group has more than 10% of all the
+# points, it will be guaranteed 2 winner positions. Also in this case, if a
+# group has more than 15% of all the points, it will be guaranteed 3 winner
+# positions. If 2 or 3 candidates win by this mechanism, the maximum number of
+# male winners in each case will be one.
+
+# When the number of winners is less or equal than 29, if a group of
+# candidates has more than 10% of all the points, the group will be guaranteed 1 winner
+# position. Also in this case, if a group has more than 20% of all the
+# points, it will be guaranteed 2 winner positions. If 2 candidates win 
+# by this mechanism, the maximum number of male winners in each case will be
+# one.
 
 import copy
 from itertools import zip_longest
@@ -42,9 +77,42 @@ def __get_women_names_from_question(question):
 
 def podemos_desborda2(data_list, women_names, question_indexes=None):
     '''
-    Definition of this system: 
+    Desborda 2 is a modification/generalization of desborda. 
+    Desborda is defined here:
     http://pabloechenique.info/wp-content/uploads/2016/12/DesBorda-sistema-Echenique.pdf
-    It is assumed that the desborda method in agora-tally has been already applied
+    It is assumed that the desborda2 method in agora-tally has been already applied
+
+    If N is the number of winners, then the maximum points for a candidate per
+    ballot will be:
+    
+    MAXP=floor(1.3*N)
+
+    If M is the maximum number of candidates a voter can include in a ballot,
+    the points that the ballot adds to each candidate will be:
+    
+    POINTS=max(1, MAXP - order)
+    
+    where 'order' is the preferential order of the candidate in the ballot (for
+    example 0 for the first option, and M-1 for the last one).
+    
+    The number of female winners can be greater than the number of male winners,
+    but if the number of male winners is greater than the female ones, a zipped
+    parity algorithm will be applied.
+    
+    When the number of winners is more than 29, if a group of candidates has
+    more than 5% of all the points, the group will be guaranteed 1 winner
+    position. Also in this case, if a group has more than 10% of all the
+    points, it will be guaranteed 2 winner positions. Also in this case, if a
+    group has more than 15% of all the points, it will be guaranteed 3 winner
+    positions. If 2 or 3 candidates win by this mechanism, the maximum number of
+    male winners in each case will be one.
+    
+    When the number of winners is less or equal than 29, if a group of
+    candidates has more than 10% of all the points, the group will be guaranteed 1 winner
+    position. Also in this case, if a group has more than 20% of all the
+    points, it will be guaranteed 2 winner positions. If 2 candidates win 
+    by this mechanism, the maximum number of male winners in each case will be
+    one.
     '''
     data = data_list[0]
     for qindex, question in enumerate(data['results']['questions']):
