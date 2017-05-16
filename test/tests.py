@@ -25,6 +25,7 @@ import subprocess
 import copy
 import time
 import random
+import re
 
 tally_config = [
     [
@@ -93,8 +94,21 @@ class TestDesBorda2(unittest.TestCase):
 
     def test_all(self):
         desborda_tests_path = os.path.join("test", "desborda2_tests")
-        test_files = [ os.path.join(desborda_tests_path, f) for f in os.listdir(desborda_tests_path) if os.path.isfile(os.path.join(desborda_tests_path, f)) ]
+        # only use tests that end with a number (ie "test_5" )
+        test_files = [
+          os.path.join(desborda_tests_path, f) 
+          for f in os.listdir(desborda_tests_path) 
+          if os.path.isfile(os.path.join(desborda_tests_path, f)) and
+          re.match("^test_([0-9]*)$", f) is not None]
         for testfile_path in test_files:
+            data = test.desborda_test.read_testfile(testfile_path)
+            data["config"] = copy.deepcopy(tally_config_desborda2)
+            self.do_test(test_data=data)
+
+    def test_draws(self):
+        testfile_path = os.path.join("test", "desborda2_tests", "test_draws")
+        # we test draws 20 times to test the stability of the draws
+        for i in range(0, 20):
             data = test.desborda_test.read_testfile(testfile_path)
             data["config"] = copy.deepcopy(tally_config_desborda2)
             self.do_test(test_data=data)

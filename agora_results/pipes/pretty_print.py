@@ -57,7 +57,20 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_names, output_f
         if question['tally_type'] not in filter_names or question.get('no-tally', False):
             continue
         output_func("\n\nQ: %s\n" % question['title'])
-
+        tally_map = {
+          "plurality-at-large": "plurality-at-large",
+          "borda-nauru": "borda",
+          "borda": "borda",
+          "pairwise-beta": "borda",
+          "desborda2": "borda",
+          "desborda": "borda"
+        }
+        count_type_map = {
+          "borda": "points",
+          "plurality-at-large": "votes"
+        }
+        count_type = count_type_map[tally_map[question['tally_type']]]
+        
         blank_votes = question['totals']['blank_votes']
         null_votes = question['totals']['null_votes']
         valid_votes = question['totals']['valid_votes']
@@ -89,35 +102,42 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_names, output_f
 
         if mark_winners:
             i = 1
-            winners = [answer for answer in question['answers']
-                if answer['winner_position'] != None]
+            winners = sorted([answer for answer in question['answers']
+                if answer['winner_position'] != None],
+                key=lambda a: a['winner_position'])
             for answer in winners:
                 if not show_percent:
-                    output_func("%d. %s (%0.2f votes)" % (
-                        i,
-                        answer['text'],
-                        answer['total_count']))
-                else:
-                    output_func("%d. %s (%0.2f votes, %0.2f%%)" % (
+                    output_func("%d. %s (%0.2f %s)" % (
                         i,
                         answer['text'],
                         answer['total_count'],
+                        count_type))
+                else:
+                    output_func("%d. %s (%0.2f %s, %0.2f%%)" % (
+                        i,
+                        answer['text'],
+                        answer['total_count'],
+                        count_type,
                         get_percentage(answer['total_count'], base_num)))
                 i += 1
 
-            losers = sorted([answer for answer in question['answers']
+            losers_by_name = sorted([answer for answer in question['answers']
                 if answer['winner_position'] == None],
+                key=lambda a: float(a['text']))
+            losers = sorted(losers_by_name,
                 key=lambda a: float(a['total_count']), reverse=True)
 
             for loser in losers:
                 if not show_percent:
-                    output_func("N. %s (%0.2f votes)" % (
-                        loser['text'],
-                        loser['total_count']))
-                else:
-                    output_func("N. %s (%0.2f votes, %0.2f%%)" % (
+                    output_func("N. %s (%0.2f %s)" % (
                         loser['text'],
                         loser['total_count'],
+                        count_type))
+                else:
+                    output_func("N. %s (%0.2f %s, %0.2f%%)" % (
+                        loser['text'],
+                        loser['total_count'],
+                        count_type,
                         get_percentage(loser['total_count'], base_num)))
         else:
             answers = sorted([a for a in question['answers']],
@@ -125,13 +145,17 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_names, output_f
 
             for i, answer in zip(range(len(answers)), answers):
                 if not show_percent:
-                    output_func("%d. %s (%0.2f votes)" % (
-                        i + 1, answer['text'],
-                        answer['total_count']))
-                else:
-                    output_func("%d. %s (%0.2f votes, %0.2f%%)" % (
-                        i + 1, answer['text'],
+                    output_func("%d. %s (%0.2f %s)" % (
+                        i + 1,
+                        answer['text'],
                         answer['total_count'],
+                        count_type))
+                else:
+                    output_func("%d. %s (%0.2f %s, %0.2f%%)" % (
+                        i + 1, 
+                        answer['text'],
+                        answer['total_count'],
+                        count_type,
                         get_percentage(answer['total_count'], base_num)))
     output_func("")
 
