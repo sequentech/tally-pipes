@@ -60,12 +60,15 @@ tally_config_desborda2 = [
 ]
 
 class TestDesBorda2(unittest.TestCase):
-    def do_test(self, test_data=None):
+    def do_test(self, test_data=None, num_questions=1, women_in_urls=False):
         if test_data is None:
             return
         print("\nTest name: %s" % test_data["name"])
         agora_results_bin_path = "python3 agora-results"
-        tally_path = test.desborda_test.create_desborda_test(test_data, tally_type = "desborda2")
+        tally_path = test.desborda_test.create_desborda_test(test_data,
+            tally_type = "desborda2",
+            num_questions = num_questions,
+            women_in_urls = women_in_urls)
         try:
             tally_targz_path = os.path.join(tally_path, "tally.tar.gz")
             config_results_path = os.path.join(tally_path, "12345.config.results.json")
@@ -77,14 +80,17 @@ class TestDesBorda2(unittest.TestCase):
             with open(results_path, mode='w', encoding="utf-8", errors='strict') as f:
                 print(cmd)
                 subprocess.check_call(cmd, stdout=f, stderr=sys.stderr, shell=True)
-            results = test.desborda_test.create_simple_results(results_path)
-            file_helpers.write_file(os.path.join(tally_path, "output"), results)
-            shouldresults = test_data["output"]
-            check_results = test.desborda_test.check_results(results, shouldresults)
-            if not check_results:
-                print("results:\n" + results)
-                print("shouldresults:\n" + shouldresults)
-            self.assertTrue(check_results)
+            for question_index in range(0, num_questions):
+                results = test.desborda_test.create_simple_results(results_path, question_index=question_index)
+                output_name = "output_%i" % question_index
+                file_helpers.write_file(os.path.join(tally_path, output_name), results)
+                shouldresults = test_data["output"]
+                check_results = test.desborda_test.check_results(results, shouldresults)
+                if not check_results:
+                    print("question index: %i\n" % question_index)
+                    print("results:\n" + results)
+                    print("shouldresults:\n" + shouldresults)
+                self.assertTrue(check_results)
         except:
             # remove the temp test folder if there's an error
             file_helpers.remove_tree(tally_path)
@@ -105,13 +111,19 @@ class TestDesBorda2(unittest.TestCase):
             data["config"] = copy.deepcopy(tally_config_desborda2)
             self.do_test(test_data=data)
 
-    def test_draws(self):
-        testfile_path = os.path.join("test", "desborda2_tests", "test_draws")
-        # we test draws 20 times to test the stability of the draws
+    def test_ties(self):
+        testfile_path = os.path.join("test", "desborda2_tests", "test_ties")
+        # we test draws 20 times to test the stability of the ties
         for i in range(0, 20):
             data = test.desborda_test.read_testfile(testfile_path)
             data["config"] = copy.deepcopy(tally_config_desborda2)
             self.do_test(test_data=data)
+
+    def test_multi_women(self):
+        testfile_path = os.path.join("test", "desborda2_tests", "test_multi_women")
+        data = test.desborda_test.read_testfile(testfile_path)
+        data["config"] = copy.deepcopy(tally_config_desborda2)
+        self.do_test(test_data=data, num_questions=3, women_in_urls=True)
 
 class TestDesBorda(unittest.TestCase):
 
