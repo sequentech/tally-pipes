@@ -123,7 +123,7 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_names, output_f
 
             losers_by_name = sorted([answer for answer in question['answers']
                 if answer['winner_position'] == None],
-                key=lambda a: float(a['text']))
+                key=lambda a: a['text'])
             losers = sorted(losers_by_name,
                 key=lambda a: float(a['total_count']), reverse=True)
 
@@ -140,7 +140,9 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_names, output_f
                         count_type,
                         get_percentage(loser['total_count'], base_num)))
         else:
-            answers = sorted([a for a in question['answers']],
+            answers_by_name = sorted([a for a in question['answers']],
+                key=lambda a: a['text'])
+            answers = sorted(answers_by_name,
                 key=lambda a: float(a['total_count']), reverse=True)
 
             for i, answer in zip(range(len(answers)), answers):
