@@ -318,6 +318,7 @@ def podemos_desborda2(data_list, women_names, question_indexes=None):
                     this_category_minority_winners = \
                         get_minorities(category['candidates_index'], 2)
                     minorities_winners_indexes += this_category_minority_winners
+                    minorities_candidates_indexes += category['candidates_index']
                     # normally len(this_category_minority_winners) will be 4, but it
                     # can be less if this category has less than 2 men or less than
                     # 2 women
@@ -328,6 +329,7 @@ def podemos_desborda2(data_list, women_names, question_indexes=None):
                     this_category_minority_winners = \
                         get_list_by_points(category['candidates_index'])[:1]
                     minorities_winners_indexes += this_category_minority_winners
+                    minorities_candidates_indexes += category['candidates_index']
                     # normally len(this_category_minority_winners) will be 4, but it
                     # can be less if this category has less than 2 men or less than
                     # 2 women
