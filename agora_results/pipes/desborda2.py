@@ -402,8 +402,9 @@ def podemos_desborda2(data_list, women_names, question_indexes=None):
                 True,
                 True)
             final_list = copy.deepcopy(winners_index_3rdround)
-       # sort final winners by points
-       sorted_final_list = get_list_by_points(final_list)
+
+        # sort final winners by points
+        sorted_final_list = get_list_by_points(final_list)
 
         # set the winner_position
         for aindex, answer in enumerate(question['answers']):
