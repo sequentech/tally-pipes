@@ -22,9 +22,17 @@ def minimum_ballots_percent_policy(data, qindex, question, withdraw_info):
     # minimum number of ballots for a candidate not to be withdrawn
     min_ballots = math.ceil( min_percent * question['totals']['valid_votes'] )
     
-    question['withdraw_candidates'] = True
-    for index, answer in enumerate(question['answers']):
-        answer['withdrawn'] = sum(answer['voters_by_position']) < min_ballots
+    list_of_bordas = ['borda','borda-nauru','borda-custom','desborda','desborda2','desborda3']
+
+    if question['tally_type'] in list_of_bordas:
+        question['withdraw_candidates'] = True
+        for index, answer in enumerate(question['answers']):
+            answer['withdrawn'] = sum(answer['voters_by_position']) < min_ballots
+
+    elif 'plurality-at-large' == question['tally_type']:
+        question['withdraw_candidates'] = True
+        for index, answer in enumerate(question['answers']):
+            answer['withdrawn'] = answer['total_count'] < min_ballots
 
 def withdraw_candidates(data_list, questions):
     withdraw_set = {}

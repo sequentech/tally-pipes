@@ -99,7 +99,7 @@ def sort_non_iterative(data_list, question_indexes=[], withdrawals=[], ties_sort
         # sort by withdrawn/not withdrawn if possible
         if 'withdraw_candidates' in question and question['withdraw_candidates']:
             question['answers'] = sorted(question['answers'],
-                key=itemgetter('withdrawn'), reverse=True)
+                key=itemgetter('withdrawn'))
 
         # mark winners
         i = 0
