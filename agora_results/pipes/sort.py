@@ -74,7 +74,6 @@ def sort_non_iterative(data_list, question_indexes=[], withdrawals=[], ties_sort
             # reverse numbering, to be compatible with total_count sorting
             item2['tie_sort'] = len(q_ties_sorting) - i
 
-
         # sanity check withdrawals
         for item in q_withdrawals:
             if item['answer_id'] in q_removed:
