@@ -62,6 +62,7 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_names, output_f
           "borda-nauru": "borda",
           "borda": "borda",
           "pairwise-beta": "borda",
+          "desborda3": "borda",
           "desborda2": "borda",
           "desborda": "borda"
         }

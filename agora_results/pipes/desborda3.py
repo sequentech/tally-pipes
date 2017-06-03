@@ -87,7 +87,7 @@ def podemos_desborda3(data_list, women_names, question_indexes=None):
         else:
             women_names_question = copy.deepcopy(women_names)
 
-        if "desborda2" != question['tally_type'] \
+        if "desborda3" != question['tally_type'] \
             or len(question['answers']) < question['num_winners']:
             continue
 
