@@ -20,15 +20,11 @@ import math
 def minimum_ballots_percent_policy(data, qindex, question, withdraw_info):
     min_percent = withdraw_info['min_percent'] / 100.0
     # minimum number of ballots for a candidate not to be withdrawn
-    min_ballots = math.ceil( min_percent * data['totals']['valid_votes'] )
-    removed_candidates = [ 
-        {"answer_id": aindex, "question_index", qindex}
-        for aindex, answer in data['answers']
-        if answer['total_count'] < min_ballots ]
-    if len(removed_candidates) > 0:
-        if "removed-candidates" not in data:
-            data["removed-candidates"] = []
-        data["removed-candidates"] += removed_candidates
+    min_ballots = math.ceil( min_percent * question['totals']['valid_votes'] )
+    
+    question['withdraw_candidates'] = True
+    for index, answer in enumerate(question['answers']):
+        answer['withdrawn'] = sum(answer['voters_by_position']) < min_ballots
 
 def withdraw_candidates(data_list, questions):
     withdraw_set = {}
