@@ -166,5 +166,5 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_names, output_f
 def pretty_print_not_iterative(data_list, mark_winners=True, output_func=print):
     data = data_list[0]
     __pretty_print_base(data, mark_winners, show_percent=True,
-        filter_names=["plurality-at-large", "borda-nauru", "desborda2", "desborda", "borda", "pairwise-beta", "cup"],
+        filter_names=["plurality-at-large", "borda-nauru", "desborda3", "desborda2", "desborda", "borda", "pairwise-beta", "cup"],
         output_func=output_func)
