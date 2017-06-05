@@ -203,10 +203,12 @@ def create_desborda_test(test_data, tally_type = "desborda", num_questions=1, wo
 
     questions_json = [question] * num_questions
     config = test_data["config"]
-    if not women_in_urls:
-        config[1][1]["women_names"] = women_names
-    else:
-        config[1][1]["women_names"] = None
+    for config_el in config:
+        if "women_names" in config_el[1]:
+            if not women_in_urls:
+                config_el[1]["women_names"] = women_names
+            else:
+                config_el[1]["women_names"] = None
 
     # encode ballots in plaintexts_json format
     plaintexts_json = ""
