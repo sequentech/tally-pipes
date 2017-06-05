@@ -1,0 +1,10 @@
+Votes: desborda3 test9. max=10 but num_winners=5. Checks vote points clamped to 1. 
+A1f,A2m,A3f,A4m,A5f,A6m,A7f,A8m,A9f,A10m
+A10m
+
+Results:
+A1f, 6
+A10m, 7
+A3f, 4
+A2m, 5
+A5f, 2
