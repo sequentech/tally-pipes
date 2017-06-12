@@ -42,9 +42,9 @@ DEFAULT_PIPELINE = [
 # By default we only allow the most used pipes to reduce default attack surface
 # NOTE: keep the list sorted
 DEFAULT_PIPES_WHITELIST = [
-    "agora_results.pipes.desborda.podemos_desborda",
-    "agora_results.pipes.desborda2.podemos_desborda2",
-    "agora_results.pipes.desborda2.podemos_desborda3",
+    #"agora_results.pipes.desborda.podemos_desborda",
+    #"agora_results.pipes.desborda2.podemos_desborda2",
+    #"agora_results.pipes.desborda3.podemos_desborda3",
     #"agora_results.pipes.duplicate_questions.duplicate_questions",
     "agora_results.pipes.modifications.apply_modifications",
     #"agora_results.pipes.multipart.make_multipart",

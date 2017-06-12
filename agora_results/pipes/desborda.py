@@ -39,7 +39,7 @@ def __get_women_names_from_question(question):
     return women_names
 
 
-def podemos_desborda(data_list, women_names, question_indexes=None):
+def podemos_desborda(data_list, women_names=None, question_indexes=None):
     '''
     Definition of this system: 
     http://pabloechenique.info/wp-content/uploads/2016/12/DesBorda-sistema-Echenique.pdf
