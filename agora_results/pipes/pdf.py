@@ -176,6 +176,7 @@ def pdf_print(election_results, config_folder, election_id):
           "borda-nauru": "Borda de Nauru o Borda Dowdall (1/n)", 
           "borda": "Borda Count (tradicional)", 
           "pairwise-beta": "Comparación de pares (distribución beta)",
+          "desborda3": "Desborda3",
           "desborda2": "Desborda2",
           "desborda": "Desborda"
         }

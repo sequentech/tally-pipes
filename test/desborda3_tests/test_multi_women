@@ -1,0 +1,8 @@
+Votes: desborda3 test_multi_women. 1 vote, all cands to team A. Because  Female A5 is included as winner because of parity rules. Also max=5 but winners are 4
+A1m,A2f,A3m,A4m,A5f
+
+Results:
+A1m, 5
+A2f, 4
+A3m, 3
+A5f, 1
