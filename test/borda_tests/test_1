@@ -1,0 +1,9 @@
+Votes: borda test1. 3 winners. tests withdraw_candidates with minimum-ballots-percent 40.05, which is why C1f is not a winner even though it has more points than D1m
+A1f,B1m
+A1f,B1m,D1m
+C1f,A1f,D1m
+
+Results:
+A1f, 8
+B1m, 4
+D1m, 2

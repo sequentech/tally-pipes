@@ -75,7 +75,7 @@ def __get_women_names_from_question(question):
     return women_names
 
 
-def podemos_desborda2(data_list, women_names, question_indexes=None):
+def podemos_desborda2(data_list, women_names=None, question_indexes=None):
     '''
     Desborda 2 is a modification/generalization of desborda. 
     Desborda is defined here:
