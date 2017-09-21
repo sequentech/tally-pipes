@@ -27,7 +27,7 @@ reqs = [str(ir.req) for ir in install_reqs]
 
 setup(
     name='Agora Results',
-    version='103111.4',
+    version='103111.5',
     author='Agora Voting Team',
     author_email='agora@agoravoting.com',
     packages=['agora_results', 'agora_results.pipes'],
