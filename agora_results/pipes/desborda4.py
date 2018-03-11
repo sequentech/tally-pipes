@@ -39,12 +39,6 @@ def __get_women_names_from_question(question):
                 women_names.append(answer['text'])
                 break
     return women_names
-
-def get_min_num_winners_for_team(category_name, question, desborda_kind):
-    # TODO: IMPLEMENT THIS
-    if 'desborda3' == desborda_kind:
-        return 0
-    return 0
            
 def podemos_desborda4(data_list, women_names=None, question_indexes=None):
     '''
@@ -147,12 +141,6 @@ def podemos_desborda4(data_list, women_names=None, question_indexes=None):
             ]
             return team_winners
 
-        def insert_min_team_winners(min_num_winners_for_team, category):
-            minority_winners =
-                get_list_by_points(category['candidates_index'])[:min_num_winners_for_team]
-            b_unsure = [j for j in b_unsure if j not in minority_winners]
-            a_sure_winners.extend(minority_winners)
-
         def move_minority_losers(category):
             cat_losers = [
               team_member
@@ -162,8 +150,47 @@ def podemos_desborda4(data_list, women_names=None, question_indexes=None):
             b_unsure = [j for j in b_unsure if j not in cat_losers]
             c_sure_losers.extend(cat_losers)
 
+        def split_women_men(candidates_index_list):
+            '''
+            filters the list of indexes of candidates returning
+            the list of women, and the list of men
+            '''
+            women_index_list = [
+                candidate
+                for candidate in candidates_index_list
+                if candidate in women_indexes
+            ]
+            men_index_list = [
+                candidate
+                for candidate in candidates_index_list
+                if candidate not in women_index_list
+            ]
+            return women_index_list, men_index_list
+
+        def is_woman(index):
+            index in women_indexes
+
         def fix_parity():
-            # TODO: IMPLEMENT THIS
+            max_men = int(floor(num_winners / 2))
+            a_women, a_men = split_women_men(a_sure_winners)
+            num_men = len(a_men)
+            
+            new_b = []
+            for candidate in b_unsure:
+                if is_woman(index):
+                    new_b.append(index)
+                else:
+                    if num_men < max_men:
+                        num_men += 1
+                        new_b.append(index)
+            remaining = [
+                candidate
+                for candidate in b_unsure
+                if candidate not in new_b
+            ]
+            new_b.extend(remaining)
+            b_unsure = new_b
+            
             return True
 
         def join_lists(a, b, c):
@@ -179,6 +206,71 @@ def podemos_desborda4(data_list, women_names=None, question_indexes=None):
                     answer['winner_position'] = winners.index(aindex)
                 else:
                     answer['winner_position'] = None
+
+        def get_min_num_winners_for_team(category_name, question, desborda_kind):
+            total_points = question['totals']['valid_points']
+            # number of points for the 20% of total points trigger
+            percent_20_limit = total_points * 0.20
+            # number of points for the 15% of total points trigger
+            percent_15_limit = total_points * 0.15
+            # number of points for the 10% of total points trigger
+            percent_10_limit = total_points * 0.10
+            # number of points for the 5% of total points trigger
+            percent_5_limit = total_points * 0.05
+
+            cat = categories[category_name]
+            num_winners = question['num_winners']
+            if 'desborda2' == desborda_kind:
+                if question['num_winners'] > 29:
+                    if category['points_category'] > percent_15_limit:
+                       return 3
+                    elif category['points_category'] > percent_10_limit:
+                       return 2
+                    elif category['points_category'] > percent_5_limit:
+                       return 1
+                else:
+                    if category['points_category'] > percent_20_limit:
+                       return 2
+                    elif category['points_category'] > percent_10_limit:
+                       return 1
+            elif 'desborda' == desborda_kind:
+                    if category['points_category'] > percent_15_limit:
+                       return 4
+                    elif category['points_category'] > percent_5_limit:
+                       return 2
+            return 0
+
+        def insert_min_team_winners(min_num_winners_for_team, category, desborda_kind):
+            ordered_team_candidates =
+                get_list_by_points(category['candidates_index'])
+            minority_winners = []
+            if category['is_minority']: # apply parity rules
+                if 'desborda3' == desborda_kind:
+                    return
+                elif 'desborda2' == desborda_kind:
+                    if 1 == min_num_winners_for_team:
+                        minority_winners.append(ordered_team_candidates[0])
+                    else:
+                        prov_min_winners = ordered_team_candidates[:min_num_winners_for_team]
+                        prov_women, prov_men = split_women_men(prov_min_winners)
+                        if len(prov_men) <= 1:
+                            minority_winners.extend(prov_min_winners)
+                        else:
+                            minority_winners.append(prov_men[0])
+                            minority_winners.extend(prov_women[:min_num_winners_for_team-1])
+                elif 'desborda' == desborda_kind:
+                    team_women, team_men = split_women_men(ordered_team_candidates)
+                    if 2 == min_num_winners_for_team:
+                        minority_winners.append(team_women[0])
+                        minority_winners.append(team_men[0])
+                    elif 4 == min_num_winners_for_team:
+                        minority_winners.extend(team_women[:2])
+                        minority_winners.extend(team_men[:2])
+            else:
+                minority_winners =
+                    ordered_team_candidates[:min_num_winners_for_team]
+            b_unsure = [j for j in b_unsure if j not in minority_winners]
+            a_sure_winners.extend(minority_winners)
             
 
         num_candidates = len(question['answers'])

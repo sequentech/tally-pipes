@@ -338,7 +338,7 @@ def podemos_desborda2(data_list, women_names=None, question_indexes=None):
                     minorities_candidates_indexes += category['candidates_index']
                     num_winners_23_rounds -= len(this_category_minority_winners)
         else:
-            # number of points for the 15% of total points trigger
+            # number of points for the 20% of total points trigger
             percent_20_limit = total_points * 0.20
             # number of points for the 10% of total points trigger
             percent_10_limit = total_points * 0.10
