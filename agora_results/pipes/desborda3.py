@@ -127,7 +127,6 @@ def podemos_desborda3(data_list, women_names=None, question_indexes=None):
             filters the list of indexes of candidates returning only women
             '''
             return include_elements_from_list(people_indexes_list,women_indexes)
-            
 
         def get_list_by_points(winners_indexes):
             '''

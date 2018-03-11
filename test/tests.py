@@ -211,6 +211,7 @@ class TestDesBorda3(unittest.TestCase):
                     print("results:\n" + results)
                     print("shouldresults:\n" + shouldresults)
                 self.assertTrue(check_results)
+
         except:
             # remove the temp test folder if there's an error
             file_helpers.remove_tree(tally_path)
