@@ -108,7 +108,7 @@ def podemos_desborda4(data_list, women_names=None, question_indexes=None):
                 reverse = True)
             return sorted_by_points
 
-        def get_all_candidates():
+        def get_all_candidates(num_candidates):
             return get_list_by_points(range( num_candidates ))
 
         def get_categories():
@@ -126,14 +126,15 @@ def podemos_desborda4(data_list, women_names=None, question_indexes=None):
                 # add answer index to category
                 cat['candidates_index'].append(index)
                 # add points to category
-                category['points_category'] += answer['total_count']
+                cat['points_category'] += answer['total_count']
                 # add total points
                 total_points += answer['total_count']
-             question['totals']['valid_points'] = total_points
-             return cats
+            question['totals']['valid_points'] = total_points
+            return cats
 
-        dev get_winners_for_team(category):
-            present_winners = b_unsure[:num_winners]
+        def get_winners_for_team(category, a_sure_winners, b_unsure, num_winners):
+            ab = a_sure_winners + b_unsure
+            present_winners = ab[:num_winners]
             team_winners = [
                 team_member
                 for team_member in category['candidates_index']
@@ -141,16 +142,17 @@ def podemos_desborda4(data_list, women_names=None, question_indexes=None):
             ]
             return team_winners
 
-        def move_minority_losers(category):
+        def move_minority_losers(category, a_sure_winners, b_unsure, c_sure_losers):
             cat_losers = [
-              team_member
-              for team_member in category['candidates_index']
-              if team_member not in a_sure_winners
+                team_member
+                for team_member in category['candidates_index']
+                if team_member not in a_sure_winners
             ]
-            b_unsure = [j for j in b_unsure if j not in cat_losers]
-            c_sure_losers.extend(cat_losers)
+            b = [j for j in b_unsure if j not in cat_losers]
+            c = c_sure_losers + cat_losers
+            return b, c
 
-        def split_women_men(candidates_index_list):
+        def split_women_men(candidates_index_list, women_indexes):
             '''
             filters the list of indexes of candidates returning
             the list of women, and the list of men
@@ -167,31 +169,30 @@ def podemos_desborda4(data_list, women_names=None, question_indexes=None):
             ]
             return women_index_list, men_index_list
 
-        def is_woman(index):
-            index in women_indexes
+        def is_woman(index, women_indexes):
+            return index in women_indexes
 
-        def fix_parity():
+        def fix_parity(num_winners, a_sure_winners, b_unsure, women_indexes):
             max_men = int(floor(num_winners / 2))
-            a_women, a_men = split_women_men(a_sure_winners)
+            a_women, a_men = split_women_men(a_sure_winners, women_indexes)
             num_men = len(a_men)
             
             new_b = []
             for candidate in b_unsure:
-                if is_woman(index):
-                    new_b.append(index)
+                if is_woman(candidate, women_indexes):
+                    new_b.append(candidate)
                 else:
                     if num_men < max_men:
                         num_men += 1
-                        new_b.append(index)
+                        new_b.append(candidate)
             remaining = [
                 candidate
                 for candidate in b_unsure
                 if candidate not in new_b
             ]
             new_b.extend(remaining)
-            b_unsure = new_b
-            
-            return True
+
+            return new_b, True
 
         def join_lists(a, b, c):
             l = a.copy()
@@ -240,8 +241,8 @@ def podemos_desborda4(data_list, women_names=None, question_indexes=None):
                        return 2
             return 0
 
-        def insert_min_team_winners(min_num_winners_for_team, category, desborda_kind):
-            ordered_team_candidates =
+        def insert_min_team_winners(min_num_winners_for_team, category, a_sure_winners, b_unsure, desborda_kind):
+            ordered_team_candidates = \
                 get_list_by_points(category['candidates_index'])
             minority_winners = []
             if category['is_minority']: # apply parity rules
@@ -251,7 +252,8 @@ def podemos_desborda4(data_list, women_names=None, question_indexes=None):
                     if 1 == min_num_winners_for_team:
                         minority_winners.append(ordered_team_candidates[0])
                     else:
-                        prov_min_winners = ordered_team_candidates[:min_num_winners_for_team]
+                        prov_min_winners = \
+                            ordered_team_candidates[:min_num_winners_for_team]
                         prov_women, prov_men = split_women_men(prov_min_winners)
                         if len(prov_men) <= 1:
                             minority_winners.extend(prov_min_winners)
@@ -267,33 +269,53 @@ def podemos_desborda4(data_list, women_names=None, question_indexes=None):
                         minority_winners.extend(team_women[:2])
                         minority_winners.extend(team_men[:2])
             else:
-                minority_winners =
+                minority_winners = \
                     ordered_team_candidates[:min_num_winners_for_team]
-            b_unsure = [j for j in b_unsure if j not in minority_winners]
-            a_sure_winners.extend(minority_winners)
-            
+            b = [j for j in b_unsure if j not in minority_winners]
+            a = a_sure_winners + minority_winners
+            return a, b
+
 
         num_candidates = len(question['answers'])
         num_winners = question['num_winners']
         a_sure_winners = []
-        b_unsure = get_all_candidates()
+        b_unsure = get_all_candidates(num_candidates)
         c_sure_losers = []
 
         categories = get_categories()
 
         for category_name, category in categories.items():
-            min_num_winners_for_team = get_min_num_winners_for_team(category_name, question, 'desborda3')
-            winners_for_team = get_winners_for_team(category)
+            min_num_winners_for_team = \
+                get_min_num_winners_for_team(category_name, question, 'desborda3')
+            winners_for_team = get_winners_for_team(
+                category,
+                a_sure_winners,
+                b_unsure,
+                num_winners)
             if len(winners_for_team) < min_num_winners_for_team:
                 category['is_minority'] = True
-            insert_min_team_winners(min_num_winners_for_team, category)
+            a_sure_winners, b_unsure = \
+                insert_min_team_winners(
+                    min_num_winners_for_team, 
+                    category,
+                    a_sure_winners,
+                    b_unsure,
+                    'desborda3')
             if category['is_minority']:
-                move_minority_losers(category)
-        fixed = fix_parity()
+                b_unsure, c_sure_losers = \
+                    move_minority_losers(
+                        category,
+                        a_sure_winners,
+                        b_unsure,
+                        c_sure_losers)
+
+        #import ipdb; ipdb.set_trace()
+        b_unsure, fixed = fix_parity(num_winners, a_sure_winners, b_unsure, women_indexes)
         if not fixed:
-           # mark as not parity-fixed
-           question['parity_fixed'] = False
+            # mark as not parity-fixed
+            question['parity_fixed'] = False
         full_list = join_lists(a_sure_winners, b_unsure, c_sure_losers)
         final_winners = get_list_by_points(full_list[:num_winners])
-        final_losers = get_list_by_points(full_list[: num_candidates - num_winners])
+        final_losers = \
+            get_list_by_points(full_list[: num_candidates - num_winners])
         set_winners_positions(final_winners)
