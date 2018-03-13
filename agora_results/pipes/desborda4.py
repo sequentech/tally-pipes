@@ -275,7 +275,6 @@ def podemos_desborda4(data_list, women_names=None, question_indexes=None):
             a = a_sure_winners + minority_winners
             return a, b
 
-
         num_candidates = len(question['answers'])
         num_winners = question['num_winners']
         a_sure_winners = []
