@@ -51,9 +51,9 @@ class Desborda(DesbordaBase):
 
         num_winners = question['num_winners']
         # TODO: En el reglamento pone estrictamente mayor
-        if category['points_category'] >= percent_15_limit:
+        if category['points_category'] > percent_15_limit:
            return 4
-        elif category['points_category'] >= percent_5_limit:
+        elif category['points_category'] > percent_5_limit:
            return 2
 
         return 0
