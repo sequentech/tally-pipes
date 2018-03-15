@@ -203,6 +203,7 @@ class DesbordaBase(object):
         - Se marcan las demás candidaturas como no ganadoras y se reordenan por
           puntos descendentes.
         '''
+        #import ipdb; ipdb.set_trace()
         data = data_list[0]
         for qindex, question in enumerate(data['results']['questions']):
             if women_names is None:
