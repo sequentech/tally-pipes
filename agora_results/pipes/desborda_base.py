@@ -162,6 +162,10 @@ class DesbordaBase(object):
         l.extend(c)
         return l
 
+    def has_parity_error(self, final_winners, women_indexes):
+        women, men = self.split_women_men(final_winners, women_indexes)
+        return len(men) > len(women)
+
     def set_winners_positions(self, winners, question):
         # set the winner_position
         for aindex, answer in enumerate(question['answers']):
@@ -169,6 +173,12 @@ class DesbordaBase(object):
                 answer['winner_position'] = winners.index(aindex)
             else:
                 answer['winner_position'] = None
+
+    def set_minority_winners_info(self, winners_for_team, category, question):
+        if True != category['is_minority']:
+            return
+        for w in winners_for_team:
+             question['answers'][w]['winner_type'] = 'minority winner'
 
     def desborda(self, data_list, women_names=None, question_indexes=None):
         '''
@@ -205,6 +215,7 @@ class DesbordaBase(object):
         '''
         #import ipdb; ipdb.set_trace()
         data = data_list[0]
+        parity_general_error = False
         for qindex, question in enumerate(data['results']['questions']):
             if women_names is None:
                 women_names_question = self.__get_women_names_from_question(question)
@@ -250,6 +261,7 @@ class DesbordaBase(object):
                         b_unsure,
                         question,
                         women_indexes)
+                self.set_minority_winners_info(winners_for_team, category, question)
                 if category['is_minority']:
                     b_unsure, c_sure_losers = \
                         self.move_minority_losers(
@@ -268,3 +280,10 @@ class DesbordaBase(object):
             final_losers = \
                 self.get_list_by_points(full_list[: num_candidates - num_winners], question)
             self.set_winners_positions(final_winners, question)
+            
+            if self.has_parity_error(final_winners, women_indexes):
+                parity_general_error = True
+                category['has_parity_error'] = True
+
+        if parity_general_error:
+            data['results']['has_parity_error'] = True
