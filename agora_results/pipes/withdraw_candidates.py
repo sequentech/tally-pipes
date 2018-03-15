@@ -22,7 +22,7 @@ def minimum_ballots_percent_policy(data, qindex, question, withdraw_info):
     # minimum number of ballots for a candidate not to be withdrawn
     min_ballots = math.ceil( min_percent * question['totals']['valid_votes'] )
     
-    list_of_bordas = ['borda','borda-nauru','borda-custom','desborda','desborda2','desborda3','desborda4']
+    list_of_bordas = ['borda','borda-nauru','borda-custom','desborda','desborda2','desborda3']
 
     if question['tally_type'] in list_of_bordas:
         question['withdraw_candidates'] = True
