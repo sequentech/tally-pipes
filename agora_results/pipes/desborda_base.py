@@ -180,6 +180,39 @@ class DesbordaBase(object):
         for w in winners_for_team:
              question['answers'][w]['winner_type'] = 'minority winner'
 
+    def get_women_indexes(self, women_names, question):
+        if women_names is None:
+            women_names_question = self.__get_women_names_from_question(question)
+        else:
+            women_names_question = copy.deepcopy(women_names)
+        # calculate women indexes
+        women_indexes = [ index
+            for index, answer in enumerate(question['answers'])
+            if answer['text'] in women_names_question ]
+        return women_indexes
+
+    def skip_question(self, question, question_indexes, qindex):
+        return self.name() != question['tally_type'] \
+               or len(question['answers']) < question['num_winners'] \
+               or (question_indexes is not None and qindex not in question_indexes)
+
+    def move_minimum_winners_all_categories(self, categories, question, a_sure_winners, b_unsure, c_sure_losers, women_indexes, num_winners):
+        for category_name, category in categories.items():
+            min_num_winners_for_team = \
+                self.get_min_num_winners_for_team(category, question)
+            winners_for_team = \
+                self.get_winners_for_team(category,a_sure_winners,b_unsure,num_winners)
+            if len(winners_for_team) < min_num_winners_for_team:
+                category['is_minority'] = True
+            a_sure_winners, b_unsure = \
+                self.insert_min_team_winners(min_num_winners_for_team, category,a_sure_winners,b_unsure,question,women_indexes)
+            self.set_minority_winners_info(winners_for_team, category, question)
+            if category['is_minority']:
+                b_unsure, c_sure_losers = \
+                    self.move_minority_losers(category,a_sure_winners,b_unsure,c_sure_losers)
+        return a_sure_winners, b_unsure, c_sure_losers
+        
+
     def desborda(self, data_list, women_names=None, question_indexes=None):
         '''
         Para la votación PODE-17 hay que hacer que en desborda1,2 y 3 se aplique 
@@ -213,27 +246,13 @@ class DesbordaBase(object):
         - Se marcan las demás candidaturas como no ganadoras y se reordenan por
           puntos descendentes.
         '''
-        #import ipdb; ipdb.set_trace()
         data = data_list[0]
         parity_general_error = False
         for qindex, question in enumerate(data['results']['questions']):
-            if women_names is None:
-                women_names_question = self.__get_women_names_from_question(question)
-            else:
-                women_names_question = copy.deepcopy(women_names)
-
-            if self.name() != question['tally_type'] \
-                or len(question['answers']) < question['num_winners']:
+            if self.skip_question(question, question_indexes, qindex):
                 continue
 
-            if question_indexes is not None and qindex not in question_indexes:
-                continue
-
-            # calculate women indexes
-            women_indexes = [ index
-                for index, answer in enumerate(question['answers'])
-                if answer['text'] in women_names_question ]
-
+            women_indexes = self.get_women_indexes(women_names, question)
             num_candidates = len(question['answers'])
             num_winners = question['num_winners']
             a_sure_winners = []
@@ -241,34 +260,9 @@ class DesbordaBase(object):
             c_sure_losers = []
 
             categories = self.get_categories(question)
-
-            for category_name, category in categories.items():
-                min_num_winners_for_team = \
-                    self.get_min_num_winners_for_team(category, question)
-                winners_for_team = \
-                    self.get_winners_for_team(
-                        category,
-                        a_sure_winners,
-                        b_unsure,
-                        num_winners)
-                if len(winners_for_team) < min_num_winners_for_team:
-                    category['is_minority'] = True
-                a_sure_winners, b_unsure = \
-                    self.insert_min_team_winners(
-                        min_num_winners_for_team, 
-                        category,
-                        a_sure_winners,
-                        b_unsure,
-                        question,
-                        women_indexes)
-                self.set_minority_winners_info(winners_for_team, category, question)
-                if category['is_minority']:
-                    b_unsure, c_sure_losers = \
-                        self.move_minority_losers(
-                            category,
-                            a_sure_winners,
-                            b_unsure,
-                            c_sure_losers)
+            
+            a_sure_winners, b_unsure, c_sure_losers = \
+                self.move_minimum_winners_all_categories(categories, question, a_sure_winners, b_unsure, c_sure_losers, women_indexes, num_winners)
 
             b_unsure, fixed = self.fix_parity(num_winners, a_sure_winners, b_unsure, women_indexes)
             if not fixed:
@@ -283,7 +277,7 @@ class DesbordaBase(object):
             
             if self.has_parity_error(final_winners, women_indexes):
                 parity_general_error = True
-                category['has_parity_error'] = True
+                question['has_parity_error'] = True
 
         if parity_general_error:
             data['results']['has_parity_error'] = True
