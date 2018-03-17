@@ -211,6 +211,7 @@ class TestDesBorda3(unittest.TestCase):
                     print("results:\n" + results)
                     print("shouldresults:\n" + shouldresults)
                 self.assertTrue(check_results)
+
         except:
             # remove the temp test folder if there's an error
             file_helpers.remove_tree(tally_path)
@@ -334,6 +335,9 @@ class TestDesBorda(unittest.TestCase):
             file_helpers.write_file(os.path.join(tally_path, "output"), results)
             shouldresults = test_data["output"]
             check_results = test.desborda_test.check_results(results, shouldresults)
+            if not check_results:
+                print("results:\n" + results)
+                print("shouldresults:\n" + shouldresults)
             self.assertTrue(check_results)
         except:
             # remove the temp test folder if there's an error
