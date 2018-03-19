@@ -44,6 +44,7 @@ DEFAULT_PIPELINE = [
 DEFAULT_PIPES_WHITELIST = [
     #"agora_results.pipes.desborda.podemos_desborda",
     #"agora_results.pipes.desborda2.podemos_desborda2",
+    #"agora_results.pipes.desborda3.podemos_desborda3",
     #"agora_results.pipes.duplicate_questions.duplicate_questions",
     "agora_results.pipes.modifications.apply_modifications",
     #"agora_results.pipes.multipart.make_multipart",
@@ -67,6 +68,7 @@ DEFAULT_PIPES_WHITELIST = [
     "agora_results.pipes.sort.sort_non_iterative",
     #"agora_results.pipes.stv_tiebreak.stv_first_round_tiebreak",
     #"agora_results.pipes.pdf.configure_pdf",
+    "agora_results.pipes.withdraw_candidates.withdraw_candidates"
 ]
 
 def extract_tally(fpath):
@@ -82,7 +84,7 @@ def extract_tally(fpath):
 def print_csv(data, separator, output_func=print):
     counts = data['results']['questions']
     for question, i in zip(counts, range(len(counts))):
-        if question['tally_type'] not in ["plurality-at-large", "desborda", "desborda2", "borda", "borda-nauru"] or\
+        if question['tally_type'] not in ["plurality-at-large", "desborda", "desborda2", "desborda3", "borda", "borda-nauru"] or\
            question.get('no-tally', False):
             continue
 

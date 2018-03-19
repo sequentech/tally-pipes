@@ -1,0 +1,9 @@
+Votes: desborda3 test_ties. 2 votes, this tests a draw and the stability of the algo in that case (executing this test a number of times)
+A1m,A2f,A3m,A4m,A5f
+B1m,B2f,B3m,B4m,B5f
+
+Results:
+A1m, 5
+B1m, 5
+A2f, 4
+B2f, 4

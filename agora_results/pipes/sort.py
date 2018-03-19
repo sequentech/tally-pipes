@@ -40,7 +40,7 @@ def sort_non_iterative(data_list, question_indexes=[], withdrawals=[], ties_sort
 
     for q_num, question in enumerate(data['results']['questions']):
         # filter first
-        if question['tally_type'] not in ["plurality-at-large", "desborda2", "desborda", "borda", "borda-nauru", "pairwise-beta", "cup"] or\
+        if question['tally_type'] not in ["plurality-at-large", "desborda3", "desborda2", "desborda", "borda", "borda-nauru", "pairwise-beta", "cup"] or\
             q_num not in question_indexes:
             continue
 
@@ -74,7 +74,6 @@ def sort_non_iterative(data_list, question_indexes=[], withdrawals=[], ties_sort
             # reverse numbering, to be compatible with total_count sorting
             item2['tie_sort'] = len(q_ties_sorting) - i
 
-
         # sanity check withdrawals
         for item in q_withdrawals:
             if item['answer_id'] in q_removed:
@@ -96,6 +95,11 @@ def sort_non_iterative(data_list, question_indexes=[], withdrawals=[], ties_sort
         # then sort by total_count, resolving ties too
         question['answers'] = sorted(question['answers'], reverse=True,
             key=itemgetter('total_count', 'tie_sort'))
+        
+        # sort by withdrawn/not withdrawn if possible
+        if 'withdraw_candidates' in question and question['withdraw_candidates']:
+            question['answers'] = sorted(question['answers'],
+                key=itemgetter('withdrawn'))
 
         # mark winners
         i = 0
