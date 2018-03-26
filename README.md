@@ -16,7 +16,7 @@ Just execute this (no stable release yet):
 
 # Usage
 
-    $ agora-results --tally tally.tar.gz --config agora_tongo.test_config
+    $ agora-results --tally tally.tar.gz --config agora_results.test_config
 
 Or the same shorter:
 
@@ -32,6 +32,12 @@ Configuration file specifies the pipeline of functions to be applied to the resu
           {"ignore_invalid_votes": true}
         ]
     ]
+
+# Testing
+
+Execute the unit tests with:
+
+    $ python3 -m unittest
 
 # Available pipes
 

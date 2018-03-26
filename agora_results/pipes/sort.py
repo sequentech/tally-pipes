@@ -21,6 +21,17 @@ from operator import itemgetter
 
 _MAX = 999999999
 
+_ALLOWED_TALLY_TYPES = [
+    "plurality-at-large",
+    "desborda3",
+    "desborda2",
+    "desborda",
+    "borda",
+    "borda-nauru",
+    "pairwise-beta",
+    "cup"
+]
+
 def sort_non_iterative(data_list, question_indexes=[], withdrawals=[], ties_sorting=[], help=""):
     '''
     Sort non iterative questions of the first tally  by total_count
@@ -40,7 +51,7 @@ def sort_non_iterative(data_list, question_indexes=[], withdrawals=[], ties_sort
 
     for q_num, question in enumerate(data['results']['questions']):
         # filter first
-        if question['tally_type'] not in ["plurality-at-large", "desborda3", "desborda2", "desborda", "borda", "borda-nauru", "pairwise-beta", "cup"] or\
+        if question['tally_type'] not in _ALLOWED_TALLY_TYPES or\
             q_num not in question_indexes:
             continue
 
