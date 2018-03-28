@@ -119,6 +119,64 @@ tally_config_borda = [
   ]
 ]
 
+
+class TestPluralityTallySheets(unittest.TestCase):
+    def do_test(self, test_data=None, num_questions=1, women_in_urls=False):
+        if test_data is None:
+            return
+        print("\nTest name: %s" % test_data["name"])
+        agora_results_bin_path = "python3 agora-results"
+        tally_path = test.desborda_test.create_desborda_test(test_data,
+            tally_type = "plurality-at-large",
+            num_questions = num_questions,
+            women_in_urls = women_in_urls)
+        try:
+            tally_targz_path = os.path.join(tally_path, "tally.tar.gz")
+            config_results_path = os.path.join(tally_path, "12345.config.results.json")
+            results_path = os.path.join(tally_path, "12345.results.json")
+            cmd = "%s -t %s -c %s -s -o json" % (
+                agora_results_bin_path,
+                tally_targz_path,
+                config_results_path)
+
+            with open(results_path, mode='w', encoding="utf-8", errors='strict') as f:
+                print(cmd)
+                subprocess.check_call(cmd, stdout=f, stderr=sys.stderr, shell=True)
+
+            for question_index in range(0, num_questions):
+                results = test.desborda_test.create_simple_results(
+                    results_path,
+                    question_index=question_index)
+
+                output_name = "output_%i" % question_index
+                file_helpers.write_file(os.path.join(tally_path, output_name), results)
+                shouldresults = test_data["output"]
+                check_results = test.desborda_test.check_results(results, shouldresults)
+
+                if not check_results:
+                    print("question index: %i\n" % question_index)
+                    print("results:\n" + results)
+                    print("shouldresults:\n" + shouldresults)
+                self.assertTrue(check_results)
+        except:
+            # remove the temp test folder if there's an error
+            file_helpers.remove_tree(tally_path)
+            raise
+        # remove the temp test folder also in a successful test
+        file_helpers.remove_tree(tally_path)
+
+    def test_all(self):
+        borda_tests_path = os.path.join("test", "plurality_tally_sheets")
+        # only use tests that end with a number (ie "test_5" )
+        test_files = [
+          os.path.join(borda_tests_path, f)
+          for f in os.listdir(borda_tests_path)
+          if os.path.isfile(os.path.join(borda_tests_path, f)) and
+          re.match("^test_([0-9]*)$", f) is not None]
+        for testfile_path in test_files:
+            data = test.desborda_test.read_testfile(testfile_path)
+            self.do_test(test_data=data)
+
 class TestBorda(unittest.TestCase):
     def do_test(self, test_data=None, num_questions=1, women_in_urls=False):
         if test_data is None:
@@ -354,7 +412,7 @@ class TestDesBorda(unittest.TestCase):
             data["config"] = copy.deepcopy(tally_config)
             self.do_test(test_data=data)
 
-    def test_100k_votes_same(self):
+    def _test_100k_votes_same(self):
         start_time = time.time()
         vote_a = "A1f,A2m,A3f,A4m,A5f,A6m,A7f,A8m,A9f,A10m,A11f,A12m,A13f,A14m,A15f,A16m,A17f,A18m,A19f,A20m,A21f,A22m,A23f,A24m,A25f,A26m,A27f,A28m,A29f,A30m,A31f,A32m,A33f,A34m,A35f,A36m,A37f,A38m,A39f,A40m,A41f,A42m,A43f,A44m,A45f,A46m,A47f,A48m,A49f,A50m,A51f,A52m,A53f,A54m,A55f,A56m,A57f,A58m,A59f,A60m,A61f,A62m\n"
         vote_b = "B1f,B2m,B3f,B4m,B5f,B6m,B7f,B8m,B9f,B10m,B11f,B12m,B13f,B14m,B15f,B16m,B17f,B18m,B19f,B20m,B21f,B22m,B23f,B24m,B25f,B26m,B27f,B28m,B29f,B30m,B31f,B32m,B33f,B34m,B35f,B36m,B37f,B38m,B39f,B40m,B41f,B42m,B43f,B44m,B45f,B46m,B47f,B48m,B49f,B50m,B51f,B52m,B53f,B54m,B55f,B56m,B57f,B58m,B59f,B60m,B61f,B62m\n"
@@ -379,7 +437,7 @@ class TestDesBorda(unittest.TestCase):
         end_time = time.time()
         print("test_100k_votes_same elapsed time: %f secs" % (end_time - start_time))
 
-    def test_100k_votes_rand(self):
+    def _test_100k_votes_rand(self):
         start_time = time.time()
         vote_a = "A1f,A2m,A3f,A4m,A5f,A6m,A7f,A8m,A9f,A10m,A11f,A12m,A13f,A14m,A15f,A16m,A17f,A18m,A19f,A20m,A21f,A22m,A23f,A24m,A25f,A26m,A27f,A28m,A29f,A30m,A31f,A32m,A33f,A34m,A35f,A36m,A37f,A38m,A39f,A40m,A41f,A42m,A43f,A44m,A45f,A46m,A47f,A48m,A49f,A50m,A51f,A52m,A53f,A54m,A55f,A56m,A57f,A58m,A59f,A60m,A61f,A62m\n"
         vote_b = "B1f,B2m,B3f,B4m,B5f,B6m,B7f,B8m,B9f,B10m,B11f,B12m,B13f,B14m,B15f,B16m,B17f,B18m,B19f,B20m,B21f,B22m,B23f,B24m,B25f,B26m,B27f,B28m,B29f,B30m,B31f,B32m,B33f,B34m,B35f,B36m,B37f,B38m,B39f,B40m,B41f,B42m,B43f,B44m,B45f,B46m,B47f,B48m,B49f,B50m,B51f,B52m,B53f,B54m,B55f,B56m,B57f,B58m,B59f,B60m,B61f,B62m\n"
