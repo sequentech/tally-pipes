@@ -17,6 +17,7 @@
 # along with agora-results.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
+import json
 from agora_results.utils import file_helpers
 import test.desborda_test
 import os
@@ -235,6 +236,60 @@ class TestBorda(unittest.TestCase):
         for i in range(0, 20):
             data = test.desborda_test.read_testfile(testfile_path)
             data["config"] = copy.deepcopy(tally_config_borda)
+            self.do_test(test_data=data)
+
+
+class TestDesBorda4(unittest.TestCase):
+    def do_test(self, test_data=None, num_questions=1, women_in_urls=True):
+        if test_data is None:
+            return
+        print("\nTest name: %s" % test_data["name"])
+        agora_results_bin_path = "python3 agora-results"
+        tally_path = test.desborda_test.create_desborda_test(test_data,
+            tally_type = "desborda2",
+            num_questions = num_questions,
+            women_in_urls = women_in_urls)
+        try:
+            tally_targz_path = os.path.join(tally_path, "tally.tar.gz")
+            config_results_path = os.path.join(tally_path, "12345.config.results.json")
+            results_path = os.path.join(tally_path, "12345.results.json")
+            cmd = "%s -t %s -c %s -s -o json" % (
+                agora_results_bin_path,
+                tally_targz_path,
+                config_results_path)
+            with open(results_path, mode='w', encoding="utf-8", errors='strict') as f:
+                print(cmd)
+                subprocess.check_call(cmd, stdout=f, stderr=sys.stderr, shell=True)
+            shouldresults = test_data["output"].split('###\n')
+            for question_index in range(0, num_questions+1):
+                results = test.desborda_test.create_simple_results(results_path, question_index=question_index)
+                output_name = "output_%i" % question_index
+                file_helpers.write_file(os.path.join(tally_path, output_name), results)
+                check_results = test.desborda_test.check_ordered_results(
+                    results, shouldresults[question_index])
+                if not check_results:
+                    print("question index: %i\n" % question_index)
+                    print("results:\n" + results)
+                    print("shouldresults:\n" + shouldresults[question_index])
+                    print("config:\n" + json.dumps(test_data["config"], indent=4))
+                self.assertTrue(check_results)
+        except:
+            # remove the temp test folder if there's an error
+            file_helpers.remove_tree(tally_path)
+            raise
+        # remove the temp test folder also in a successful test
+        file_helpers.remove_tree(tally_path)
+
+    def test_all(self):
+        desborda_tests_path = os.path.join("test", "desborda4_tests")
+        # only use tests that end with a number (ie "test_5" )
+        test_files = [
+          os.path.join(desborda_tests_path, f)
+          for f in os.listdir(desborda_tests_path)
+          if os.path.isfile(os.path.join(desborda_tests_path, f)) and
+          re.match("^test_([0-9]*)$", f) is not None]
+        for testfile_path in test_files:
+            data = test.desborda_test.read_testfile(testfile_path)
             self.do_test(test_data=data)
 
 class TestDesBorda3(unittest.TestCase):

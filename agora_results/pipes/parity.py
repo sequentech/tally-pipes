@@ -22,6 +22,17 @@ import sys
 __BIGGEST_COUNT=1**10
 __WOMAN_FLAG = 445656761191
 
+
+__NON_ITERATIVE_TYPES = [
+    "plurality-at-large",
+    "borda",
+    "borda-nauru",
+    "pairwise-beta",
+    "desborda",
+    "desborda2",
+    "desborda3"
+]
+
 def __get_women_names_from_question(question):
     '''
     Internal: automatically extract women_names from question when they are set
@@ -198,7 +209,7 @@ def proportion_rounded(data_list, women_names, proportions,
         for answer, i in zip(winners, range(len(winners))):
             answer['winner_position'] = i
 
-def parity_zip_non_iterative(data_list, women_names, question_indexes=None, help=""):
+def parity_zip_non_iterative(data_list, women_names=None, question_indexes=None, help=""):
     '''
     Given a list of women names, sort the winners creating two lists, women and
     men, and then zip the list one man, one woman, one man, one woman.
@@ -214,16 +225,15 @@ def parity_zip_non_iterative(data_list, women_names, question_indexes=None, help
     '''
     data = data_list[0]
     lastq_is_woman = None
+    women_names = []
 
     for qindex, question in enumerate(data['results']['questions']):
-        if women_names == None:
-            women_names = __get_women_names_from_question(question)
+        women_names = list(set(women_names + __get_women_names_from_question(question)))
         if question_indexes is not None and qindex not in question_indexes:
             continue
 
-        if question['tally_type'] not in ["plurality-at-large", "borda", "borda-nauru", "pairwise-beta"] or len(question['answers']) == 0:
+        if question['tally_type'] not in __NON_ITERATIVE_TYPES or len(question['answers']) == 0:
             continue
-
 
         withdrawal_names = [w["answer_text"] for w in data.get("withdrawals", [])
                             if w['question_index'] == qindex]
@@ -282,6 +292,86 @@ def reorder_winners(data_list, question_index, winners_positions=[], help=""):
         for answer in question['answers']:
             answer['winner_position'] = get_winner_position(answer, qid)
 
+
+def podemos_parity2_loreg_zip_non_iterative(
+    data_list,
+    question_index,
+    proportions=[3,2],
+    first_pair_proportions=[2,2],
+    help=""):
+    '''
+    Asume que:
+     - la paridad viene explícita en la pregunta en forma de urls de tipo
+       "Gender".
+     - el tamaño de cada grupo es igual a la suma de las proporciones
+
+    Implementa este algoritmo:
+
+    1. Se coge un grupo de 5, se mira si ordenando los candidatos del grupo por
+    puntos mejoraría a las mujeres, en cuyo caso se hace dicho cambio
+
+    2. En caso contrario se deja como está.
+    '''
+
+    data = data_list[0]
+    women_names = []
+    assert(len(data_list[0]['results']['questions']) > question_index)
+    question = data_list[0]['results']['questions'][question_index]
+
+    group_size = sum(proportions)
+    init_group_size = sum(first_pair_proportions)
+    assert(len(question['answers']) >= init_group_size)
+
+    if question['tally_type'] not in __NON_ITERATIVE_TYPES:
+        raise Exception("invalid tally_type")
+    women_names = __get_women_names_from_question(question)
+
+    # lists of candidates, women and men:
+    candidates = list(question['answers'])
+    women = __filter_women(candidates, women_names, __is_woman)
+    men = __filter_men(candidates, women_names, __is_woman)
+
+    def process_group(group):
+        '''
+        Creates a copy of the group where the candidates are sorted by
+        total_count, and returns that copy only if none of the women candidates
+        get a worse position by that ordering
+        '''
+        copy_group = sorted(
+            group.copy(),
+            reverse=True,
+            key=itemgetter('total_count')
+        )
+        for cand_index, candidate in enumerate(copy_group):
+            # if the copy_group alternative finds a woman whose position gets
+            # deteriorated, return the original group
+            if cand_index > group.index(candidate) and\
+                __is_woman(candidate, women_names):
+                return group
+
+        return copy_group
+
+    final_list = [] + process_group(candidates[:init_group_size])
+    num_winners = question['num_winners']
+    next_group = []
+    for candidate in candidates[init_group_size:num_winners]:
+        next_group.append(candidate)
+        if len(next_group) == group_size:
+            final_group = process_group(next_group)
+            next_group = []
+            final_list.extend(final_group)
+
+    final_list.extend(next_group)
+    final_list.extend(candidates[num_winners:])
+    question['answers'] = final_list
+
+    # set winners
+    for i, candidate in enumerate(question['answers']):
+        if i < num_winners:
+            candidate['winner_position'] = i
+        else:
+            candidate['winner_position'] = None
+
 def podemos_parity_loreg_zip_non_iterative(data_list, question_indexes,
                                            proportions=[3,2], help=""):
     '''
@@ -331,9 +421,6 @@ def podemos_parity_loreg_zip_non_iterative(data_list, question_indexes,
 
         return True
 
-    # check the question has an allowed tally type
-    allowed_tally_types = ["plurality-at-large", "borda", "borda-nauru",
-        "pairwise-beta"]
     # group size is calculated summing the proportions, as we asume this can be
     # done
     group_size = sum(proportions)
@@ -342,7 +429,7 @@ def podemos_parity_loreg_zip_non_iterative(data_list, question_indexes,
         if q_index not in question_indexes:
             continue
 
-        if question['tally_type'] not in allowed_tally_types:
+        if question['tally_type'] not in __NON_ITERATIVE_TYPES:
             raise Exception("invalid tally_type")
         women_names = __get_women_names_from_question(question)
 

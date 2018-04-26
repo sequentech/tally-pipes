@@ -198,6 +198,16 @@ def apply_modifications(data_list, modifications=[], help="this-parameter-is-ign
         elif modif['action'] == "set-tally-type":
             qjson[qindex]['tally_type'] = modif['tally-type']
 
+        elif modif['action'] == "set-answer-key-value":
+            text = modif['answer-text']
+            answer = [
+                answer
+                for answer in qjson[qindex]['answers']
+                if answer['text'] == text
+            ]
+            assert(len(answer) == 1)
+            answer[0][modif['key']] = modif['value']
+
         else:
             raise Exception("unrecognized-action %s" % modif['action'])
 
