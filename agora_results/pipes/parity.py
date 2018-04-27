@@ -307,10 +307,8 @@ def podemos_parity2_loreg_zip_non_iterative(
 
     Implementa este algoritmo:
 
-    1. Se coge un grupo de 5, se mira si ordenando los candidatos del grupo por
-    puntos mejoraría a las mujeres, en cuyo caso se hace dicho cambio
-
-    2. En caso contrario se deja como está.
+    Se coge un grupo de 5, se mira mujer a mujer si se puede ordenar a las
+    mujeres por puntos para mejorar su posición, en cuyo caso se hace.
     '''
 
     data = data_list[0]
@@ -333,23 +331,43 @@ def podemos_parity2_loreg_zip_non_iterative(
 
     def process_group(group):
         '''
-        Creates a copy of the group where the candidates are sorted by
-        total_count, and returns that copy only if none of the women candidates
-        get a worse position by that ordering
+        Creates subgroups in which there's only one woman and it's sorted by
+        points if it benefits the woman.
         '''
-        copy_group = sorted(
-            group.copy(),
-            reverse=True,
-            key=itemgetter('total_count')
-        )
-        for cand_index, candidate in enumerate(copy_group):
-            # if the copy_group alternative finds a woman whose position gets
-            # deteriorated, return the original group
-            if cand_index > group.index(candidate) and\
-                __is_woman(candidate, women_names):
-                return group
+        woman_indexes = [
+            i
+            for i, c in enumerate(group)
+            if __is_woman(c, women_names)
+        ]
+        if len(woman_indexes) == 0:
+            return group
 
-        return copy_group
+        final_group = []
+
+        last_woman_final_index = -1
+        last_woman_index = -1
+
+        for woman_index in woman_indexes:
+            subgroup = final_group[last_woman_final_index+1:] + group[last_woman_index+1:woman_index+1]
+            assert(len(subgroup) > 0)
+            woman_subgroup_index = len(subgroup) - 1
+            woman = subgroup[-1]
+            sorted_subgroup = sorted(subgroup, reverse=True,
+                key=itemgetter('total_count'))
+
+            if sorted_subgroup.index(woman) < woman_subgroup_index:
+                final_group = final_group[:last_woman_final_index+1] + sorted_subgroup
+            else:
+                final_group = final_group[:last_woman_final_index+1] + subgroup
+
+            last_woman_final_index = final_group.index(woman)
+            last_woman_index = woman_index
+
+        # add final group of men if any, those don't
+        # need reordering
+        final_group.extend(group[woman_indexes[-1]+1:])
+
+        return final_group
 
     final_list = [] + process_group(candidates[:init_group_size])
     num_winners = question['num_winners']
@@ -361,7 +379,7 @@ def podemos_parity2_loreg_zip_non_iterative(
             next_group = []
             final_list.extend(final_group)
 
-    final_list.extend(next_group)
+    final_list.extend(process_group(next_group))
     final_list.extend(candidates[num_winners:])
     question['answers'] = final_list
 
