@@ -153,36 +153,38 @@ class Desborda4(DesbordaBase):
         a_list, minority_winners, b_list, question,
         women_indexes):
         '''
-        inserts into a minority list the winners that are not in a_list but are
-        minority winners
+        inserts into a minority list the winners that are minority winners
         '''
         ordered_team_candidates = \
             self.get_list_by_points(category['candidates'])
         total_women, total_men = self.split_women_men(ordered_team_candidates, women_indexes)
 
-        # if it's 1 minority winner, then just get the first
-        if 1 == min_num_winners_for_team:
-            minority_winners.append(ordered_team_candidates[0])
+        if category['num_first_winners'] >= min_num_winners_for_team:
+            minority_winners = ordered_team_candidates[:min_num_winners_for_team]
         else:
-            if 2 == min_num_winners_for_team:
-                assert(len(total_men) > 0)
-                assert(len(total_women) > 0)
+            # if it's 1 minority winner, then just get the first
+            if 1 == min_num_winners_for_team:
+                minority_winners.append(ordered_team_candidates[0])
+            else:
+                if 2 == min_num_winners_for_team:
+                    assert(len(total_men) > 0)
+                    assert(len(total_women) > 0)
 
-                # add one man and one woman, sorted by points
-                cat_minority = [total_men[0], total_women[0]]
+                    # add one man and one woman, sorted by points
+                    cat_minority = [total_men[0], total_women[0]]
 
-            elif 3 == min_num_winners_for_team:
-                assert(len(total_men) > 0)
-                assert(len(total_women) > 1)
+                elif 3 == min_num_winners_for_team:
+                    assert(len(total_men) > 0)
+                    assert(len(total_women) > 1)
 
-                # add one man and two women, sorted by points
-                cat_minority = [total_men[0], total_women[0], total_women[1]]
+                    # add one man and two women, sorted by points
+                    cat_minority = [total_men[0], total_women[0], total_women[1]]
 
-            cat_minority_sorted = sorted(
-                cat_minority,
-                key = lambda j: j['total_count'],
-                reverse = True)
-            minority_winners.extend(cat_minority_sorted)
+                cat_minority_sorted = sorted(
+                    cat_minority,
+                    key = lambda j: j['total_count'],
+                    reverse = True)
+                minority_winners.extend(cat_minority_sorted)
 
         b_list = [j for j in b_list if j not in minority_winners]
         b_list = a_list[len(a_list) - len(minority_winners):] + b_list
@@ -217,7 +219,7 @@ class Desborda4(DesbordaBase):
         question, women_indexes):
         # calculate number of first winners for each category
         for category in categories:
-            category['num_first_winners'] = self.get_num_winners(category, a_list)
+            category['num_first_winners'] = self.get_num_winners(category, a_list[:25])
 
         # reserve minorities
         for category in categories:
@@ -225,20 +227,17 @@ class Desborda4(DesbordaBase):
             min_num_winners_for_team = self.get_min_num_winners_for_team(
                 category, question)
 
-            # check if the category has that enough first winners
-            if category['num_first_winners'] >= min_num_winners_for_team:
-                continue
-
-            # when a category doesn't have the required number of winners, then
-            # mark the required minority winners
-            category['is_minority'] = True
             a_list, minority_winners, b_list = \
                 self.insert_min_team_winners(min_num_winners_for_team, category,
                     a_list, minority_winners, b_list, question, women_indexes)
-            self.set_minority_winners_info(minority_winners)
-            a_list, b_list = \
-                self.move_minority_losers(category, a_list,
-                    minority_winners, b_list)
+
+            # check if the category has that enough first winners
+            if category['num_first_winners'] < min_num_winners_for_team:
+                category['is_minority'] = True
+                self.set_minority_winners_info(minority_winners)
+                a_list, b_list = \
+                    self.move_minority_losers(category, a_list,
+                        minority_winners, b_list)
         return a_list, minority_winners, b_list
 
     def remove_first_question_winner(self, question, first_question):
@@ -285,9 +284,9 @@ class Desborda4(DesbordaBase):
             key=itemgetter('total_count')
         )
         num_winners = question['num_winners']
-        a_list = question['answers'][:25]
+        a_list = question['answers']
         minority_winners = []
-        b_list = question['answers'][25:]
+        b_list = []
 
         # calculate categories
         categories = self.get_sorted_categories(question)
@@ -296,7 +295,20 @@ class Desborda4(DesbordaBase):
 
         # TEST mark winners
         winner_pos = 0
-        final_list = a_list + minority_winners + b_list
+        num_minorities = len(minority_winners)
+        sorted_first_winners = sorted(
+            a_list[:25-len(minority_winners)] + minority_winners,
+            reverse=True,
+            key=itemgetter('total_count')
+        )
+
+        sorted_rest_list = sorted(
+            a_list[25-len(minority_winners):] + b_list,
+            reverse=True,
+            key=itemgetter('total_count')
+        )
+        final_list = sorted_first_winners + sorted_rest_list
+        assert(len(final_list) == len(question['answers']))
         for winner_pos, winner in enumerate(final_list):
             if winner_pos < num_winners:
                 winner['winner_position'] =  winner_pos
