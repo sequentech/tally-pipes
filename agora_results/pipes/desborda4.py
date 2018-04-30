@@ -160,7 +160,7 @@ class Desborda4(DesbordaBase):
         total_women, total_men = self.split_women_men(ordered_team_candidates, women_indexes)
 
         if category['num_first_winners'] >= min_num_winners_for_team:
-            minority_winners = ordered_team_candidates[:min_num_winners_for_team]
+            minority_winners.extend(ordered_team_candidates[:min_num_winners_for_team])
         else:
             # if it's 1 minority winner, then just get the first
             if 1 == min_num_winners_for_team:
@@ -187,9 +187,7 @@ class Desborda4(DesbordaBase):
                 minority_winners.extend(cat_minority_sorted)
 
         b_list = [j for j in b_list if j not in minority_winners]
-        b_list = a_list[len(a_list) - len(minority_winners):] + b_list
         a_list = [j for j in a_list if j not in minority_winners]
-        a_list = a_list[:len(a_list) - len(minority_winners)]
         return a_list, minority_winners, b_list
 
     def set_minority_winners_info(self, winners_for_team):
