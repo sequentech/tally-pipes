@@ -148,6 +148,8 @@ class Desborda4(DesbordaBase):
             return 2
         elif category['points_category'] > percent_5_limit:
             return 1
+        else:
+            return 0
 
     def insert_min_team_winners(self, min_num_winners_for_team, category,
         a_list, minority_winners, b_list, question,
