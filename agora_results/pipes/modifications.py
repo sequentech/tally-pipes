@@ -207,7 +207,8 @@ def apply_modifications(data_list, modifications=[], help="this-parameter-is-ign
             ]
             assert(len(answer) == 1)
             answer[0][modif['key']] = modif['value']
-
+        elif modif['action'] == 'set-bordas-max-points':
+            qjson[qindex]['bordas-max-points'] = modif['max']
         else:
             raise Exception("unrecognized-action %s" % modif['action'])
 
