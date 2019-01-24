@@ -1,0 +1,105 @@
+Votes: desborda4_test3. 8 votes to group A, 1 vote to group B, 30 winners (B1f & B2m as minority winners, winner from the first question is not a winner in the second)
+A1f,A2m,A3f,A4m,A5f,A6m,A7f,A8m,A9f,A10m,A11f,A12m,A13f,A14m,A15f,A16m,A17f,A18m,A19f,A20m,A21f,A22m,A23f,A24m,A25f,A26m,A27f,A28m,A29f,A30m
+A1f,A2m,A3f,A4m,A5f,A6m,A7f,A8m,A9f,A10m,A11f,A12m,A13f,A14m,A15f,A16m,A17f,A18m,A19f,A20m,A21f,A22m,A23f,A24m,A25f,A26m,A27f,A28m,A29f,A30m
+A1f,A2m,A3f,A4m,A5f,A6m,A7f,A8m,A9f,A10m,A11f,A12m,A13f,A14m,A15f,A16m,A17f,A18m,A19f,A20m,A21f,A22m,A23f,A24m,A25f,A26m,A27f,A28m,A29f,A30m
+A1f,A2m,A3f,A4m,A5f,A6m,A7f,A8m,A9f,A10m,A11f,A12m,A13f,A14m,A15f,A16m,A17f,A18m,A19f,A20m,A21f,A22m,A23f,A24m,A25f,A26m,A27f,A28m,A29f,A30m
+A1f,A2m,A3f,A4m,A5f,A6m,A7f,A8m,A9f,A10m,A11f,A12m,A13f,A14m,A15f,A16m,A17f,A18m,A19f,A20m,A21f,A22m,A23f,A24m,A25f,A26m,A27f,A28m,A29f,A30m
+A1f,A2m,A3f,A4m,A5f,A6m,A7f,A8m,A9f,A10m,A11f,A12m,A13f,A14m,A15f,A16m,A17f,A18m,A19f,A20m,A21f,A22m,A23f,A24m,A25f,A26m,A27f,A28m,A29f,A30m
+A1f,A2m,A3f,A4m,A5f,A6m,A7f,A8m,A9f,A10m,A11f,A12m,A13f,A14m,A15f,A16m,A17f,A18m,A19f,A20m,A21f,A22m,A23f,A24m,A25f,A26m,A27f,A28m,A29f,A30m
+A1f,A2m,A3f,A4m,A5f,A6m,A7f,A8m,A9f,A10m,A11f,A12m,A13f,A14m,A15f,A16m,A17f,A18m,A19f,A20m,A21f,A22m,A23f,A24m,A25f,A26m,A27f,A28m,A29f,A30m
+B1f,B2m,B3f,B4m,B5f,B6m,B7f,B8m,B9f,B10m,B11f,B12m,B13f,B14m,B15f,B16m,B17f,B18m,B19f,B20m,B21f,B22m,B23f,B24m,B25f,B26m,B27f,B28m,B29f,B30m
+
+Results:
+A_winner, 240
+###
+A1f, 312
+A2m, 304
+A3f, 296
+A4m, 288
+A5f, 280
+A6m, 272
+A7f, 264
+A8m, 256
+A9f, 248
+A10m, 240
+A11f, 232
+A12m, 224
+A13f, 216
+A14m, 208
+A15f, 200
+A16m, 192
+A17f, 184
+A18m, 176
+A19f, 168
+A20m, 160
+A21f, 152
+A22m, 144
+A23f, 136
+B1f, 39
+B2m, 38
+A24m, 128
+A25f, 120
+A26m, 112
+A27f, 104
+A28m, 96
+
+Config results:
+[
+    [
+        "agora_results.pipes.duplicate_questions.duplicate_questions",
+        {
+            "duplications": [
+                {
+                    "source_election_index": 0,
+                    "base_question_index": 0,
+                    "duplicated_question_indexes": [1]
+                }
+            ]
+        }
+    ],
+    [
+        "agora_results.pipes.modifications.apply_modifications",
+        {
+            "modifications": [
+                {
+                    "action": "set-tally-type",
+                    "question_index": 0,
+                    "tally-type": "borda"
+                },
+                {
+                    "action": "modify-number-of-winners",
+                    "question_index": 0,
+                    "num_winners": 1,
+                    "policy": "do-not-truncate"
+                },
+                {
+                    "action": "set-answer-key-value",
+                    "question_index": 0,
+                    "answer-text": "A1f",
+                    "key": "text",
+                    "value": "A_winner"
+                }
+            ]
+        }
+    ],
+    [
+        "agora_results.pipes.results.do_tallies",
+        {
+            "ignore_invalid_votes": true
+        }
+    ],
+    [
+        "agora_results.pipes.sort.sort_non_iterative",
+        {
+            "question_indexes": [0]
+        }
+    ],
+    [
+        "agora_results.pipes.desborda4.podemos_desborda4",
+        {
+            "question_index": 1,
+            "first_winner_question_index": 0
+        }
+    ]
+]
+

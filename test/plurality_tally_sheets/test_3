@@ -1,0 +1,29 @@
+Votes: plurality_tally_sheets3.
+A1m
+B1m
+C1m
+
+Results:
+A1m, 0
+B1m, 0
+C1m, 0
+
+Config results:
+[
+    [
+        "agora_results.pipes.ballot_boxes.count_tally_sheets",
+        {
+            "override": false,
+            "tally_sheets": [
+            ]
+        }
+    ],
+    [
+        "agora_results.pipes.sort.sort_non_iterative",
+        {
+            "question_indexes": [0]
+        }
+    ]
+]
+
+

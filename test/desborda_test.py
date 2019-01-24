@@ -90,13 +90,28 @@ def check_results(text_a, text_b):
     ret = (results_b == results_a)
     return ret
 
+
+def check_ordered_results(text_a, text_b):
+    '''
+    Check results so that the order of the winners does matter
+    '''
+    return text_a == text_b
+
 def read_testfile(testfile_path):
     file_raw_text = file_helpers.read_file(testfile_path)
     file_lines = file_raw_text.splitlines(keepends = True)
     ballots = ""
     results = ""
+    results_config = ""
     name = ""
-    states = ["ballots_first_line", "reading_ballots", "results_first_line", "reading_results"]
+    states = [
+        "ballots_first_line",
+        "reading_ballots",
+        "results_first_line",
+        "reading_results",
+        "results_config_first_line",
+        "reading_results_config"
+    ]
     state = "ballots_first_line"
     for line in file_lines:
         if "ballots_first_line" == state:
@@ -110,6 +125,7 @@ def read_testfile(testfile_path):
                 state = "results_first_line"
             else:
                 ballots += line
+
         elif "results_first_line" == state:
             if "\n" == line:
                 continue
@@ -117,20 +133,37 @@ def read_testfile(testfile_path):
                 state = "reading_results"
         elif "reading_results" == state:
             if "\n" == line:
-                break
+                state = "results_config_first_line"
             else:
                 results += line
-    return { "input": ballots, "output": results, "name": name }
+
+        elif "results_config_first_line" == state:
+            if "\n" == line:
+                continue
+            else:
+                state = "reading_results_config"
+        elif "reading_results_config" == state:
+            if "\n" == line:
+                break
+            else:
+                results_config += line
+
+    return {
+        "input": ballots,
+        "output": results,
+        "name": name,
+        "config": json.loads(results_config) if len(results_config) > 0 else None
+    }
 
 def create_desborda_test(test_data, tally_type = "desborda", num_questions=1, women_in_urls=False):
     if not has_input_format(test_data["input"]):
         raise Exception("Error: test data input with format errors")
-    if not has_output_format(test_data["output"]):
+    if not has_output_format(test_data["output"].split("###\n")[-1]):
         raise Exception("Error: test data output with format errors")
 
     # test_struct
     ballots = [re.split(r",", line) for line in remove_spaces(test_data["input"]).splitlines()]
-    results = [re.split(r",", line) for line in remove_spaces(test_data["output"]).splitlines()]
+    results = [re.split(r",", line) for line in remove_spaces(test_data["output"].split("###\n")[-1]).splitlines()]
     num_winners = len(results)
     teams = {}
     all_candidates = []
