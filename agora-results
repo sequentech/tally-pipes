@@ -42,11 +42,11 @@ DEFAULT_PIPELINE = [
 # By default we only allow the most used pipes to reduce default attack surface
 # NOTE: keep the list sorted
 DEFAULT_PIPES_WHITELIST = [
-    "agora_results.pipes.desborda.podemos_desborda",
-    "agora_results.pipes.desborda2.podemos_desborda2",
-    "agora_results.pipes.desborda3.podemos_desborda3",
-    "agora_results.pipes.desborda4.podemos_desborda4",
-    "agora_results.pipes.duplicate_questions.duplicate_questions",
+    #"agora_results.pipes.desborda.podemos_desborda",
+    #"agora_results.pipes.desborda2.podemos_desborda2",
+    #"agora_results.pipes.desborda3.podemos_desborda3",
+    #"agora_results.pipes.desborda4.podemos_desborda4",
+    #"agora_results.pipes.duplicate_questions.duplicate_questions",
     "agora_results.pipes.modifications.apply_modifications",
     #"agora_results.pipes.multipart.make_multipart",
     #"agora_results.pipes.multipart.election_max_size_corrections",
@@ -71,7 +71,7 @@ DEFAULT_PIPES_WHITELIST = [
     #"agora_results.pipes.stv_tiebreak.stv_first_round_tiebreak",
     #"agora_results.pipes.pdf.configure_pdf",
     "agora_results.pipes.withdraw_candidates.withdraw_candidates",
-    "agora_results.pipes.ballot_boxes.count_tally_sheets"
+    #"agora_results.pipes.ballot_boxes.count_tally_sheets"
 ]
 
 def extract_tally(fpath):

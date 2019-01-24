@@ -120,7 +120,6 @@ tally_config_borda = [
   ]
 ]
 
-
 class TestPluralityTallySheets(unittest.TestCase):
     def do_test(self, test_data=None, num_questions=1, women_in_urls=False):
         if test_data is None:
@@ -237,7 +236,6 @@ class TestBorda(unittest.TestCase):
             data = test.desborda_test.read_testfile(testfile_path)
             data["config"] = copy.deepcopy(tally_config_borda)
             self.do_test(test_data=data)
-
 
 class TestDesBorda4(unittest.TestCase):
     def do_test(self, test_data=None, num_questions=1, women_in_urls=True):
