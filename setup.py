@@ -16,7 +16,7 @@
 # along with agora-results.  If not, see <http://www.gnu.org/licenses/>.
 
 from setuptools import setup
-from pip.req import parse_requirements
+from pip._internal.req import parse_requirements
 
 # parse_requirements() returns generator of pip.req.InstallRequirement objects
 install_reqs = parse_requirements("requirements.txt")
