@@ -65,9 +65,9 @@ def create_temp_folder():
     print("temp folder created at: %s" % temp_folder)
     return temp_folder
 
-def create_simple_results(results_path):
+def create_simple_results(results_path, question_index = 0):
     results_json = json.loads(file_helpers.read_file(results_path))
-    answers = results_json["questions"][0]["answers"]
+    answers = results_json["questions"][question_index]["answers"]
     indexed_winners = [ index
         for index, answer in enumerate(answers)
         if answer["winner_position"] is not None
@@ -90,13 +90,28 @@ def check_results(text_a, text_b):
     ret = (results_b == results_a)
     return ret
 
+
+def check_ordered_results(text_a, text_b):
+    '''
+    Check results so that the order of the winners does matter
+    '''
+    return text_a == text_b
+
 def read_testfile(testfile_path):
     file_raw_text = file_helpers.read_file(testfile_path)
     file_lines = file_raw_text.splitlines(keepends = True)
     ballots = ""
     results = ""
+    results_config = ""
     name = ""
-    states = ["ballots_first_line", "reading_ballots", "results_first_line", "reading_results"]
+    states = [
+        "ballots_first_line",
+        "reading_ballots",
+        "results_first_line",
+        "reading_results",
+        "results_config_first_line",
+        "reading_results_config"
+    ]
     state = "ballots_first_line"
     for line in file_lines:
         if "ballots_first_line" == state:
@@ -110,6 +125,7 @@ def read_testfile(testfile_path):
                 state = "results_first_line"
             else:
                 ballots += line
+
         elif "results_first_line" == state:
             if "\n" == line:
                 continue
@@ -117,24 +133,46 @@ def read_testfile(testfile_path):
                 state = "reading_results"
         elif "reading_results" == state:
             if "\n" == line:
-                break
+                state = "results_config_first_line"
             else:
                 results += line
-    return { "input": ballots, "output": results, "name": name }
 
-def create_desborda_test(test_data):
+        elif "results_config_first_line" == state:
+            if "\n" == line:
+                continue
+            else:
+                state = "reading_results_config"
+        elif "reading_results_config" == state:
+            if "\n" == line:
+                break
+            else:
+                results_config += line
+
+    return {
+        "input": ballots,
+        "output": results,
+        "name": name,
+        "config": json.loads(results_config) if len(results_config) > 0 else None
+    }
+
+def create_desborda_test(test_data, tally_type = "desborda", num_questions=1, women_in_urls=False):
     if not has_input_format(test_data["input"]):
         raise Exception("Error: test data input with format errors")
-    if not has_output_format(test_data["output"]):
+    if not has_output_format(test_data["output"].split("###\n")[-1]):
         raise Exception("Error: test data output with format errors")
 
     # test_struct
     ballots = [re.split(r",", line) for line in remove_spaces(test_data["input"]).splitlines()]
-    results = [re.split(r",", line) for line in remove_spaces(test_data["output"]).splitlines()]
+    results = [re.split(r",", line) for line in remove_spaces(test_data["output"].split("###\n")[-1]).splitlines()]
+    num_winners = len(results)
     teams = {}
     all_candidates = []
     women_names = []
+    max_num = 0
     for ballot in ballots:
+        len_ballot = len(ballot)
+        if len_ballot > max_num:
+            max_num = len_ballot
         for candidate in ballot:
             team = candidate[:1]
             female = "f" is candidate[-1]
@@ -164,11 +202,11 @@ def create_desborda_test(test_data):
         "answers": [],
         "description": "Desborda question",
         "layout": "simple",
-        "max": 62,
+        "max": max_num,
         "min": 0,
-        "num_winners": 62,
+        "num_winners": num_winners,
         "randomize_answer_order": True,
-        "tally_type": "desborda",
+        "tally_type": tally_type,
         "title": "Desborda question"
     }
     cand_index = 0
@@ -184,16 +222,34 @@ def create_desborda_test(test_data):
                 "urls": []
             }
             indexed_candidates[candidate] = cand_index
+            if women_in_urls:
+                candidate_is_woman = candidate in women_names
+                gender_url = {
+                  "title": "Gender",
+                  "url": ("https://agoravoting.com/api/gender/M" \
+                      if candidate_is_woman \
+                      else "https://agoravoting.com/api/gender/H")
+                }
+                answer["urls"].append(gender_url)
             question["answers"].append(answer)
             cand_index += 1
 
-    questions_json = [question]
+    questions_json = [question] * num_questions
     config = test_data["config"]
-    config[1][1]["women_names"] = women_names
+    for config_el in config:
+        if "women_names" in config_el[1]:
+            if not women_in_urls:
+                config_el[1]["women_names"] = women_names
+            else:
+                config_el[1]["women_names"] = None
 
     # encode ballots in plaintexts_json format
     plaintexts_json = ""
+    counter = 0
     for ballot in ballots:
+        counter += 1
+        if counter % 1000 == 0:
+            print("%i votes encoded" % counter)
         encoded_ballot = encode_ballot(ballot, indexed_candidates)
         plaintexts_json = plaintexts_json + '"' + encoded_ballot + '"\n'
 
@@ -202,9 +258,11 @@ def create_desborda_test(test_data):
     try:
         targz_folder = os.path.join(desborda_test_path, "tally")
         os.mkdir(targz_folder)
-        plaintexts_folder = os.path.join(targz_folder, "0-" + str(uuid.uuid4()))
-        os.mkdir(plaintexts_folder)
-        file_helpers.write_file(os.path.join(plaintexts_folder, "plaintexts_json"), plaintexts_json)
+        for question_index in range(0, num_questions):
+            plaintexts_folder = os.path.join(targz_folder,
+                "%i-%s" % (question_index, str(uuid.uuid4()) ) )
+            os.mkdir(plaintexts_folder)
+            file_helpers.write_file(os.path.join(plaintexts_folder, "plaintexts_json"), plaintexts_json)
         file_helpers.write_file(os.path.join(targz_folder, "questions_json"), file_helpers.serialize(questions_json))
         make_simple_targz(os.path.join(desborda_test_path, "tally.tar.gz"), targz_folder)
         file_helpers.write_file(os.path.join(desborda_test_path, "results_json"), test_data["output"])

@@ -42,7 +42,10 @@ DEFAULT_PIPELINE = [
 # By default we only allow the most used pipes to reduce default attack surface
 # NOTE: keep the list sorted
 DEFAULT_PIPES_WHITELIST = [
-    #"agora_results.pipes.desborda.podemos_desborda"
+    #"agora_results.pipes.desborda.podemos_desborda",
+    #"agora_results.pipes.desborda2.podemos_desborda2",
+    #"agora_results.pipes.desborda3.podemos_desborda3",
+    #"agora_results.pipes.desborda4.podemos_desborda4",
     #"agora_results.pipes.duplicate_questions.duplicate_questions",
     "agora_results.pipes.modifications.apply_modifications",
     #"agora_results.pipes.multipart.make_multipart",
@@ -55,8 +58,9 @@ DEFAULT_PIPES_WHITELIST = [
     #"agora_results.pipes.multipart.append_ballots",
     "agora_results.pipes.parity.proportion_rounded",
     "agora_results.pipes.parity.parity_zip_non_iterative",
-    #"agora_results.pipes.parity.reorder_winners",
-    #"agora_results.pipes.parity.podemos_parity_loreg_zip_non_iterative",
+    "agora_results.pipes.parity.reorder_winners",
+    "agora_results.pipes.parity.podemos_parity_loreg_zip_non_iterative",
+    "agora_results.pipes.parity.podemos_parity2_loreg_zip_non_iterative",
     #"agora_results.pipes.podemos.podemos_proportion_rounded_and_duplicates",
     #"agora_results.pipes.pretty_print.pretty_print_stv_winners",
     "agora_results.pipes.pretty_print.pretty_print_not_iterative",
@@ -66,6 +70,8 @@ DEFAULT_PIPES_WHITELIST = [
     "agora_results.pipes.sort.sort_non_iterative",
     #"agora_results.pipes.stv_tiebreak.stv_first_round_tiebreak",
     #"agora_results.pipes.pdf.configure_pdf",
+    "agora_results.pipes.withdraw_candidates.withdraw_candidates",
+    #"agora_results.pipes.ballot_boxes.count_tally_sheets"
 ]
 
 def extract_tally(fpath):
@@ -81,7 +87,7 @@ def extract_tally(fpath):
 def print_csv(data, separator, output_func=print):
     counts = data['results']['questions']
     for question, i in zip(counts, range(len(counts))):
-        if question['tally_type'] not in ["plurality-at-large", "desborda", "borda", "borda-nauru"] or\
+        if question['tally_type'] not in ["plurality-at-large", "desborda", "desborda2", "desborda3", "borda", "borda-nauru"] or\
            question.get('no-tally', False):
             continue
 

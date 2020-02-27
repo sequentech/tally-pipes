@@ -21,6 +21,17 @@ from operator import itemgetter
 
 _MAX = 999999999
 
+_ALLOWED_TALLY_TYPES = [
+    "plurality-at-large",
+    "desborda3",
+    "desborda2",
+    "desborda",
+    "borda",
+    "borda-nauru",
+    "pairwise-beta",
+    "cup"
+]
+
 def sort_non_iterative(data_list, question_indexes=[], withdrawals=[], ties_sorting=[], help=""):
     '''
     Sort non iterative questions of the first tally  by total_count
@@ -40,7 +51,7 @@ def sort_non_iterative(data_list, question_indexes=[], withdrawals=[], ties_sort
 
     for q_num, question in enumerate(data['results']['questions']):
         # filter first
-        if question['tally_type'] not in ["plurality-at-large", "desborda", "borda", "borda-nauru", "pairwise-beta", "cup"] or\
+        if question['tally_type'] not in _ALLOWED_TALLY_TYPES or\
             q_num not in question_indexes:
             continue
 
@@ -74,7 +85,6 @@ def sort_non_iterative(data_list, question_indexes=[], withdrawals=[], ties_sort
             # reverse numbering, to be compatible with total_count sorting
             item2['tie_sort'] = len(q_ties_sorting) - i
 
-
         # sanity check withdrawals
         for item in q_withdrawals:
             if item['answer_id'] in q_removed:
@@ -96,6 +106,11 @@ def sort_non_iterative(data_list, question_indexes=[], withdrawals=[], ties_sort
         # then sort by total_count, resolving ties too
         question['answers'] = sorted(question['answers'], reverse=True,
             key=itemgetter('total_count', 'tie_sort'))
+        
+        # sort by withdrawn/not withdrawn if possible
+        if 'withdraw_candidates' in question and question['withdraw_candidates']:
+            question['answers'] = sorted(question['answers'],
+                key=itemgetter('withdrawn'))
 
         # mark winners
         i = 0
@@ -116,3 +131,32 @@ def sort_non_iterative(data_list, question_indexes=[], withdrawals=[], ties_sort
             del answer['tie_sort']
             if answer['winner_position'] is _MAX:
                 answer['winner_position'] = None
+
+def sort_non_iterative_losers(data_list, question_indexes=[], help=""):
+    '''
+    Sorts losers by points, not touching the winners' positions
+    '''
+    data = data_list[0]
+
+    for q_num, question in enumerate(data['results']['questions']):
+        # filter first
+        if question['tally_type'] not in _ALLOWED_TALLY_TYPES or\
+            q_num not in question_indexes:
+            continue
+
+        winners = [
+          winner
+          for winner in question['answers']
+          if winner['winner_position'] is not None
+        ]
+
+        losers = [
+          loser
+          for loser in question['answers']
+          if loser['winner_position'] is None
+        ]
+        sorted_losers = sorted(
+            losers,
+            key=itemgetter('total_count')
+        )
+        question['answers'] = winers + sorted_losers

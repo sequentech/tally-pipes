@@ -160,6 +160,9 @@ def pdf_print(election_results, config_folder, election_id):
           base_num = total_votes
         elif percent_base == "over-total-valid-votes":
           base_num = question['totals']['valid_votes']
+        elif "over-total-valid-points" == percent_base \
+          and "valid_points" in question['totals']:
+          base_num = question['totals']['valid_points']
 
         elements.append(gen_text(tx_question_title % (i+1, question['title']), size = 15, bold = True, align = TA_LEFT))
         elements.append(Spacer(0, 15))
@@ -173,6 +176,8 @@ def pdf_print(election_results, config_folder, election_id):
           "borda-nauru": "Borda de Nauru o Borda Dowdall (1/n)", 
           "borda": "Borda Count (tradicional)", 
           "pairwise-beta": "Comparación de pares (distribución beta)",
+          "desborda3": "Desborda3",
+          "desborda2": "Desborda2",
           "desborda": "Desborda"
         }
         data = [
@@ -262,11 +267,15 @@ def pdf_print(election_results, config_folder, election_id):
         t.setStyle(table_style)
         elements.append(t)
 
-        winners = [answer for answer in question['answers']
-            if answer['winner_position'] != None]
-        losers = sorted([answer for answer in question['answers']
-            if answer['winner_position'] == None],
-            key=lambda a: float(a['total_count']), reverse=True)
+        winners = sorted([answer for answer in question['answers']
+            if answer['winner_position'] is not None],
+            key=lambda a: a['winner_position'])
+        losers_by_name = sorted([answer for answer in question['answers']
+            if answer['winner_position'] is None],
+            key=lambda a: a['text'])
+        losers = sorted(losers_by_name,
+            key=lambda a: float(a['total_count']),
+            reverse=True)
         data = [
           [
             gen_text('Nombre', align = TA_RIGHT),
