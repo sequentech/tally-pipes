@@ -49,6 +49,12 @@ def duplicate_questions(data_list, duplications=[], help="this-parameter-is-igno
     Optionally, a duplication parameter item can also have a
     "dest_election_index" option indicating what's the destination election.
     '''
+    elections_by_id = dict()
+    for dindex, data in enumerate(data_list):
+        if 'id' not in data:
+            data['id'] = dindex
+    
+        elections_by_id[data['id']] = data
 
     def read_config(data):
         questions_path = os.path.join(data['extract_dir'], "questions_json")
@@ -60,7 +66,14 @@ def duplicate_questions(data_list, duplications=[], help="this-parameter-is-igno
         with open(questions_path, 'w', encoding="utf-8") as f:
             f.write(json.dumps(config))
 
-    def do_action(func, orig_path, dest_path, orig_glob, orig_replace, dest_replace):
+    def do_action(
+        func,
+        orig_path,
+        dest_path,
+        orig_glob,
+        orig_replace,
+        dest_replace
+    ):
         orig_q_path = os.path.join(orig_path, orig_glob)
         orig_q_path = glob.glob(orig_q_path)[0]
         orig_q_id = orig_q_path.split('/')[-1]
@@ -70,10 +83,10 @@ def duplicate_questions(data_list, duplications=[], help="this-parameter-is-igno
 
     for dupl in duplications:
         orig_q = dupl["base_question_index"]
-        orig_el = dupl["source_election_index"]
-        dest_el = dupl.get("dest_election_index", dupl["source_election_index"])
-        orig_data = data_list[orig_el]
-        dest_data = data_list[dest_el]
+        orig_el_index = dupl["source_election_index"]
+        dest_el_index = dupl.get("dest_election_index", orig_el_index)
+        orig_data = elections_by_id[orig_el_index]
+        dest_data = elections_by_id[dest_el_index]
         dest_path = dest_data['extract_dir']
         orig_path = orig_data['extract_dir']
         orig_qjson = read_config(orig_data)
@@ -82,7 +95,7 @@ def duplicate_questions(data_list, duplications=[], help="this-parameter-is-igno
         for dest_q in dupl["duplicated_question_indexes"]:
             copyq = copy.deepcopy(orig_qjson[orig_q])
             copyq['source_question_index'] = orig_q
-            copyq['source_election_index'] = orig_el
+            copyq['source_election_index'] = orig_el_index
             qjson_dest.insert(dest_q, copyq)
             # +1 to the indexes of the directory of the next questions
             for i in reversed(range(dest_q, len(qjson_dest) - 1)):
