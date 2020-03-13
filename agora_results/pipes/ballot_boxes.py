@@ -52,11 +52,11 @@ def _verify_tally_sheet(tally_sheet, questions, tally_index):
           'sheet %d: num_votes is negative' % tally_index
 
     assert\
-        'ballot_box_title' in tally_sheet,\
-        'sheet %d: no ballot_box_title' % tally_index
+        'ballot_box_name' in tally_sheet,\
+        'sheet %d: no ballot_box_name' % tally_index
     assert\
-        isinstance(tally_sheet['ballot_box_title'], str),\
-        'sheet %d: ballot_box_title is not an string' % tally_index
+        isinstance(tally_sheet['ballot_box_name'], str),\
+        'sheet %d: ballot_box_name is not an string' % tally_index
 
     assert\
       'questions' in tally_sheet,\
@@ -241,7 +241,7 @@ def count_tally_sheets(
     for tally_index, tally_sheet in enumerate(tally_sheets):
         if (
             filter_ballot_box_re is not None and
-            not re.match(filter_ballot_box_re, tally_sheet['ballot_box_title']
+            not re.match(filter_ballot_box_re, tally_sheet['ballot_box_name']
         ):
             continue
 
