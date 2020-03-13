@@ -116,7 +116,7 @@ def reduce_answers_with_corrections(data_list, mappings, reverse=True, help=""):
 
     Example:
 
-    mappings is a list of correcitons with the following format:
+    mappings is a list of corrections with the following format:
     [
       {
         "source_election_id": 0,
@@ -168,41 +168,70 @@ def reduce_answers_with_corrections(data_list, mappings, reverse=True, help=""):
         data_list.reverse()
 
 
-def multipart_tally_plaintexts_append_joiner(data_list, dst_election_id,
-    question_num=0, src_election_ids=[], silent=False, reverse=True, help=""):
+def multipart_tally_plaintexts_append_joiner(
+    data_list, 
+    mappings,
+    help=""
+):
     '''
-    Does a multipart tally where the ballots from different question
+    appends ballots from another question using the given mappings.
+
+    mappings is a list of corrections with the following format:
+    [
+      {
+        "source_election_id": 1,
+        "source_question_num": 0,
+        "dest_election_id": 0,
+        "dest_question_num": 0
+      },
+      ...
+    ]
     '''
     # preload questions
+    elections_by_id = dict()
     for dindex, data in enumerate(data_list):
-        data['id'] = dindex
+        if 'id' not in data:
+            data['id'] = dindex
+    
+        elections_by_id[data['id']] = data
+
         questions_path = os.path.join(data['extract_dir'], "questions_json")
         with open(questions_path, 'r', encoding="utf-8") as f:
             data['questions'] = json.loads(f.read())
 
-    dst_plaintexts_path = glob(os.path.join(
-          data_list[dst_election_id]['extract_dir'],
-          "%d-*" % question_num, "plaintexts_json"))[0]
+    for mapping in mappings:
+        source_election_id = mapping['source_election_id']
+        source_question_num = mapping['source_question_num']
+        dst_election_id = mapping['dst_election_id']
+        dst_question_num = mapping['dst_question_num']
 
-    with codecs.open(dst_plaintexts_path, encoding='utf-8', mode='a') as final_plaintexts:
-        # open the plaintexts file from other tallies, and convert each ballot
-        # and append it to the last_tally plaintexts file
-        for dindex, data in enumerate(data_list):
-            if dindex == dst_election_id or dindex not in src_election_ids:
-                continue
+        dst_plaintexts_path = glob(os.path.join(
+            data_list[dst_election_id]['extract_dir'],
+            "%d-*" % question_num, "plaintexts_json")
+        )[0]
 
-            src_question = data['questions'][question_num]
+        with codecs.open(
+            dst_plaintexts_path, 
+            encoding='utf-8', 
+            mode='a'
+        ) as final_plaintexts:
+            data = elections_by_id[source_election_id]
+            src_question = data['questions'][source_question_num]
+
             plaintexts_path = glob(os.path.join(
-                  data['extract_dir'], "%d-*" % question_num, "plaintexts_json"))[0]
-            with codecs.open(plaintexts_path, encoding='utf-8', mode='r') as plaintexts:
+                data['extract_dir'], "%d-*" % source_question_num, 
+                "plaintexts_json")
+            )[0]
+
+            with codecs.open(
+                plaintexts_path, 
+                encoding='utf-8', 
+                mode='r'
+            ) as plaintexts:
                 for line in plaintexts.readlines():
                     final_plaintexts.write(line)
 
-    if reverse:
-        data_list.reverse()
-
 def data_list_reverse(data_list, help=""):
-
     '''
     reverses the data_list
     '''

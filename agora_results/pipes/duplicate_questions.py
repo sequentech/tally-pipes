@@ -32,7 +32,13 @@ def duplicate_questions(data_list, duplications=[], help="this-parameter-is-igno
 
     And the "duplications" parameter is:
 
-    [{"source_election_index": 0, "base_question_index": 0, "duplicated_question_indexes": [1]}]
+    [
+        {
+            "source_election_index": 0,
+            "base_question_index": 0,
+            "duplicated_question_indexes": [1]
+        }
+    ]
 
     This means that the first question remains as is, but it is duplicated and
     the duplicated question is inserted in position 1 of the list, so in the

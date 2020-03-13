@@ -19,7 +19,7 @@ import os
 import subprocess
 import json
 import requests
-from datetime import datetime
+from datetime import datetime, timedelta
 from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, Image
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
