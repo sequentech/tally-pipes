@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with agora-results.  If not, see <http://www.gnu.org/licenses/>.
 
+import re
 import os
 import json
 
@@ -51,16 +52,26 @@ def _verify_tally_sheet(tally_sheet, questions, tally_index):
           'sheet %d: num_votes is negative' % tally_index
 
     assert\
+        'ballot_box_title' in tally_sheet,\
+        'sheet %d: no ballot_box_title' % tally_index
+    assert\
+        isinstance(tally_sheet['ballot_box_title'], str),\
+        'sheet %d: ballot_box_title is not an string' % tally_index
+
+    assert\
       'questions' in tally_sheet,\
       'sheet %d: tally_sheet has no questions' % tally_index
     assert\
       isinstance(tally_sheet['questions'], list),\
       'sheet %d: tally_sheet questions is not a list' % tally_index
     assert\
-      len(tally_sheet['questions']) == len(questions),\
+      len(tally_sheet['questions']) <= len(questions),\
       'sheet %d: tally_sheet has invalid number of questions' % tally_index
 
     for qindex, question in enumerate(questions):
+        if len(tally_sheet['questions']) <= qindex:
+            continue
+
         sheet_question = tally_sheet['questions'][qindex]
 
         assert\
@@ -179,6 +190,9 @@ def _sum_tally_sheet_numbers(tally_sheet, results, tally_index):
     results['total_votes'] += tally_sheet['num_votes']
 
     for qindex, question in enumerate(questions):
+        if len(tally_sheet['questions']) <= qindex:
+            continue
+
         sheet_question = tally_sheet['questions'][qindex]
         question['totals']['blank_votes'] += sheet_question['blank_votes']
         question['totals']['null_votes'] += sheet_question['null_votes']
@@ -195,7 +209,13 @@ def _sum_tally_sheet_numbers(tally_sheet, results, tally_index):
             question['totals']['valid_votes'] += sheet_answer['num_votes']
 
 # given a list of tally_sheets, add them to the electoral results
-def count_tally_sheets(data_list, tally_sheets, override=False):
+def count_tally_sheets(
+    data_list, 
+    tally_sheets,
+    override=False,
+    filter_ballot_box_re=None,
+    help="this parameter is ignored"
+):
     data = data_list[0]
 
     if override or 'results' not in data:
@@ -219,4 +239,10 @@ def count_tally_sheets(data_list, tally_sheets, override=False):
 
     # add the numbers of each tally sheet to the electoral results
     for tally_index, tally_sheet in enumerate(tally_sheets):
+        if (
+            filter_ballot_box_re is not None and
+            not re.match(filter_ballot_box_re, tally_sheet['ballot_box_title']
+        ):
+            continue
+
         _sum_tally_sheet_numbers(tally_sheet, data['results'], tally_index)
