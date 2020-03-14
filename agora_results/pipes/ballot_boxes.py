@@ -251,7 +251,7 @@ def _init_elections_by_id(data_list):
     elections_by_id = dict()
     for dindex, election_data in enumerate(data_list):
         if 'id' not in election_data:
-            data['id'] = dindex
+            election_data['id'] = dindex
     
         elections_by_id[election_data['id']] = election_data
     return elections_by_id
