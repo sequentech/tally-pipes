@@ -270,7 +270,7 @@ def _ensure_results(election_data):
             total_votes=0
         )
     else:
-        questions = data['results']['questions']
+        questions = election_data['results']['questions']
 
     for question in questions:
         _initialize_question(question)
