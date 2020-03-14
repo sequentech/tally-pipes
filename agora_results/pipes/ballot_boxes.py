@@ -251,16 +251,16 @@ def _sum_tally_sheet_numbers(
         answer['total_count'] += sheet_answer['num_votes']
         question['totals']['valid_votes'] += sheet_answer['num_votes']
 
-def _init_elections_by_id(data):
+def _init_elections_by_id(data_list):
     '''
     Initializes elections_by_id
     '''
     elections_by_id = dict()
-    for dindex, data in enumerate(data_list):
-        if 'id' not in data:
+    for dindex, election_data in enumerate(data_list):
+        if 'id' not in election_data:
             data['id'] = dindex
     
-        elections_by_id[data['id']] = data
+        elections_by_id[election_data['id']] = election_data
     return elections_by_id
 
 def _ensure_results(election_data):
