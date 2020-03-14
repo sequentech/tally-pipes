@@ -206,7 +206,7 @@ def multipart_tally_plaintexts_append_joiner(
         dst_question_num = mapping['dst_question_num']
 
         dst_plaintexts_path = glob(os.path.join(
-            data_list[dst_election_id]['extract_dir'],
+            elections_by_id[dst_election_id]['extract_dir'],
             "%d-*" % question_num, "plaintexts_json")
         )[0]
 
@@ -215,11 +215,11 @@ def multipart_tally_plaintexts_append_joiner(
             encoding='utf-8', 
             mode='a'
         ) as final_plaintexts:
-            data = elections_by_id[source_election_id]
-            src_question = data['questions'][source_question_num]
+            election_data = elections_by_id[source_election_id]
+            src_question = election_data['questions'][source_question_num]
 
             plaintexts_path = glob(os.path.join(
-                data['extract_dir'], "%d-*" % source_question_num, 
+                election_data['extract_dir'], "%d-*" % source_question_num, 
                 "plaintexts_json")
             )[0]
 
