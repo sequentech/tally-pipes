@@ -35,7 +35,7 @@ def _initialize_question(question):
         if "total_count" not in answer:
             answer['total_count'] = 0
 
-def _verify_tally_sheet(tally_sheet, questions, tally_index):
+def _verify_tally_sheet(tally_sheet, tally_index):
     '''
     Verify that the tally sheets conform with the list of questions and answers
     of this election
@@ -64,34 +64,20 @@ def _verify_tally_sheet(tally_sheet, questions, tally_index):
     assert\
       isinstance(tally_sheet['questions'], list),\
       'sheet %d: tally_sheet questions is not a list' % tally_index
-    assert\
-      len(tally_sheet['questions']) <= len(questions),\
-      'sheet %d: tally_sheet has invalid number of questions' % tally_index
 
-    for qindex, question in enumerate(questions):
-        if len(tally_sheet['questions']) <= qindex:
-            continue
-
-        sheet_question = tally_sheet['questions'][qindex]
-
+    for qindex, sheet_question in enumerate(tally_sheet['questions']):
         assert\
             'title' in sheet_question,\
             'sheet %d, question %d: no title' % (tally_index, qindex)
         assert\
             isinstance(sheet_question['title'], str),\
             'sheet %d, question %d: title is not a string' % (tally_index, qindex)
-        assert\
-            question['title'] == sheet_question['title'],\
-            'sheet %d, question %d: invalid title' % (tally_index, qindex)
 
         assert\
             'tally_type' in sheet_question,\
             'sheet %d, question %d: no tally_type' % (tally_index, qindex)
         assert\
             isinstance(sheet_question['tally_type'], str),\
-            'sheet %d, question %d: tally_type is not a string' % (tally_index, qindex)
-        assert\
-            sheet_question['tally_type'] == question['tally_type'],\
             'sheet %d, question %d: tally_type is not a string' % (tally_index, qindex)
         assert\
             sheet_question['tally_type'] in ['plurality-at-large'],\
@@ -123,43 +109,19 @@ def _verify_tally_sheet(tally_sheet, questions, tally_index):
         assert\
             isinstance(sheet_question['answers'], list),\
             'sheet %d, question %d: question answers is not a list' % (tally_index, qindex)
-        assert\
-            len(sheet_question['answers']) == len(question['answers']),\
-            'sheet %d, question %d: invalid number of answers' % (tally_index, qindex)
 
         sheet_answers = dict([
           (answer['text'], answer)
           for answer in sheet_question['answers']
         ])
 
-        answers = dict([
-          (answer['text'], answer)
-          for answer in question['answers']
-        ])
-
-        assert\
-            set(sheet_answers.keys()) == set(answers.keys()),\
-            'not the same set of answers'
-
-        for aindex, answer in enumerate(question['answers']):
-            text = answer['text']
-            sheet_answer = sheet_answers[text]
-
+        for aindex, answer in enumerate(sheet_answers['answers']):
             assert\
                 'text' in sheet_answer,\
                 'sheet %d, question %d, answer %d: no text' % (tally_index, qindex, aindex)
             assert\
                 isinstance(sheet_answer['text'], str),\
                 'sheet %d, question %d, answer %d: text is not a string' % (tally_index, qindex, aindex)
-            assert\
-                sheet_answer['text'] == answer['text'],\
-                'sheet %d, question %d, answer %d: text is not valid "%s" != "%s"' % (
-                    tally_index,
-                    qindex,
-                    aindex,
-                    sheet_answer['text'],
-                    answer['text']
-                )
 
             assert\
                 'num_votes' in sheet_answer,\
@@ -245,7 +207,8 @@ def _sum_tally_sheet_numbers(
     tally_sheet,
     results,
     question_index,
-    tally_sheets_question_index
+    tally_sheets_question_index,
+    configuration_index
 ):
     '''
     Adds the results of the tally sheet
@@ -263,9 +226,28 @@ def _sum_tally_sheet_numbers(
         for answer in sheet_question['answers']
     ])
 
+    assert\
+        len(question['answers']) == len(sheet_question['answers']),\
+        'configuration %d, question_index %d (len=%d), tally_sheets_question_index %d (len=%d): not the same number of answers' % (
+            configuration_index,
+            question_index,
+            tally_sheets_question_index,
+            len(question['answers']),
+            len(sheet_question['answers'])
+        )
+
     for aindex, answer in enumerate(question['answers']):
         text = answer['text']
-        sheet_answer = sheet_answers[text]
+        sheet_answer = sheet_answers.get(text, None)
+        assert\
+            sheet_answer is not None,\
+            'configuration %d, question_index %d, tally_sheets_question_index %d, answer %d (text=\'%s\'): answer not found in tally sheet' % (
+                configuration_index,
+                question_index,
+                tally_sheets_question_index,
+                aindex,
+                answer['text']
+            )
         answer['total_count'] += sheet_answer['num_votes']
         question['totals']['valid_votes'] += sheet_answer['num_votes']
 
@@ -346,12 +328,17 @@ def count_tally_sheets(
         }
     ]
     '''
-    # check ballot_box_list
-    for tally_index, tally_sheet in enumerate(tally_sheets):
-        _verify_tally_sheet(tally_sheet, questions, tally_index)
 
     # initialize elections by id dict
     elections_by_id = _init_elections_by_id(data)
+
+    # ensure this election has questions initialized first
+    for election_data in data:
+        _ensure_results(election_data)
+
+    # check ballot_box_list
+    for tally_index, tally_sheet in enumerate(tally_sheets):
+        _verify_tally_sheet(tally_sheet, tally_index)
 
     # check configuration
     for configuration_index, configuration in enumerate(configurations):
@@ -371,9 +358,6 @@ def count_tally_sheets(
         tally_sheets_question_index = configuration["tally_sheets_question_index"]
 
         election_data = elections_by_id[election_index]
-
-        # ensure this election has questions initialized first
-        _ensure_results(election_data)
 
         # execute each matching tally sheet
         for tally_index, tally_sheet in enumerate(tally_sheets):
