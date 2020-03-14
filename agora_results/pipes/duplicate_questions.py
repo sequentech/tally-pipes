@@ -98,7 +98,7 @@ def duplicate_questions(data_list, duplications=[], help="this-parameter-is-igno
             copy_q['source_election_index'] = orig_el_index
             qjson_dest.insert(dest_q_index, copy_q)
             # +1 to the indexes of the directory of the next questions
-            for i in reversed(range(dest_q_index + 1, len(qjson_dest) - 1)):
+            for i in reversed(range(dest_q_index, len(qjson_dest) - 1)):
                 # NOTE: we use orig_path twice because we are just renaming, it
                 # is ON PURPOSE
                 do_action(
