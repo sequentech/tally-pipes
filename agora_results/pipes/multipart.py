@@ -207,7 +207,7 @@ def multipart_tally_plaintexts_append_joiner(
 
         dst_plaintexts_path = glob(os.path.join(
             elections_by_id[dst_election_id]['extract_dir'],
-            "%d-*" % question_num, "plaintexts_json")
+            "%d-*" % dst_question_num, "plaintexts_json")
         )[0]
 
         with codecs.open(
