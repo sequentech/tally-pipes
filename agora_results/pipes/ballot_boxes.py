@@ -185,7 +185,7 @@ def _verify_configuration(
     assert\
         (
             configuration["question_index"] >= 0 and 
-            len(election_data["questions"]) > configuration["question_index"]
+            len(election_data['results']["questions"]) > configuration["question_index"]
         ),\
         'configuration %d, question_index: not found' % configuration_index
 
