@@ -141,9 +141,7 @@ def _verify_tally_sheet(tally_sheet, tally_index):
 
 def _verify_configuration(
     configuration, 
-    questions, 
     configuration_index,
-    data,
     elections_by_id
 ):
     '''
@@ -339,9 +337,7 @@ def count_tally_sheets(
     for configuration_index, configuration in enumerate(configurations):
         _verify_configuration(
             configuration, 
-            questions, 
             configuration_index, 
-            data, 
             elections_by_id
         )
 
