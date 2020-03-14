@@ -330,10 +330,10 @@ def count_tally_sheets(
     '''
 
     # initialize elections by id dict
-    elections_by_id = _init_elections_by_id(data)
+    elections_by_id = _init_elections_by_id(data_list)
 
     # ensure this election has questions initialized first
-    for election_data in data:
+    for election_data in data_list:
         _ensure_results(election_data)
 
     # check ballot_box_list
