@@ -82,7 +82,7 @@ def duplicate_questions(data_list, duplications=[], help="this-parameter-is-igno
         func(orig_q_path, dest_q_path)
 
     for dupl in duplications:
-        orig_q = dupl["base_question_index"]
+        orig_q_index = dupl["base_question_index"]
         orig_el_index = dupl["source_election_index"]
         dest_el_index = dupl.get("dest_election_index", orig_el_index)
         orig_data = elections_by_id[orig_el_index]
@@ -92,31 +92,31 @@ def duplicate_questions(data_list, duplications=[], help="this-parameter-is-igno
         orig_qjson = read_config(orig_data)
         qjson_dest = read_config(dest_data)
 
-        for dest_q in dupl["duplicated_question_indexes"]:
-            copyq = copy.deepcopy(orig_qjson[orig_q])
-            copyq['source_question_index'] = orig_q
-            copyq['source_election_index'] = orig_el_index
-            qjson_dest.insert(dest_q, copyq)
+        for dest_q_index in dupl["duplicated_question_indexes"]:
+            copy_q = copy.deepcopy(orig_qjson[orig_q_index])
+            copy_q['source_question_index'] = orig_q_index
+            copy_q['source_election_index'] = orig_el_index
+            qjson_dest.insert(dest_q_index, copy_q)
             # +1 to the indexes of the directory of the next questions
-            for i in reversed(range(dest_q, len(qjson_dest) - 1)):
+            for i in reversed(range(dest_q_index + 1, len(qjson_dest) - 1)):
                 # NOTE: we use orig_path twice because we are just renaming, it
                 # is ON PURPOSE
                 do_action(
-                    os.rename,
-                    orig_path,
-                    orig_path,
-                    "%d-*" % i,
-                    "%d-" % i,
-                    "%d-" % (i + 1)
+                    func=os.rename,
+                    orig_path=orig_path,
+                    dest_path=orig_path,
+                    orig_glob="%d-*" % i,
+                    orig_replace="%d-" % i,
+                    dest_replace="%d-" % (i + 1)
                 )
 
             # duplicate question dir
             do_action(
-                shutil.copytree,
-                orig_path,
-                dest_path,
-                "%d-*" % orig_q,
-                "%d-" % orig_q,
-                "%d-" % dest_q
+                func=shutil.copytree,
+                orig_path=orig_path,
+                dest_path=dest_path,
+                orig_glob="%d-*" % orig_q_index,
+                orig_replace="%d-" % orig_q_index,
+                dest_replace="%d-" % dest_q_index
             )
         write_config(dest_data, qjson_dest)
