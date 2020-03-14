@@ -110,12 +110,7 @@ def _verify_tally_sheet(tally_sheet, tally_index):
             isinstance(sheet_question['answers'], list),\
             'sheet %d, question %d: question answers is not a list' % (tally_index, qindex)
 
-        sheet_answers = dict([
-          (answer['text'], answer)
-          for answer in sheet_question['answers']
-        ])
-
-        for aindex, answer in enumerate(sheet_answers['answers']):
+        for aindex, answer in enumerate(sheet_question['answers']):
             assert\
                 'text' in sheet_answer,\
                 'sheet %d, question %d, answer %d: no text' % (tally_index, qindex, aindex)
