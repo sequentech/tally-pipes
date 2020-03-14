@@ -19,13 +19,13 @@ import re
 import os
 import json
 
-def _initialize_question(question, override):
+def _initialize_question(question):
     '''
     Initialize question results to zero if any
     '''
-    if 'winners' not in question or override:
+    if 'winners' not in question:
         question['winners'] = []
-    if 'totals' not in question or override:
+    if 'totals' not in question:
         question['totals'] = dict(
             blank_votes=0,
             null_votes=0,
@@ -182,67 +182,211 @@ def _verify_tally_sheet(tally_sheet, questions, tally_index):
             ]) == tally_sheet['num_votes'],\
             'sheet %d, question %d: number of votes does not match' % (tally_index, qindex)
 
-def _sum_tally_sheet_numbers(tally_sheet, results, tally_index):
+def _verify_configuration(
+    configuration, 
+    questions, 
+    configuration_index,
+    data,
+    elections_by_id
+):
+    '''
+    Verify the configuration required format
+    '''
+
+    assert\
+        type(configuration) is dict,\
+        'configuration %d: is not a dict' % configuration_index
+
+    assert\
+        "ballot_box_name_filter_re" in configuration,\
+        'configuration %d: no ballot_box_name_filter_re' % configuration_index
+    assert\
+        type(configuration["ballot_box_name_filter_re"]) == str,\
+        'configuration %d, ballot_box_name_filter_re: is not a string' % configuration_index
+    try:
+        re.compile(configuration["ballot_box_name_filter_re"])
+    except:
+        assert\
+            False,\
+            'configuration %d, ballot_box_name_filter_re: invalid regexp' % configuration_index
+
+    assert\
+        "election_index" in configuration,\
+        'configuration %d: no election_index' % configuration_index
+    assert\
+        type(configuration["election_index"]) == int,\
+        'configuration %d, election_index: is not a number' % configuration_index
+    assert\
+        configuration["election_index"] in elections_by_id,\
+        'configuration %d, election_index: not found' % configuration_index
+    election_data = elections_by_id[configuration["election_index"]]
+
+    assert\
+        "question_index" in configuration,\
+        'configuration %d: no question_index' % configuration_index
+    assert\
+        type(configuration["question_index"]) == int,\
+        'configuration %d, question_index: is not a number' % configuration_index
+    assert\
+        (
+            configuration["question_index"] >= 0 and 
+            len(election_data["questions"]) > configuration["question_index"]
+        ),\
+        'configuration %d, question_index: not found' % configuration_index
+
+    assert\
+        "tally_sheets_question_index" in configuration,\
+        'configuration %d: no tally_sheets_question_index' % configuration_index
+    assert\
+        type(configuration["tally_sheets_question_index"]) == int,\
+        'configuration %d, tally_sheets_question_index: is not a number' % configuration_index
+
+def _sum_tally_sheet_numbers(
+    tally_sheet,
+    results,
+    question_index,
+    tally_sheets_question_index
+):
     '''
     Adds the results of the tally sheet
     '''
     questions = results['questions']
     results['total_votes'] += tally_sheet['num_votes']
 
-    for qindex, question in enumerate(questions):
-        if len(tally_sheet['questions']) <= qindex:
-            continue
+    question = questions[question_index]
+    sheet_question = tally_sheet['questions'][tally_sheets_question_index]
+    question['totals']['blank_votes'] += sheet_question['blank_votes']
+    question['totals']['null_votes'] += sheet_question['null_votes']
 
-        sheet_question = tally_sheet['questions'][qindex]
-        question['totals']['blank_votes'] += sheet_question['blank_votes']
-        question['totals']['null_votes'] += sheet_question['null_votes']
+    sheet_answers = dict([
+        (answer['text'], answer)
+        for answer in sheet_question['answers']
+    ])
 
-        sheet_answers = dict([
-          (answer['text'], answer)
-          for answer in sheet_question['answers']
-        ])
+    for aindex, answer in enumerate(question['answers']):
+        text = answer['text']
+        sheet_answer = sheet_answers[text]
+        answer['total_count'] += sheet_answer['num_votes']
+        question['totals']['valid_votes'] += sheet_answer['num_votes']
 
-        for aindex, answer in enumerate(question['answers']):
-            text = answer['text']
-            sheet_answer = sheet_answers[text]
-            answer['total_count'] += sheet_answer['num_votes']
-            question['totals']['valid_votes'] += sheet_answer['num_votes']
+def _init_elections_by_id(data):
+    '''
+    Initializes elections_by_id
+    '''
+    elections_by_id = dict()
+    for dindex, data in enumerate(data_list):
+        if 'id' not in data:
+            data['id'] = dindex
+    
+        elections_by_id[data['id']] = data
+    return elections_by_id
 
-# given a list of tally_sheets, add them to the electoral results
-def count_tally_sheets(
-    data_list, 
-    tally_sheets,
-    override=False,
-    filter_ballot_box_re=None,
-    help="this parameter is ignored"
-):
-    data = data_list[0]
-
-    if override or 'results' not in data:
-        questions_path = os.path.join(data['extract_dir'], "questions_json")
+def _ensure_results(election_data):
+    if 'results' not in election_data:
+        questions_path = os.path.join(
+            election_data['extract_dir'], 
+            "questions_json"
+        )
+        
         with open(questions_path, 'r', encoding="utf-8") as f:
             questions = json.loads(f.read())
-        data['results'] = dict(
+        election_data['results'] = dict(
             questions=questions,
             total_votes=0
         )
     else:
         questions = data['results']['questions']
 
-    # initialize
     for question in questions:
-        _initialize_question(question, override=override)
+        _initialize_question(question)
 
+def count_tally_sheets(
+    data_list, 
+    tally_sheets,
+    configurations,
+    help="this parameter is ignored"
+):
+    '''
+    Given a list of tally sheets, add their results to the election in the
+    configuration given.
+
+    - "tally_sheets" argument format is like this example:
+    tally_sheets = [
+        {
+            "ballot_box_name": "Postal votes",
+            "num_votes": 222,
+            "questions": [
+                {
+                    "title": "Do you want Foo Bar to be president?",
+                    "blank_votes": 1,
+                    "null_votes": 1,
+                    "tally_type": "plurality-at-large",
+                    "answers": [
+                        {
+                            "text": "Yes",
+                            "num_votes": 200
+                        },
+                        {
+                            "text": "No",
+                            "num_votes": 120
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+
+    - "configurations" argument format is like this example:
+    "configurations": [
+        {
+            "ballot_box_name_filter_re": "^Postal votes$",
+            "election_index": 0,
+            "question_index": 0,
+            "tally_sheets_question_index": 0,
+        }
+    ]
+    '''
     # check ballot_box_list
     for tally_index, tally_sheet in enumerate(tally_sheets):
         _verify_tally_sheet(tally_sheet, questions, tally_index)
 
-    # add the numbers of each tally sheet to the electoral results
-    for tally_index, tally_sheet in enumerate(tally_sheets):
-        if (
-            filter_ballot_box_re is not None and
-            not re.match(filter_ballot_box_re, tally_sheet['ballot_box_name']
-        ):
-            continue
+    # initialize elections by id dict
+    elections_by_id = _init_elections_by_id(data)
 
-        _sum_tally_sheet_numbers(tally_sheet, data['results'], tally_index)
+    # check configuration
+    for configuration_index, configuration in enumerate(configurations):
+        _verify_configuration(
+            configuration, 
+            questions, 
+            configuration_index, 
+            data, 
+            elections_by_id
+        )
+
+    # execute each configuration
+    for configuration_index, configuration in enumerate(configurations):
+        ballot_box_name_filter_re = configuration["ballot_box_name_filter_re"]
+        election_index = configuration["election_index"]
+        question_index = configuration["question_index"]
+        tally_sheets_question_index = configuration["tally_sheets_question_index"]
+
+        election_data = elections_by_id[election_index]
+
+        # ensure this election has questions initialized first
+        _ensure_results(election_data)
+
+        # execute each matching tally sheet
+        for tally_index, tally_sheet in enumerate(tally_sheets):
+            # filter by ballot box name first
+            if not re.match(
+                ballot_box_name_filter_re, 
+                tally_sheet['ballot_box_name']
+            ):
+                continue
+
+            _sum_tally_sheet_numbers(
+                tally_sheet,
+                election_data['results'],
+                question_index,
+                tally_sheets_question_index
+            )

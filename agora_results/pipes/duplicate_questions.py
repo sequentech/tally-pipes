@@ -36,7 +36,8 @@ def duplicate_questions(data_list, duplications=[], help="this-parameter-is-igno
         {
             "source_election_index": 0,
             "base_question_index": 0,
-            "duplicated_question_indexes": [1]
+            "duplicated_question_indexes": [1],
+            "zero_plaintexts": false
         }
     ]
 
@@ -85,6 +86,8 @@ def duplicate_questions(data_list, duplications=[], help="this-parameter-is-igno
         orig_q_index = dupl["base_question_index"]
         orig_el_index = dupl["source_election_index"]
         dest_el_index = dupl.get("dest_election_index", orig_el_index)
+        zero_plaintexts = dupl.get("zero_plaintexts", False)
+
         orig_data = elections_by_id[orig_el_index]
         dest_data = elections_by_id[dest_el_index]
         dest_path = dest_data['extract_dir']
@@ -119,4 +122,16 @@ def duplicate_questions(data_list, duplications=[], help="this-parameter-is-igno
                 orig_replace="%d-" % orig_q_index,
                 dest_replace="%d-" % dest_q_index
             )
+
+            # empty plaintexts if needed
+            if zero_plaintexts:
+                plaintexts_glob = os.path.join(
+                    dest_path, 
+                    "%d-*" % dest_q_index,
+                    "plaintexts_json"
+                )
+                plaintexts_path = glob.glob(plaintexts_glob)[0]
+                os.unlink(plaintexts_path)
+                open(plaintexts_path, 'a').close()
+                
         write_config(dest_data, qjson_dest)
