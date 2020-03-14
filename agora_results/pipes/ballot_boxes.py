@@ -363,5 +363,6 @@ def count_tally_sheets(
                 tally_sheet,
                 election_data['results'],
                 question_index,
-                tally_sheets_question_index
+                tally_sheets_question_index,
+                configuration_index
             )
