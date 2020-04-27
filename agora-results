@@ -322,7 +322,7 @@ def main():
                 
             # reuse the existing results directory
             else:
-                priv_results_path = existing_priv_results
+                priv_results_path = existing_priv_results[0]
                 priv_results_dirname = os.path.basename(priv_results_path)
 
             ballots_path = os.path.join(priv_results_path, "ballots.csv")
