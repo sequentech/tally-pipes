@@ -247,7 +247,7 @@ def pdf_print(election_results, config_folder, election_id):
             gen_text("%d (%0.2f%% sobre el número total de votos)" % (null_votes, get_percentage(null_votes, total_votes)), align = TA_LEFT)
           ],
           [
-            gen_text('Número total de votos válidos (a opciones)', align = TA_RIGHT),
+            gen_text('Número total de votos a opciones:', align = TA_RIGHT),
             gen_text("%d (%0.2f%% sobre el número total de votos)" % (valid_votes, get_percentage(valid_votes, total_votes)), align = TA_LEFT)
           ],
           [
