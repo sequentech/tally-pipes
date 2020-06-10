@@ -19,7 +19,7 @@ import os
 import subprocess
 import json
 import requests
-from datetime import datetime
+from datetime import datetime, timedelta
 from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, Image
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
@@ -58,7 +58,11 @@ def get_election_cfg(election_id):
     base_url = 'http://localhost:9000/api'
 
     url = '%s/election/%d' % (base_url, election_id)
-    r = requests.get(url, headers=headers)
+
+    try:
+      r = requests.get(url, headers=headers, timeout=5)
+    except requests.exceptions.Timeout:
+      raise Exception('Timeout when requesting election_id = %s' % election_id)
 
     if r.status_code != 200:
         print(r.status_code, r.text)
@@ -111,16 +115,22 @@ def _header_footer(canvas, doc):
     canvas.restoreState()
 
 def pdf_print(election_results, config_folder, election_id):
-    jsonconfig = get_election_cfg(election_id)
+    try:
+      jsonconfig = get_election_cfg(election_id)
+      election_title = jsonconfig['payload']['configuration']['title']
+      tx_description = 'A continuación se detallan, pregunta por pregunta, los resultados de la votación %d titulada <u>"%s"</u>.'
+      tx_title = 'Resultados del escrutinio de la votación %d - %s'
+    except:
+      election_title = ''
+      tx_title = 'Resultados del escrutinio de la votación %d %s'
+      tx_description = 'A continuación se detallan, pregunta por pregunta, los resultados de la votación %d.'
 
     pdf_path = os.path.join(config_folder, "%s.results.pdf" % election_id)
     styleSheet = getSampleStyleSheet()
     doc = SimpleDocTemplate(pdf_path, rightMargin=50,leftMargin=50, topMargin=35,bottomMargin=80)
     elements = []
-    tx_title = 'Resultados del escrutinio de la votación %d - %s'
-    tx_description = 'A continuación se detallan, pregunta por pregunta, los resultados de la votación %d titulada <u>"%s"</u> realizada con <font color="blue"><u><a href ="https://www.nvotes.com">nVotes</a></u></font>, que una vez publicados podrán ser verificados en su página pública de votación.'
     tx_question_title = 'Pregunta %d: %s'
-    the_title = tx_title % (election_id, jsonconfig['payload']['configuration']['title'])
+    the_title = tx_title % (election_id, election_title)
     if 'pdf' in election_results and 'title' in election_results['pdf']:
         the_title = election_results['pdf']['title']
     elements.append(Spacer(0, 15))
@@ -129,12 +139,12 @@ def pdf_print(election_results, config_folder, election_id):
     if 'pdf' in election_results and 'first_description_paragraph' in election_results['pdf']:
         elements.append(gen_text(election_results['pdf']['first_description_paragraph'], size=12, align = TA_LEFT))
         elements.append(Spacer(0, 15))
-    elements.append(gen_text(tx_description % (election_id, jsonconfig['payload']['configuration']['title']), size=12, align = TA_LEFT))
+    elements.append(gen_text(tx_description % (election_id, election_title), size=12, align = TA_LEFT))
     elements.append(Spacer(0, 15))
     if 'pdf' in election_results and 'last_description_paragraph' in election_results['pdf']:
         elements.append(gen_text(election_results['pdf']['last_description_paragraph'], size=12, align = TA_LEFT))
         elements.append(Spacer(0, 15))
-    doc.title = tx_title % (election_id, jsonconfig['payload']['configuration']['title'])
+    doc.title = tx_title % (election_id, election_title)
 
     '''
     percent_base:
@@ -237,7 +247,7 @@ def pdf_print(election_results, config_folder, election_id):
             gen_text("%d (%0.2f%% sobre el número total de votos)" % (null_votes, get_percentage(null_votes, total_votes)), align = TA_LEFT)
           ],
           [
-            gen_text('Número total de votos válidos (a opciones)', align = TA_RIGHT),
+            gen_text('Número total de votos a opciones:', align = TA_RIGHT),
             gen_text("%d (%0.2f%% sobre el número total de votos)" % (valid_votes, get_percentage(valid_votes, total_votes)), align = TA_LEFT)
           ],
           [

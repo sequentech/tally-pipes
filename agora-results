@@ -301,20 +301,29 @@ def main():
         ballots_file = None
 
         if pargs.tar and len(data_list) > 0:
-            from uuid import uuid4
-            priv_results_uuid = str(uuid4())
-            priv_results_dirname = "results-%s" % priv_results_uuid
-            priv_results_path = os.path.join(pargs.tar, priv_results_dirname)
-
-            # if there's any existing priv_results_path, remove it
             from glob import glob
             existing_priv_results = glob(os.path.join(pargs.tar, "results-*"))
-            if len(existing_priv_results) > 0:
+
+            # if there's any existing priv_results_path, reuse it if there's
+            # only one
+            if len(existing_priv_results) != 1:
+                # if there were more than 1, remove all and replace them
                 for existing_priv_result in existing_priv_results:
                     shutil.rmtree(existing_priv_result)
 
-            # create the priv results
-            os.mkdir(priv_results_path)
+                # in any case, create a new one
+                from uuid import uuid4
+                priv_results_uuid = str(uuid4())
+                priv_results_dirname = "results-%s" % priv_results_uuid
+                priv_results_path = os.path.join(pargs.tar, priv_results_dirname)
+
+                # create the priv results
+                os.mkdir(priv_results_path)
+                
+            # reuse the existing results directory
+            else:
+                priv_results_path = existing_priv_results[0]
+                priv_results_dirname = os.path.basename(priv_results_path)
 
             ballots_path = os.path.join(priv_results_path, "ballots.csv")
             ballots_file = open(ballots_path, "w")
