@@ -128,17 +128,6 @@ def _verify_tally_sheet(tally_sheet, tally_index):
                 sheet_answer['num_votes'] >= 0,\
                 'sheet %d, question %d, answer %d: num_votes is negative' % (tally_index, qindex, aindex)
 
-        assert\
-            sum([
-                sum([
-                    answer['num_votes']
-                    for answer in sheet_question['answers']
-                ]),
-                sheet_question['blank_votes'],
-                sheet_question['null_votes']
-            ]) == tally_sheet['num_votes'],\
-            'sheet %d, question %d: number of votes does not match' % (tally_index, qindex)
-
 def _verify_configuration(
     configuration, 
     configuration_index,
@@ -213,6 +202,7 @@ def _sum_tally_sheet_numbers(
     sheet_question = tally_sheet['questions'][tally_sheets_question_index]
     question['totals']['blank_votes'] += sheet_question['blank_votes']
     question['totals']['null_votes'] += sheet_question['null_votes']
+    question['totals']['valid_votes'] += tally_sheet['num_votes'] - sheet_question['blank_votes'] - sheet_question['null_votes']
 
     sheet_answers = dict([
         (answer['text'], answer)
@@ -242,7 +232,6 @@ def _sum_tally_sheet_numbers(
                 answer['text']
             )
         answer['total_count'] += sheet_answer['num_votes']
-        question['totals']['valid_votes'] += sheet_answer['num_votes']
 
 def _init_elections_by_id(data_list):
     '''
