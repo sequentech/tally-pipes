@@ -267,7 +267,7 @@ def _ensure_results(election_data):
 def count_tally_sheets(
     data_list, 
     tally_sheets,
-    configurations,
+    configurations=[],
     help="this parameter is ignored"
 ):
     '''

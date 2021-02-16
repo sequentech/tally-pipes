@@ -15,6 +15,7 @@ Config results:
         {
             "tally_sheets": [
                 {
+                    "ballot_box_name": "test0",
                     "num_votes": 44,
                     "questions": [
                         {
