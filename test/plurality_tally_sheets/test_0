@@ -31,6 +31,14 @@ Config results:
                         }
                     ]
                 }
+            ],
+            "configurations": [
+                {
+                    "ballot_box_name_filter_re": "^test0$",
+                    "election_index": 0,
+                    "question_index": 0,
+                    "tally_sheets_question_index": 0
+                }
             ]
         }
     ],

@@ -162,7 +162,7 @@ class TestPluralityTallySheets(unittest.TestCase):
                 self.assertTrue(check_results)
         except:
             # remove the temp test folder if there's an error
-            file_helpers.remove_tree(tally_path)
+            # file_helpers.remove_tree(tally_path)
             raise
         # remove the temp test folder also in a successful test
         file_helpers.remove_tree(tally_path)
