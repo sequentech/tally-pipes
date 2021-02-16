@@ -133,11 +133,13 @@ class TestPluralityTallySheets(unittest.TestCase):
         try:
             tally_targz_path = os.path.join(tally_path, "tally.tar.gz")
             config_results_path = os.path.join(tally_path, "12345.config.results.json")
+            pipes_whitelist = os.path.join("test", "pipes-whitelist.txt")
             results_path = os.path.join(tally_path, "12345.results.json")
-            cmd = "%s -t %s -c %s -s -o json" % (
+            cmd = "%s -t %s -c %s -p %s -s -o json" % (
                 agora_results_bin_path,
                 tally_targz_path,
-                config_results_path)
+                config_results_path,
+                pipes_whitelist)
 
             with open(results_path, mode='w', encoding="utf-8", errors='strict') as f:
                 print(cmd)
@@ -160,7 +162,7 @@ class TestPluralityTallySheets(unittest.TestCase):
                 self.assertTrue(check_results)
         except:
             # remove the temp test folder if there's an error
-            file_helpers.remove_tree(tally_path)
+            # file_helpers.remove_tree(tally_path)
             raise
         # remove the temp test folder also in a successful test
         file_helpers.remove_tree(tally_path)
@@ -250,11 +252,13 @@ class TestDesBorda4(unittest.TestCase):
         try:
             tally_targz_path = os.path.join(tally_path, "tally.tar.gz")
             config_results_path = os.path.join(tally_path, "12345.config.results.json")
+            pipes_whitelist = os.path.join("test", "pipes-whitelist.txt")
             results_path = os.path.join(tally_path, "12345.results.json")
-            cmd = "%s -t %s -c %s -s -o json" % (
+            cmd = "%s -t %s -c %s -p %s -s -o json" % (
                 agora_results_bin_path,
                 tally_targz_path,
-                config_results_path)
+                config_results_path,
+                pipes_whitelist)
             with open(results_path, mode='w', encoding="utf-8", errors='strict') as f:
                 print(cmd)
                 subprocess.check_call(cmd, stdout=f, stderr=sys.stderr, shell=True)
@@ -303,11 +307,13 @@ class TestDesBorda3(unittest.TestCase):
         try:
             tally_targz_path = os.path.join(tally_path, "tally.tar.gz")
             config_results_path = os.path.join(tally_path, "12345.config.results.json")
+            pipes_whitelist = os.path.join("test", "pipes-whitelist.txt")
             results_path = os.path.join(tally_path, "12345.results.json")
-            cmd = "%s -t %s -c %s -s -o json" % (
+            cmd = "%s -t %s -c %s -p %s -s -o json" % (
                 agora_results_bin_path,
                 tally_targz_path,
-                config_results_path)
+                config_results_path,
+                pipes_whitelist)
             with open(results_path, mode='w', encoding="utf-8", errors='strict') as f:
                 print(cmd)
                 subprocess.check_call(cmd, stdout=f, stderr=sys.stderr, shell=True)
@@ -370,11 +376,13 @@ class TestDesBorda2(unittest.TestCase):
         try:
             tally_targz_path = os.path.join(tally_path, "tally.tar.gz")
             config_results_path = os.path.join(tally_path, "12345.config.results.json")
+            pipes_whitelist = os.path.join("test", "pipes-whitelist.txt")
             results_path = os.path.join(tally_path, "12345.results.json")
-            cmd = "%s -t %s -c %s -s -o json" % (
+            cmd = "%s -t %s -c %s -p %s -s -o json" % (
                 agora_results_bin_path,
                 tally_targz_path,
-                config_results_path)
+                config_results_path,
+                pipes_whitelist)
             with open(results_path, mode='w', encoding="utf-8", errors='strict') as f:
                 print(cmd)
                 subprocess.check_call(cmd, stdout=f, stderr=sys.stderr, shell=True)
@@ -434,11 +442,13 @@ class TestDesBorda(unittest.TestCase):
         try:
             tally_targz_path = os.path.join(tally_path, "tally.tar.gz")
             config_results_path = os.path.join(tally_path, "12345.config.results.json")
+            pipes_whitelist = os.path.join("test", "pipes-whitelist.txt")
             results_path = os.path.join(tally_path, "12345.results.json")
-            cmd = "%s -t %s -c %s -s -o json" % (
+            cmd = "%s -t %s -c %s -p %s -s -o json" % (
                 agora_results_bin_path,
                 tally_targz_path,
-                config_results_path)
+                config_results_path,
+                pipes_whitelist)
             with open(results_path, mode='w', encoding="utf-8", errors='strict') as f:
                 print(cmd)
                 subprocess.check_call(cmd, stdout=f, stderr=sys.stderr, shell=True)
