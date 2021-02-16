@@ -1,4 +1,4 @@
-# agora-results [![tests_badge]][tests_link] [![coverage_badge]][coverage_link]
+# agora-results [![tests_badge]][tests_link]
 
 [tests_badge]: https://github.com/agoravoting/agora-results/workflows/Test%20python/badge.svg
 [tests_link]: https://github.com/agoravoting/agora-results/actions?query=workflow%3A%22Test+python%22
