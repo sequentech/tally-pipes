@@ -21,44 +21,50 @@ import agora_tally.tally
 from agora_tally.voting_systems.base import BlankVoteException
 from collections import defaultdict
 
-def do_tallies(data_list, ignore_invalid_votes=True, print_as_csv=False,
-               question_indexes=None, reuse_results=False,
-               allow_empty_tally=False,
-               extra_args=defaultdict(), tallies_indexes=None, help=""):
-
+def do_tallies(
+    data_list, 
+    ignore_invalid_votes=True, 
+    print_as_csv=False,
+    question_indexes=None, 
+    reuse_results=False,
+    allow_empty_tally=False,
+    extra_args=defaultdict(), 
+    tallies_indexes=None, 
+    help=""
+):
     fprint = print
     monkey_patcher=None
 
-    # ballots_fprint is indicated by agora-results to write ballots.csv
-    if 'ballots_fprint' in data_list[0]:
-        fprint = data_list[0]['ballots_fprint']
+    # ballots_fprint is indicated by agora-results to write ballots.csv and
+    # ballots.json
+    if 'ballots_printer' in data_list[0]:
+        ballots_printer = data_list[0]['ballots_printer']
 
     def __patcher(tally):
-      parse_vote = tally.parse_vote
+        parse_vote = tally.parse_vote
 
-      def parse_vote_f(number, question, q_withdrawals):
-          exception = None
-          to_str = [str(tally.question_num)]
+        def parse_vote_wrapper(number, question, q_withdrawals):
+            exception = None
+            vote = None
 
-          try:
-              vote = parse_vote(number, question, q_withdrawals)
-              to_str += ["\"%d. %s\"" % (i, question['answers'][i]['text']) for i in vote]
-          except BlankVoteException as e:
-              exception = e
-              vote = []
-              to_str += ["BLANK_VOTE"]
-          except Exception as e:
-              exception = e
-              to_str += ["NULL_VOTE"]
-          fprint(",".join(to_str))
+            try:
+                vote = parse_vote(number, question, q_withdrawals)
+            except BlankVoteException as e:
+                exception = e
+                vote = "BLANK_VOTE"
+            except Exception as e:
+                exception = e
+                vote = "NULL_VOTE"
+            ballots_printer(vote, question, tally.question_num, exception)
 
-          if exception is not None:
-              raise exception
-          return vote
+            if exception is not None:
+                raise exception
+            return vote
 
-      tally.parse_vote = parse_vote_f
+      tally.parse_vote = parse_vote_wrapper
 
-    # ballots_fprint is indicated by agora-results to write ballots.csv
+    # ballots_fprint is indicated by agora-results to write ballots.csv and 
+    # ballots.json
     if 'ballots_fprint' in data_list[0]:
         monkey_patcher = __patcher
 

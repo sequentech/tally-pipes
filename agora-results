@@ -17,6 +17,7 @@
 # along with agora-results.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
+import copy
 import signal
 import argparse
 import json
@@ -296,7 +297,7 @@ def main():
         priv_results_uuid = None
         priv_results_dirname = None
         priv_results_path = None
-        ballots_file = None
+        ballots_csv_file = None
 
         if pargs.tar and len(data_list) > 0:
             from glob import glob
@@ -323,13 +324,58 @@ def main():
                 priv_results_path = existing_priv_results[0]
                 priv_results_dirname = os.path.basename(priv_results_path)
 
-            ballots_path = os.path.join(priv_results_path, "ballots.csv")
-            ballots_file = open(ballots_path, "w")
-            # this indicates do_tallies to dump the ballots
-            data_list[0]['ballots_fprint'] = lambda s: ballots_file.write(s + "\n")
+            ballots_csv_path = os.path.join(priv_results_path, "ballots.csv")
+            ballots_csv_file = open(ballots_csv_path, "w")
 
-        execute_pipeline(pipeline_info, data_list,
-                         pipes_whitelist=pipes_whitelist)
+            ballots_json_path = os.path.join(priv_results_path, "ballots.json")
+            ballots_json_file = open(ballots_csv_path, "w")
+            
+            def ballots_printer(vote, question, question_num, exception):
+                '''
+                Function used by the results.do_tallies pipe to dump the ballots 
+                in both CSV an JSON format.
+                '''
+
+                # initialize output votes
+                vote_str = [str(question_num)]
+                vote_json = copy.deepcopy(question)
+                vote_json['ballot_flags'] = dict(
+                    blank_vote=False,
+                    null_vote=False
+                )
+                for answer in question['answers']:
+                    answer['ballot_marks'] = []
+
+                # detect blank and null votes and mark accordingly
+                if vote == "BLANK_VOTE":
+                  vote_str += ["BLANK_VOTE"]
+                  vote_json['ballot_flags']['blank_vote'] = True
+                elif vote == "NULL_VOTE":
+                  vote_str += ["NULL_VOTE"]
+                  vote_json['ballot_flags']['null_vote'] = True
+                else:
+                    vote_str += [
+                        "\"%d. %s\"" % (
+                            answer_index, 
+                            question['answers'][answer_index]['text']
+                        ) 
+                        for answer_index in vote
+                    ]
+                    for mark_position, answer_index in enumerate(vote):
+                        vote_json['answers'][answer_index]['ballot_marks'] = [
+                            mark_position
+                        ]
+
+                ballots_csv_file.write(",".join(vote_str) + "\n")
+                ballots_json_file.write(json.dumps(vote_json) + "\n")
+
+            data_list[0]['ballots_printer'] = ballots_printer
+
+        execute_pipeline(
+            pipeline_info,
+            data_list,
+            pipes_whitelist=pipes_whitelist
+        )
 
         config_folder = ''
         if pargs.config is not None:
