@@ -345,10 +345,10 @@ def main():
                     blank_vote=False,
                     null_vote=False
                 )
-                if 'winners' in voter_json:
-                    del voter_json['winners']
-                if 'totals' in voter_json:
-                    del voter_json['totals']
+                if 'winners' in vote_json:
+                    del vote_json['winners']
+                if 'totals' in vote_json:
+                    del vote_json['totals']
                 for answer in question['answers']:
                     answer['ballot_marks'] = []
 
