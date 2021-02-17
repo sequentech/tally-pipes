@@ -90,6 +90,14 @@ def check_results(text_a, text_b):
     ret = (results_b == results_a)
     return ret
 
+def check_ballots(text_a, text_b):
+    '''
+    Check results so that the order of the lines doesn't matter
+    '''
+    ballots_a = set( line for line in remove_spaces(text_a).splitlines() )
+    ballots_b = set( line for line in remove_spaces(text_b).splitlines() )
+    ret = (ballots_b == ballots_a)
+    return ret
 
 def check_ordered_results(text_a, text_b):
     '''
@@ -244,7 +252,9 @@ def create_desborda_test(test_data, tally_type = "desborda", num_questions=1, wo
         plaintexts_json = plaintexts_json + '"' + encoded_ballot + '"\n'
 
     # create folder
-    desborda_test_path = create_temp_folder()
+    base_path = create_temp_folder()
+    desborda_test_path = os.path.join(base_path, "12345")
+    os.mkdir(desborda_test_path)
     try:
         targz_folder = os.path.join(desborda_test_path, "tally")
         os.mkdir(targz_folder)
@@ -258,6 +268,6 @@ def create_desborda_test(test_data, tally_type = "desborda", num_questions=1, wo
         file_helpers.write_file(os.path.join(desborda_test_path, "results_json"), test_data["output"])
         file_helpers.write_file(os.path.join(desborda_test_path, "12345.config.results.json"), file_helpers.serialize(config))
     except:
-        file_helpers.remove_tree(desborda_test_path)
+        file_helpers.remove_tree(base_path)
         raise
     return desborda_test_path

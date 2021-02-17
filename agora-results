@@ -372,8 +372,9 @@ def main():
                             mark_position
                         ]
 
-                ballots_csv_file.write(",".join(vote_str) + "\n")
-                ballots_json_file.write(json.dumps(vote_json) + "\n")
+                ballots_csv_file.write(",".join(vote_str,) + "\n")
+                # we sort keys to make it reproducible
+                ballots_json_file.write(json.dumps(vote_json, sort_keys=True) + "\n")
 
             data_list[0]['ballots_printer'] = ballots_printer
 
