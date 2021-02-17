@@ -175,7 +175,7 @@ def create_desborda_test(test_data, tally_type = "desborda", num_questions=1, wo
             max_num = len_ballot
         for candidate in ballot:
             team = candidate[:1]
-            female = "f" is candidate[-1]
+            female = "f" == candidate[-1]
             if team not in teams:
                 teams[team] = []
             else:
