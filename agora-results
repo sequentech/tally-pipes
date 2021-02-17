@@ -298,6 +298,7 @@ def main():
         priv_results_dirname = None
         priv_results_path = None
         ballots_csv_file = None
+        ballots_json_file = None
 
         if pargs.tar and len(data_list) > 0:
             from glob import glob
@@ -384,8 +385,11 @@ def main():
         # tar tallies generates a tar file containing everything related to
         # the results. It also creates a randomly named subdirectory with
         # all the exportable data.
-        if ballots_file:
-            ballots_file.close()
+        if ballots_csv_file:
+            ballots_csv_file.close()
+        if ballots_json_file:
+            ballots_json_file.close()
+
         if pargs.tar and len(data_list) > 0 and 'results' in data_list[0]:
             data_list[0]['results']['results_dirname'] = priv_results_dirname
             from agora_results.utils.tallies import tar_tallies

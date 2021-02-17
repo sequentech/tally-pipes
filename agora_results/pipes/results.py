@@ -61,7 +61,7 @@ def do_tallies(
                 raise exception
             return vote
 
-      tally.parse_vote = parse_vote_wrapper
+        tally.parse_vote = parse_vote_wrapper
 
     # ballots_fprint is indicated by agora-results to write ballots.csv and 
     # ballots.json
