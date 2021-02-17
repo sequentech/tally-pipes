@@ -103,54 +103,44 @@ def read_testfile(testfile_path):
     ballots = ""
     results = ""
     results_config = ""
+    output_ballots_csv = ""
+    output_ballots_json = ""
     name = ""
-    states = [
-        "ballots_first_line",
-        "reading_ballots",
-        "results_first_line",
-        "reading_results",
-        "results_config_first_line",
-        "reading_results_config"
-    ]
-    state = "ballots_first_line"
+    state = "reading_header"
     for line in file_lines:
-        if "ballots_first_line" == state:
-            if "\n" == line:
+        if state == 'reading_header':
+            if line == '\n':
                 continue
-            else:
+            elif line.startswith("Votes:"):
                 name = line
                 state = "reading_ballots"
-        elif "reading_ballots" == state:
-            if "\n" == line:
-                state = "results_first_line"
-            else:
-                ballots += line
-
-        elif "results_first_line" == state:
-            if "\n" == line:
-                continue
-            else:
+            elif line.startswith("Results:"):
                 state = "reading_results"
-        elif "reading_results" == state:
-            if "\n" == line:
-                state = "results_config_first_line"
-            else:
-                results += line
-
-        elif "results_config_first_line" == state:
-            if "\n" == line:
-                continue
-            else:
+            elif line.startswith("Config results:"):
                 state = "reading_results_config"
-        elif "reading_results_config" == state:
-            if "\n" == line:
-                break
-            else:
+            elif line.startswith("Ballots CSV:"):
+                state = "reading_ballots_csv"
+            elif line.startswith("Ballots JSON:"):
+                state = "reading_ballots_json"
+        else:
+            if line == '\n':
+                state = 'reading_header'
+            elif state == 'reading_ballots':
+                ballots += line
+            elif state == 'reading_results':
+                results += line
+            elif state == 'reading_results_config':
                 results_config += line
+            elif state == 'reading_ballots_csv':
+                output_ballots_csv += line
+            elif state == 'reading_ballots_json':
+                output_ballots_json += line
 
     return {
         "input": ballots,
         "output": results,
+        "output_ballots_csv": output_ballots_csv,
+        "output_ballots_json": output_ballots_json,
         "name": name,
         "config": json.loads(results_config) if len(results_config) > 0 else None
     }
