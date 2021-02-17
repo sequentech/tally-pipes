@@ -329,7 +329,7 @@ def main():
             ballots_csv_file = open(ballots_csv_path, "w")
 
             ballots_json_path = os.path.join(priv_results_path, "ballots.json")
-            ballots_json_file = open(ballots_csv_path, "w")
+            ballots_json_file = open(ballots_json_path, "w")
             
             def ballots_printer(vote, question, question_num, exception):
                 '''
@@ -340,6 +340,7 @@ def main():
                 # initialize output votes
                 vote_str = [str(question_num)]
                 vote_json = copy.deepcopy(question)
+                vote_json['question_num'] = question_num
                 vote_json['ballot_flags'] = dict(
                     blank_vote=False,
                     null_vote=False

@@ -63,9 +63,9 @@ def do_tallies(
 
         tally.parse_vote = parse_vote_wrapper
 
-    # ballots_fprint is indicated by agora-results to write ballots.csv and 
+    # ballots_printer is indicated by agora-results to write ballots.csv and 
     # ballots.json
-    if 'ballots_fprint' in data_list[0]:
+    if 'ballots_printer' in data_list[0]:
         monkey_patcher = __patcher
 
 
