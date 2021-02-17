@@ -30,26 +30,19 @@ import re
 
 tally_config = [
     [
-        "agora_results.pipes.results.do_tallies",
-        {
-            "ignore_invalid_votes": True
-        }
+        "agora_results.pipes.results.do_tallies", {}
     ],
     [
         "agora_results.pipes.desborda.podemos_desborda",
         {
-            "women_names": [
-            ]
+            "women_names": []
         }
     ]
 ]
 
 tally_config_desborda2 = [
     [
-        "agora_results.pipes.results.do_tallies",
-        {
-            "ignore_invalid_votes": True
-        }
+        "agora_results.pipes.results.do_tallies", {}
     ],
     [
         "agora_results.pipes.desborda2.podemos_desborda2",
@@ -62,26 +55,19 @@ tally_config_desborda2 = [
 
 tally_config_desborda3 = [
     [
-        "agora_results.pipes.results.do_tallies",
-        {
-            "ignore_invalid_votes": True
-        }
+        "agora_results.pipes.results.do_tallies", {}
     ],
     [
         "agora_results.pipes.desborda3.podemos_desborda3",
         {
-            "women_names": [
-            ]
+            "women_names": []
         }
     ]
 ]
 
 tally_config_borda = [
   [
-    "agora_results.pipes.results.do_tallies",
-    {
-      "ignore_invalid_votes": True
-    }
+    "agora_results.pipes.results.do_tallies", {}
   ],
   [
     "agora_results.pipes.withdraw_candidates.withdraw_candidates",
@@ -96,29 +82,39 @@ tally_config_borda = [
     }
   ],
   [
-    "agora_results.pipes.sort.sort_non_iterative",
-    {
-      "question_indexes": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15
-      ]
-    }
+    "agora_results.pipes.sort.sort_non_iterative", {}
   ]
 ]
+
+def check_ballots(test_data, tally_results_dir_path, question_index):
+    if len(test_data['output_ballots_csv']) > 0:
+        # import pdb; pdb.set_trace()
+        ballots_csv = file_helpers.read_file(
+            os.path.join(tally_results_dir_path, 'ballots.csv')
+        )
+        check_ballots_csv = test.desborda_test.check_ballots(
+            ballots_csv,
+            test_data['output_ballots_csv']
+        )
+        if not check_ballots_csv:
+            print("question index: %i\n" % question_index)
+            print("ballots_csv:\n" + ballots_csv)
+            print("what it should be:\n" + test_data['output_ballots_csv'])
+        assert check_ballots_csv
+
+    if len(test_data['output_ballots_json']) > 0:
+        ballots_json = file_helpers.read_file(
+            os.path.join(tally_results_dir_path, 'ballots.json')
+        )
+        check_ballots_json = test.desborda_test.check_ballots(
+            ballots_json,
+            test_data['output_ballots_json']
+        )
+        if not check_ballots_json:
+            print("question index: %i\n" % question_index)
+            print("ballots_json:\n" + ballots_json)
+            print("what it should be:\n" + test_data['output_ballots_json'])
+        assert check_ballots_json
 
 class TestPluralityTallySheets(unittest.TestCase):
     def do_test(self, test_data=None, num_questions=1, women_in_urls=False):
@@ -160,6 +156,9 @@ class TestPluralityTallySheets(unittest.TestCase):
                     print("results:\n" + results)
                     print("shouldresults:\n" + shouldresults)
                 self.assertTrue(check_results)
+
+                # check ballots output
+                check_ballots(test_data, tally_path, question_index)
         except:
             # remove the temp test folder if there's an error
             # file_helpers.remove_tree(tally_path)
@@ -188,15 +187,20 @@ class TestBorda(unittest.TestCase):
         tally_path = test.desborda_test.create_desborda_test(test_data,
             tally_type = "borda",
             num_questions = num_questions,
-            women_in_urls = women_in_urls)
+            women_in_urls = women_in_urls
+        )
         try:
             tally_targz_path = os.path.join(tally_path, "tally.tar.gz")
             config_results_path = os.path.join(tally_path, "12345.config.results.json")
             results_path = os.path.join(tally_path, "12345.results.json")
-            cmd = "%s -t %s -c %s -s -o json" % (
+            tally_results_dir_path = os.path.join(tally_path, 'results-1')
+            os.mkdir(tally_results_dir_path)
+            cmd = "%s -t %s -c %s -x %s -eid 12345 -s -o json" % (
                 agora_results_bin_path,
                 tally_targz_path,
-                config_results_path)
+                config_results_path,
+                tally_path
+            )
             with open(results_path, mode='w', encoding="utf-8", errors='strict') as f:
                 print(cmd)
                 subprocess.check_call(cmd, stdout=f, stderr=sys.stderr, shell=True)
@@ -211,6 +215,9 @@ class TestBorda(unittest.TestCase):
                     print("results:\n" + results)
                     print("shouldresults:\n" + shouldresults)
                 self.assertTrue(check_results)
+
+                # check ballots output
+                check_ballots(test_data, tally_results_dir_path, question_index)
         except:
             # remove the temp test folder if there's an error
             file_helpers.remove_tree(tally_path)
@@ -275,6 +282,9 @@ class TestDesBorda4(unittest.TestCase):
                     print("shouldresults:\n" + shouldresults[question_index])
                     print("config:\n" + json.dumps(test_data["config"], indent=4))
                 self.assertTrue(check_results)
+
+                # check ballots output
+                check_ballots(test_data, tally_path, question_index)
         except:
             # remove the temp test folder if there's an error
             file_helpers.remove_tree(tally_path)
@@ -328,6 +338,9 @@ class TestDesBorda3(unittest.TestCase):
                     print("results:\n" + results)
                     print("shouldresults:\n" + shouldresults)
                 self.assertTrue(check_results)
+
+                # check ballots output
+                check_ballots(test_data, tally_path, question_index)
 
         except:
             # remove the temp test folder if there's an error
@@ -397,6 +410,9 @@ class TestDesBorda2(unittest.TestCase):
                     print("results:\n" + results)
                     print("shouldresults:\n" + shouldresults)
                 self.assertTrue(check_results)
+
+                # check ballots output
+                check_ballots(test_data, tally_path, question_index)
         except:
             # remove the temp test folder if there's an error
             file_helpers.remove_tree(tally_path)
@@ -460,6 +476,9 @@ class TestDesBorda(unittest.TestCase):
                 print("results:\n" + results)
                 print("shouldresults:\n" + shouldresults)
             self.assertTrue(check_results)
+
+            # check ballots output
+            check_ballots(test_data, tally_path, question_index=0)
         except:
             # remove the temp test folder if there's an error
             file_helpers.remove_tree(tally_path)

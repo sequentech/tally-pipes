@@ -22,7 +22,13 @@ from agora_results.utils.deterministic_tar import deterministic_tar_open, determ
 
 def tar_tallies(data_list, config, tar_list, destdir, eid):
     results_config = json.dumps(config)
-    results = json.dumps(data_list[0]['results'], indent=4, ensure_ascii=False, sort_keys=True, separators=(',', ': '))
+    results = json.dumps(
+        data_list[0]['results'],
+        indent=4, 
+        ensure_ascii=False, 
+        sort_keys=True, 
+        separators=(',', ': ')
+    )
 
     tempdir = tempfile.mkdtemp()
     results_path = os.path.join(tempdir, "%d.results.json" % eid)
