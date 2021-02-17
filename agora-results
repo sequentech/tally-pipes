@@ -349,8 +349,8 @@ def main():
                     del vote_json['winners']
                 if 'totals' in vote_json:
                     del vote_json['totals']
-                for answer in question['answers']:
-                    answer['ballot_marks'] = []
+                for vote_answer in vote_json['answers']:
+                    vote_answer['ballot_marks'] = []
 
                 # detect blank and null votes and mark accordingly
                 if vote == "BLANK_VOTE":
