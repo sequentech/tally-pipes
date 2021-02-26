@@ -405,7 +405,7 @@ def multipart_tally_plaintexts_joiner(data_list, mappings, silent=False,
 
         # process the untranslated options (-1) and invalid ballots
         final_ballot = []
-        if dst_question['tally_type'] is 'pairwise-beta':
+        if dst_question['tally_type'] == 'pairwise-beta':
             if len(translated_ballot) % 2 != 0:
                 raise Exception("Invalid number of options in pairwise ballot")
 
