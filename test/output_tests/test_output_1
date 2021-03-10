@@ -1,0 +1,19 @@
+Votes: borda test1. 3 winners. tests withdraw_candidates with minimum-ballots-percent 40.05, which is why C1f is not a winner even though it has more points than D1m
+A1f,B1m
+A1f,B1m,D1m
+C1f,A1f,D1m
+
+Results:
+A1f, 8
+B1m, 4
+D1m, 2
+
+Ballots CSV:
+0,"0. A1f","1. B1m"
+0,"0. A1f","1. B1m","2. D1m"
+0,"3. C1f","0. A1f","2. D1m"
+
+Ballots JSON:
+{"answer_total_votes_percentage": "over-total-valid-votes", "answers": [{"ballot_marks": [0], "category": "A", "details": "A1f", "id": 0, "text": "A1f", "total_count": 0, "urls": []}, {"ballot_marks": [1], "category": "B", "details": "B1m", "id": 1, "text": "B1m", "total_count": 0, "urls": []}, {"ballot_marks": [], "category": "D", "details": "D1m", "id": 2, "text": "D1m", "total_count": 0, "urls": []}, {"ballot_marks": [], "category": "C", "details": "C1f", "id": 3, "text": "C1f", "total_count": 0, "urls": []}], "ballot_flags": {"blank_vote": false, "null_vote": false}, "description": "Desborda question", "layout": "simple", "max": 3, "min": 0, "num_winners": 3, "question_num": 0, "randomize_answer_order": true, "tally_type": "borda", "title": "Desborda question"}
+{"answer_total_votes_percentage": "over-total-valid-votes", "answers": [{"ballot_marks": [0], "category": "A", "details": "A1f", "id": 0, "text": "A1f", "total_count": 0, "urls": []}, {"ballot_marks": [1], "category": "B", "details": "B1m", "id": 1, "text": "B1m", "total_count": 0, "urls": []}, {"ballot_marks": [2], "category": "D", "details": "D1m", "id": 2, "text": "D1m", "total_count": 0, "urls": []}, {"ballot_marks": [], "category": "C", "details": "C1f", "id": 3, "text": "C1f", "total_count": 0, "urls": []}], "ballot_flags": {"blank_vote": false, "null_vote": false}, "description": "Desborda question", "layout": "simple", "max": 3, "min": 0, "num_winners": 3, "question_num": 0, "randomize_answer_order": true, "tally_type": "borda", "title": "Desborda question"}
+{"answer_total_votes_percentage": "over-total-valid-votes", "answers": [{"ballot_marks": [1], "category": "A", "details": "A1f", "id": 0, "text": "A1f", "total_count": 0, "urls": []}, {"ballot_marks": [], "category": "B", "details": "B1m", "id": 1, "text": "B1m", "total_count": 0, "urls": []}, {"ballot_marks": [2], "category": "D", "details": "D1m", "id": 2, "text": "D1m", "total_count": 0, "urls": []}, {"ballot_marks": [0], "category": "C", "details": "C1f", "id": 3, "text": "C1f", "total_count": 0, "urls": []}], "ballot_flags": {"blank_vote": false, "null_vote": false}, "description": "Desborda question", "layout": "simple", "max": 3, "min": 0, "num_winners": 3, "question_num": 0, "randomize_answer_order": true, "tally_type": "borda", "title": "Desborda question"}

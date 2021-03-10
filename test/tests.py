@@ -640,5 +640,66 @@ class TestDesBorda(unittest.TestCase):
         # do tally
         self.assertTrue(True)
 
+class TestBallotOutput(unittest.TestCase):
+    def do_test(self, test_data=None, num_questions=1, women_in_urls=False):
+        if test_data is None:
+            return
+        print("\nTest name: %s" % test_data["name"])
+        tally_path = test.desborda_test.create_desborda_test(test_data,
+            tally_type = "borda",
+            num_questions = num_questions,
+            women_in_urls = women_in_urls)
+
+        try:
+            tally_targz_path = os.path.join(tally_path, "tally.tar.gz")
+            config_results_path = os.path.join(tally_path, "12345.config.results.json")
+            results_path = os.path.join(tally_path, "12345.results.json")
+            tally_results_dir_path = os.path.join(tally_path, 'results-1')
+            os.mkdir(tally_results_dir_path)
+            cmd = "agora-results -t %s -c %s -x %s -eid 12345 -s -o json" % (
+                tally_targz_path,
+                config_results_path,
+                tally_path
+            )
+
+            args = MockArgs({
+                "tally": [tally_targz_path],
+                "config": config_results_path,
+                "tar": tally_path,
+                "election_id": 12345,
+                "stdout": True,
+                "output_format": "json",
+            })
+            print(cmd)
+            with Capturing(results_path, mode='w', encoding="utf-8", errors='strict') as f:
+                main(args)
+
+            for question_index in range(0, num_questions):
+                results = test.desborda_test.create_simple_results(
+                    results_path,
+                    question_index=question_index)
+
+                output_name = "output_%i" % question_index
+                file_helpers.write_file(os.path.join(tally_path, output_name), results)
+                shouldresults = test_data["output"]
+                check_results = test.desborda_test.check_results(results, shouldresults)
+
+                if not check_results:
+                    print("question index: %i\n" % question_index)
+                    print("results:\n" + results)
+                    print("shouldresults:\n" + shouldresults)
+                self.assertTrue(check_results)
+
+                # check ballots output
+                check_ballots(test_data, tally_results_dir_path, question_index)
+        finally:
+            file_helpers.remove_tree(tally_path)
+
+    def test_output(self):
+        testfile_path = os.path.join("test", "output_tests", "test_output_1")
+        data = test.desborda_test.read_testfile(testfile_path)
+        data["config"] = copy.deepcopy(tally_config_borda)
+        self.do_test(test_data=data)
+
 if __name__ == '__main__':
   unittest.main()
