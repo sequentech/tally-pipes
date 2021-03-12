@@ -707,5 +707,11 @@ class TestBallotOutput(unittest.TestCase):
         data["config"] = copy.deepcopy(tally_config_borda)
         self.do_test(test_data=data, tally_type="plurality-at-large", women_in_urls=True)
 
+    def test_output_plurality2(self):
+        testfile_path = os.path.join("test", "output_tests", "test_output_3")
+        data = test.desborda_test.read_testfile(testfile_path)
+        data["config"] = copy.deepcopy(tally_config_borda)
+        self.do_test(test_data=data, tally_type="plurality-at-large", women_in_urls=True)
+
 if __name__ == '__main__':
   unittest.main()

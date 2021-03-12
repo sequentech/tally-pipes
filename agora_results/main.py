@@ -334,8 +334,6 @@ def main(pargs):
                     del vote_json['totals']
 
                 for vote_answer in vote_json['answers']:
-                    vote_answer['ballot_marks'] = []
-
                     # transpose url info into the answer
                     for url in vote_answer.get('urls', []):
                         key = url['title']
@@ -360,9 +358,10 @@ def main(pargs):
                         for answer_index in vote
                     ]
                     for mark_position, answer_index in enumerate(vote):
-                        vote_json['answers'][answer_index]['ballot_marks'] = [
-                            mark_position
-                        ]
+                        vote_json['answers'][answer_index]['ballot_marks'] = mark_position
+
+                    # Remove answers not marked by the voter
+                    vote_json['answers'] = [x for x in vote_json['answers'] if 'ballot_marks' in x]
 
                 ballots_csv_file.write(",".join(vote_str,) + "\n")
                 # we sort keys to make it reproducible
