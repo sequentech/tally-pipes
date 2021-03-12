@@ -336,6 +336,14 @@ def main(pargs):
                 for vote_answer in vote_json['answers']:
                     vote_answer['ballot_marks'] = []
 
+                    # transpose url info into the answer
+                    for url in vote_answer.get('urls', []):
+                        key = url['title']
+                        value = url['url']
+                        vote_answer[key] = value
+                    # empty urls
+                    vote_answer['urls'] = []
+
                 # detect blank and null votes and mark accordingly
                 if vote == "BLANK_VOTE":
                   vote_str += ["BLANK_VOTE"]
