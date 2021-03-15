@@ -20,7 +20,7 @@ import unittest
 from unittest.mock import patch
 import json
 from agora_results.utils import file_helpers
-from agora_results.main import main
+from agora_results.main import main, VERSION
 import test.desborda_test
 import os
 import sys
@@ -65,63 +65,65 @@ class MockArgs:
         return None
 
 
-tally_config = [
-    [
-        "agora_results.pipes.results.do_tallies", {}
-    ],
-    [
-        "agora_results.pipes.desborda.podemos_desborda",
-        {
-            "women_names": []
-        }
+tally_config = dict(
+    version=VERSION,
+    pipes=[
+        dict(type="agora_results.pipes.results.do_tallies", params={}),
+        dict(
+            type="agora_results.pipes.desborda.podemos_desborda",
+            params={
+                "women_names": []
+            }
+        )
     ]
-]
+)
 
-tally_config_desborda2 = [
-    [
-        "agora_results.pipes.results.do_tallies", {}
-    ],
-    [
-        "agora_results.pipes.desborda2.podemos_desborda2",
-        {
-            "women_names": [
-            ]
-        }
+tally_config_desborda2 = dict(
+    version=VERSION,
+    pipes=[
+        dict(type="agora_results.pipes.results.do_tallies", params={}),
+        dict(
+            type="agora_results.pipes.desborda2.podemos_desborda2",
+            params={
+                "women_names": [
+                ]
+            }
+        )
     ]
-]
+)
 
-tally_config_desborda3 = [
-    [
-        "agora_results.pipes.results.do_tallies", {}
-    ],
-    [
-        "agora_results.pipes.desborda3.podemos_desborda3",
-        {
-            "women_names": []
-        }
+tally_config_desborda3 = dict(
+    version=VERSION,
+    pipes=[
+        dict(type="agora_results.pipes.results.do_tallies", params={}),
+        dict(
+            type="agora_results.pipes.desborda3.podemos_desborda3",
+            params={
+                "women_names": []
+            }
+        )
     ]
-]
+)
 
-tally_config_borda = [
-  [
-    "agora_results.pipes.results.do_tallies", {}
-  ],
-  [
-    "agora_results.pipes.withdraw_candidates.withdraw_candidates",
-    {
-      "questions": [
-        {
-          "question_index": 0,
-          "policy": "minimum-ballots-percent",
-          "min_percent": 40.05
-        }
-      ]
-    }
-  ],
-  [
-    "agora_results.pipes.sort.sort_non_iterative", {}
-  ]
-]
+tally_config_borda = dict(
+    version=VERSION,
+    pipes=[
+        dict(type="agora_results.pipes.results.do_tallies", params={}),
+        dict(
+            type="agora_results.pipes.withdraw_candidates.withdraw_candidates",
+            params={
+                "questions": [
+                    {
+                        "question_index": 0,
+                        "policy": "minimum-ballots-percent",
+                        "min_percent": 40.05
+                    }
+                ]
+            }
+        ),
+        dict(type="agora_results.pipes.sort.sort_non_iterative", params={})
+    ]
+)
 
 def check_ballots(test_data, tally_results_dir_path, question_index):
     if len(test_data['output_ballots_csv']) > 0:

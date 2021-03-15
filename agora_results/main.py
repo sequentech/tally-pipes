@@ -26,16 +26,21 @@ import tarfile
 import codecs
 import uuid
 
-DEFAULT_PIPELINE = [
-    [
-      'agora_results.pipes.results.do_tallies',
-      {}
-    ],
-    [
-      "agora_results.pipes.sort.sort_non_iterative",
-      {}
+VERSION = "1.0"
+
+DEFAULT_PIPELINE = dict(
+    version=VERSION,
+    pipes=[
+        dict(
+        type='agora_results.pipes.results.do_tallies',
+        params={}
+        ),
+        dict(
+        type="agora_results.pipes.sort.sort_non_iterative",
+        params={}
+        )
     ]
-]
+)
 
 # By default we only allow the most used pipes to reduce default attack surface
 # NOTE: keep the list sorted
@@ -71,6 +76,7 @@ DEFAULT_PIPES_WHITELIST = [
     "agora_results.pipes.withdraw_candidates.withdraw_candidates",
     #"agora_results.pipes.ballot_boxes.count_tally_sheets"
 ]
+
 
 def extract_tally(fpath):
     '''
@@ -175,9 +181,36 @@ def execute_pipeline(pipeline_info, data_list, pipes_whitelist=None):
     that function in 'pipeline_info', which can either be None or a dict, and
     the format is of your choice as a developer.
     '''
-    for func_path, kwargs in pipeline_info:
+    # verify format
+    if (
+        type(pipeline_info) is not dict or
+        'version' not in pipeline_info or
+        type(pipeline_info['version']) is not str or
+        pipeline_info['version'] != VERSION or
+        'pipes' not in pipeline_info or
+        type(pipeline_info['pipes']) is not list
+    ):
+        #import pdb; pdb.set_trace()
+        raise Exception('Invalid pipeline')
+
+    # verify each pipe format and sanity
+    for pipe in pipeline_info['pipes']:
+        if (
+            type(pipe) is not dict or
+            'type' not in pipe or
+            type(pipe['type']) is not str or
+            'params' not in pipe or
+            type(pipe['params']) is not dict
+        ):
+            raise Exception('Invalid pipe: %r' % pipe)
+        func_path_sanity_checks(pipe['type'], pipes_whitelist)
+
+    # execute the pipes
+    for pipe in pipeline_info['pipes']:
         # get access to the function
-        func_path_sanity_checks(func_path, pipes_whitelist)
+        func_path = pipe['type']
+        kwargs = pipe['params']
+
         func_name = func_path.split(".")[-1]
         module = __import__(
             ".".join(func_path.split(".")[:-1]), globals(), locals(),

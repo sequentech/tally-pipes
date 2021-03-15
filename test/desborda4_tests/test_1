@@ -46,62 +46,65 @@ A28m, 120
 A29f, 110
 
 Config results:
-[
-    [
-        "agora_results.pipes.duplicate_questions.duplicate_questions",
+{
+    "version": "1.0",
+    "pipes": [
         {
-            "duplications": [
-                {
-                    "source_election_index": 0,
-                    "base_question_index": 0,
-                    "duplicated_question_indexes": [1]
-                }
-            ]
-        }
-    ],
-    [
-        "agora_results.pipes.modifications.apply_modifications",
+            "type": "agora_results.pipes.duplicate_questions.duplicate_questions",
+            "params": {
+                "duplications": [
+                    {
+                        "source_election_index": 0,
+                        "base_question_index": 0,
+                        "duplicated_question_indexes": [1]
+                    }
+                ]
+            }
+        },
         {
-            "modifications": [
-                {
-                    "action": "set-tally-type",
-                    "question_index": 0,
-                    "tally-type": "borda"
-                },
-                {
-                    "action": "modify-number-of-winners",
-                    "question_index": 0,
-                    "num_winners": 1,
-                    "policy": "do-not-truncate"
-                },
-                {
-                    "action": "set-answer-key-value",
-                    "question_index": 0,
-                    "answer-text": "A1f",
-                    "key": "text",
-                    "value": "A_winner"
-                }
-            ]
-        }
-    ],
-    [
-        "agora_results.pipes.results.do_tallies",
+            "type": "agora_results.pipes.modifications.apply_modifications",
+            "params": {
+                "modifications": [
+                    {
+                        "action": "set-tally-type",
+                        "question_index": 0,
+                        "tally-type": "borda"
+                    },
+                    {
+                        "action": "modify-number-of-winners",
+                        "question_index": 0,
+                        "num_winners": 1,
+                        "policy": "do-not-truncate"
+                    },
+                    {
+                        "action": "set-answer-key-value",
+                        "question_index": 0,
+                        "answer-text": "A1f",
+                        "key": "text",
+                        "value": "A_winner"
+                    }
+                ]
+            }
+        },
         {
-            "ignore_invalid_votes": true
-        }
-    ],
-    [
-        "agora_results.pipes.sort.sort_non_iterative",
+            "type": "agora_results.pipes.results.do_tallies",
+            "params": {
+                "ignore_invalid_votes": true
+            }
+        },
         {
-            "question_indexes": [0]
-        }
-    ],
-    [
-        "agora_results.pipes.desborda4.podemos_desborda4",
+            "type": "agora_results.pipes.sort.sort_non_iterative",
+            "params": {
+                "question_indexes": [0]
+            }
+        },
         {
-            "question_index": 1,
-            "first_winner_question_index": 0
+            "type": "agora_results.pipes.desborda4.podemos_desborda4",
+            "params": {
+                "question_index": 1,
+                "first_winner_question_index": 0
+            }
         }
     ]
-]
+}
 

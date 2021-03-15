@@ -10,84 +10,87 @@ B1m, 132
 C1m, 124
 
 Config results:
-[
-    [
-        "agora_results.pipes.results.do_tallies",
+{
+    "version": "1.0",
+    "pipes": [
         {
-            "ignore_invalid_votes": true
-        }
-    ],
-    [
-        "agora_results.pipes.ballot_boxes.count_tally_sheets",
+            "type": "agora_results.pipes.results.do_tallies",
+            "params": {
+                "ignore_invalid_votes": true
+            }
+        },
         {
-            "tally_sheets": [
-                {
-                    "ballot_box_name": "test2",
-                    "num_votes": 44,
-                    "questions": [
-                        {
-                            "title":       "Desborda question",
-                            "blank_votes": 0,
-                            "null_votes":  0,
-                            "tally_type":  "plurality-at-large",
-                            "answers": [
-                                {"text": "A1m", "num_votes": 20},
-                                {"text": "B1m", "num_votes": 11},
-                                {"text": "C1m", "num_votes": 13}
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "ballot_box_name": "test2",
-                    "num_votes": 42,
-                    "questions": [
-                        {
-                            "title":       "Desborda question",
-                            "blank_votes": 1,
-                            "null_votes":  1,
-                            "tally_type":  "plurality-at-large",
-                            "answers": [
-                                {"text": "A1m", "num_votes": 10},
-                                {"text": "B1m", "num_votes": 20},
-                                {"text": "C1m", "num_votes": 10}
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "ballot_box_name": "test2",
-                    "num_votes": 200,
-                    "questions": [
-                        {
-                            "title":       "Desborda question",
-                            "blank_votes": 0,
-                            "null_votes":  0,
-                            "tally_type":  "plurality-at-large",
-                            "answers": [
-                                {"text": "A1m", "num_votes": 0},
-                                {"text": "B1m", "num_votes": 100},
-                                {"text": "C1m", "num_votes": 100}
-                            ]
-                        }
-                    ]
-                }
-            ],
-            "configurations": [
-                {
-                    "ballot_box_name_filter_re": "^test2$",
-                    "election_index": 0,
-                    "question_index": 0,
-                    "tally_sheets_question_index": 0
-                }
-            ]
-        }
-    ],
-    [
-        "agora_results.pipes.sort.sort_non_iterative",
+            "type": "agora_results.pipes.ballot_boxes.count_tally_sheets",
+            "params": {
+                "tally_sheets": [
+                    {
+                        "ballot_box_name": "test2",
+                        "num_votes": 44,
+                        "questions": [
+                            {
+                                "title":       "Desborda question",
+                                "blank_votes": 0,
+                                "null_votes":  0,
+                                "tally_type":  "plurality-at-large",
+                                "answers": [
+                                    {"text": "A1m", "num_votes": 20},
+                                    {"text": "B1m", "num_votes": 11},
+                                    {"text": "C1m", "num_votes": 13}
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "ballot_box_name": "test2",
+                        "num_votes": 42,
+                        "questions": [
+                            {
+                                "title":       "Desborda question",
+                                "blank_votes": 1,
+                                "null_votes":  1,
+                                "tally_type":  "plurality-at-large",
+                                "answers": [
+                                    {"text": "A1m", "num_votes": 10},
+                                    {"text": "B1m", "num_votes": 20},
+                                    {"text": "C1m", "num_votes": 10}
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "ballot_box_name": "test2",
+                        "num_votes": 200,
+                        "questions": [
+                            {
+                                "title":       "Desborda question",
+                                "blank_votes": 0,
+                                "null_votes":  0,
+                                "tally_type":  "plurality-at-large",
+                                "answers": [
+                                    {"text": "A1m", "num_votes": 0},
+                                    {"text": "B1m", "num_votes": 100},
+                                    {"text": "C1m", "num_votes": 100}
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "configurations": [
+                    {
+                        "ballot_box_name_filter_re": "^test2$",
+                        "election_index": 0,
+                        "question_index": 0,
+                        "tally_sheets_question_index": 0
+                    }
+                ]
+            }
+        },
         {
-            "question_indexes": [0]
+            "type": "agora_results.pipes.sort.sort_non_iterative",
+            "params": {
+                "question_indexes": [0]
+            }
         }
     ]
-]
+}
 

@@ -144,14 +144,18 @@ def read_testfile(testfile_path):
             elif state == 'reading_ballots_json':
                 output_ballots_json += line
 
-    return {
-        "input": ballots,
-        "output": results,
-        "output_ballots_csv": output_ballots_csv,
-        "output_ballots_json": output_ballots_json,
-        "name": name,
-        "config": json.loads(results_config) if len(results_config) > 0 else None
-    }
+    try:
+        return {
+            "input": ballots,
+            "output": results,
+            "output_ballots_csv": output_ballots_csv,
+            "output_ballots_json": output_ballots_json,
+            "name": name,
+            "config": json.loads(results_config) if len(results_config) > 0 else None
+        }
+    except Exception as e:
+        print("failing json loads for file %s" % testfile_path)
+        raise e
 
 def create_desborda_test(test_data, tally_type = "desborda", num_questions=1, women_in_urls=False):
     if not has_input_format(test_data["input"]):
