@@ -65,7 +65,7 @@ class MockArgs:
         return None
 
 
-tally_config = dict(
+tally_config_desborda1 = dict(
     version=VERSION,
     pipes=[
         dict(type="agora_results.pipes.results.do_tallies", params={}),
@@ -554,6 +554,7 @@ class TestDesBorda(unittest.TestCase):
             if not check_results:
                 print("results:\n" + results)
                 print("shouldresults:\n" + shouldresults)
+                import pdb; pdb.set_trace()
             self.assertTrue(check_results)
 
             # check ballots output
@@ -567,7 +568,7 @@ class TestDesBorda(unittest.TestCase):
         test_files = [ os.path.join(desborda_tests_path, f) for f in os.listdir(desborda_tests_path) if os.path.isfile(os.path.join(desborda_tests_path, f)) ]
         for testfile_path in test_files:
             data = test.desborda_test.read_testfile(testfile_path)
-            data["config"] = copy.deepcopy(tally_config)
+            data["config"] = copy.deepcopy(tally_config_desborda1)
             self.do_test(test_data=data)
 
     def _test_100k_votes_same(self):
@@ -587,7 +588,7 @@ class TestDesBorda(unittest.TestCase):
         data = {
             "input": ballots,
             "output": results,
-            "config": copy.deepcopy(tally_config),
+            "config": copy.deepcopy(tally_config_desborda1),
             "name": "test 100k votes. 95% to A, 5% to B. All ballots for each team are the same"
         }
         # do tally
@@ -630,7 +631,7 @@ class TestDesBorda(unittest.TestCase):
         data = {
             "input": ballots,
             "output": results,
-            "config": copy.deepcopy(tally_config),
+            "config": copy.deepcopy(tally_config_desborda1),
             "name": "test 100k votes. 95% to A, 5% to B. All ballots for each team are the same"
         }
         end_time = time.time()
