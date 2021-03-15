@@ -1,0 +1,22 @@
+Votes: plurarity output test, with gender transpose from urls to answer
+A1m
+A1m
+B1m
+C1f
+
+Results:
+A1m, 2
+B1m, 1
+C1f, 1
+
+Ballots CSV:
+0,"0. A1m"
+0,"0. A1m"
+0,"1. B1m"
+0,"2. C1f"
+
+Ballots JSON:
+{"answer_total_votes_percentage": "over-total-valid-votes", "answers": [{"Gender": "https://agoravoting.com/api/gender/H", "ballot_marks": 0, "category": "A", "details": "A1m", "id": 0, "text": "A1m", "total_count": 0, "urls": []}], "ballot_flags": {"blank_vote": false, "null_vote": false}, "description": "Desborda question", "layout": "simple", "max": 1, "min": 0, "num_winners": 3, "question_num": 0, "randomize_answer_order": true, "tally_type": "plurality-at-large", "title": "Desborda question"}
+{"answer_total_votes_percentage": "over-total-valid-votes", "answers": [{"Gender": "https://agoravoting.com/api/gender/H", "ballot_marks": 0, "category": "A", "details": "A1m", "id": 0, "text": "A1m", "total_count": 0, "urls": []}], "ballot_flags": {"blank_vote": false, "null_vote": false}, "description": "Desborda question", "layout": "simple", "max": 1, "min": 0, "num_winners": 3, "question_num": 0, "randomize_answer_order": true, "tally_type": "plurality-at-large", "title": "Desborda question"}
+{"answer_total_votes_percentage": "over-total-valid-votes", "answers": [{"Gender": "https://agoravoting.com/api/gender/H", "ballot_marks": 0, "category": "B", "details": "B1m", "id": 1, "text": "B1m", "total_count": 0, "urls": []}], "ballot_flags": {"blank_vote": false, "null_vote": false}, "description": "Desborda question", "layout": "simple", "max": 1, "min": 0, "num_winners": 3, "question_num": 0, "randomize_answer_order": true, "tally_type": "plurality-at-large", "title": "Desborda question"}
+{"answer_total_votes_percentage": "over-total-valid-votes", "answers": [{"Gender": "https://agoravoting.com/api/gender/M", "ballot_marks": 0, "category": "C", "details": "C1f", "id": 2, "text": "C1f", "total_count": 0, "urls": []}], "ballot_flags": {"blank_vote": false, "null_vote": false}, "description": "Desborda question", "layout": "simple", "max": 1, "min": 0, "num_winners": 3, "question_num": 0, "randomize_answer_order": true, "tally_type": "plurality-at-large", "title": "Desborda question"}

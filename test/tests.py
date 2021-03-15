@@ -17,16 +17,53 @@
 # along with agora-results.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
+from unittest.mock import patch
 import json
 from agora_results.utils import file_helpers
+from agora_results.main import main
 import test.desborda_test
 import os
 import sys
-import subprocess
 import copy
 import time
 import random
 import re
+
+
+class Capturing:
+    def __init__(self, *args, **kwargs):
+        self.file_obj = open(*args, **kwargs)
+
+    def __enter__(self):
+        self._stdout = sys.stdout
+        sys.stdout = self.file_obj
+        return self.file_obj
+
+    def __exit__(self, *args, **kwargs):
+        self.file_obj.close()
+        sys.stdout = self._stdout
+
+
+class MockArgs:
+    def __init__(self, options):
+        self.options = options
+
+    def __getattr__(self, key):
+        try:
+            return self.options[key]
+        except:
+            return self.default(key)
+
+    def default(self, key):
+        if key == 'tally':
+            return []
+        if key == 'election_config':
+            return []
+        if key == 'output_format':
+            return 'json'
+
+        return None
+
 
 tally_config = [
     [
@@ -137,9 +174,16 @@ class TestPluralityTallySheets(unittest.TestCase):
                 config_results_path,
                 pipes_whitelist)
 
-            with open(results_path, mode='w', encoding="utf-8", errors='strict') as f:
-                print(cmd)
-                subprocess.check_call(cmd, stdout=f, stderr=sys.stderr, shell=True)
+            args = MockArgs({
+                "tally": [tally_targz_path],
+                "config": config_results_path,
+                "pipes_whitelist": pipes_whitelist,
+                "stdout": True,
+                "output_format": "json",
+            })
+            print(cmd)
+            with Capturing(results_path, mode='w', encoding="utf-8", errors='strict') as f:
+                main(args)
 
             for question_index in range(0, num_questions):
                 results = test.desborda_test.create_simple_results(
@@ -159,12 +203,9 @@ class TestPluralityTallySheets(unittest.TestCase):
 
                 # check ballots output
                 check_ballots(test_data, tally_path, question_index)
-        except:
-            # remove the temp test folder if there's an error
-            # file_helpers.remove_tree(tally_path)
-            raise
-        # remove the temp test folder also in a successful test
-        file_helpers.remove_tree(tally_path)
+        finally:
+            # remove the temp test folder also in a successful test
+            file_helpers.remove_tree(tally_path)
 
     def test_all(self):
         borda_tests_path = os.path.join("test", "plurality_tally_sheets")
@@ -201,9 +242,19 @@ class TestBorda(unittest.TestCase):
                 config_results_path,
                 tally_path
             )
-            with open(results_path, mode='w', encoding="utf-8", errors='strict') as f:
-                print(cmd)
-                subprocess.check_call(cmd, stdout=f, stderr=sys.stderr, shell=True)
+
+            args = MockArgs({
+                "tally": [tally_targz_path],
+                "config": config_results_path,
+                "tar": tally_path,
+                "election_id": 12345,
+                "stdout": True,
+                "output_format": "json",
+            })
+            print(cmd)
+            with Capturing(results_path, mode='w', encoding="utf-8", errors='strict') as f:
+                main(args)
+
             for question_index in range(0, num_questions):
                 results = test.desborda_test.create_simple_results(results_path, question_index=question_index)
                 output_name = "output_%i" % question_index
@@ -218,12 +269,9 @@ class TestBorda(unittest.TestCase):
 
                 # check ballots output
                 check_ballots(test_data, tally_results_dir_path, question_index)
-        except:
+        finally:
             # remove the temp test folder if there's an error
             file_helpers.remove_tree(tally_path)
-            raise
-        # remove the temp test folder also in a successful test
-        file_helpers.remove_tree(tally_path)
 
     def test_all(self):
         borda_tests_path = os.path.join("test", "borda_tests")
@@ -246,6 +294,7 @@ class TestBorda(unittest.TestCase):
             data["config"] = copy.deepcopy(tally_config_borda)
             self.do_test(test_data=data)
 
+
 class TestDesBorda4(unittest.TestCase):
     def do_test(self, test_data=None, num_questions=1, women_in_urls=True):
         if test_data is None:
@@ -266,9 +315,18 @@ class TestDesBorda4(unittest.TestCase):
                 tally_targz_path,
                 config_results_path,
                 pipes_whitelist)
-            with open(results_path, mode='w', encoding="utf-8", errors='strict') as f:
-                print(cmd)
-                subprocess.check_call(cmd, stdout=f, stderr=sys.stderr, shell=True)
+
+            args = MockArgs({
+                "tally": [tally_targz_path],
+                "config": config_results_path,
+                "pipes_whitelist": pipes_whitelist,
+                "stdout": True,
+                "output_format": "json",
+            })
+            print(cmd)
+            with Capturing(results_path, mode='w', encoding="utf-8", errors='strict') as f:
+                main(args)
+
             shouldresults = test_data["output"].split('###\n')
             for question_index in range(0, num_questions+1):
                 results = test.desborda_test.create_simple_results(results_path, question_index=question_index)
@@ -285,12 +343,9 @@ class TestDesBorda4(unittest.TestCase):
 
                 # check ballots output
                 check_ballots(test_data, tally_path, question_index)
-        except:
+        finally:
             # remove the temp test folder if there's an error
             file_helpers.remove_tree(tally_path)
-            raise
-        # remove the temp test folder also in a successful test
-        file_helpers.remove_tree(tally_path)
 
     def test_all(self):
         desborda_tests_path = os.path.join("test", "desborda4_tests")
@@ -324,9 +379,19 @@ class TestDesBorda3(unittest.TestCase):
                 tally_targz_path,
                 config_results_path,
                 pipes_whitelist)
-            with open(results_path, mode='w', encoding="utf-8", errors='strict') as f:
-                print(cmd)
-                subprocess.check_call(cmd, stdout=f, stderr=sys.stderr, shell=True)
+
+            args = MockArgs({
+                "tally": [tally_targz_path],
+                "config": config_results_path,
+                "pipes_whitelist": pipes_whitelist,
+                "election_id": 12345,
+                "stdout": True,
+                "output_format": "json",
+            })
+            print(cmd)
+            with Capturing(results_path, mode='w', encoding="utf-8", errors='strict') as f:
+                main(args)
+
             for question_index in range(0, num_questions):
                 results = test.desborda_test.create_simple_results(results_path, question_index=question_index)
                 output_name = "output_%i" % question_index
@@ -342,12 +407,9 @@ class TestDesBorda3(unittest.TestCase):
                 # check ballots output
                 check_ballots(test_data, tally_path, question_index)
 
-        except:
+        finally:
             # remove the temp test folder if there's an error
             file_helpers.remove_tree(tally_path)
-            raise
-        # remove the temp test folder also in a successful test
-        file_helpers.remove_tree(tally_path)
 
     def test_all(self):
         desborda_tests_path = os.path.join("test", "desborda3_tests")
@@ -396,9 +458,18 @@ class TestDesBorda2(unittest.TestCase):
                 tally_targz_path,
                 config_results_path,
                 pipes_whitelist)
-            with open(results_path, mode='w', encoding="utf-8", errors='strict') as f:
-                print(cmd)
-                subprocess.check_call(cmd, stdout=f, stderr=sys.stderr, shell=True)
+
+            args = MockArgs({
+                "tally": [tally_targz_path],
+                "config": config_results_path,
+                "pipes_whitelist": pipes_whitelist,
+                "stdout": True,
+                "output_format": "json",
+            })
+            print(cmd)
+            with Capturing(results_path, mode='w', encoding="utf-8", errors='strict') as f:
+                main(args)
+
             for question_index in range(0, num_questions):
                 results = test.desborda_test.create_simple_results(results_path, question_index=question_index)
                 output_name = "output_%i" % question_index
@@ -413,12 +484,9 @@ class TestDesBorda2(unittest.TestCase):
 
                 # check ballots output
                 check_ballots(test_data, tally_path, question_index)
-        except:
+        finally:
             # remove the temp test folder if there's an error
             file_helpers.remove_tree(tally_path)
-            raise
-        # remove the temp test folder also in a successful test
-        file_helpers.remove_tree(tally_path)
 
     def test_all(self):
         desborda_tests_path = os.path.join("test", "desborda2_tests")
@@ -465,9 +533,18 @@ class TestDesBorda(unittest.TestCase):
                 tally_targz_path,
                 config_results_path,
                 pipes_whitelist)
-            with open(results_path, mode='w', encoding="utf-8", errors='strict') as f:
-                print(cmd)
-                subprocess.check_call(cmd, stdout=f, stderr=sys.stderr, shell=True)
+
+            args = MockArgs({
+                "tally": [tally_targz_path],
+                "config": config_results_path,
+                "pipes_whitelist": pipes_whitelist,
+                "stdout": True,
+                "output_format": "json",
+            })
+            print(cmd)
+            with Capturing(results_path, mode='w', encoding="utf-8", errors='strict') as f:
+                main(args)
+
             results = test.desborda_test.create_simple_results(results_path)
             file_helpers.write_file(os.path.join(tally_path, "output"), results)
             shouldresults = test_data["output"]
@@ -479,12 +556,9 @@ class TestDesBorda(unittest.TestCase):
 
             # check ballots output
             check_ballots(test_data, tally_path, question_index=0)
-        except:
+        finally:
             # remove the temp test folder if there's an error
             file_helpers.remove_tree(tally_path)
-            raise
-        # remove the temp test folder also in a successful test
-        file_helpers.remove_tree(tally_path)
 
     def test_all(self):
         desborda_tests_path = os.path.join("test", "desborda_tests")
@@ -565,6 +639,88 @@ class TestDesBorda(unittest.TestCase):
         print("test_100k_votes_rand tally elapsed time: %f secs" % (end_time - start_time))
         # do tally
         self.assertTrue(True)
+
+class TestBallotOutput(unittest.TestCase):
+    def do_test(
+        self, 
+        testfile_path, 
+        num_questions=1, 
+        women_in_urls=False, 
+        tally_type="borda",
+        tally_config=tally_config_borda
+    ):
+        test_data = test.desborda_test.read_testfile(testfile_path)
+        test_data["config"] = copy.deepcopy(tally_config)
+
+        print(
+            "\nTest file path: %s\nTest name: %s" % (
+                testfile_path,
+                test_data["name"]
+            )
+        )
+
+        tally_path = test.desborda_test.create_desborda_test(test_data,
+            tally_type = tally_type,
+            num_questions = num_questions,
+            women_in_urls = women_in_urls
+        )
+
+        try:
+            tally_targz_path = os.path.join(tally_path, "tally.tar.gz")
+            config_results_path = os.path.join(tally_path, "12345.config.results.json")
+            results_path = os.path.join(tally_path, "12345.results.json")
+            tally_results_dir_path = os.path.join(tally_path, 'results-1')
+            os.mkdir(tally_results_dir_path)
+            cmd = "agora-results -t %s -c %s -x %s -eid 12345 -s -o json" % (
+                tally_targz_path,
+                config_results_path,
+                tally_path
+            )
+
+            args = MockArgs({
+                "tally": [tally_targz_path],
+                "config": config_results_path,
+                "tar": tally_path,
+                "election_id": 12345,
+                "stdout": True,
+                "output_format": "json",
+            })
+            print(cmd)
+            with Capturing(results_path, mode='w', encoding="utf-8", errors='strict') as f:
+                main(args)
+
+            for question_index in range(0, num_questions):
+                results = test.desborda_test.create_simple_results(
+                    results_path,
+                    question_index=question_index)
+
+                output_name = "output_%i" % question_index
+                file_helpers.write_file(os.path.join(tally_path, output_name), results)
+                shouldresults = test_data["output"]
+                check_results = test.desborda_test.check_results(results, shouldresults)
+
+                if not check_results:
+                    print("question index: %i\n" % question_index)
+                    print("results:\n" + results)
+                    print("shouldresults:\n" + shouldresults)
+                self.assertTrue(check_results)
+
+                # check ballots output
+                check_ballots(test_data, tally_results_dir_path, question_index)
+        finally:
+            file_helpers.remove_tree(tally_path)
+
+    def test_output_borda(self):
+        testfile_path = os.path.join("test", "output_tests", "test_output_1")
+        self.do_test(testfile_path, women_in_urls=True)
+
+    def test_output_plurality(self):
+        testfile_path = os.path.join("test", "output_tests", "test_output_2")
+        self.do_test(testfile_path, tally_type="plurality-at-large", women_in_urls=True)
+
+    def test_output_plurality2(self):
+        testfile_path = os.path.join("test", "output_tests", "test_output_3")
+        self.do_test(testfile_path, tally_type="plurality-at-large", women_in_urls=True)
 
 if __name__ == '__main__':
   unittest.main()
