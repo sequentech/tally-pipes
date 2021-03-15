@@ -641,14 +641,29 @@ class TestDesBorda(unittest.TestCase):
         self.assertTrue(True)
 
 class TestBallotOutput(unittest.TestCase):
-    def do_test(self, test_data=None, num_questions=1, women_in_urls=False, tally_type="borda"):
-        if test_data is None:
-            return
-        print("\nTest name: %s" % test_data["name"])
+    def do_test(
+        self, 
+        testfile_path, 
+        num_questions=1, 
+        women_in_urls=False, 
+        tally_type="borda",
+        tally_config=tally_config_borda
+    ):
+        test_data = test.desborda_test.read_testfile(testfile_path)
+        test_data["config"] = copy.deepcopy(tally_config)
+
+        print(
+            "\nTest file path: %s\nTest name: %s" % (
+                testfile_path,
+                test_data["name"]
+            )
+        )
+
         tally_path = test.desborda_test.create_desborda_test(test_data,
             tally_type = tally_type,
             num_questions = num_questions,
-            women_in_urls = women_in_urls)
+            women_in_urls = women_in_urls
+        )
 
         try:
             tally_targz_path = os.path.join(tally_path, "tally.tar.gz")
@@ -697,21 +712,15 @@ class TestBallotOutput(unittest.TestCase):
 
     def test_output_borda(self):
         testfile_path = os.path.join("test", "output_tests", "test_output_1")
-        data = test.desborda_test.read_testfile(testfile_path)
-        data["config"] = copy.deepcopy(tally_config_borda)
-        self.do_test(test_data=data, women_in_urls=True)
+        self.do_test(testfile_path, women_in_urls=True)
 
     def test_output_plurality(self):
         testfile_path = os.path.join("test", "output_tests", "test_output_2")
-        data = test.desborda_test.read_testfile(testfile_path)
-        data["config"] = copy.deepcopy(tally_config_borda)
-        self.do_test(test_data=data, tally_type="plurality-at-large", women_in_urls=True)
+        self.do_test(testfile_path, tally_type="plurality-at-large", women_in_urls=True)
 
     def test_output_plurality2(self):
         testfile_path = os.path.join("test", "output_tests", "test_output_3")
-        data = test.desborda_test.read_testfile(testfile_path)
-        data["config"] = copy.deepcopy(tally_config_borda)
-        self.do_test(test_data=data, tally_type="plurality-at-large", women_in_urls=True)
+        self.do_test(testfile_path, tally_type="plurality-at-large", women_in_urls=True)
 
 if __name__ == '__main__':
   unittest.main()
