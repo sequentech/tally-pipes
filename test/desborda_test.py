@@ -23,6 +23,7 @@ import json
 import os
 from os import urandom
 from agora_results.utils import file_helpers
+from agora_tally.ballot_codec.nvotes_codec import NVotesCodec
 import tempfile
 import uuid
 import tarfile
@@ -31,25 +32,33 @@ def remove_spaces(in_str):
     return re.sub(r"[ \t\r\f\v]*", "", in_str)
 
 def has_input_format(in_str):
-     # example: "A1f, B2m \nB3f"
-     m = re.fullmatch(r"((\s*[A-Z][0-9]+[fm]\s*,)*\s*[A-Z][0-9]+[fm]\s*\n)*(\s*[A-Z][0-9]+[fm]\s*,)*\s*[A-Z][0-9]+[fm]\s*\n?", in_str)
-     return m is not None
+    # example: "A1f, B2m \nB3f"
+    m = re.fullmatch(r"((\s*[A-Z][0-9]+[fm]\s*,)*\s*[A-Z][0-9]+[fm]\s*\n)*(\s*[A-Z][0-9]+[fm]\s*,)*\s*[A-Z][0-9]+[fm]\s*\n?", in_str)
+    return m is not None
 
 def has_output_format(out_str):
-     # example: "A1f, 1,  3\n B33m, 4"
-     m = re.fullmatch(r"(\s*[A-Z][0-9]+[fm]\s*,\s*[0-9]+\s*\n)*\s*[A-Z][0-9]+[fm]\s*,\s*[0-9]+\s*\n?", out_str)
-     return m is not None
+    # example: "A1f, 1,  3\n B33m, 4"
+    m = re.fullmatch(r"(\s*[A-Z][0-9]+[fm]\s*,\s*[0-9]+\s*\n)*\s*[A-Z][0-9]+[fm]\s*,\s*[0-9]+\s*\n?", out_str)
+    return m is not None
 
-def encode_ballot(ballot, indexed_candidates):
-    max_num = len(indexed_candidates) + 2
-    digit_num_per_candidate = len(str(max_num))
-    encoded = ""
-    for candidate in ballot:
-        enc_cand = str(indexed_candidates[candidate] + 1)
-        enc_cand = '0' * (digit_num_per_candidate - len(enc_cand)) + enc_cand
-        encoded = encoded + enc_cand
-    # note, only will work correctly on python 3
-    return str(int(encoded) + 1)
+def encode_valid_ballot(
+    text_ballot, 
+    question
+):
+    '''
+    ballot encoder
+    '''
+    ballot_question = copy.deepcopy(question)
+    for answer_index, answer in enumerate(ballot_question['answers']):
+        answer['selected'] = (
+            -1
+            if answer['text'] not in text_ballot
+            else text_ballot.index(answer['text'])
+        )
+    ballot_encoder = NVotesCodec(ballot_question)
+    raw_ballot = ballot_encoder.encode_raw_ballot()
+    int_ballot = ballot_encoder.encode_to_int(raw_ballot)
+    return str(int_ballot + 1)
 
 # generate password with length number of characters
 def gen_pass(length):
@@ -157,15 +166,26 @@ def read_testfile(testfile_path):
         print("failing json loads for file %s" % testfile_path)
         raise e
 
-def create_desborda_test(test_data, tally_type = "desborda", num_questions=1, women_in_urls=False):
+def create_desborda_test(
+    test_data,
+    tally_type="desborda",
+    num_questions=1,
+    women_in_urls=False
+):
     if not has_input_format(test_data["input"]):
         raise Exception("Error: test data input with format errors")
     if not has_output_format(test_data["output"].split("###\n")[-1]):
         raise Exception("Error: test data output with format errors")
 
     # test_struct
-    ballots = [re.split(r",", line) for line in remove_spaces(test_data["input"]).splitlines()]
-    results = [re.split(r",", line) for line in remove_spaces(test_data["output"].split("###\n")[-1]).splitlines()]
+    ballots = [
+        re.split(r",", line)
+        for line in remove_spaces(test_data["input"]).splitlines()
+    ]
+    results = [
+        re.split(r",", line)
+        for line in remove_spaces(test_data["output"].split("###\n")[-1]).splitlines()
+    ]
     num_winners = len(results)
     teams = {}
     all_candidates = []
@@ -183,7 +203,12 @@ def create_desborda_test(test_data, tally_type = "desborda", num_questions=1, wo
             else:
                 other_sex = candidate[:-1] + ("m" if female else "f")
                 if other_sex in teams[team]:
-                    raise Exception("Error: candidate %s repeated: %s" % (candidate, other_sex))
+                    raise Exception(
+                        "Error: candidate %s repeated: %s" % (
+                            candidate,
+                            other_sex
+                        )
+                    )
 
             if candidate not in teams[team]:
                 if female:
@@ -197,7 +222,10 @@ def create_desborda_test(test_data, tally_type = "desborda", num_questions=1, wo
     set_all = set(all_candidates)
     set_results = set([x[0] for x in results])
     if len(set_results) is not len(set_all & set_results):
-        raise Exception("Error: there are some answers in the results that are not candidates: %s " % str(set_results - set_all))
+        raise Exception(
+            "Error: there are some answers in the results that are not "\
+            "candidates: %s " % str(set_results - set_all)
+        )
 
     question = {
         "answer_total_votes_percentage": "over-total-valid-votes",
@@ -253,7 +281,10 @@ def create_desborda_test(test_data, tally_type = "desborda", num_questions=1, wo
         counter += 1
         if counter % 1000 == 0:
             print("%i votes encoded" % counter)
-        encoded_ballot = encode_ballot(ballot, indexed_candidates)
+        encoded_ballot = encode_valid_ballot(
+            text_ballot=ballot,
+            question=question
+        )
         plaintexts_json = plaintexts_json + '"' + encoded_ballot + '"\n'
 
     # create folder
@@ -267,11 +298,27 @@ def create_desborda_test(test_data, tally_type = "desborda", num_questions=1, wo
             plaintexts_folder = os.path.join(targz_folder,
                 "%i-%s" % (question_index, str(uuid.uuid4()) ) )
             os.mkdir(plaintexts_folder)
-            file_helpers.write_file(os.path.join(plaintexts_folder, "plaintexts_json"), plaintexts_json)
-        file_helpers.write_file(os.path.join(targz_folder, "questions_json"), file_helpers.serialize(questions_json))
-        make_simple_targz(os.path.join(desborda_test_path, "tally.tar.gz"), targz_folder)
-        file_helpers.write_file(os.path.join(desborda_test_path, "results_json"), test_data["output"])
-        file_helpers.write_file(os.path.join(desborda_test_path, "12345.config.results.json"), file_helpers.serialize(config))
+            file_helpers.write_file(
+                os.path.join(plaintexts_folder, "plaintexts_json"),
+                plaintexts_json
+            )
+        
+        file_helpers.write_file(
+            os.path.join(targz_folder, "questions_json"),
+            file_helpers.serialize(questions_json)
+        )
+        make_simple_targz(
+            os.path.join(desborda_test_path, "tally.tar.gz"),
+            targz_folder
+        )
+        file_helpers.write_file(
+            os.path.join(desborda_test_path, "results_json"),
+            test_data["output"]
+        )
+        file_helpers.write_file(
+            os.path.join(desborda_test_path, "12345.config.results.json"),
+            file_helpers.serialize(config)
+        )
     except:
         file_helpers.remove_tree(base_path)
         raise

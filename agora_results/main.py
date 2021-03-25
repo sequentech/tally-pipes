@@ -190,7 +190,6 @@ def execute_pipeline(pipeline_info, data_list, pipes_whitelist=None):
         'pipes' not in pipeline_info or
         type(pipeline_info['pipes']) is not list
     ):
-        #import pdb; pdb.set_trace()
         raise Exception('Invalid pipeline')
 
     # verify each pipe format and sanity
