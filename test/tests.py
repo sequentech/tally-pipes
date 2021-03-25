@@ -565,7 +565,11 @@ class TestDesBorda(unittest.TestCase):
 
     def test_all(self):
         desborda_tests_path = os.path.join("test", "desborda_tests")
-        test_files = [ os.path.join(desborda_tests_path, f) for f in os.listdir(desborda_tests_path) if os.path.isfile(os.path.join(desborda_tests_path, f)) ]
+        test_files = [
+            os.path.join(desborda_tests_path, f) 
+            for f in os.listdir(desborda_tests_path) 
+            if os.path.isfile(os.path.join(desborda_tests_path, f)) 
+        ]
         for testfile_path in test_files:
             data = test.desborda_test.read_testfile(testfile_path)
             data["config"] = copy.deepcopy(tally_config_desborda1)
