@@ -389,8 +389,12 @@ def main(pargs):
                         ) 
                         for answer_index in vote
                     ]
-                    for mark_position, answer_index in enumerate(vote):
-                        vote_json['answers'][answer_index]['ballot_marks'] = mark_position
+                    if question['tally_type'] == 'plurality-at-large':
+                        for mark_position, answer_index in enumerate(vote):
+                            vote_json['answers'][answer_index]['ballot_marks'] = 1
+                    else:
+                        for mark_position, answer_index in enumerate(vote):
+                            vote_json['answers'][answer_index]['ballot_marks'] = mark_position
 
                     # Remove answers not marked by the voter
                     vote_json['answers'] = [x for x in vote_json['answers'] if 'ballot_marks' in x]
