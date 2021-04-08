@@ -50,11 +50,13 @@ def encode_valid_ballot(
     '''
     ballot_question = copy.deepcopy(question)
     for answer_index, answer in enumerate(ballot_question['answers']):
-        answer['selected'] = (
-            -1
-            if answer['text'] not in text_ballot
-            else text_ballot.index(answer['text'])
-        )
+        selected = -1
+        if answer['text'] in text_ballot:
+            if question['tally_type'] == 'cumulative':
+                selected = text_ballot.count(answer['text']) - 1
+            else:
+                selected = text_ballot.index(answer['text'])
+        answer['selected'] = selected
     ballot_encoder = NVotesCodec(ballot_question)
     raw_ballot = ballot_encoder.encode_raw_ballot()
     int_ballot = ballot_encoder.encode_to_int(raw_ballot)
@@ -170,7 +172,8 @@ def create_desborda_test(
     test_data,
     tally_type="desborda",
     num_questions=1,
-    women_in_urls=False
+    women_in_urls=False,
+    extra_options=None,
 ):
     if not has_input_format(test_data["input"]):
         raise Exception("Error: test data input with format errors")
@@ -237,8 +240,12 @@ def create_desborda_test(
         "num_winners": num_winners,
         "randomize_answer_order": True,
         "tally_type": tally_type,
-        "title": "Desborda question"
+        "title": "Desborda question",
     }
+
+    if extra_options:
+        question['extra_options'] = extra_options
+
     cand_index = 0
     indexed_candidates = {}
     for team_name in teams:

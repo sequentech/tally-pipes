@@ -34,6 +34,11 @@ def minimum_ballots_percent_policy(data, qindex, question, withdraw_info):
         for index, answer in enumerate(question['answers']):
             answer['withdrawn'] = answer['total_count'] < min_ballots
 
+    elif 'cumulative' == question['tally_type']:
+        question['withdraw_candidates'] = True
+        for index, answer in enumerate(question['answers']):
+            answer['withdrawn'] = answer['total_count'] < min_ballots
+
 def withdraw_candidates(data_list, questions):
     withdraw_set = {}
     for q in questions:

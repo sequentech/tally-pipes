@@ -24,6 +24,7 @@ __WOMAN_FLAG = 445656761191
 
 
 __NON_ITERATIVE_TYPES = [
+    "cumulative",
     "plurality-at-large",
     "borda",
     "borda-nauru",
