@@ -22,6 +22,7 @@ from operator import itemgetter
 _MAX = 999999999
 
 _ALLOWED_TALLY_TYPES = [
+    "cumulative",
     "plurality-at-large",
     "desborda3",
     "desborda2",

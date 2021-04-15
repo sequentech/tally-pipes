@@ -125,6 +125,13 @@ tally_config_borda = dict(
     ]
 )
 
+tally_config_cumulative = dict(
+    version=VERSION,
+    pipes=[
+        dict(type="agora_results.pipes.results.do_tallies", params={}),
+    ]
+)
+
 def check_ballots(test_data, tally_results_dir_path, question_index):
     if len(test_data['output_ballots_csv']) > 0:
         # import pdb; pdb.set_trace()
@@ -728,6 +735,80 @@ class TestBallotOutput(unittest.TestCase):
     def test_output_plurality2(self):
         testfile_path = os.path.join("test", "output_tests", "test_output_3")
         self.do_test(testfile_path, tally_type="plurality-at-large", women_in_urls=True)
+
+
+class TestCumulative(unittest.TestCase):
+    def do_test(self, test_data=None, num_questions=1, women_in_urls=False, checks=3):
+        if test_data is None:
+            return
+        print("\nTest name: %s" % test_data["name"])
+        agora_results_bin_path = "python3 agora-results"
+        tally_path = test.desborda_test.create_desborda_test(test_data,
+            extra_options = { "cumulative_number_of_checkboxes": checks },
+            tally_type = "cumulative",
+            num_questions = num_questions,
+            women_in_urls = women_in_urls)
+        try:
+            tally_targz_path = os.path.join(tally_path, "tally.tar.gz")
+            config_results_path = os.path.join(tally_path, "12345.config.results.json")
+            pipes_whitelist = os.path.join("test", "pipes-whitelist.txt")
+            results_path = os.path.join(tally_path, "12345.results.json")
+            tally_results_dir_path = os.path.join(tally_path, 'results-1')
+            os.mkdir(tally_results_dir_path)
+            cmd = "%s -t %s -c %s -x %s -p %s -eid 12345 -s -o json" % (
+                agora_results_bin_path,
+                tally_targz_path,
+                config_results_path,
+                tally_path,
+                pipes_whitelist)
+
+            args = MockArgs({
+                "tally": [tally_targz_path],
+                "config": config_results_path,
+                "tar": tally_path,
+                "election_id": 12345,
+                "pipes_whitelist": pipes_whitelist,
+                "stdout": True,
+                "output_format": "json",
+            })
+            print(cmd)
+            with Capturing(results_path, mode='w', encoding="utf-8", errors='strict') as f:
+                main(args)
+
+            for question_index in range(0, num_questions):
+                results = test.desborda_test.create_simple_results(
+                    results_path,
+                    question_index=question_index)
+
+                output_name = "output_%i" % question_index
+                file_helpers.write_file(os.path.join(tally_path, output_name), results)
+                shouldresults = test_data["output"]
+                check_results = test.desborda_test.check_results(results, shouldresults)
+
+                if not check_results:
+                    print("question index: %i\n" % question_index)
+                    print("results:\n" + results)
+                    print("shouldresults:\n" + shouldresults)
+                self.assertTrue(check_results)
+
+                # check ballots output
+                check_ballots(test_data, tally_results_dir_path, question_index)
+        finally:
+            # remove the temp test folder also in a successful test
+            file_helpers.remove_tree(tally_path)
+
+    def test_all(self):
+        borda_tests_path = os.path.join("test", "cumulative_tests")
+        # only use tests that end with a number (ie "test_5" )
+        test_files = [
+          os.path.join(borda_tests_path, f)
+          for f in os.listdir(borda_tests_path)
+          if os.path.isfile(os.path.join(borda_tests_path, f)) and
+          re.match("^test_([0-9]*)$", f) is not None]
+        for testfile_path in test_files:
+            data = test.desborda_test.read_testfile(testfile_path)
+            data["config"] = copy.deepcopy(tally_config_cumulative)
+            self.do_test(test_data=data)
 
 if __name__ == '__main__':
   unittest.main()

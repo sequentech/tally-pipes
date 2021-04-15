@@ -80,7 +80,7 @@ def _verify_tally_sheet(tally_sheet, tally_index):
             isinstance(sheet_question['tally_type'], str),\
             'sheet %d, question %d: tally_type is not a string' % (tally_index, qindex)
         assert\
-            sheet_question['tally_type'] in ['plurality-at-large'],\
+            sheet_question['tally_type'] in ['plurality-at-large', 'cumulative'],\
             'sheet %d, question %d: tally_type is not allowed' % (tally_index, qindex)
 
         assert\

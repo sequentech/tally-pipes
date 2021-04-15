@@ -183,6 +183,7 @@ def pdf_print(election_results, config_folder, election_id):
         elements.append(t)
         tally_type = {
           "plurality-at-large": "Voto en bloque o Escrutinio Mayoritario Plurinominal", 
+          "cumulative": "Voto acumulativo",
           "borda-nauru": "Borda de Nauru o Borda Dowdall (1/n)", 
           "borda": "Borda Count (tradicional)", 
           "pairwise-beta": "Comparación de pares (distribución beta)",

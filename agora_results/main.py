@@ -91,7 +91,7 @@ def extract_tally(fpath):
 def print_csv(data, separator, output_func=print):
     counts = data['results']['questions']
     for question, i in zip(counts, range(len(counts))):
-        if question['tally_type'] not in ["plurality-at-large", "desborda", "desborda2", "desborda3", "borda", "borda-nauru"] or\
+        if question['tally_type'] not in ["plurality-at-large", "desborda", "desborda2", "desborda3", "borda", "borda-nauru", "cumulative"] or\
            question.get('no-tally', False):
             continue
 
@@ -381,6 +381,15 @@ def main(pargs):
                 elif vote == "NULL_VOTE":
                   vote_str += ["NULL_VOTE"]
                   vote_json['ballot_flags']['null_vote'] = True
+                elif question['tally_type'] == 'cumulative':
+                    for v in vote:
+                        vote_str += [
+                            "\"%d. %s\"" % (
+                                v.checks,
+                                question['answers'][v.id]['text']
+                            )
+                        ]
+                        vote_json['answers'][v.id]['ballot_marks'] = v.checks
                 else:
                     vote_str += [
                         "\"%d. %s\"" % (
