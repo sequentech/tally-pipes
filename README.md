@@ -4,7 +4,7 @@
 [tests_link]: https://github.com/agoravoting/agora-results/actions?query=workflow%3A%22Test+python%22
 
 ## Introduction
-
+ 
 Piece of software that processes a tally and given a pipeline it modifies the results. This is useful for example to post-process a tally to:
  - resolve tie-breaks (there can be many different algorithms to do that)
  - apply egalitarian criteria for men and women (sometimes this is even legaly mandated)
