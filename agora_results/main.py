@@ -33,9 +33,9 @@ DEFAULT_PIPELINE = dict(
     pipes=[
         dict(
             type='agora_results.pipes.pdf.configure_pdf',
-            params={
+            params=dict(
                 languages=['en']
-            }
+            )
         ),
         dict(
             type='agora_results.pipes.results.do_tallies',
@@ -469,12 +469,12 @@ def main(pargs):
                     )
 
         if (
-            pargs.stdout or 
             (
-                (pargs.output_format and 'pdf' == pargs.output_format)) and 
-                len(data_list) > 0 and 
-                'results' in data_list[0]
-            )
+                pargs.stdout or 
+                (pargs.output_format and 'pdf' == pargs.output_format)
+            ) and 
+            len(data_list) > 0 and 
+            'results' in data_list[0]
         ):
             print_results(
                 data_list[0], 
