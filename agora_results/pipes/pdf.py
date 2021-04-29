@@ -1,3 +1,4 @@
+
 # -*- coding:utf-8 -*-
 
 # This file is part of agora-results.
@@ -26,8 +27,16 @@ from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.enums import TA_RIGHT, TA_LEFT, TA_CENTER
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import mm
+import gettext
+import os
 
-def configure_pdf(data_list, title = None, first_description_paragraph = None, last_description_paragraph = None):
+def configure_pdf(
+    data_list, 
+    title=None, 
+    first_description_paragraph=None,
+    last_description_paragraph=None,
+    languages=None
+):
     data = data_list[0]
     data['pdf'] = {}
     if title:
@@ -36,8 +45,17 @@ def configure_pdf(data_list, title = None, first_description_paragraph = None, l
         data['pdf']['first_description_paragraph'] = first_description_paragraph
     if last_description_paragraph:
         data['pdf']['last_description_paragraph'] = last_description_paragraph
+    if languages:
+        data['pdf']['languages'] = languages
 
-def gen_text(text, size=None, bold=False, align=None, color='black', fontName=None):
+def gen_text(
+    text,
+    size=None, 
+    bold=False, 
+    align=None, 
+    color='black', 
+    fontName=None
+):
     if not isinstance(text, str):
         text = text.__str__()
     p = ParagraphStyle('test')
@@ -60,7 +78,7 @@ def get_election_cfg(election_id):
     url = '%s/election/%d' % (base_url, election_id)
 
     try:
-      r = requests.get(url, headers=headers, timeout=5)
+        r = requests.get(url, headers=headers, timeout=5)
     except requests.exceptions.Timeout:
       raise Exception('Timeout when requesting election_id = %s' % election_id)
 
@@ -115,15 +133,37 @@ def _header_footer(canvas, doc):
     canvas.restoreState()
 
 def pdf_print(election_results, config_folder, election_id):
+
+    localedir = os.path.join(
+      os.path.abspath(os.path.dirname(__file__)), 
+      'locale'
+    )
+    translate = gettext.translation(
+      'pipes', 
+      localedir, 
+      languages=election_results.get('pdf', dict()).get('languages', None), 
+      fallback=True
+    )
+    _ = translate.gettext
     try:
+      # A continuación se detallan, pregunta por pregunta, los resultados de la votación {election_id} titulada
       jsonconfig = get_election_cfg(election_id)
       election_title = jsonconfig['payload']['configuration']['title']
-      tx_description = 'A continuación se detallan, pregunta por pregunta, los resultados de la votación %d titulada <u>"%s"</u>.'
+      tx_description = _(
+        'Detailed and question by question results of the election ' +
+        '{election_id} titled <u>"{election_title}"</u>.'
+      ).format(
+        election_id=election_id,
+        election_title=election_title
+      )
       tx_title = 'Resultados del escrutinio de la votación %d - %s'
     except:
       election_title = ''
       tx_title = 'Resultados del escrutinio de la votación %d %s'
-      tx_description = 'A continuación se detallan, pregunta por pregunta, los resultados de la votación %d.'
+      tx_description = _(
+        'Detailed and question by question results of the election ' + 
+        '{election_id}.'
+      ).format(election_id=election_id)
 
     pdf_path = os.path.join(config_folder, "%s.results.pdf" % election_id)
     styleSheet = getSampleStyleSheet()
@@ -319,4 +359,9 @@ def pdf_print(election_results, config_folder, election_id):
         t.setStyle(table_style)
         elements.append(t)
         elements.append(Spacer(0, 15))
-    doc.build(elements, onFirstPage=_header_footer, onLaterPages=_header_footer, canvasmaker = NumberedCanvas)
+    doc.build(
+      elements, 
+      onFirstPage=_header_footer, 
+      onLaterPages=_header_footer, 
+      canvasmaker=NumberedCanvas
+    )

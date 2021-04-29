@@ -32,12 +32,18 @@ DEFAULT_PIPELINE = dict(
     version=VERSION,
     pipes=[
         dict(
-        type='agora_results.pipes.results.do_tallies',
-        params={}
+            type='agora_results.pipes.pdf.configure_pdf',
+            params={
+                languages=['en']
+            }
         ),
         dict(
-        type="agora_results.pipes.sort.sort_non_iterative",
-        params={}
+            type='agora_results.pipes.results.do_tallies',
+            params={}
+        ),
+        dict(
+            type="agora_results.pipes.sort.sort_non_iterative",
+            params={}
         )
     ]
 )
@@ -72,7 +78,7 @@ DEFAULT_PIPES_WHITELIST = [
     #"agora_results.pipes.results.apply_removals",
     "agora_results.pipes.sort.sort_non_iterative",
     #"agora_results.pipes.stv_tiebreak.stv_first_round_tiebreak",
-    #"agora_results.pipes.pdf.configure_pdf",
+    "agora_results.pipes.pdf.configure_pdf",
     "agora_results.pipes.withdraw_candidates.withdraw_candidates",
     #"agora_results.pipes.ballot_boxes.count_tally_sheets"
 ]
@@ -126,17 +132,25 @@ def pretty_print(data, output_func=print):
     from agora_results.pipes.pretty_print import pretty_print_not_iterative
     pretty_print_not_iterative([data], output_func=output_func)
 
-def print_results(data, output_format, output_func=print, election_config=None, election_id=None):
+def print_results(
+    data, output_format,
+    output_func=print,
+    election_config=None,
+    election_id=None
+):  
   '''
   print results in the specified output format
   '''
   if "json" == output_format:
-    output_func(json.dumps(
-        data['results'],
-        indent=4,
-        ensure_ascii=False,
-        sort_keys=True,
-        separators=(',', ': ')))
+    output_func(
+        json.dumps(
+            data['results'],
+            indent=4,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(',', ': ')
+        )
+    )
   elif "csv" == output_format:
       print_csv(data, separator=",", output_func=output_func)
   elif "tsv" == output_format:
@@ -445,11 +459,30 @@ def main(pargs):
                     "%d.results.%s" % (pargs.election_id, res_format)
                 )
                 with open(fpath, "w") as f:
-                  output_func = lambda s: f.write(s + "\n")
-                  print_results(data_list[0], res_format, output_func, election_config=priv_results_path, election_id=pargs.election_id)
+                    output_func = lambda s: f.write(s + "\n")
+                    print_results(
+                        data_list[0], 
+                        res_format, 
+                        output_func, 
+                        election_config=priv_results_path, 
+                        election_id=pargs.election_id
+                    )
 
-        if (pargs.stdout or (pargs.output_format and 'pdf' == pargs.output_format)) and len(data_list) > 0 and 'results' in data_list[0]:
-          print_results(data_list[0], pargs.output_format, print, election_config=config_folder, election_id=pargs.election_id)
+        if (
+            pargs.stdout or 
+            (
+                (pargs.output_format and 'pdf' == pargs.output_format)) and 
+                len(data_list) > 0 and 
+                'results' in data_list[0]
+            )
+        ):
+            print_results(
+                data_list[0], 
+                pargs.output_format, 
+                print, 
+                election_config=config_folder, 
+                election_id=pargs.election_id
+            )
 
     finally:
         if not pargs.stdout:
