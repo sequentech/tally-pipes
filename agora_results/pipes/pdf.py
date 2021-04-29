@@ -40,12 +40,18 @@ def configure_pdf(
     data = data_list[0]
     data['pdf'] = {}
     if title:
+        assert(isinstance(title, str))
         data['pdf']['title'] = title
     if first_description_paragraph:
+        assert(isinstance(first_description_paragraph, str))
         data['pdf']['first_description_paragraph'] = first_description_paragraph
     if last_description_paragraph:
+        assert(isinstance(last_description_paragraph, str))
         data['pdf']['last_description_paragraph'] = last_description_paragraph
     if languages:
+        assert(isinstance(languages, list))
+        for language in languages:
+            assert(isinstance(language, str))
         data['pdf']['languages'] = languages
 
 def gen_text(
