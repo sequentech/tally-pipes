@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Agora Results 20.4\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-04-29 11:12+0200\n"
+"POT-Creation-Date: 2021-04-29 16:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,15 +18,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: agora_results/pipes/pdf.py:129
+#: agora_results/pipes/pdf.py:158
 msgid ""
 "Detailed and question by question results of the election {election_id} "
 "titled <u>\"{election_title}\"</u>."
-msgstr "A continuación se detallan, pregunta por pregunta, los resultados "
-"de la votación {election_id} titulada <u>\"{election_title}\"</u>."
+msgstr ""
 
-#: agora_results/pipes/pdf.py:137
+#: agora_results/pipes/pdf.py:169
 msgid "Detailed and question by question results of the election {election_id}."
-msgstr "A continuación se detallan, pregunta por pregunta, los resultados "
-"de la votación {election_id}."
+msgstr ""
 

@@ -22,8 +22,10 @@ msgid ""
 "Detailed and question by question results of the election {election_id} "
 "titled <u>\"{election_title}\"</u>."
 msgstr ""
+"A continuación se detallan, pregunta por pregunta, los resultados "
+"de la votación {election_id} titulada <u>\"{election_title}\"</u>."
 
 #: agora_results/pipes/pdf.py:137
 msgid "Detailed and question by question results of the election {election_id}."
-msgstr ""
-
+msgstr "A continuación se detallan, pregunta por pregunta, los resultados "
+"de la votación {election_id}."
