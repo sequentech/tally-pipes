@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Agora Results 20.4\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-04-29 16:37+0200\n"
+"POT-Creation-Date: 2021-04-30 09:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,13 +18,137 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: agora_results/pipes/pdf.py:158
+#: agora_results/pipes/pdf.py:175
 msgid ""
 "Detailed and question by question results of the election {election_id} "
 "titled <u>\"{election_title}\"</u>."
 msgstr ""
 
-#: agora_results/pipes/pdf.py:169
-msgid "Detailed and question by question results of the election {election_id}."
+#: agora_results/pipes/pdf.py:182
+msgid "Results of the election tally {election_id} - {election_title}"
+msgstr ""
+
+#: agora_results/pipes/pdf.py:262
+msgid "Question {question_index}: {question_title}"
+msgstr ""
+
+#: agora_results/pipes/pdf.py:274
+msgid "Configuration Data"
+msgstr ""
+
+#: agora_results/pipes/pdf.py:287
+msgid "First past the post, Plurality or Plurality at Large"
+msgstr ""
+
+#: agora_results/pipes/pdf.py:290
+msgid "Cumulative voting"
+msgstr ""
+
+#: agora_results/pipes/pdf.py:291
+msgid "Borda Nauru or Borda Dowdall (1/n)"
+msgstr ""
+
+#: agora_results/pipes/pdf.py:293
+msgid "Pairwise comparison (beta distribution)"
+msgstr ""
+
+#: agora_results/pipes/pdf.py:294
+msgid "Desborda3"
+msgstr ""
+
+#: agora_results/pipes/pdf.py:295
+msgid "Desborda2"
+msgstr ""
+
+#: agora_results/pipes/pdf.py:296
+msgid "Desborda"
+msgstr ""
+
+#: agora_results/pipes/pdf.py:301
+msgid "Tally system"
+msgstr ""
+
+#: agora_results/pipes/pdf.py:308
+msgid "Minimum number of options a voter can select"
+msgstr ""
+
+#: agora_results/pipes/pdf.py:315
+msgid "Maximum number of options a voter can select"
+msgstr ""
+
+#: agora_results/pipes/pdf.py:322
+msgid "Number of winning options"
+msgstr ""
+
+#: agora_results/pipes/pdf.py:329
+msgid "Options appear in the voting booth in random order"
+msgstr ""
+
+#: agora_results/pipes/pdf.py:333
+msgid "Yes"
+msgstr ""
+
+#: agora_results/pipes/pdf.py:338
+msgid "No"
+msgstr ""
+
+#: agora_results/pipes/pdf.py:360
+msgid "Participation in question {question_index}"
+msgstr ""
+
+#: agora_results/pipes/pdf.py:379
+msgid "Total number of votes cast"
+msgstr ""
+
+#: agora_results/pipes/pdf.py:384
+msgid "Blank votes"
+msgstr ""
+
+#: agora_results/pipes/pdf.py:387
+msgid "{blank_votes} ({percentage:.2%} over the total number of votes)"
+msgstr ""
+
+#: agora_results/pipes/pdf.py:399
+msgid "Null votes"
+msgstr ""
+
+#: agora_results/pipes/pdf.py:401
+msgid "{null_votes} ({percentage:.2%} over the total number of votes)"
+msgstr ""
+
+#: agora_results/pipes/pdf.py:414
+msgid "Total number of votes for options:"
+msgstr ""
+
+#: agora_results/pipes/pdf.py:418
+msgid "{valid_votes} ({percentage:.2%} over the total number of votes)"
+msgstr ""
+
+#: agora_results/pipes/pdf.py:431
+msgid "Voting period start date"
+msgstr ""
+
+#: agora_results/pipes/pdf.py:446
+msgid "Voting period end date"
+msgstr ""
+
+#: agora_results/pipes/pdf.py:460
+msgid "Tally end date"
+msgstr ""
+
+#: agora_results/pipes/pdf.py:487
+msgid "Candidate results"
+msgstr ""
+
+#: agora_results/pipes/pdf.py:524
+msgid "Name"
+msgstr ""
+
+#: agora_results/pipes/pdf.py:529
+msgid "Points"
+msgstr ""
+
+#: agora_results/pipes/pdf.py:534
+msgid "Winning position"
 msgstr ""
 

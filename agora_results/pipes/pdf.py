@@ -137,7 +137,11 @@ def _header_footer(canvas, doc):
     styles = getSampleStyleSheet()
 
     # Header
-    header = Image('/home/agoraelections/agora-results/img/nvotes_logo.jpg', height = 20, width = 80)
+    header = Image(
+        '/home/agoraelections/agora-results/img/nvotes_logo.jpg',
+        height=20,
+        width=80
+    )
     header.hAlign = 'RIGHT'
     w, h = header.wrap(doc.width, doc.topMargin)
     header.drawOn(
@@ -163,24 +167,24 @@ def pdf_print(election_results, config_folder, election_id):
     )
     _ = translate.gettext
     try:
-      jsonconfig = get_election_cfg(election_id)
-      election_title = jsonconfig['payload']['configuration']['title']
-      tx_description = _(
+        jsonconfig = get_election_cfg(election_id)
+        election_title = jsonconfig['payload']['configuration']['title']
+    except:
+        election_title = ""
+
+    tx_description = _(
         'Detailed and question by question results of the election ' +
         '{election_id} titled <u>"{election_title}"</u>.'
-      ).format(
+    ).format(
         election_id=election_id,
         election_title=election_title
-      )
-      tx_title = 'Resultados del escrutinio de la votación %d - %s'
-    except:
-      election_title = ''
-      tx_title = 'Resultados del escrutinio de la votación %d %s'
-      tx_description = _(
-        'Detailed and question by question results of the election ' + 
-        '{election_id}.'
-      ).format(election_id=election_id)
-
+    )
+    tx_title = _(
+        'Results of the election tally {election_id} - {election_title}'
+    ).format(
+        election_id=election_id,
+        election_title=election_title
+    )
     pdf_path = os.path.join(config_folder, "%s.results.pdf" % election_id)
     styleSheet = getSampleStyleSheet()
     doc = SimpleDocTemplate(
@@ -191,14 +195,16 @@ def pdf_print(election_results, config_folder, election_id):
         bottomMargin=80
     )
     elements = []
-    tx_question_title = 'Pregunta %d: %s'
-    the_title = tx_title % (election_id, election_title)
+    the_title = tx_title
     if 'pdf' in election_results and 'title' in election_results['pdf']:
         the_title = election_results['pdf']['title']
     elements.append(Spacer(0, 15))
     elements.append(gen_text(the_title, size=20, bold=True, align = TA_LEFT))
     elements.append(Spacer(0, 15))
-    if 'pdf' in election_results and 'first_description_paragraph' in election_results['pdf']:
+    if (
+        'pdf' in election_results and 
+        'first_description_paragraph' in election_results['pdf']
+    ):
         elements.append(
             gen_text(
                 election_results['pdf']['first_description_paragraph'], 
@@ -209,7 +215,10 @@ def pdf_print(election_results, config_folder, election_id):
         elements.append(Spacer(0, 15))
     elements.append(gen_text(tx_description, size=12, align = TA_LEFT))
     elements.append(Spacer(0, 15))
-    if 'pdf' in election_results and 'last_description_paragraph' in election_results['pdf']:
+    if (
+        'pdf' in election_results and 
+        'last_description_paragraph' in election_results['pdf']
+    ):
         elements.append(
             gen_text(
                 election_results['pdf']['last_description_paragraph'],
@@ -239,23 +248,33 @@ def pdf_print(election_results, config_folder, election_id):
 
         percent_base = question['answer_total_votes_percentage']
         if percent_base == "over-total-votes":
-          base_num = total_votes
+            base_num = total_votes
         elif percent_base == "over-total-valid-votes":
-          base_num = question['totals']['valid_votes']
-        elif "over-total-valid-points" == percent_base \
-          and "valid_points" in question['totals']:
+            base_num = question['totals']['valid_votes']
+        elif (
+            "over-total-valid-points" == percent_base and
+            "valid_points" in question['totals']
+        ):
           base_num = question['totals']['valid_points']
 
         elements.append(
             gen_text(
-                tx_question_title % (i+1, question['title']),
+                _('Question {question_index}: {question_title}').format(
+                    question_index=i+1,
+                    question_title=question['title']
+                ),
                 size=15,
                 bold=True,
                 align=TA_LEFT
             )
         )
         elements.append(Spacer(0, 15))
-        t = Table([[gen_text('Datos de configuración', align=TA_CENTER)]])
+        t = Table([[
+            gen_text(
+                _('Configuration Data'),
+                align=TA_CENTER
+            )
+        ]])
         table_style = TableStyle(
             [
                 ('BACKGROUND',(0,0),(-1,-1),'#b6d7a8'),
@@ -265,35 +284,60 @@ def pdf_print(election_results, config_folder, election_id):
         t.setStyle(table_style)
         elements.append(t)
         tally_type = {
-          "plurality-at-large": "Voto en bloque o Escrutinio Mayoritario Plurinominal", 
-          "cumulative": "Voto acumulativo",
-          "borda-nauru": "Borda de Nauru o Borda Dowdall (1/n)", 
-          "borda": "Borda Count (tradicional)", 
-          "pairwise-beta": "Comparación de pares (distribución beta)",
-          "desborda3": "Desborda3",
-          "desborda2": "Desborda2",
-          "desborda": "Desborda"
+            "plurality-at-large": _(
+              "First past the post, Plurality or Plurality at Large"
+            ), 
+            "cumulative": _("Cumulative voting"),
+            "borda-nauru": _("Borda Nauru or Borda Dowdall (1/n)"), 
+            "borda": "Borda Count (traditional)", 
+            "pairwise-beta": _("Pairwise comparison (beta distribution)"),
+            "desborda3": _("Desborda3"),
+            "desborda2": _("Desborda2"),
+            "desborda":  _("Desborda")
         }
         data = [
           [
-            gen_text('Sistema de recuento', align=TA_RIGHT),
-            gen_text(tally_type[question['tally_type']], align=TA_LEFT)
+              gen_text(
+                  _('Tally system'),
+                  align=TA_RIGHT
+              ),
+              gen_text(tally_type[question['tally_type']], align=TA_LEFT)
           ],
           [
-            gen_text('Número mínimo de opciones que puede seleccionar un votante', align=TA_RIGHT),
-            gen_text(str(question['min']), align=TA_LEFT)
+              gen_text(
+                  _('Minimum number of options a voter can select'),
+                  align=TA_RIGHT
+              )
+              gen_text(str(question['min']), align=TA_LEFT)
           ],
           [
-            gen_text('Número máximo de opciones que puede seleccionar un votante', align=TA_RIGHT),
-            gen_text(str(question['max']), align=TA_LEFT)
+              gen_text(
+                  _('Maximum number of options a voter can select'),
+                  align=TA_RIGHT
+              ),
+              gen_text(str(question['max']), align=TA_LEFT)
           ],
           [
-            gen_text('Número de opciones ganadoras', align=TA_RIGHT),
-            gen_text(str(question['num_winners']), align=TA_LEFT)
+              gen_text(
+                  _('Number of winning options'), 
+                  align=TA_RIGHT
+              ),
+              gen_text(str(question['num_winners']), align=TA_LEFT)
           ],
           [
-            gen_text('Las opciones aparecen en la cabina de votación en orden aleatorio', align=TA_RIGHT), 
-            gen_text('Sí' if 'shuffle_all_options' in question['extra_options'] and question['extra_options']['shuffle_all_options'] else 'No', align=TA_LEFT)
+              gen_text(
+                  _('Options appear in the voting booth in random order'),
+                  align=TA_RIGHT
+              ), 
+              gen_text(
+                  _('Yes') 
+                  if (
+                      'shuffle_all_options' in question['extra_options'] and 
+                      question['extra_options']['shuffle_all_options']
+                  )
+                  else _('No'), 
+                  align=TA_LEFT
+              )
           ]
         ]
         table_style = TableStyle(
@@ -312,7 +356,10 @@ def pdf_print(election_results, config_folder, election_id):
             [
                 [
                     gen_text(
-                        'Participación en pregunta %d' % (i + 1),
+                        # Participación en pregunta
+                        _('Participation in question {question_index}').format(
+                            question_index=i + 1
+                        ),
                         align=TA_CENTER
                     )
                 ]
@@ -327,34 +374,100 @@ def pdf_print(election_results, config_folder, election_id):
         t.setStyle(table_style)
         elements.append(t)
         data = [
-          [
-            gen_text('Número total de votos emitidos', align=TA_RIGHT),
-            gen_text(str(total_votes), align=TA_LEFT)
-          ],
-          [
-            gen_text('Votos en blanco', align=TA_RIGHT),
-            gen_text("%d (%0.2f%% sobre el número total de votos)" % (blank_votes, get_percentage(blank_votes, total_votes)), align=TA_LEFT)
-          ],
-          [
-            gen_text('Votos nulos', align=TA_RIGHT),
-            gen_text("%d (%0.2f%% sobre el número total de votos)" % (null_votes, get_percentage(null_votes, total_votes)), align=TA_LEFT)
-          ],
-          [
-            gen_text('Número total de votos a opciones:', align=TA_RIGHT),
-            gen_text("%d (%0.2f%% sobre el número total de votos)" % (valid_votes, get_percentage(valid_votes, total_votes)), align=TA_LEFT)
-          ],
-          [
-            gen_text('Fecha de inicio del período de voto', align=TA_RIGHT),
-            gen_text(str(datetime.strptime(jsonconfig['payload']['startDate'], '%Y-%m-%dT%H:%M:%S.%f')), align=TA_LEFT)
-          ],
-          [
-            gen_text('Fecha de fin del período de voto', align=TA_RIGHT),
-            gen_text(str(datetime.strptime(jsonconfig['payload']['endDate'], '%Y-%m-%dT%H:%M:%S.%f')), align=TA_LEFT)
-          ],
-          [
-            gen_text('Fecha de finalización del escrutinio', align=TA_RIGHT),
-            gen_text(str(datetime.strptime(jsonconfig['date'], '%Y-%m-%d %H:%M:%S.%f')), align=TA_LEFT)
-          ]
+            [
+                # Número total de votos emitidos
+                gen_text(_('Total number of votes cast'), align=TA_RIGHT),
+                gen_text(str(total_votes), align=TA_LEFT)
+            ],
+            [
+                # Votos en blanco
+                gen_text(_('Blank votes'), align=TA_RIGHT),
+                # %d (%0.2f%% sobre el número total de votos)
+                gen_text(
+                    _(
+                        "{blank_votes} ({percentage:.2%} over the total " + 
+                        "number of votes)"
+                    ).format(
+                        blank_votes=blank_votes,
+                        percentage=get_percentage(blank_votes, total_votes)
+                    ),
+                    align=TA_LEFT
+                )
+            ],
+            [
+                # Votos nulos
+                gen_text(_('Null votes'), align=TA_RIGHT),
+                gen_text(
+                    _(
+                        "{null_votes} ({percentage:.2%} over the total " +
+                        "number of votes)"
+                    ).format(
+                        null_votes=null_votes,
+                        percentage=get_percentage(null_votes, total_votes)
+                    ),
+                    align=TA_LEFT
+                )
+            ],
+            [
+                # Número total de votos a opciones
+                gen_text(
+                    _('Total number of votes for options:'),
+                    align=TA_RIGHT
+                ),
+                gen_text(
+                    _(
+                        "{valid_votes} ({percentage:.2%} over the total " +
+                        "number of votes)"
+                    ).format(
+                        valid_votes=valid_votes,
+                        percentage=get_percentage(valid_votes, total_votes)
+                    ),
+                    align=TA_LEFT
+                )
+            ],
+            [
+                # Fecha de inicio del período de voto
+                gen_text(
+                    _('Voting period start date'),
+                    align=TA_RIGHT
+                ),
+                gen_text(
+                    str(
+                        datetime.strptime(
+                            jsonconfig['payload']['startDate'],
+                            '%Y-%m-%dT%H:%M:%S.%f'
+                        )
+                    ),
+                    align=TA_LEFT
+                )
+            ],
+            [
+                gen_text(
+                    _('Voting period end date'),
+                    align=TA_RIGHT
+                ),
+                gen_text(
+                    str(
+                        datetime.strptime(
+                            jsonconfig['payload']['endDate'], 
+                            '%Y-%m-%dT%H:%M:%S.%f'
+                        )
+                    ),
+                    align=TA_LEFT
+                )
+            ],
+            [
+              gen_text(_('Tally end date'), align=TA_RIGHT),
+              gen_text(
+                  str(
+                      datetime.strptime(
+                          jsonconfig['date'], 
+                          '%Y-%m-%d %H:%M:%S.%f'
+                      )
+                  ),
+                  align=TA_LEFT
+              )
+            ]
         ]
         table_style = TableStyle(
             [
@@ -368,7 +481,13 @@ def pdf_print(election_results, config_folder, election_id):
         elements.append(t)
         elements.append(Spacer(0, 15))
 
-        t = Table([[gen_text('Resultados de las candidaturas', align=TA_CENTER)]])
+        t = Table([[
+            gen_text(
+                # Resultados de las candidaturas
+                _('Candidate results'), 
+                align=TA_CENTER
+            )
+        ]])
         table_style = TableStyle(
             [
                 ('BACKGROUND',(0,0),(-1,-1),'#b6d7a8'),
@@ -399,11 +518,23 @@ def pdf_print(election_results, config_folder, election_id):
             reverse=True
         )
         data = [
-          [
-            gen_text('Nombre', align=TA_RIGHT),
-            gen_text('Número de puntos', align=TA_CENTER),
-            gen_text('¿Posición ganadora?', align=TA_LEFT)
-          ]
+            [
+              gen_text(
+                  # Nombre
+                  _('Name'),
+                  align=TA_RIGHT
+              ),
+              gen_text(
+                  # Points
+                  _('Points'),
+                  align=TA_CENTER
+              ),
+              gen_text(
+                  # Posición ganadora
+                  _('Winning position'),
+                  align=TA_LEFT
+              )
+            ]
         ]
         table_style = TableStyle(
             [
@@ -418,19 +549,39 @@ def pdf_print(election_results, config_folder, election_id):
             data.append(
                 [
                     gen_text(answer['text'], bold = True, align=TA_RIGHT),
-                    gen_text('%d (%0.2f%%)' % (answer['total_count'], get_percentage(answer['total_count'],   base_num)), bold = True, align=TA_CENTER),
-                    gen_text('%dº' % ( answer['winner_position'] + 1 ), bold = True, align=TA_LEFT)
+                    gen_text(
+                        '%d (%0.2f%%)' % (
+                            answer['total_count'], 
+                            get_percentage(
+                                answer['total_count'],
+                                base_num
+                            )
+                        ),
+                        bold=True,
+                        align=TA_CENTER
+                    ),
+                    gen_text(
+                        '%dº' % (answer['winner_position'] + 1),
+                        bold=True,
+                        align=TA_LEFT
+                    )
                 ]
             )
         for answer in losers:
             data.append(
                 [
                     gen_text(answer['text'], align=TA_RIGHT),
-                    gen_text('%d (%0.2f%%)' % (answer['total_count'], get_percentage(answer['total_count'],   base_num)), align=TA_CENTER),
-                    gen_text('No', align = TA_LEFT)
+                    gen_text(
+                        '%d (%0.2f%%)' % (
+                            answer['total_count'],
+                            get_percentage(answer['total_count'], base_num)
+                        ),
+                        align=TA_CENTER
+                    ),
+                    gen_text('-', align=TA_LEFT)
                 ]
             )
-        t=Table(data)
+        t = Table(data)
         t.setStyle(table_style)
         elements.append(t)
         elements.append(Spacer(0, 15))
