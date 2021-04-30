@@ -54,6 +54,11 @@ You can of course take a look at the available pipes in the agora_results/pipes/
 
 This software is in development state, that's why we haven't released any stable version yet. Patches and new pipes are welcome. We will review the pipe so that it does what is expected.
 
+## Internationalization
+
+Some of these pipes uses gettext for internationalization, like the PDF generation pipes. We use Babel and
+mainly followed the guide here: https://www.mattlayman.com/blog/2015/i18n/
+
 ## More
 
 You can see all the available commands with:

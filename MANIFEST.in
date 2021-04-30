@@ -1,2 +1,3 @@
-recursive-include agora_tongo *.py
+recursive-include agora_results *.py
+recursive-include agora_results/pipes/locale *
 include *md *txt AUTHORS
