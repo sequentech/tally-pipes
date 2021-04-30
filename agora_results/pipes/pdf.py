@@ -236,7 +236,7 @@ def pdf_print(election_results, config_folder, election_id):
       if base == 0:
           return 0
       else:
-        return num*100.0/base
+        return num/base
 
     counts = election_results['results']['questions']
     for question, i in zip(counts, range(len(counts))):
