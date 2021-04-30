@@ -356,7 +356,6 @@ def pdf_print(election_results, config_folder, election_id):
             [
                 [
                     gen_text(
-                        # Participación en pregunta
                         _('Participation in question {question_index}').format(
                             question_index=i + 1
                         ),
@@ -375,14 +374,11 @@ def pdf_print(election_results, config_folder, election_id):
         elements.append(t)
         data = [
             [
-                # Número total de votos emitidos
                 gen_text(_('Total number of votes cast'), align=TA_RIGHT),
                 gen_text(str(total_votes), align=TA_LEFT)
             ],
             [
-                # Votos en blanco
                 gen_text(_('Blank votes'), align=TA_RIGHT),
-                # %d (%0.2f%% sobre el número total de votos)
                 gen_text(
                     _(
                         "{blank_votes} ({percentage:.2%} over the total " + 
@@ -395,7 +391,6 @@ def pdf_print(election_results, config_folder, election_id):
                 )
             ],
             [
-                # Votos nulos
                 gen_text(_('Null votes'), align=TA_RIGHT),
                 gen_text(
                     _(
@@ -409,9 +404,8 @@ def pdf_print(election_results, config_folder, election_id):
                 )
             ],
             [
-                # Número total de votos a opciones
                 gen_text(
-                    _('Total number of votes for options:'),
+                    _('Total number of votes for options'),
                     align=TA_RIGHT
                 ),
                 gen_text(
@@ -426,7 +420,6 @@ def pdf_print(election_results, config_folder, election_id):
                 )
             ],
             [
-                # Fecha de inicio del período de voto
                 gen_text(
                     _('Voting period start date'),
                     align=TA_RIGHT
@@ -483,7 +476,6 @@ def pdf_print(election_results, config_folder, election_id):
 
         t = Table([[
             gen_text(
-                # Resultados de las candidaturas
                 _('Candidate results'), 
                 align=TA_CENTER
             )
@@ -520,17 +512,14 @@ def pdf_print(election_results, config_folder, election_id):
         data = [
             [
               gen_text(
-                  # Nombre
                   _('Name'),
                   align=TA_RIGHT
               ),
               gen_text(
-                  # Points
                   _('Points'),
                   align=TA_CENTER
               ),
               gen_text(
-                  # Posición ganadora
                   _('Winning position'),
                   align=TA_LEFT
               )
@@ -550,13 +539,7 @@ def pdf_print(election_results, config_folder, election_id):
                 [
                     gen_text(answer['text'], bold = True, align=TA_RIGHT),
                     gen_text(
-                        '%d (%0.2f%%)' % (
-                            answer['total_count'], 
-                            get_percentage(
-                                answer['total_count'],
-                                base_num
-                            )
-                        ),
+                        '%d' % answer['total_count'],
                         bold=True,
                         align=TA_CENTER
                     ),
@@ -572,10 +555,7 @@ def pdf_print(election_results, config_folder, election_id):
                 [
                     gen_text(answer['text'], align=TA_RIGHT),
                     gen_text(
-                        '%d (%0.2f%%)' % (
-                            answer['total_count'],
-                            get_percentage(answer['total_count'], base_num)
-                        ),
+                        '%d' % answer['total_count'],
                         align=TA_CENTER
                     ),
                     gen_text('-', align=TA_LEFT)

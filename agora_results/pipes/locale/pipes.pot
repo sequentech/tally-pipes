@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Agora Results 20.4\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-04-30 09:16+0200\n"
+"POT-Creation-Date: 2021-04-30 09:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -92,63 +92,63 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: agora_results/pipes/pdf.py:360
+#: agora_results/pipes/pdf.py:359
 msgid "Participation in question {question_index}"
 msgstr ""
 
-#: agora_results/pipes/pdf.py:379
+#: agora_results/pipes/pdf.py:377
 msgid "Total number of votes cast"
 msgstr ""
 
-#: agora_results/pipes/pdf.py:384
+#: agora_results/pipes/pdf.py:381
 msgid "Blank votes"
 msgstr ""
 
-#: agora_results/pipes/pdf.py:387
+#: agora_results/pipes/pdf.py:383
 msgid "{blank_votes} ({percentage:.2%} over the total number of votes)"
 msgstr ""
 
-#: agora_results/pipes/pdf.py:399
+#: agora_results/pipes/pdf.py:394
 msgid "Null votes"
 msgstr ""
 
-#: agora_results/pipes/pdf.py:401
+#: agora_results/pipes/pdf.py:396
 msgid "{null_votes} ({percentage:.2%} over the total number of votes)"
 msgstr ""
 
-#: agora_results/pipes/pdf.py:414
-msgid "Total number of votes for options:"
+#: agora_results/pipes/pdf.py:408
+msgid "Total number of votes for options"
 msgstr ""
 
-#: agora_results/pipes/pdf.py:418
+#: agora_results/pipes/pdf.py:412
 msgid "{valid_votes} ({percentage:.2%} over the total number of votes)"
 msgstr ""
 
-#: agora_results/pipes/pdf.py:431
+#: agora_results/pipes/pdf.py:424
 msgid "Voting period start date"
 msgstr ""
 
-#: agora_results/pipes/pdf.py:446
+#: agora_results/pipes/pdf.py:439
 msgid "Voting period end date"
 msgstr ""
 
-#: agora_results/pipes/pdf.py:460
+#: agora_results/pipes/pdf.py:453
 msgid "Tally end date"
 msgstr ""
 
-#: agora_results/pipes/pdf.py:487
+#: agora_results/pipes/pdf.py:479
 msgid "Candidate results"
 msgstr ""
 
-#: agora_results/pipes/pdf.py:524
+#: agora_results/pipes/pdf.py:515
 msgid "Name"
 msgstr ""
 
-#: agora_results/pipes/pdf.py:529
+#: agora_results/pipes/pdf.py:519
 msgid "Points"
 msgstr ""
 
-#: agora_results/pipes/pdf.py:534
+#: agora_results/pipes/pdf.py:523
 msgid "Winning position"
 msgstr ""
 

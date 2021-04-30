@@ -118,8 +118,8 @@ msgid "{null_votes} ({percentage:.2%} over the total number of votes)"
 msgstr "{null_votes} ({percentage:.2%} sobre el número total de votos)"
 
 #: agora_results/pipes/pdf.py:414
-msgid "Total number of votes for options:"
-msgstr "Número total de votos a opciones:"
+msgid "Total number of votes for options"
+msgstr "Número total de votos a opciones"
 
 #: agora_results/pipes/pdf.py:418
 msgid "{valid_votes} ({percentage:.2%} over the total number of votes)"
