@@ -307,7 +307,7 @@ def pdf_print(election_results, config_folder, election_id):
               gen_text(
                   _('Minimum number of options a voter can select'),
                   align=TA_RIGHT
-              )
+              ),
               gen_text(str(question['min']), align=TA_LEFT)
           ],
           [
