@@ -227,7 +227,7 @@ def pdf_print(election_results, config_folder, election_id):
             )
         )
         elements.append(Spacer(0, 15))
-    doc.title = tx_title % (election_id, election_title)
+    doc.title = tx_title
 
     '''
     Returns the percentage points, ensuring it works with base=0
