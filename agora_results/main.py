@@ -387,37 +387,64 @@ def main(pargs):
                         vote_answer[key] = value
                     # empty urls
                     vote_answer['urls'] = []
+                    if 'winner_position' in vote_answer:
+                        del vote_answer['winner_position']
 
                 # detect blank and null votes and mark accordingly
                 if vote == "BLANK_VOTE":
-                  vote_str += ["BLANK_VOTE"]
-                  vote_json['ballot_flags']['blank_vote'] = True
+                    vote_str += ["BLANK_VOTE"]
+                    vote_json['ballot_flags']['blank_vote'] = True
                 elif vote == "NULL_VOTE":
-                  vote_str += ["NULL_VOTE"]
-                  vote_json['ballot_flags']['null_vote'] = True
-                elif question['tally_type'] == 'cumulative':
-                    for v in vote:
-                        vote_str += [
-                            "\"%d. %s\"" % (
-                                v.checks,
-                                question['answers'][v.id]['text']
-                            )
-                        ]
-                        vote_json['answers'][v.id]['ballot_marks'] = v.checks
+                    vote_str += ["NULL_VOTE"]
+                    vote_json['ballot_flags']['null_vote'] = True
                 else:
-                    vote_str += [
-                        "\"%d. %s\"" % (
-                            answer_index, 
-                            question['answers'][answer_index]['text']
-                        ) 
-                        for answer_index in vote
-                    ]
-                    if question['tally_type'] == 'plurality-at-large':
-                        for mark_position, answer_index in enumerate(vote):
-                            vote_json['answers'][answer_index]['ballot_marks'] = 1
+                    if question['tally_type'] != 'cumulative':
+                        sorted_vote = sorted(
+                            list(vote),
+                            key=lambda choice: choice.points,
+                            reverse=True
+                        )
                     else:
-                        for mark_position, answer_index in enumerate(vote):
-                            vote_json['answers'][answer_index]['ballot_marks'] = mark_position
+                        sorted_vote = vote
+                    for mark_position, choice in enumerate(sorted_vote):
+                        answer_index = None
+                        choice_answer = None
+                        if isinstance(choice.id, str):
+                            for answer in question['answers']:
+                                if answer['text'] == choice.id:
+                                    choice_answer = answer
+                                    break
+                            answer_index = choice_answer["id"]
+                        else:
+                            choice_answer = question['answers'][choice.id]
+                            answer_index = choice.id
+
+                        if question['tally_type'] == 'cumulative':
+                            vote_str += [
+                                "\"%d. %s\"" % (
+                                    choice.points,
+                                    choice_answer['text']
+                                )
+                            ]
+                            vote_json['answers'][answer_index]['ballot_marks'] = choice.points
+                        elif question['tally_type'] in ['desborda', 'desborda2', 'desborda3']:
+                            vote_str += [
+                                "\"%d. %s\"" % (
+                                    choice.points,
+                                    choice_answer['text']
+                                )
+                            ]
+                        else:
+                            vote_str += [
+                                "\"%d. %s\"" % (
+                                    choice_answer['id'],
+                                    choice_answer['text']
+                                )
+                            ]
+                            if question['tally_type'] == 'plurality-at-large':
+                                vote_json['answers'][answer_index]['ballot_marks'] = 1
+                            else:
+                                vote_json['answers'][answer_index]['ballot_marks'] = mark_position
 
                     # Remove answers not marked by the voter
                     vote_json['answers'] = [x for x in vote_json['answers'] if 'ballot_marks' in x]
