@@ -427,27 +427,28 @@ def main(pargs):
                                 )
                             ]
                             vote_json['answers'][answer_index]['ballot_marks'] = choice.points
-                        elif question['tally_type'] in ['desborda', 'desborda2', 'desborda3']:
-                            vote_str += [
-                                "\"%d. %s\"" % (
-                                    choice.points,
-                                    choice_answer['text']
-                                )
-                            ]
                         else:
-                            vote_str += [
-                                "\"%d. %s\"" % (
-                                    choice_answer['id'],
-                                    choice_answer['text']
-                                )
-                            ]
-                            if question['tally_type'] == 'plurality-at-large':
-                                vote_json['answers'][answer_index]['ballot_marks'] = 1
+                            if question['tally_type'] in ['desborda', 'desborda2', 'desborda3']:
+                                vote_str += [
+                                    "\"%d. %s\"" % (
+                                        choice.points,
+                                        choice_answer['text']
+                                    )
+                                ]
                             else:
-                                vote_json['answers'][answer_index]['ballot_marks'] = mark_position
-
-                    # Remove answers not marked by the voter
-                    vote_json['answers'] = [x for x in vote_json['answers'] if 'ballot_marks' in x]
+                                vote_str += [
+                                    "\"%d. %s\"" % (
+                                        choice_answer['id'],
+                                        choice_answer['text']
+                                    )
+                                ]
+                                if question['tally_type'] == 'plurality-at-large':
+                                    vote_json['answers'][answer_index]['ballot_marks'] = 1
+                                else:
+                                    vote_json['answers'][answer_index]['ballot_marks'] = mark_position
+                            
+                            # Remove answers not marked by the voter in non-cumulative
+                            vote_json['answers'] = [x for x in vote_json['answers'] if 'ballot_marks' in x]
 
                 ballots_csv_file.write(",".join(vote_str,) + "\n")
                 # we sort keys to make it reproducible
