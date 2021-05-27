@@ -20,6 +20,7 @@ import subprocess
 import json
 import requests
 from datetime import datetime
+import gettext
 
 def pretty_print_stv_winners(data_list, output_func=print):
     data = data_list[0]
@@ -108,16 +109,21 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_names, output_f
                 if answer['winner_position'] != None],
                 key=lambda a: a['winner_position'])
             for answer in winners:
+                answer_text = answer['text']
+                if dict(title='isWriteInResult', url='true') in answer.get('urls', []):
+                    answer_text = _('{candidate_text} (Write-in)').format(
+                        candidate_text=answer['text']
+                    )
                 if not show_percent:
                     output_func("%d. %s (%0.2f %s)" % (
                         i,
-                        answer['text'],
+                        answer_text,
                         answer['total_count'],
                         count_type))
                 else:
                     output_func("%d. %s (%0.2f %s, %0.2f%%)" % (
                         i,
-                        answer['text'],
+                        answer_text,
                         answer['total_count'],
                         count_type,
                         get_percentage(answer['total_count'], base_num)))
@@ -130,14 +136,19 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_names, output_f
                 key=lambda a: float(a['total_count']), reverse=True)
 
             for loser in losers:
+                loser_text = answer['text']
+                if dict(title='isWriteInResult', url='true') in answer.get('urls', []):
+                    loser_text = _('{candidate_text} (Write-in)').format(
+                        candidate_text=answer['text']
+                    )
                 if not show_percent:
                     output_func("N. %s (%0.2f %s)" % (
-                        loser['text'],
+                        loser_text,
                         loser['total_count'],
                         count_type))
                 else:
                     output_func("N. %s (%0.2f %s, %0.2f%%)" % (
-                        loser['text'],
+                        loser_text,
                         loser['total_count'],
                         count_type,
                         get_percentage(loser['total_count'], base_num)))
@@ -148,16 +159,21 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_names, output_f
                 key=lambda a: float(a['total_count']), reverse=True)
 
             for i, answer in zip(range(len(answers)), answers):
+                answer_text = answer['text']
+                if dict(title='isWriteInResult', url='true') in answer.get('urls', []):
+                    answer_text = _('{candidate_text} (Write-in)').format(
+                        candidate_text=answer['text']
+                    )
                 if not show_percent:
                     output_func("%d. %s (%0.2f %s)" % (
                         i + 1,
-                        answer['text'],
+                        answer_text,
                         answer['total_count'],
                         count_type))
                 else:
                     output_func("%d. %s (%0.2f %s, %0.2f%%)" % (
                         i + 1, 
-                        answer['text'],
+                        answer_text,
                         answer['total_count'],
                         count_type,
                         get_percentage(answer['total_count'], base_num)))
