@@ -447,8 +447,10 @@ def main(pargs):
                                 else:
                                     vote_json['answers'][answer_index]['ballot_marks'] = mark_position
                             
-                            # Remove answers not marked by the voter in non-cumulative
-                            vote_json['answers'] = [x for x in vote_json['answers'] if 'ballot_marks' in x]
+                
+                if question['tally_type'] != 'cumulative':
+                    # Remove answers not marked by the voter in non-cumulative
+                    vote_json['answers'] = [x for x in vote_json['answers'] if 'ballot_marks' in x]
 
                 ballots_csv_file.write(",".join(vote_str,) + "\n")
                 # we sort keys to make it reproducible
