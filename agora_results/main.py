@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 
 # This file is part of agora-results.
-# Copyright (C) 2014-2016  Agora Voting SL <agora@agoravoting.com>
+# Copyright (C) 2014-2021  Agora Voting SL <agora@agoravoting.com>
 
 # agora-results is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -407,23 +407,19 @@ def main(pargs):
                     else:
                         sorted_vote = vote
                     for mark_position, choice in enumerate(sorted_vote):
-                        answer_index = None
-                        choice_answer = None
-                        if isinstance(choice.id, str):
-                            for answer in question['answers']:
-                                if answer['text'] == choice.id:
-                                    choice_answer = answer
-                                    break
-                            answer_index = choice_answer["id"]
+                        choice_answer = question['answers'][choice.answer_id]
+                        answer_index = choice.answer_id
+                        if isinstance(choice.key, str):
+                            choice_text = choice.key
+                            vote_json['answers'][answer_index]['text'] = choice.key
                         else:
-                            choice_answer = question['answers'][choice.id]
-                            answer_index = choice.id
+                            choice_text = choice_answer['text']
 
                         if question['tally_type'] == 'cumulative':
                             vote_str += [
                                 "\"%d. %s\"" % (
                                     choice.points,
-                                    choice_answer['text']
+                                    choice_text
                                 )
                             ]
                             vote_json['answers'][answer_index]['ballot_marks'] = choice.points
@@ -432,14 +428,14 @@ def main(pargs):
                                 vote_str += [
                                     "\"%d. %s\"" % (
                                         choice.points,
-                                        choice_answer['text']
+                                        choice_text
                                     )
                                 ]
                             else:
                                 vote_str += [
                                     "\"%d. %s\"" % (
                                         choice_answer['id'],
-                                        choice_answer['text']
+                                        choice_text
                                     )
                                 ]
                                 if question['tally_type'] == 'plurality-at-large':

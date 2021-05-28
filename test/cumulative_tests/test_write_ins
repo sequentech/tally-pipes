@@ -1,0 +1,57 @@
+Votes: Cumulative with Write-Ins
+2#Write-in-candidate,2#Write-in-candidate
+Candidate1
+
+Questions JSON:
+[
+  {
+    "answer_total_votes_percentage": "over-total-valid-votes", 
+    "answers": [
+      {
+        "id": 0, 
+        "text": "Candidate1", 
+        "urls": [],
+        "category": ""
+      },
+      {
+        "id": 1, 
+        "text": "Candidate2", 
+        "urls": [],
+        "category": ""
+      },
+      {
+        "id": 2, 
+        "text": "",
+        "category": "",
+        "urls": [
+          {"title": "isWriteIn", "url": "true"}
+        ]
+      }
+    ],
+    "description": "", 
+    "extra_options": {
+      "cumulative_number_of_checkboxes": 4,
+      "allow_writeins": true
+    }, 
+    "layout": "simple", 
+    "max": 4, 
+    "min": 0, 
+    "num_winners": 2,
+    "id": 0, 
+    "randomize_answer_order": true,
+    "tally_type": "cumulative", 
+    "title": "Cumulative with Write-Ins"
+  }
+]
+
+Results:
+Write-in-candidate, 2
+Candidate1, 1
+
+Ballots CSV:
+0,"2. Write-in-candidate"
+0,"1. Candidate1"
+
+Ballots JSON:
+{"answer_total_votes_percentage": "over-total-valid-votes", "answers": [{"category": "", "id": 0, "text": "Candidate1", "total_count": 0, "urls": []}, {"category": "", "id": 1, "text": "Candidate2", "total_count": 0, "urls": []}, {"ballot_marks": 2, "category": "", "id": 2, "isWriteIn": "true", "text": "Write-in-candidate", "total_count": 0, "urls": []}], "ballot_flags": {"blank_vote": false, "null_vote": false}, "description": "", "extra_options": {"allow_writeins": true, "cumulative_number_of_checkboxes": 4}, "id": 0, "layout": "simple", "max": 4, "min": 0, "num_winners": 2, "question_num": 0, "randomize_answer_order": true, "tally_type": "cumulative", "title": "Cumulative with Write-Ins"}
+{"answer_total_votes_percentage": "over-total-valid-votes", "answers": [{"ballot_marks": 1, "category": "", "id": 0, "text": "Candidate1", "total_count": 0, "urls": []}, {"category": "", "id": 1, "text": "Candidate2", "total_count": 0, "urls": []}, {"category": "", "id": 2, "isWriteIn": "true", "text": "", "total_count": 0, "urls": []}], "ballot_flags": {"blank_vote": false, "null_vote": false}, "description": "", "extra_options": {"allow_writeins": true, "cumulative_number_of_checkboxes": 4}, "id": 0, "layout": "simple", "max": 4, "min": 0, "num_winners": 2, "question_num": 0, "randomize_answer_order": true, "tally_type": "cumulative", "title": "Cumulative with Write-Ins"}

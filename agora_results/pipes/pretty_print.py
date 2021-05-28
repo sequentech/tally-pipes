@@ -41,12 +41,24 @@ def pretty_print_stv_winners(data_list, output_func=print):
                 output_func("%d. %s" % (i+1, winner))
                 i += 1
 
-def __pretty_print_base(data, mark_winners, show_percent, filter_names, output_func=print):
-    '''
-    percent_base:
-      "total" total of the votes, the default
-      "valid options" votes to options
-    '''
+def __pretty_print_base(
+    data,
+    mark_winners,
+    show_percent,
+    filter_names,
+    output_func=print
+):
+    localedir = os.path.join(
+      os.path.abspath(os.path.dirname(__file__)), 
+      'locale'
+    )
+    translate = gettext.translation(
+      'pipes', 
+      localedir, 
+      languages=data.get('pdf', dict()).get('languages', None), 
+      fallback=True
+    )
+    _ = translate.gettext
     def get_percentage(num, base):
       if base == 0:
           return 0
@@ -182,6 +194,18 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_names, output_f
 
 def pretty_print_not_iterative(data_list, mark_winners=True, output_func=print):
     data = data_list[0]
-    __pretty_print_base(data, mark_winners, show_percent=True,
-        filter_names=["cumulative", "plurality-at-large", "borda-nauru", "desborda3", "desborda2", "desborda", "borda", "pairwise-beta", "cup"],
-        output_func=output_func)
+    __pretty_print_base(
+        data, 
+        mark_winners, 
+        show_percent=True,
+        filter_names=[
+            "cumulative", 
+            "plurality-at-large", 
+            "borda-nauru", 
+            "desborda3", 
+            "desborda2", 
+            "desborda", 
+            "borda",
+        ],
+        output_func=output_func
+    )

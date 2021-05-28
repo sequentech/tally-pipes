@@ -49,14 +49,46 @@ def encode_valid_ballot(
     ballot encoder
     '''
     ballot_question = copy.deepcopy(question)
+    normal_choices_dict = dict()
+    write_in_choices_dict = dict()
+    for text_choice in text_ballot:
+        if '#' in text_choice:
+            answer_id, answer_text = text_choice.split('#')
+            answer_id = int(answer_id)
+        else:
+            answer_id = None
+            answer_text = text_choice
+        if answer_id is None:
+            if answer_text in normal_choices_dict:
+                normal_choices_dict[answer_text]['count'] += 1
+            else:
+                normal_choices_dict[answer_text] = dict(
+                    count=1
+                )
+        else:
+            if answer_id in write_in_choices_dict:
+                write_in_choices_dict[answer_id]['count'] += 1
+            else:
+                write_in_choices_dict[answer_id] = dict(
+                    count=1,
+                    text=answer_text
+                )
+
     for answer_index, answer in enumerate(ballot_question['answers']):
         selected = -1
-        if answer['text'] in text_ballot:
+        if answer_index in write_in_choices_dict:
+            answer['text'] = write_in_choices_dict[answer_index]['text']
             if question['tally_type'] == 'cumulative':
-                selected = text_ballot.count(answer['text']) - 1
+                selected = write_in_choices_dict[answer_index]['count'] - 1
             else:
-                selected = text_ballot.index(answer['text'])
+                selected = write_in_choices_dict[answer_index]['count']
+        elif answer['text'] in normal_choices_dict:
+            if question['tally_type'] == 'cumulative':
+                selected = normal_choices_dict[answer['text']]['count'] - 1
+            else:
+                selected = normal_choices_dict[answer['text']]['count']
         answer['selected'] = selected
+    
     ballot_encoder = NVotesCodec(ballot_question)
     raw_ballot = ballot_encoder.encode_raw_ballot()
     int_ballot = ballot_encoder.encode_to_int(raw_ballot)
@@ -124,6 +156,7 @@ def read_testfile(testfile_path):
     results_config = ""
     output_ballots_csv = ""
     output_ballots_json = ""
+    questions_json = ""
     name = ""
     state = "reading_header"
     for line in file_lines:
@@ -141,6 +174,8 @@ def read_testfile(testfile_path):
                 state = "reading_ballots_csv"
             elif line.startswith("Ballots JSON:"):
                 state = "reading_ballots_json"
+            elif line.startswith("Questions JSON:"):
+                state = "reading_questions_json"
         else:
             if line == '\n':
                 state = 'reading_header'
@@ -154,6 +189,8 @@ def read_testfile(testfile_path):
                 output_ballots_csv += line
             elif state == 'reading_ballots_json':
                 output_ballots_json += line
+            elif state == 'reading_questions_json':
+                questions_json += line
 
     try:
         return {
@@ -162,7 +199,8 @@ def read_testfile(testfile_path):
             "output_ballots_csv": output_ballots_csv,
             "output_ballots_json": output_ballots_json,
             "name": name,
-            "config": json.loads(results_config) if len(results_config) > 0 else None
+            "results_config": json.loads(results_config) if len(results_config) > 0 else None,
+            "questions_json": json.loads(questions_json) if len(questions_json) > 0 else None
         }
     except Exception as e:
         print("failing json loads for file %s" % testfile_path)
@@ -175,9 +213,15 @@ def create_desborda_test(
     women_in_urls=False,
     extra_options=None,
 ):
-    if not has_input_format(test_data["input"]):
+    if (
+        not has_input_format(test_data["input"]) and
+        test_data['questions_json'] is None
+    ):
         raise Exception("Error: test data input with format errors")
-    if not has_output_format(test_data["output"].split("###\n")[-1]):
+    if (
+        not has_output_format(test_data["output"].split("###\n")[-1]) and
+        test_data['questions_json'] is None
+    ):
         raise Exception("Error: test data output with format errors")
 
     # test_struct
@@ -189,97 +233,103 @@ def create_desborda_test(
         re.split(r",", line)
         for line in remove_spaces(test_data["output"].split("###\n")[-1]).splitlines()
     ]
-    num_winners = len(results)
-    teams = {}
-    all_candidates = []
-    women_names = []
-    max_num = 0
-    for ballot in ballots:
-        len_ballot = len(ballot)
-        if len_ballot > max_num:
-            max_num = len_ballot
-        for candidate in ballot:
-            team = candidate[:1]
-            female = "f" == candidate[-1]
-            if team not in teams:
-                teams[team] = []
-            else:
-                other_sex = candidate[:-1] + ("m" if female else "f")
-                if other_sex in teams[team]:
-                    raise Exception(
-                        "Error: candidate %s repeated: %s" % (
-                            candidate,
-                            other_sex
+    if test_data['questions_json'] is None:
+        num_winners = len(results)
+        teams = {}
+        all_candidates = []
+        women_names = []
+        max_num = 0
+        for ballot in ballots:
+            len_ballot = len(ballot)
+            if len_ballot > max_num:
+                max_num = len_ballot
+            for candidate in ballot:
+                team = candidate[:1]
+                female = "f" == candidate[-1]
+                if team not in teams:
+                    teams[team] = []
+                else:
+                    other_sex = candidate[:-1] + ("m" if female else "f")
+                    if other_sex in teams[team]:
+                        raise Exception(
+                            "Error: candidate %s repeated: %s" % (
+                                candidate,
+                                other_sex
+                            )
                         )
-                    )
 
-            if candidate not in teams[team]:
-                if female:
-                    women_names.append(candidate)
-                teams[team].append(candidate)
-                all_candidates.append(candidate)
+                if candidate not in teams[team]:
+                    if female:
+                        women_names.append(candidate)
+                    teams[team].append(candidate)
+                    all_candidates.append(candidate)
 
-    if len(all_candidates) != len(set(all_candidates)):
-        raise Exception("Error: 'all_candidates' might have duplicate values")
+        if len(all_candidates) != len(set(all_candidates)):
+            raise Exception("Error: 'all_candidates' might have duplicate values")
 
-    set_all = set(all_candidates)
-    set_results = set([x[0] for x in results])
-    if len(set_results) is not len(set_all & set_results):
-        raise Exception(
-            "Error: there are some answers in the results that are not "\
-            "candidates: %s " % str(set_results - set_all)
-        )
+        set_all = set(all_candidates)
+        set_results = set([x[0] for x in results])
+        if len(set_results) is not len(set_all & set_results):
+            raise Exception(
+                "Error: there are some answers in the results that are not "\
+                "candidates: %s " % str(set_results - set_all)
+            )
 
-    question = {
-        "answer_total_votes_percentage": "over-total-valid-votes",
-        "answers": [],
-        "description": "Desborda question",
-        "layout": "simple",
-        "max": max_num,
-        "min": 0,
-        "num_winners": num_winners,
-        "randomize_answer_order": True,
-        "tally_type": tally_type,
-        "title": "Desborda question",
-    }
+        question = {
+            "answer_total_votes_percentage": "over-total-valid-votes",
+            "answers": [],
+            "description": "Desborda question",
+            "layout": "simple",
+            "max": max_num,
+            "min": 0,
+            "num_winners": num_winners,
+            "randomize_answer_order": True,
+            "tally_type": tally_type,
+            "title": "Desborda question",
+        }
 
-    if extra_options:
-        question['extra_options'] = extra_options
+        if extra_options:
+            question['extra_options'] = extra_options
 
-    cand_index = 0
-    indexed_candidates = {}
-    for team_name in teams:
-        team_candidates = teams[team_name]
-        for candidate in team_candidates:
-            answer = {
-                "category": team_name,
-                "details": candidate,
-                "id": cand_index,
-                "text": candidate,
-                "urls": []
-            }
-            indexed_candidates[candidate] = cand_index
-            if women_in_urls:
-                candidate_is_woman = candidate in women_names
-                gender_url = {
-                  "title": "Gender",
-                  "url": ("https://agoravoting.com/api/gender/M" \
-                      if candidate_is_woman \
-                      else "https://agoravoting.com/api/gender/H")
+        cand_index = 0
+        indexed_candidates = {}
+        for team_name in teams:
+            team_candidates = teams[team_name]
+            for candidate in team_candidates:
+                answer = {
+                    "category": team_name,
+                    "details": candidate,
+                    "id": cand_index,
+                    "text": candidate,
+                    "urls": []
                 }
-                answer["urls"].append(gender_url)
-            question["answers"].append(answer)
-            cand_index += 1
+                indexed_candidates[candidate] = cand_index
+                if women_in_urls:
+                    candidate_is_woman = candidate in women_names
+                    gender_url = {
+                    "title": "Gender",
+                    "url": ("https://agoravoting.com/api/gender/M" \
+                        if candidate_is_woman \
+                        else "https://agoravoting.com/api/gender/H")
+                    }
+                    answer["urls"].append(gender_url)
+                question["answers"].append(answer)
+                cand_index += 1
 
-    questions_json = [question] * num_questions
-    # set women names in the pipes
-    config = test_data["config"]
-    for pipe in config['pipes']:
-        if "women_names" in pipe['params']:
-            if not women_in_urls:
-                pipe['params']["women_names"] = women_names
-            else:
-                pipe['params']["women_names"] = None
+        config = test_data["results_config"]
+        questions_json = [question] * num_questions
+        # set women names in the pipes
+        for pipe in config['pipes']:
+            if "women_names" in pipe['params']:
+                if not women_in_urls:
+                    pipe['params']["women_names"] = women_names
+                else:
+                    pipe['params']["women_names"] = None
+    else:
+        config = test_data["results_config"]
+        questions_json = test_data['questions_json']
+        question = questions_json[0]
+        num_winners = questions_json[0]['num_winners']
 
     # encode ballots in plaintexts_json format
     plaintexts_json = ""
@@ -298,6 +348,7 @@ def create_desborda_test(
     base_path = create_temp_folder()
     desborda_test_path = os.path.join(base_path, "12345")
     os.mkdir(desborda_test_path)
+
     try:
         targz_folder = os.path.join(desborda_test_path, "tally")
         os.mkdir(targz_folder)
@@ -312,7 +363,11 @@ def create_desborda_test(
         
         file_helpers.write_file(
             os.path.join(targz_folder, "questions_json"),
-            file_helpers.serialize(questions_json)
+            file_helpers.serialize(
+                test_data['questions_json']
+                if test_data['questions_json'] is not None 
+                else questions_json
+            )
         )
         make_simple_targz(
             os.path.join(desborda_test_path, "tally.tar.gz"),
