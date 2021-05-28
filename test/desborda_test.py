@@ -51,7 +51,7 @@ def encode_valid_ballot(
     ballot_question = copy.deepcopy(question)
     normal_choices_dict = dict()
     write_in_choices_dict = dict()
-    for text_choice in text_ballot:
+    for choice_index, text_choice in enumerate(text_ballot):
         if '#' in text_choice:
             answer_id, answer_text = text_choice.split('#')
             answer_id = int(answer_id)
@@ -63,7 +63,8 @@ def encode_valid_ballot(
                 normal_choices_dict[answer_text]['count'] += 1
             else:
                 normal_choices_dict[answer_text] = dict(
-                    count=1
+                    count=1,
+                    choice_index=choice_index
                 )
         else:
             if answer_id in write_in_choices_dict:
@@ -71,7 +72,8 @@ def encode_valid_ballot(
             else:
                 write_in_choices_dict[answer_id] = dict(
                     count=1,
-                    text=answer_text
+                    text=answer_text,
+                    choice_index=choice_index
                 )
 
     for answer_index, answer in enumerate(ballot_question['answers']):
@@ -81,12 +83,12 @@ def encode_valid_ballot(
             if question['tally_type'] == 'cumulative':
                 selected = write_in_choices_dict[answer_index]['count'] - 1
             else:
-                selected = write_in_choices_dict[answer_index]['count']
+                selected = write_in_choices_dict[answer_index]['choice_index']
         elif answer['text'] in normal_choices_dict:
             if question['tally_type'] == 'cumulative':
                 selected = normal_choices_dict[answer['text']]['count'] - 1
             else:
-                selected = normal_choices_dict[answer['text']]['count']
+                selected = normal_choices_dict[answer['text']]['choice_index']
         answer['selected'] = selected
     
     ballot_encoder = NVotesCodec(ballot_question)
