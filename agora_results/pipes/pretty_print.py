@@ -148,10 +148,10 @@ def __pretty_print_base(
                 key=lambda a: float(a['total_count']), reverse=True)
 
             for loser in losers:
-                loser_text = answer['text']
-                if dict(title='isWriteInResult', url='true') in answer.get('urls', []):
+                loser_text = loser['text']
+                if dict(title='isWriteInResult', url='true') in loser.get('urls', []):
                     loser_text = _('{candidate_text} (Write-in)').format(
-                        candidate_text=answer['text']
+                        candidate_text=loser['text']
                     )
                 if not show_percent:
                     output_func("N. %s (%0.2f %s)" % (
