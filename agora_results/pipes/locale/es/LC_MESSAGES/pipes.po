@@ -153,3 +153,8 @@ msgstr "Puntos"
 msgid "Winning position"
 msgstr "Posición ganadora"
 
+#: agora_results/pipes/pdf.py:540 agora_results/pipes/pretty_print.py:114
+#: agora_results/pipes/pretty_print.py:141
+#: agora_results/pipes/pretty_print.py:164
+msgid "{candidate_text} (Write-in)"
+msgstr "{candidate_text} (Write-in)"

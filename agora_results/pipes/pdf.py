@@ -535,9 +535,14 @@ def pdf_print(election_results, config_folder, election_id):
             ]
         )
         for answer in winners:
+            answer_text = answer['text']
+            if dict(title='isWriteInResult', url='true') in answer.get('urls', []):
+                answer_text = _('{candidate_text} (Write-in)').format(
+                    candidate_text=answer['text']
+                )
             data.append(
                 [
-                    gen_text(answer['text'], bold = True, align=TA_RIGHT),
+                    gen_text(answer_text, bold = True, align=TA_RIGHT),
                     gen_text(
                         '%d' % answer['total_count'],
                         bold=True,
@@ -550,12 +555,17 @@ def pdf_print(election_results, config_folder, election_id):
                     )
                 ]
             )
-        for answer in losers:
+        for loser in losers:
+            loser_text = loser['text']
+            if dict(title='isWriteInResult', url='true') in loser.get('urls', []):
+                loser_text = _('{candidate_text} (Write-in)').format(
+                    candidate_text=loser['text']
+                )
             data.append(
                 [
-                    gen_text(answer['text'], align=TA_RIGHT),
+                    gen_text(loser_text, align=TA_RIGHT),
                     gen_text(
-                        '%d' % answer['total_count'],
+                        '%d' % loser['total_count'],
                         align=TA_CENTER
                     ),
                     gen_text('-', align=TA_LEFT)

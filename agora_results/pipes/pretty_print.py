@@ -20,6 +20,7 @@ import subprocess
 import json
 import requests
 from datetime import datetime
+import gettext
 
 def pretty_print_stv_winners(data_list, output_func=print):
     data = data_list[0]
@@ -40,12 +41,24 @@ def pretty_print_stv_winners(data_list, output_func=print):
                 output_func("%d. %s" % (i+1, winner))
                 i += 1
 
-def __pretty_print_base(data, mark_winners, show_percent, filter_names, output_func=print):
-    '''
-    percent_base:
-      "total" total of the votes, the default
-      "valid options" votes to options
-    '''
+def __pretty_print_base(
+    data,
+    mark_winners,
+    show_percent,
+    filter_names,
+    output_func=print
+):
+    localedir = os.path.join(
+      os.path.abspath(os.path.dirname(__file__)), 
+      'locale'
+    )
+    translate = gettext.translation(
+      'pipes', 
+      localedir, 
+      languages=data.get('pdf', dict()).get('languages', None), 
+      fallback=True
+    )
+    _ = translate.gettext
     def get_percentage(num, base):
       if base == 0:
           return 0
@@ -108,16 +121,21 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_names, output_f
                 if answer['winner_position'] != None],
                 key=lambda a: a['winner_position'])
             for answer in winners:
+                answer_text = answer['text']
+                if dict(title='isWriteInResult', url='true') in answer.get('urls', []):
+                    answer_text = _('{candidate_text} (Write-in)').format(
+                        candidate_text=answer['text']
+                    )
                 if not show_percent:
                     output_func("%d. %s (%0.2f %s)" % (
                         i,
-                        answer['text'],
+                        answer_text,
                         answer['total_count'],
                         count_type))
                 else:
                     output_func("%d. %s (%0.2f %s, %0.2f%%)" % (
                         i,
-                        answer['text'],
+                        answer_text,
                         answer['total_count'],
                         count_type,
                         get_percentage(answer['total_count'], base_num)))
@@ -130,14 +148,19 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_names, output_f
                 key=lambda a: float(a['total_count']), reverse=True)
 
             for loser in losers:
+                loser_text = loser['text']
+                if dict(title='isWriteInResult', url='true') in loser.get('urls', []):
+                    loser_text = _('{candidate_text} (Write-in)').format(
+                        candidate_text=loser['text']
+                    )
                 if not show_percent:
                     output_func("N. %s (%0.2f %s)" % (
-                        loser['text'],
+                        loser_text,
                         loser['total_count'],
                         count_type))
                 else:
                     output_func("N. %s (%0.2f %s, %0.2f%%)" % (
-                        loser['text'],
+                        loser_text,
                         loser['total_count'],
                         count_type,
                         get_percentage(loser['total_count'], base_num)))
@@ -148,16 +171,21 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_names, output_f
                 key=lambda a: float(a['total_count']), reverse=True)
 
             for i, answer in zip(range(len(answers)), answers):
+                answer_text = answer['text']
+                if dict(title='isWriteInResult', url='true') in answer.get('urls', []):
+                    answer_text = _('{candidate_text} (Write-in)').format(
+                        candidate_text=answer['text']
+                    )
                 if not show_percent:
                     output_func("%d. %s (%0.2f %s)" % (
                         i + 1,
-                        answer['text'],
+                        answer_text,
                         answer['total_count'],
                         count_type))
                 else:
                     output_func("%d. %s (%0.2f %s, %0.2f%%)" % (
                         i + 1, 
-                        answer['text'],
+                        answer_text,
                         answer['total_count'],
                         count_type,
                         get_percentage(answer['total_count'], base_num)))
@@ -166,6 +194,18 @@ def __pretty_print_base(data, mark_winners, show_percent, filter_names, output_f
 
 def pretty_print_not_iterative(data_list, mark_winners=True, output_func=print):
     data = data_list[0]
-    __pretty_print_base(data, mark_winners, show_percent=True,
-        filter_names=["cumulative", "plurality-at-large", "borda-nauru", "desborda3", "desborda2", "desborda", "borda", "pairwise-beta", "cup"],
-        output_func=output_func)
+    __pretty_print_base(
+        data, 
+        mark_winners, 
+        show_percent=True,
+        filter_names=[
+            "cumulative", 
+            "plurality-at-large", 
+            "borda-nauru", 
+            "desborda3", 
+            "desborda2", 
+            "desborda", 
+            "borda",
+        ],
+        output_func=output_func
+    )

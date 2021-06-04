@@ -292,7 +292,7 @@ class TestBorda(unittest.TestCase):
           re.match("^test_([0-9]*)$", f) is not None]
         for testfile_path in test_files:
             data = test.desborda_test.read_testfile(testfile_path)
-            data["config"] = copy.deepcopy(tally_config_borda)
+            data["results_config"] = copy.deepcopy(tally_config_borda)
             self.do_test(test_data=data)
 
     def test_ties(self):
@@ -300,7 +300,7 @@ class TestBorda(unittest.TestCase):
         # we test draws 20 times to test the stability of the ties
         for i in range(0, 20):
             data = test.desborda_test.read_testfile(testfile_path)
-            data["config"] = copy.deepcopy(tally_config_borda)
+            data["results_config"] = copy.deepcopy(tally_config_borda)
             self.do_test(test_data=data)
 
 
@@ -347,7 +347,7 @@ class TestDesBorda4(unittest.TestCase):
                     print("question index: %i\n" % question_index)
                     print("results:\n" + results)
                     print("shouldresults:\n" + shouldresults[question_index])
-                    print("config:\n" + json.dumps(test_data["config"], indent=4))
+                    print("config:\n" + json.dumps(test_data["results_config"], indent=4))
                 self.assertTrue(check_results)
 
                 # check ballots output
@@ -430,7 +430,7 @@ class TestDesBorda3(unittest.TestCase):
           re.match("^test_([0-9]*)$", f) is not None]
         for testfile_path in test_files:
             data = test.desborda_test.read_testfile(testfile_path)
-            data["config"] = copy.deepcopy(tally_config_desborda3)
+            data["results_config"] = copy.deepcopy(tally_config_desborda3)
             self.do_test(test_data=data)
 
     def test_ties(self):
@@ -438,13 +438,13 @@ class TestDesBorda3(unittest.TestCase):
         # we test draws 20 times to test the stability of the ties
         for i in range(0, 20):
             data = test.desborda_test.read_testfile(testfile_path)
-            data["config"] = copy.deepcopy(tally_config_desborda3)
+            data["results_config"] = copy.deepcopy(tally_config_desborda3)
             self.do_test(test_data=data)
 
     def test_multi_women(self):
         testfile_path = os.path.join("test", "desborda3_tests", "test_multi_women")
         data = test.desborda_test.read_testfile(testfile_path)
-        data["config"] = copy.deepcopy(tally_config_desborda3)
+        data["results_config"] = copy.deepcopy(tally_config_desborda3)
         self.do_test(test_data=data, num_questions=3, women_in_urls=True)
 
 class TestDesBorda2(unittest.TestCase):
@@ -507,7 +507,7 @@ class TestDesBorda2(unittest.TestCase):
           re.match("^test_([0-9]*)$", f) is not None]
         for testfile_path in test_files:
             data = test.desborda_test.read_testfile(testfile_path)
-            data["config"] = copy.deepcopy(tally_config_desborda2)
+            data["results_config"] = copy.deepcopy(tally_config_desborda2)
             self.do_test(test_data=data)
 
     def test_ties(self):
@@ -515,13 +515,13 @@ class TestDesBorda2(unittest.TestCase):
         # we test draws 20 times to test the stability of the ties
         for i in range(0, 20):
             data = test.desborda_test.read_testfile(testfile_path)
-            data["config"] = copy.deepcopy(tally_config_desborda2)
+            data["results_config"] = copy.deepcopy(tally_config_desborda2)
             self.do_test(test_data=data)
 
     def test_multi_women(self):
         testfile_path = os.path.join("test", "desborda2_tests", "test_multi_women")
         data = test.desborda_test.read_testfile(testfile_path)
-        data["config"] = copy.deepcopy(tally_config_desborda2)
+        data["results_config"] = copy.deepcopy(tally_config_desborda2)
         self.do_test(test_data=data, num_questions=3, women_in_urls=True)
 
 class TestDesBorda(unittest.TestCase):
@@ -579,7 +579,7 @@ class TestDesBorda(unittest.TestCase):
         ]
         for testfile_path in test_files:
             data = test.desborda_test.read_testfile(testfile_path)
-            data["config"] = copy.deepcopy(tally_config_desborda1)
+            data["results_config"] = copy.deepcopy(tally_config_desborda1)
             self.do_test(test_data=data)
 
     def _test_100k_votes_same(self):
@@ -664,7 +664,7 @@ class TestBallotOutput(unittest.TestCase):
         tally_config=tally_config_borda
     ):
         test_data = test.desborda_test.read_testfile(testfile_path)
-        test_data["config"] = copy.deepcopy(tally_config)
+        test_data["results_config"] = copy.deepcopy(tally_config)
 
         print(
             "\nTest file path: %s\nTest name: %s" % (
@@ -738,16 +738,25 @@ class TestBallotOutput(unittest.TestCase):
 
 
 class TestCumulative(unittest.TestCase):
-    def do_test(self, test_data=None, num_questions=1, women_in_urls=False, checks=3):
+    def do_test(
+        self,
+        test_data=None,
+        num_questions=1,
+        women_in_urls=False,
+        checks=3
+    ):
         if test_data is None:
             return
+
         print("\nTest name: %s" % test_data["name"])
         agora_results_bin_path = "python3 agora-results"
-        tally_path = test.desborda_test.create_desborda_test(test_data,
-            extra_options = { "cumulative_number_of_checkboxes": checks },
-            tally_type = "cumulative",
-            num_questions = num_questions,
-            women_in_urls = women_in_urls)
+        tally_path = test.desborda_test.create_desborda_test(
+            test_data,
+            extra_options=dict(cumulative_number_of_checkboxes=checks),
+            tally_type="cumulative",
+            num_questions=num_questions,
+            women_in_urls=women_in_urls
+        )
         try:
             tally_targz_path = os.path.join(tally_path, "tally.tar.gz")
             config_results_path = os.path.join(tally_path, "12345.config.results.json")
@@ -760,30 +769,45 @@ class TestCumulative(unittest.TestCase):
                 tally_targz_path,
                 config_results_path,
                 tally_path,
-                pipes_whitelist)
+                pipes_whitelist
+            )
 
-            args = MockArgs({
-                "tally": [tally_targz_path],
-                "config": config_results_path,
-                "tar": tally_path,
-                "election_id": 12345,
-                "pipes_whitelist": pipes_whitelist,
-                "stdout": True,
-                "output_format": "json",
-            })
+            args = MockArgs(
+                dict(
+                    tally=[tally_targz_path],
+                    config=config_results_path,
+                    tar=tally_path,
+                    election_id=12345,
+                    pipes_whitelist=pipes_whitelist,
+                    stdout=True,
+                    output_format="json",
+                )
+            )
             print(cmd)
-            with Capturing(results_path, mode='w', encoding="utf-8", errors='strict') as f:
+            with Capturing(
+                results_path,
+                mode='w',
+                encoding="utf-8",
+                errors='strict'
+            ) as f:
                 main(args)
 
             for question_index in range(0, num_questions):
                 results = test.desborda_test.create_simple_results(
                     results_path,
-                    question_index=question_index)
+                    question_index=question_index
+                )
 
                 output_name = "output_%i" % question_index
-                file_helpers.write_file(os.path.join(tally_path, output_name), results)
+                file_helpers.write_file(
+                    os.path.join(tally_path, output_name),
+                    results
+                )
                 shouldresults = test_data["output"]
-                check_results = test.desborda_test.check_results(results, shouldresults)
+                check_results = test.desborda_test.check_results(
+                    results,
+                    shouldresults
+                )
 
                 if not check_results:
                     print("question index: %i\n" % question_index)
@@ -799,15 +823,16 @@ class TestCumulative(unittest.TestCase):
 
     def test_all(self):
         borda_tests_path = os.path.join("test", "cumulative_tests")
-        # only use tests that end with a number (ie "test_5" )
         test_files = [
-          os.path.join(borda_tests_path, f)
-          for f in os.listdir(borda_tests_path)
-          if os.path.isfile(os.path.join(borda_tests_path, f)) and
-          re.match("^test_([0-9]*)$", f) is not None]
+            os.path.join(borda_tests_path, f)
+            for f in os.listdir(borda_tests_path)
+            if os.path.isfile(os.path.join(borda_tests_path, f)) and
+            re.match("^test_(.*)$", f) is not None
+        ]
+        
         for testfile_path in test_files:
             data = test.desborda_test.read_testfile(testfile_path)
-            data["config"] = copy.deepcopy(tally_config_cumulative)
+            data["results_config"] = copy.deepcopy(tally_config_cumulative)
             self.do_test(test_data=data)
 
 if __name__ == '__main__':

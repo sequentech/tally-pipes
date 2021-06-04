@@ -43,7 +43,7 @@ except:
 
 setup(
     name='Agora Results',
-    version='20.04',
+    version='20.2.0',
     author='Agora Voting Team',
     author_email='agora@agoravoting.com',
     packages=['agora_results', 'agora_results.pipes'],
