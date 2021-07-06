@@ -81,6 +81,11 @@ def do_tallies(
       else:
           questions_json = data['results']['questions']
 
+      # set the election_index in each question so that it can be used in
+      # the ballots_printer
+      for question in questions_json:
+        question['election_index'] = dindex
+
       if 'size_corrections' in data:
           for question in questions_json:
               f = data['size_corrections_apply_to_question']

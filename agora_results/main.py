@@ -365,6 +365,10 @@ def main(pargs):
                 Function used by the results.do_tallies pipe to dump the ballots 
                 in both CSV an JSON format.
                 '''
+                # only print ballots for election 0 if processing multiple 
+                # elections
+                if question.get('election_index', None) != 0:
+                    return
 
                 # initialize output votes
                 vote_str = [str(question_num)]
