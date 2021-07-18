@@ -17,45 +17,29 @@
 
 from setuptools import setup
 from setuptools.command.sdist import sdist
-from pip._internal.req import parse_requirements
 
 class SdistI18n(sdist):
     def run(self):
         self.run_command('compile_catalog')
         sdist.run(self)
 
-
-# parse_requirements() returns generator of pip.req.InstallRequirement objects
-install_reqs = parse_requirements("requirements.txt", session='hack')
-
-# reqs is a list of requirement
-# e.g. ['django==1.5.1', 'mezzanine==1.4.6']
-try:
-    reqs = [
-        str(ir.requirement) for ir in install_reqs
-        if not str(ir.requirement).startswith("git+")
-    ]
-except:
-    reqs = [
-        str(ir.req) for ir in install_reqs
-        if not str(ir.req).startswith("git+")
-    ]
-
 setup(
-    name='Agora Results',
+    name='agora-results',
     version='20.2.0',
-    author='Agora Voting Team',
-    author_email='agora@agoravoting.com',
+    author='Agora Voting SL',
+    author_email='contact@nvotes.com',
     packages=['agora_results', 'agora_results.pipes'],
     scripts=['agora-results'],
     url='http://pypi.python.org/pypi/agora_results/',
-    license='LICENSE.AGPL3',
+    license='AGPL-3.0',
     description='agora results processing system',
     long_description=open('README.md').read(),
     setup_requires=['Babel'],
     cmdclass={'sdist': SdistI18n},
-    install_requires=reqs,
-    dependency_links = [
-        'git+https://github.com/agoravoting/agora-tally.git'
+    install_requires=[
+        'reportlab==3.3.0',
+        'requests==2.20.0',
+        'Babel==2.9.1',
+        'agora-tally @ git+https://github.com/agoravoting/agora-tally.git@review-deps-licenses'
     ]
 )
