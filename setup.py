@@ -30,7 +30,7 @@ setup(
     author_email='contact@nvotes.com',
     packages=['agora_results', 'agora_results.pipes'],
     scripts=['agora-results'],
-    url='http://pypi.python.org/pypi/agora_results/',
+    url='https://github.com/agoravoting/agora-results',
     license='AGPL-3.0',
     description='agora results processing system',
     long_description=open('README.md').read(),
@@ -40,6 +40,6 @@ setup(
         'reportlab==3.3.0',
         'requests==2.20.0',
         'Babel==2.9.1',
-        'agora-tally @ git+https://github.com/agoravoting/agora-tally.git@review-deps-licenses'
+        'agora-tally @ git+https://github.com/agoravoting/agora-tally.git@master'
     ]
 )
