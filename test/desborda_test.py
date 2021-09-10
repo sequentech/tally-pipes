@@ -199,7 +199,7 @@ def read_testfile(testfile_path):
         # replace version in tests
         results_config = re.sub(
             r"\"version\": \"[^\"]+\",", 
-            f"\"version\": \"${VERSION}\",",
+            f"\"version\": \"{VERSION}\",",
             results_config
         )
         return {
