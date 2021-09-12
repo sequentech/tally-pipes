@@ -23,6 +23,7 @@ import json
 import os
 from os import urandom
 from agora_results.utils import file_helpers
+from agora_results.main import main, VERSION
 from agora_tally.ballot_codec.nvotes_codec import NVotesCodec
 import tempfile
 import uuid
@@ -195,6 +196,12 @@ def read_testfile(testfile_path):
                 questions_json += line
 
     try:
+        # replace version in tests
+        results_config = re.sub(
+            r"\"version\": \"[^\"]+\",", 
+            f"\"version\": \"{VERSION}\",",
+            results_config
+        )
         return {
             "input": ballots,
             "output": results,
