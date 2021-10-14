@@ -1,4 +1,4 @@
 reportlab==3.3.0
 requests==2.20.0
 Babel==2.9.1
--e git+https://github.com/agoravoting/agora-tally.git@4.0.0#egg=agora-tally
+-e git+https://github.com/agoravoting/agora-tally.git@4.0.1#egg=agora-tally
