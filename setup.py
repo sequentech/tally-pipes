@@ -40,6 +40,6 @@ setup(
         'reportlab==3.3.0',
         'requests==2.20.0',
         'Babel==2.9.1',
-        'agora-tally @ git+https://github.com/agoravoting/agora-tally.git@master
+        'agora-tally @ git+https://github.com/agoravoting/agora-tally.git@master'
     ]
 )
