@@ -11,7 +11,7 @@ msgstr ""
 "POT-Creation-Date: 2021-04-29 11:12+0200\n"
 "PO-Revision-Date: 2021-10-15 11:12+0200\n"
 "Last-Translator: Eduardo Robles <edulix@nvotes.com>\n"
-"Language-Team: ES <agora@agoravoting.com>\n"
+"Language-Team: CA <agora@agoravoting.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,12 +22,12 @@ msgid ""
 "Detailed and question by question results of the election {election_id} "
 "titled <u>\"{election_title}\"</u>."
 msgstr ""
-"A continuación se detallan, pregunta por pregunta, los resultados "
-"de la votación {election_id} titulada <u>\"{election_title}\"</u>."
+"A continuació es detallen, pregunta per pregunta, els resultats "
+"de la votació {election_id} titulada <u>\"{election_title}\"</u>."
 
 #: agora_results/pipes/pdf.py:187
-msgid "Results of the election tally {election_id} - {election_title}"
-msgstr "Resultados del escrutinio de la votación {election_id} - {election_title}"
+msgid "Resultats de la of the election tally {election_id} - {election_title}"
+msgstr "Resultats de l'escrutini de la votació {election_id} - {election_title}"
 
 #: agora_results/pipes/pdf.py:263
 msgid "Question {question_index}: {question_title}"
@@ -35,15 +35,15 @@ msgstr "Pregunta {question_index}: {question_title}"
 
 #: agora_results/pipes/pdf.py:266
 msgid "Configuration Data"
-msgstr "Datos de configuración"
+msgstr "Dades de configuració"
 
 #: agora_results/pipes/pdf.py:280
 msgid "First past the post, Plurality or Plurality at Large"
-msgstr "Voto en bloque o Escrutinio Mayoritario Plurinominal"
+msgstr "Vot en bloc o Escrutini Majoritari Plurinominal"
 
 #: agora_results/pipes/pdf.py:284
 msgid "Cumulative voting"
-msgstr "Voto acumulativo"
+msgstr "Vot acumulatiu"
 
 #: agora_results/pipes/pdf.py:286
 msgid "Borda Nauru or Borda Dowdall (1/n)"
@@ -51,7 +51,7 @@ msgstr "Borda de Nauru o Borda Dowdall (1/n)"
 
 #: agora_results/pipes/pdf.py:290
 msgid "Pairwise comparison (beta distribution)"
-msgstr "Comparación de pares (distribución beta)"
+msgstr "Comparació de parells (distribució beta)"
 
 #: agora_results/pipes/pdf.py:291
 msgid "Desborda3"
@@ -67,23 +67,23 @@ msgstr "Desborda"
 
 #: agora_results/pipes/pdf.py:301
 msgid "Tally system"
-msgstr "Sistema de recuento"
+msgstr "Sistema de recompte"
 
 #: agora_results/pipes/pdf.py:308
 msgid "Minimum number of options a voter can select"
-msgstr "Número mínimo de opciones que puede seleccionar un votante"
+msgstr "Nombre mínim d'opcions que pots escollir un votant"
 
 #: agora_results/pipes/pdf.py:315
 msgid "Maximum number of options a voter can select"
-msgstr "Número máximo de opciones que puede seleccionar un votante"
+msgstr "Nombre màxim d'opcions que pots escollir un votant"
 
 #: agora_results/pipes/pdf.py:322
 msgid "Number of winning options"
-msgstr "Número de opciones ganadoras"
+msgstr "Nombre d'opcions guanyadores"
 
 #: agora_results/pipes/pdf.py:329
 msgid "Options appear in the voting booth in random order"
-msgstr "Las opciones aparecen en la cabina de votación en orden aleatorio"
+msgstr "Les opcions apareixen a la cabina de votació en ordre aleatori"
 
 #: agora_results/pipes/pdf.py:333
 msgid "Yes"
@@ -95,19 +95,19 @@ msgstr "No"
 
 #: agora_results/pipes/pdf.py:360
 msgid "Participation in question {question_index}"
-msgstr "Participación en pregunta {question_index}"
+msgstr "Participació en pregunta {question_index}"
 
 #: agora_results/pipes/pdf.py:379
 msgid "Total number of votes cast"
-msgstr "Número total de votos emitidos"
+msgstr "Nombre total de vots emesos"
 
 #: agora_results/pipes/pdf.py:384
 msgid "Blank votes"
-msgstr "Votos en blanco"
+msgstr "Vots en blanc"
 
 #: agora_results/pipes/pdf.py:387
 msgid "{blank_votes} ({percentage:.2%} over the total number of votes)"
-msgstr "{blank_votes} ({percentage:.2%} sobre el número total de votos)"
+msgstr "{blank_votes} ({percentage:.2%} sobre el nombre total de vots)"
 
 #: agora_results/pipes/pdf.py:399
 msgid "Null votes"
@@ -115,43 +115,43 @@ msgstr "Votos nulos"
 
 #: agora_results/pipes/pdf.py:401
 msgid "{null_votes} ({percentage:.2%} over the total number of votes)"
-msgstr "{null_votes} ({percentage:.2%} sobre el número total de votos)"
+msgstr "{null_votes} ({percentage:.2%} sobre el nombre total de vots)"
 
 #: agora_results/pipes/pdf.py:414
 msgid "Total number of votes for options"
-msgstr "Número total de votos a opciones"
+msgstr "Nombre total de vots a opcions"
 
 #: agora_results/pipes/pdf.py:418
 msgid "{valid_votes} ({percentage:.2%} over the total number of votes)"
-msgstr "{valid_votes} ({percentage:.2%} sobre el número total de votos)"
+msgstr "{valid_votes} ({percentage:.2%} sobre el nombre total de vots)"
 
 #: agora_results/pipes/pdf.py:431
 msgid "Voting period start date"
-msgstr "Fecha de inicio del período de voto"
+msgstr "Data d'inici de el període de vot"
 
 #: agora_results/pipes/pdf.py:446
 msgid "Voting period end date"
-msgstr "Fecha de fin del período de voto"
+msgstr "Data de fi de el període de vot"
 
 #: agora_results/pipes/pdf.py:460
 msgid "Tally end date"
-msgstr "Fecha de finalización del recuento"
+msgstr "Data de finalització de l'recompte"
 
 #: agora_results/pipes/pdf.py:487
 msgid "Candidate results"
-msgstr "Resultados de las candidaturas"
+msgstr "resultats dels candidats"
 
 #: agora_results/pipes/pdf.py:524
 msgid "Name"
-msgstr "Nombre"
+msgstr "Nom"
 
 #: agora_results/pipes/pdf.py:529
 msgid "Points"
-msgstr "Puntos"
+msgstr "Punts"
 
 #: agora_results/pipes/pdf.py:534
 msgid "Winning position"
-msgstr "Posición ganadora"
+msgstr "Posició guanyadora"
 
 #: agora_results/pipes/pdf.py:540 agora_results/pipes/pretty_print.py:114
 #: agora_results/pipes/pretty_print.py:141
