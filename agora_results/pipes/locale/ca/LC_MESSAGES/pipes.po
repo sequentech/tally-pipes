@@ -26,7 +26,7 @@ msgstr ""
 "de la votació {election_id} titulada <u>\"{election_title}\"</u>."
 
 #: agora_results/pipes/pdf.py:187
-msgid "Resultats de la of the election tally {election_id} - {election_title}"
+msgid "Results of the election tally {election_id} - {election_title}"
 msgstr "Resultats de l'escrutini de la votació {election_id} - {election_title}"
 
 #: agora_results/pipes/pdf.py:263
