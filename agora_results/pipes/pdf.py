@@ -16,6 +16,7 @@
 # along with agora-results.  If not, see <http://www.gnu.org/licenses/>. 
 
 import os
+import re
 import subprocess
 import json
 import requests
@@ -59,6 +60,9 @@ def configure_pdf(
         for language in languages:
             assert(isinstance(language, str))
         data['pdf']['languages'] = languages
+
+def remove_html(text):
+    return re.sub(r"<[^>]+>", " ", text)
 
 def gen_text(
     text,
@@ -168,7 +172,7 @@ def pdf_print(election_results, config_folder, election_id):
     _ = translate.gettext
     try:
         jsonconfig = get_election_cfg(election_id)
-        election_title = jsonconfig['payload']['configuration']['title']
+        election_title = remove_html(jsonconfig['payload']['configuration']['title'])
     except:
         election_title = ""
 
@@ -261,7 +265,7 @@ def pdf_print(election_results, config_folder, election_id):
             gen_text(
                 _('Question {question_index}: {question_title}').format(
                     question_index=i+1,
-                    question_title=question['title']
+                    question_title=remove_html(question['title'])
                 ),
                 size=15,
                 bold=True,
@@ -535,10 +539,10 @@ def pdf_print(election_results, config_folder, election_id):
             ]
         )
         for answer in winners:
-            answer_text = answer['text']
+            answer_text = remove_html(answer['text'])
             if dict(title='isWriteInResult', url='true') in answer.get('urls', []):
                 answer_text = _('{candidate_text} (Write-in)').format(
-                    candidate_text=answer['text']
+                    candidate_text=answer_text
                 )
             data.append(
                 [
@@ -556,10 +560,10 @@ def pdf_print(election_results, config_folder, election_id):
                 ]
             )
         for loser in losers:
-            loser_text = loser['text']
+            loser_text = remove_html(loser['text'])
             if dict(title='isWriteInResult', url='true') in loser.get('urls', []):
                 loser_text = _('{candidate_text} (Write-in)').format(
-                    candidate_text=loser['text']
+                    candidate_text=loser_text
                 )
             data.append(
                 [
