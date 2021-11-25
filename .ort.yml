@@ -9,7 +9,7 @@ resolutions:
     reason: "LICENSE_ACQUIRED_EXCEPTION"
     comment: "The project is open source so it's normal that it's set as such."
 
-  - message: "The project PIP::agora-results-requirements:.* has a dependency licensed under the ScanCode copyleft categorized license AGPL-3.0-only."
+  - message: "The project PIP::agora-results-requirements:.* has the dependency PyPI::agora-tally:.* licensed under the ScanCode copyleft categorized license AGPL-3.0-only."
     reason: "LICENSE_ACQUIRED_EXCEPTION"
     comment: "The project is open source so it's normal that it's set as such."
 
