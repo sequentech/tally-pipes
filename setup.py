@@ -25,7 +25,7 @@ class SdistI18n(sdist):
 
 setup(
     name='agora-results',
-    version='master',
+    version='5.0.0',
     author='Agora Voting SL',
     author_email='contact@nvotes.com',
     packages=['agora_results', 'agora_results.pipes'],
@@ -40,6 +40,6 @@ setup(
         'reportlab==3.3.0',
         'requests==2.20.0',
         'Babel==2.9.1',
-        'agora-tally @ git+https://github.com/agoravoting/agora-tally.git@master'
+        'agora-tally @ git+https://github.com/agoravoting/agora-tally.git@5.0.0'
     ]
 )
