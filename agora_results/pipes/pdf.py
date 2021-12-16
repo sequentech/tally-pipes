@@ -20,7 +20,6 @@ import re
 import subprocess
 import json
 import requests
-from datetime import datetime, timedelta
 from reportlab.lib import colors
 from reportlab.platypus import (
   SimpleDocTemplate, 
@@ -36,13 +35,17 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.units import mm
 import gettext
 import os
+from datetime import datetime
+import pytz
 
 def configure_pdf(
     data_list, 
     title=None, 
     first_description_paragraph=None,
     last_description_paragraph=None,
-    languages=None
+    languages=None,
+    timezone=None,
+    date_format=None
 ):
     data = data_list[0]
     data['pdf'] = {}
@@ -60,9 +63,21 @@ def configure_pdf(
         for language in languages:
             assert(isinstance(language, str))
         data['pdf']['languages'] = languages
+    if timezone:
+        assert(isinstance(timezone, str))
+        data['pdf']['timezone'] = timezone
+    if date_format:
+        assert(isinstance(date_format, str))
+        data['pdf']['date_format'] = date_format
 
 def remove_html(text):
     return re.sub(r"<[^>]+>", " ", text)
+
+def parse_date(date_str, input_date_format, timezone_str, output_date_format):
+    date = datetime.strptime(date_str, input_date_format)
+    timezone = pytz.timezone(timezone_str)
+    date_timezoned = date.astimezone(timezone)
+    return date_timezoned.strftime(output_date_format)
 
 def gen_text(
     text,
@@ -429,11 +444,15 @@ def pdf_print(election_results, config_folder, election_id):
                     align=TA_RIGHT
                 ),
                 gen_text(
-                    str(
-                        datetime.strptime(
-                            jsonconfig['payload']['startDate'],
-                            '%Y-%m-%dT%H:%M:%S.%f'
-                        )
+                    parse_date(
+                        date_str=jsonconfig['payload']['startDate'],
+                        input_date_format='%Y-%m-%dT%H:%M:%S.%f',
+                        timezone_str=election_results\
+                            .get('pdf', dict())\
+                            .get('timezone', 'UTC'),
+                        output_date_format=election_results\
+                            .get('pdf', dict())\
+                            .get('date_format', '%Y-%m-%d %H:%M:%S %Z')
                     ),
                     align=TA_LEFT
                 )
@@ -444,26 +463,34 @@ def pdf_print(election_results, config_folder, election_id):
                     align=TA_RIGHT
                 ),
                 gen_text(
-                    str(
-                        datetime.strptime(
-                            jsonconfig['payload']['endDate'], 
-                            '%Y-%m-%dT%H:%M:%S.%f'
-                        )
+                    parse_date(
+                        date_str=jsonconfig['payload']['endDate'],
+                        input_date_format='%Y-%m-%dT%H:%M:%S.%f',
+                        timezone_str=election_results\
+                            .get('pdf', dict())\
+                            .get('timezone', 'UTC'),
+                        output_date_format=election_results\
+                            .get('pdf', dict())\
+                            .get('date_format', '%Y-%m-%d %H:%M:%S %Z')
                     ),
                     align=TA_LEFT
                 )
             ],
             [
-              gen_text(_('Tally end date'), align=TA_RIGHT),
-              gen_text(
-                  str(
-                      datetime.strptime(
-                          jsonconfig['date'], 
-                          '%Y-%m-%d %H:%M:%S.%f'
-                      )
-                  ),
-                  align=TA_LEFT
-              )
+                gen_text(_('Tally end date'), align=TA_RIGHT),
+                gen_text(
+                    parse_date(
+                        date_str=jsonconfig['date'],
+                        input_date_format='%Y-%m-%d %H:%M:%S.%f',
+                        timezone_str=election_results\
+                            .get('pdf', dict())\
+                            .get('timezone', 'UTC'),
+                        output_date_format=election_results\
+                            .get('pdf', dict())\
+                            .get('date_format', '%Y-%m-%d %H:%M:%S %Z')
+                    ),
+                    align=TA_LEFT
+                )
             ]
         ]
         table_style = TableStyle(
