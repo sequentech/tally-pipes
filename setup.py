@@ -40,6 +40,7 @@ setup(
         'reportlab==3.3.0',
         'requests==2.20.0',
         'Babel==2.9.1',
+        'pytz==2021.3',
         'agora-tally @ git+https://github.com/agoravoting/agora-tally.git@5.0.0'
     ]
 )
