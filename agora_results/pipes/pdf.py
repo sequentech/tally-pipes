@@ -64,10 +64,10 @@ def configure_pdf(
             assert(isinstance(language, str))
         data['pdf']['languages'] = languages
     if timezone:
-        assert(isinstance(timezone, list))
+        assert(isinstance(timezone, str))
         data['pdf']['timezone'] = timezone
     if date_format:
-        assert(isinstance(date_format, list))
+        assert(isinstance(date_format, str))
         data['pdf']['date_format'] = date_format
 
 def remove_html(text):
