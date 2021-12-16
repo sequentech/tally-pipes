@@ -73,11 +73,11 @@ def configure_pdf(
 def remove_html(text):
     return re.sub(r"<[^>]+>", " ", text)
 
-def parse_date(date_str, timezone_str, date_format):
-    date = datetime.strptime(date_str, '%Y-%m-%dT%H:%M:%S.%f')
+def parse_date(date_str, input_date_format, timezone_str, output_date_format):
+    date = datetime.strptime(date_str, input_date_format)
     timezone = pytz.timezone(timezone_str)
     date_timezoned = date.astimezone(timezone)
-    return date_timezoned.strftime(date_format)
+    return date_timezoned.strftime(output_date_format)
 
 def gen_text(
     text,
@@ -445,11 +445,12 @@ def pdf_print(election_results, config_folder, election_id):
                 ),
                 gen_text(
                     parse_date(
-                        jsonconfig['payload']['startDate'],
-                        election_results\
+                        date_str=jsonconfig['payload']['startDate'],
+                        input_date_format='%Y-%m-%dT%H:%M:%S.%f',
+                        timezone_str=election_results\
                             .get('pdf', dict())\
                             .get('timezone', 'UTC'),
-                        election_results\
+                        output_date_format=election_results\
                             .get('pdf', dict())\
                             .get('date_format', '%Y-%m-%d %H:%M:%S %Z')
                     ),
@@ -463,11 +464,12 @@ def pdf_print(election_results, config_folder, election_id):
                 ),
                 gen_text(
                     parse_date(
-                        jsonconfig['payload']['endDate'],
-                        election_results\
+                        date_str=jsonconfig['payload']['endDate'],
+                        input_date_format='%Y-%m-%dT%H:%M:%S.%f',
+                        timezone_str=election_results\
                             .get('pdf', dict())\
                             .get('timezone', 'UTC'),
-                        election_results\
+                        output_date_format=election_results\
                             .get('pdf', dict())\
                             .get('date_format', '%Y-%m-%d %H:%M:%S %Z')
                     ),
@@ -478,11 +480,12 @@ def pdf_print(election_results, config_folder, election_id):
                 gen_text(_('Tally end date'), align=TA_RIGHT),
                 gen_text(
                     parse_date(
-                        jsonconfig['date'],
-                        election_results\
+                        date_str=jsonconfig['date'],
+                        input_date_format='%Y-%m-%d %H:%M:%S.%f',
+                        timezone_str=election_results\
                             .get('pdf', dict())\
                             .get('timezone', 'UTC'),
-                        election_results\
+                        output_date_format=election_results\
                             .get('pdf', dict())\
                             .get('date_format', '%Y-%m-%d %H:%M:%S %Z')
                     ),
