@@ -17,26 +17,9 @@
 
 import os
 import re
-import subprocess
-import json
-import requests
-from reportlab.lib import colors
-from reportlab.platypus import (
-  SimpleDocTemplate, 
-  Paragraph, 
-  Spacer, 
-  Table, 
-  TableStyle, 
-  Image
-)
-from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
-from reportlab.lib.enums import TA_RIGHT, TA_LEFT, TA_CENTER
-from reportlab.pdfgen import canvas
-from reportlab.lib.units import mm
 import gettext
 import os
 from datetime import datetime
-import pytz
 
 def configure_pdf(
     data_list, 
@@ -74,6 +57,7 @@ def remove_html(text):
     return re.sub(r"<[^>]+>", " ", text)
 
 def parse_date(date_str, input_date_format, timezone_str, output_date_format):
+    import pytz
     date = datetime.strptime(date_str, input_date_format)
     timezone = pytz.timezone(timezone_str)
     date_timezoned = date.astimezone(timezone)
@@ -87,6 +71,9 @@ def gen_text(
     color='black', 
     fontName=None
 ):
+    from reportlab.platypus import Paragraph
+    from reportlab.lib.styles import ParagraphStyle
+
     if not isinstance(text, str):
         text = text.__str__()
     p = ParagraphStyle('test')
@@ -103,6 +90,7 @@ def gen_text(
     return Paragraph(text, p)
 
 def get_election_cfg(election_id):
+    import requests
     headers = {'content-type': 'application/json'}
     base_url = 'http://localhost:9000/api'
 
@@ -126,31 +114,10 @@ def get_election_cfg(election_id):
 
     return r.json()
 
-class NumberedCanvas(canvas.Canvas):
-    def __init__(self, *args, **kwargs):
-        canvas.Canvas.__init__(self, *args, **kwargs)
-        self._saved_page_states = []
-
-    def showPage(self):
-        self._saved_page_states.append(dict(self.__dict__))
-        self._startPage()
-
-    def save(self):
-        """add page info to each page (page x of y)"""
-        num_pages = len(self._saved_page_states)
-        for state in self._saved_page_states:
-            self.__dict__.update(state)
-            self.draw_page_number(num_pages)
-            canvas.Canvas.showPage(self)
-        canvas.Canvas.save(self)
-
-    def draw_page_number(self, page_count):
-        self.setFont("Helvetica", 7)
-        self.drawRightString(200*mm, 20*mm,
-            "Page %d of %d" % (self._pageNumber, page_count))
-
-
 def _header_footer(canvas, doc):
+    from reportlab.lib.styles import getSampleStyleSheet
+    from reportlab.platypus import Image
+
     # Save the state of our canvas so we can draw on it
     canvas.saveState()
     styles = getSampleStyleSheet()
@@ -173,6 +140,40 @@ def _header_footer(canvas, doc):
     canvas.restoreState()
 
 def pdf_print(election_results, config_folder, election_id):
+    from reportlab.lib import colors
+    from reportlab.platypus import (
+        SimpleDocTemplate,
+        Spacer,
+        Table,
+        TableStyle,
+    )
+    from reportlab.lib.styles import getSampleStyleSheet
+    from reportlab.lib.enums import TA_RIGHT, TA_LEFT, TA_CENTER
+    from reportlab.pdfgen import canvas
+    from reportlab.lib.units import mm
+
+    class NumberedCanvas(canvas.Canvas):
+        def __init__(self, *args, **kwargs):
+            canvas.Canvas.__init__(self, *args, **kwargs)
+            self._saved_page_states = []
+
+        def showPage(self):
+            self._saved_page_states.append(dict(self.__dict__))
+            self._startPage()
+
+        def save(self):
+            """add page info to each page (page x of y)"""
+            num_pages = len(self._saved_page_states)
+            for state in self._saved_page_states:
+                self.__dict__.update(state)
+                self.draw_page_number(num_pages)
+                canvas.Canvas.showPage(self)
+            canvas.Canvas.save(self)
+
+        def draw_page_number(self, page_count):
+            self.setFont("Helvetica", 7)
+            self.drawRightString(200*mm, 20*mm,
+                "Page %d of %d" % (self._pageNumber, page_count))
 
     localedir = os.path.join(
       os.path.abspath(os.path.dirname(__file__)), 
