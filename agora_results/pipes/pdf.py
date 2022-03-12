@@ -252,7 +252,7 @@ def pdf_print(election_results, config_folder, election_id):
                 **theme_colors,
                 **election_results['pdf']['theme_colors']
             }
-        if 'hide_dates' in hide_dates:
+        if 'hide_dates' in election_results['pdf']:
             hide_dates = election_results['pdf']['hide_dates']
         if 'hide_logo' in election_results['pdf']:
             hide_logo = election_results['pdf']['hide_logo']
