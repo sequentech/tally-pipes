@@ -30,6 +30,7 @@ def configure_pdf(
     timezone=None,
     date_format=None,
     hide_logo=None,
+    hide_dates=None,
     theme_colors=None
 ):
     data = data_list[0]
@@ -57,6 +58,9 @@ def configure_pdf(
     if hide_logo:
         assert(isinstance(hide_logo, bool))
         data['pdf']['hide_logo'] = hide_logo
+    if hide_dates:
+        assert(isinstance(hide_dates, bool))
+        data['pdf']['hide_dates'] = hide_dates
     if theme_colors:
         assert(isinstance(theme_colors, dict))
         for value in theme_colors.values():
@@ -235,17 +239,21 @@ def pdf_print(election_results, config_folder, election_id):
         OnBackground='black',
         Primary='#b6d7a8',
         OnPrimary='black',
+        OnGrey='black',
         Grey='grey',
         LightGrey='#cccccc',
         DarkGrey='#efefef'
     )
     hide_logo = False
+    hide_dates = False
     if 'pdf' in election_results:
         if 'theme_colors' in election_results['pdf']:
             theme_colors = {
                 **theme_colors,
                 **election_results['pdf']['theme_colors']
             }
+        if 'hide_dates' in hide_dates:
+            hide_dates = election_results['pdf']['hide_dates']
         if 'hide_logo' in election_results['pdf']:
             hide_logo = election_results['pdf']['hide_logo']
         if 'title' in election_results['pdf']:
@@ -371,7 +379,7 @@ def pdf_print(election_results, config_folder, election_id):
                 gen_text(
                     _('Tally system'),
                     align=TA_RIGHT,
-                    color=theme_colors['OnPrimary']
+                    color=theme_colors['OnGrey']
                 ),
                 gen_text(
                     tally_type[question['tally_type']],
@@ -383,7 +391,7 @@ def pdf_print(election_results, config_folder, election_id):
                 gen_text(
                     _('Minimum number of options a voter can select'),
                     align=TA_RIGHT,
-                    color=theme_colors['OnPrimary']
+                    color=theme_colors['OnGrey']
                 ),
                 gen_text(
                     str(question['min']),
@@ -395,7 +403,7 @@ def pdf_print(election_results, config_folder, election_id):
                 gen_text(
                     _('Maximum number of options a voter can select'),
                     align=TA_RIGHT,
-                    color=theme_colors['OnPrimary']
+                    color=theme_colors['OnGrey']
                 ),
                 gen_text(
                     str(question['max']),
@@ -407,7 +415,7 @@ def pdf_print(election_results, config_folder, election_id):
                 gen_text(
                     _('Number of winning options'), 
                     align=TA_RIGHT,
-                    color=theme_colors['OnPrimary']
+                    color=theme_colors['OnGrey']
                 ),
                 gen_text(
                     str(question['num_winners']),
@@ -419,7 +427,7 @@ def pdf_print(election_results, config_folder, election_id):
                 gen_text(
                     _('Options appear in the voting booth in random order'),
                     align=TA_RIGHT,
-                    color=theme_colors['OnPrimary']
+                    color=theme_colors['OnGrey']
                 ), 
                 gen_text(
                     _('Yes') 
@@ -471,7 +479,7 @@ def pdf_print(election_results, config_folder, election_id):
                 gen_text(
                     _('Total number of votes cast'),
                     align=TA_RIGHT,
-                    color=theme_colors['OnPrimary']
+                    color=theme_colors['OnGrey']
                 ),
                 gen_text(
                     str(total_votes),
@@ -483,7 +491,7 @@ def pdf_print(election_results, config_folder, election_id):
                 gen_text(
                     _('Blank votes'),
                     align=TA_RIGHT,
-                    color=theme_colors['OnPrimary']
+                    color=theme_colors['OnGrey']
                 ),
                 gen_text(
                     _(
@@ -501,7 +509,7 @@ def pdf_print(election_results, config_folder, election_id):
                 gen_text(
                     _('Null votes'),
                     align=TA_RIGHT,
-                    color=theme_colors['OnPrimary']
+                    color=theme_colors['OnGrey']
                 ),
                 gen_text(
                     _(
@@ -519,7 +527,7 @@ def pdf_print(election_results, config_folder, election_id):
                 gen_text(
                     _('Total number of votes for options'),
                     align=TA_RIGHT,
-                    color=theme_colors['OnPrimary']
+                    color=theme_colors['OnGrey']
                 ),
                 gen_text(
                     _(
@@ -532,71 +540,74 @@ def pdf_print(election_results, config_folder, election_id):
                     align=TA_LEFT,
                     color=theme_colors['OnBackground']
                 )
-            ],
-            [
-                gen_text(
-                    _('Voting period start date'),
-                    align=TA_RIGHT,
-                    color=theme_colors['OnPrimary']
-                ),
-                gen_text(
-                    parse_date(
-                        date_str=jsonconfig['payload']['startDate'],
-                        input_date_format='%Y-%m-%dT%H:%M:%S.%f',
-                        timezone_str=election_results\
-                            .get('pdf', dict())\
-                            .get('timezone', 'UTC'),
-                        output_date_format=election_results\
-                            .get('pdf', dict())\
-                            .get('date_format', '%Y-%m-%d %H:%M:%S %Z')
-                    ),
-                    align=TA_LEFT,
-                    color=theme_colors['OnBackground']
-                )
-            ],
-            [
-                gen_text(
-                    _('Voting period end date'),
-                    align=TA_RIGHT,
-                    color=theme_colors['OnPrimary']
-                ),
-                gen_text(
-                    parse_date(
-                        date_str=jsonconfig['payload']['endDate'],
-                        input_date_format='%Y-%m-%dT%H:%M:%S.%f',
-                        timezone_str=election_results\
-                            .get('pdf', dict())\
-                            .get('timezone', 'UTC'),
-                        output_date_format=election_results\
-                            .get('pdf', dict())\
-                            .get('date_format', '%Y-%m-%d %H:%M:%S %Z')
-                    ),
-                    align=TA_LEFT,
-                    color=theme_colors['OnBackground']
-                )
-            ],
-            [
-                gen_text(
-                    _('Tally end date'),
-                    align=TA_RIGHT,
-                    color=theme_colors['OnPrimary']
-                ),
-                gen_text(
-                    parse_date(
-                        date_str=jsonconfig['date'],
-                        input_date_format='%Y-%m-%d %H:%M:%S.%f',
-                        timezone_str=election_results\
-                            .get('pdf', dict())\
-                            .get('timezone', 'UTC'),
-                        output_date_format=election_results\
-                            .get('pdf', dict())\
-                            .get('date_format', '%Y-%m-%d %H:%M:%S %Z')
-                    ),
-                    align=TA_LEFT,
-                    color=theme_colors['OnBackground']
-                )
             ]
         ]
+        if not hide_dates:
+            data += [
+                [
+                    gen_text(
+                        _('Voting period start date'),
+                        align=TA_RIGHT,
+                        color=theme_colors['OnGrey']
+                    ),
+                    gen_text(
+                        parse_date(
+                            date_str=jsonconfig['payload']['startDate'],
+                            input_date_format='%Y-%m-%dT%H:%M:%S.%f',
+                            timezone_str=election_results\
+                                .get('pdf', dict())\
+                                .get('timezone', 'UTC'),
+                            output_date_format=election_results\
+                                .get('pdf', dict())\
+                                .get('date_format', '%Y-%m-%d %H:%M:%S %Z')
+                        ),
+                        align=TA_LEFT,
+                        color=theme_colors['OnBackground']
+                    )
+                ],
+                [
+                    gen_text(
+                        _('Voting period end date'),
+                        align=TA_RIGHT,
+                        color=theme_colors['OnGrey']
+                    ),
+                    gen_text(
+                        parse_date(
+                            date_str=jsonconfig['payload']['endDate'],
+                            input_date_format='%Y-%m-%dT%H:%M:%S.%f',
+                            timezone_str=election_results\
+                                .get('pdf', dict())\
+                                .get('timezone', 'UTC'),
+                            output_date_format=election_results\
+                                .get('pdf', dict())\
+                                .get('date_format', '%Y-%m-%d %H:%M:%S %Z')
+                        ),
+                        align=TA_LEFT,
+                        color=theme_colors['OnBackground']
+                    )
+                ],
+                [
+                    gen_text(
+                        _('Tally end date'),
+                        align=TA_RIGHT,
+                        color=theme_colors['OnGrey']
+                    ),
+                    gen_text(
+                        parse_date(
+                            date_str=jsonconfig['date'],
+                            input_date_format='%Y-%m-%d %H:%M:%S.%f',
+                            timezone_str=election_results\
+                                .get('pdf', dict())\
+                                .get('timezone', 'UTC'),
+                            output_date_format=election_results\
+                                .get('pdf', dict())\
+                                .get('date_format', '%Y-%m-%d %H:%M:%S %Z')
+                        ),
+                        align=TA_LEFT,
+                        color=theme_colors['OnBackground']
+                    )
+                ]
+            ]
         table_style = TableStyle(
             [
                 ('BACKGROUND',(0,0),(0,-1), theme_colors['DarkGrey']),
@@ -650,17 +661,17 @@ def pdf_print(election_results, config_folder, election_id):
               gen_text(
                   _('Name'),
                   align=TA_RIGHT,
-                  color=theme_colors['OnPrimary']
+                  color=theme_colors['OnGrey']
               ),
               gen_text(
                   _('Points'),
                   align=TA_CENTER,
-                  color=theme_colors['OnPrimary']
+                  color=theme_colors['OnGrey']
               ),
               gen_text(
                   _('Winning position'),
                   align=TA_LEFT,
-                  color=theme_colors['OnPrimary']
+                  color=theme_colors['OnGrey']
               )
             ]
         ]
@@ -685,19 +696,19 @@ def pdf_print(election_results, config_folder, election_id):
                         answer_text,
                         bold=True,
                         align=TA_RIGHT,
-                        color=theme_colors['OnPrimary']
+                        color=theme_colors['OnGrey']
                     ),
                     gen_text(
                         '%d' % answer['total_count'],
                         bold=True,
                         align=TA_CENTER,
-                        color=theme_colors['OnPrimary']
+                        color=theme_colors['OnGrey']
                     ),
                     gen_text(
                         '%dº' % (answer['winner_position'] + 1),
                         bold=True,
                         align=TA_LEFT,
-                        color=theme_colors['OnPrimary']
+                        color=theme_colors['OnGrey']
                     )
                 ]
             )
