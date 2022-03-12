@@ -386,7 +386,7 @@ def pdf_print(election_results, config_folder, election_id):
                     color=theme_colors['OnPrimary']
                 ),
                 gen_text(
-                    tally_type[question['min']],
+                    str(question['min']),
                     align=TA_LEFT,
                     color=theme_colors['OnBackground']
                 )
@@ -398,7 +398,7 @@ def pdf_print(election_results, config_folder, election_id):
                     color=theme_colors['OnPrimary']
                 ),
                 gen_text(
-                    tally_type[question['max']],
+                    str(question['max']),
                     align=TA_LEFT,
                     color=theme_colors['OnBackground']
                 )
@@ -410,7 +410,7 @@ def pdf_print(election_results, config_folder, election_id):
                     color=theme_colors['OnPrimary']
                 ),
                 gen_text(
-                    tally_type[question['num_winners']],
+                    str(question['num_winners']),
                     align=TA_LEFT,
                     color=theme_colors['OnBackground']
                 )
@@ -730,7 +730,6 @@ def pdf_print(election_results, config_folder, election_id):
         t.setStyle(table_style)
         elements.append(t)
         elements.append(Spacer(0, 15))
-
 
     def _header_footer_wrapper(canvas, doc):
         '''
