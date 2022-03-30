@@ -1,0 +1,38 @@
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+
+# This file is part of tally-pipes.
+# Copyright (C) 2014-2016  Sequent Tech Inc <legal@sequentech.io>
+
+# tally-pipes is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License.
+
+# tally-pipes  is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+
+# You should have received a copy of the GNU Affero General Public License
+# along with tally-pipes.  If not, see <http://www.gnu.org/licenses/>.
+
+from tally_pipes import main
+import argparse
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Process and show tally '
+                                     'results. If no config is specified, it '
+                                     'parses results in raw.')
+    parser.add_argument('-t', '--tally', nargs='*', help='tally path', default=[])
+    parser.add_argument('-e', '--election-config', nargs='*', help='Instead of specifying a tally, you can specify an json election config and an empty ephemeral tally with zero votes will be created. recommended to use together with the multipart.append_ballots pipe.', default=[])
+    parser.add_argument('-x', '--tar',   nargs='?', help='tar tallies output path')
+    parser.add_argument('-p', '--pipes-whitelist', help='path to the file containing the allowed pipes')
+    parser.add_argument('-c', '--config', help='config path')
+    parser.add_argument('-eid', '--election-id', help='election id', type=int)
+
+    parser.add_argument('-s', '--stdout', help='print output to stdout',
+        action='store_true')
+    parser.add_argument('-o', '--output-format', help='select the output format',
+        default="json", choices=["json", "csv", "tsv", "pretty", "none", "pdf"])
+
+    main.main(parser.parse_args())

@@ -50,7 +50,7 @@ Config results:
     "version": "1.0",
     "pipes": [
         {
-            "type": "agora_results.pipes.duplicate_questions.duplicate_questions",
+            "type": "tally_pipes.pipes.duplicate_questions.duplicate_questions",
             "params": {
                 "duplications": [
                     {
@@ -62,7 +62,7 @@ Config results:
             }
         },
         {
-            "type": "agora_results.pipes.modifications.apply_modifications",
+            "type": "tally_pipes.pipes.modifications.apply_modifications",
             "params": {
                 "modifications": [
                     {
@@ -80,19 +80,19 @@ Config results:
             }
         },
         {
-            "type": "agora_results.pipes.results.do_tallies",
+            "type": "tally_pipes.pipes.results.do_tallies",
             "params": {
                 "ignore_invalid_votes": true
             }
         },
         {
-            "type": "agora_results.pipes.sort.sort_non_iterative",
+            "type": "tally_pipes.pipes.sort.sort_non_iterative",
             "params": {
                 "question_indexes": [0]
             }
         },
         {
-            "type": "agora_results.pipes.desborda4.podemos_desborda4",
+            "type": "tally_pipes.pipes.desborda4.podemos_desborda4",
             "params": {
                 "question_index": 1,
                 "first_winner_question_index": 0
