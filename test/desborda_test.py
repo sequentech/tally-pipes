@@ -1,20 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 
-# This file is part of agora-results.
-# Copyright (C) 2017-2021  Agora Voting SL <agora@agoravoting.com>
+# This file is part of tally-pipes.
+# Copyright (C) 2017-2021  Sequent Tech Inc <legal@sequentech.io>
 
-# agora-results is free software: you can redistribute it and/or modify
+# tally-pipes is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License.
 
-# agora-results  is distributed in the hope that it will be useful,
+# tally-pipes  is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 
 # You should have received a copy of the GNU Affero General Public License
-# along with agora-results.  If not, see <http://www.gnu.org/licenses/>.
+# along with tally-pipes.  If not, see <http://www.gnu.org/licenses/>.
 
 import string
 import re
@@ -22,9 +22,9 @@ import copy
 import json
 import os
 from os import urandom
-from agora_results.utils import file_helpers
-from agora_results.main import main, VERSION
-from agora_tally.ballot_codec.nvotes_codec import NVotesCodec
+from tally_pipes.utils import file_helpers
+from tally_pipes.main import main, VERSION
+from tally_methods.ballot_codec.sequent_codec import NVotesCodec
 import tempfile
 import uuid
 import tarfile
@@ -317,9 +317,9 @@ def create_desborda_test(
                     candidate_is_woman = candidate in women_names
                     gender_url = {
                     "title": "Gender",
-                    "url": ("https://agoravoting.com/api/gender/M" \
+                    "url": ("https://sequentech.io/api/gender/M" \
                         if candidate_is_woman \
-                        else "https://agoravoting.com/api/gender/H")
+                        else "https://sequentech.io/api/gender/H")
                     }
                     answer["urls"].append(gender_url)
                 question["answers"].append(answer)

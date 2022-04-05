@@ -1,26 +1,26 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 
-# This file is part of agora-results.
-# Copyright (C) 2017  Agora Voting SL <agora@agoravoting.com>
+# This file is part of tally-pipes.
+# Copyright (C) 2017  Sequent Tech Inc <legal@sequentech.io>
 
-# agora-results is free software: you can redistribute it and/or modify
+# tally-pipes is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License.
 
-# agora-results  is distributed in the hope that it will be useful,
+# tally-pipes  is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 
 # You should have received a copy of the GNU Affero General Public License
-# along with agora-results.  If not, see <http://www.gnu.org/licenses/>.
+# along with tally-pipes.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
 from unittest.mock import patch
 import json
-from agora_results.utils import file_helpers
-from agora_results.main import main, VERSION
+from tally_pipes.utils import file_helpers
+from tally_pipes.main import main, VERSION
 import test.desborda_test
 import os
 import sys
@@ -68,9 +68,9 @@ class MockArgs:
 tally_config_desborda1 = dict(
     version=VERSION,
     pipes=[
-        dict(type="agora_results.pipes.results.do_tallies", params={}),
+        dict(type="tally_pipes.pipes.results.do_tallies", params={}),
         dict(
-            type="agora_results.pipes.desborda.podemos_desborda",
+            type="tally_pipes.pipes.desborda.podemos_desborda",
             params={
                 "women_names": []
             }
@@ -81,9 +81,9 @@ tally_config_desborda1 = dict(
 tally_config_desborda2 = dict(
     version=VERSION,
     pipes=[
-        dict(type="agora_results.pipes.results.do_tallies", params={}),
+        dict(type="tally_pipes.pipes.results.do_tallies", params={}),
         dict(
-            type="agora_results.pipes.desborda2.podemos_desborda2",
+            type="tally_pipes.pipes.desborda2.podemos_desborda2",
             params={
                 "women_names": [
                 ]
@@ -95,9 +95,9 @@ tally_config_desborda2 = dict(
 tally_config_desborda3 = dict(
     version=VERSION,
     pipes=[
-        dict(type="agora_results.pipes.results.do_tallies", params={}),
+        dict(type="tally_pipes.pipes.results.do_tallies", params={}),
         dict(
-            type="agora_results.pipes.desborda3.podemos_desborda3",
+            type="tally_pipes.pipes.desborda3.podemos_desborda3",
             params={
                 "women_names": []
             }
@@ -108,9 +108,9 @@ tally_config_desborda3 = dict(
 tally_config_borda = dict(
     version=VERSION,
     pipes=[
-        dict(type="agora_results.pipes.results.do_tallies", params={}),
+        dict(type="tally_pipes.pipes.results.do_tallies", params={}),
         dict(
-            type="agora_results.pipes.withdraw_candidates.withdraw_candidates",
+            type="tally_pipes.pipes.withdraw_candidates.withdraw_candidates",
             params={
                 "questions": [
                     {
@@ -121,14 +121,14 @@ tally_config_borda = dict(
                 ]
             }
         ),
-        dict(type="agora_results.pipes.sort.sort_non_iterative", params={})
+        dict(type="tally_pipes.pipes.sort.sort_non_iterative", params={})
     ]
 )
 
 tally_config_cumulative = dict(
     version=VERSION,
     pipes=[
-        dict(type="agora_results.pipes.results.do_tallies", params={}),
+        dict(type="tally_pipes.pipes.results.do_tallies", params={}),
     ]
 )
 
@@ -167,7 +167,7 @@ class TestPluralityTallySheets(unittest.TestCase):
         if test_data is None:
             return
         print("\nTest name: %s" % test_data["name"])
-        agora_results_bin_path = "python3 agora-results"
+        tally_pipes_bin_path = "python3 tally-pipes"
         tally_path = test.desborda_test.create_desborda_test(test_data,
             tally_type = "plurality-at-large",
             num_questions = num_questions,
@@ -178,7 +178,7 @@ class TestPluralityTallySheets(unittest.TestCase):
             pipes_whitelist = os.path.join("test", "pipes-whitelist.txt")
             results_path = os.path.join(tally_path, "12345.results.json")
             cmd = "%s -t %s -c %s -p %s -s -o json" % (
-                agora_results_bin_path,
+                tally_pipes_bin_path,
                 tally_targz_path,
                 config_results_path,
                 pipes_whitelist)
@@ -233,7 +233,7 @@ class TestBorda(unittest.TestCase):
         if test_data is None:
             return
         print("\nTest name: %s" % test_data["name"])
-        agora_results_bin_path = "python3 agora-results"
+        tally_pipes_bin_path = "python3 tally-pipes"
         tally_path = test.desborda_test.create_desborda_test(test_data,
             tally_type = "borda",
             num_questions = num_questions,
@@ -246,7 +246,7 @@ class TestBorda(unittest.TestCase):
             tally_results_dir_path = os.path.join(tally_path, 'results-1')
             os.mkdir(tally_results_dir_path)
             cmd = "%s -t %s -c %s -x %s -eid 12345 -s -o json" % (
-                agora_results_bin_path,
+                tally_pipes_bin_path,
                 tally_targz_path,
                 config_results_path,
                 tally_path
@@ -309,7 +309,7 @@ class TestDesBorda4(unittest.TestCase):
         if test_data is None:
             return
         print("\nTest name: %s" % test_data["name"])
-        agora_results_bin_path = "python3 agora-results"
+        tally_pipes_bin_path = "python3 tally-pipes"
         tally_path = test.desborda_test.create_desborda_test(test_data,
             tally_type = "desborda2",
             num_questions = num_questions,
@@ -320,7 +320,7 @@ class TestDesBorda4(unittest.TestCase):
             pipes_whitelist = os.path.join("test", "pipes-whitelist.txt")
             results_path = os.path.join(tally_path, "12345.results.json")
             cmd = "%s -t %s -c %s -p %s -s -o json" % (
-                agora_results_bin_path,
+                tally_pipes_bin_path,
                 tally_targz_path,
                 config_results_path,
                 pipes_whitelist)
@@ -373,7 +373,7 @@ class TestDesBorda3(unittest.TestCase):
         if test_data is None:
             return
         print("\nTest name: %s" % test_data["name"])
-        agora_results_bin_path = "python3 agora-results"
+        tally_pipes_bin_path = "python3 tally-pipes"
         tally_path = test.desborda_test.create_desborda_test(test_data,
             tally_type = "desborda3",
             num_questions = num_questions,
@@ -384,7 +384,7 @@ class TestDesBorda3(unittest.TestCase):
             pipes_whitelist = os.path.join("test", "pipes-whitelist.txt")
             results_path = os.path.join(tally_path, "12345.results.json")
             cmd = "%s -t %s -c %s -p %s -s -o json" % (
-                agora_results_bin_path,
+                tally_pipes_bin_path,
                 tally_targz_path,
                 config_results_path,
                 pipes_whitelist)
@@ -452,7 +452,7 @@ class TestDesBorda2(unittest.TestCase):
         if test_data is None:
             return
         print("\nTest name: %s" % test_data["name"])
-        agora_results_bin_path = "python3 agora-results"
+        tally_pipes_bin_path = "python3 tally-pipes"
         tally_path = test.desborda_test.create_desborda_test(test_data,
             tally_type = "desborda2",
             num_questions = num_questions,
@@ -463,7 +463,7 @@ class TestDesBorda2(unittest.TestCase):
             pipes_whitelist = os.path.join("test", "pipes-whitelist.txt")
             results_path = os.path.join(tally_path, "12345.results.json")
             cmd = "%s -t %s -c %s -p %s -s -o json" % (
-                agora_results_bin_path,
+                tally_pipes_bin_path,
                 tally_targz_path,
                 config_results_path,
                 pipes_whitelist)
@@ -530,7 +530,7 @@ class TestDesBorda(unittest.TestCase):
         if test_data is None:
             return
         print("\nTest name: %s" % test_data["name"])
-        agora_results_bin_path = "python3 agora-results"
+        tally_pipes_bin_path = "python3 tally-pipes"
         tally_path = test.desborda_test.create_desborda_test(test_data)
         try:
             tally_targz_path = os.path.join(tally_path, "tally.tar.gz")
@@ -538,7 +538,7 @@ class TestDesBorda(unittest.TestCase):
             pipes_whitelist = os.path.join("test", "pipes-whitelist.txt")
             results_path = os.path.join(tally_path, "12345.results.json")
             cmd = "%s -t %s -c %s -p %s -s -o json" % (
-                agora_results_bin_path,
+                tally_pipes_bin_path,
                 tally_targz_path,
                 config_results_path,
                 pipes_whitelist)
@@ -685,7 +685,7 @@ class TestBallotOutput(unittest.TestCase):
             results_path = os.path.join(tally_path, "12345.results.json")
             tally_results_dir_path = os.path.join(tally_path, 'results-1')
             os.mkdir(tally_results_dir_path)
-            cmd = "agora-results -t %s -c %s -x %s -eid 12345 -s -o json" % (
+            cmd = "tally-pipes -t %s -c %s -x %s -eid 12345 -s -o json" % (
                 tally_targz_path,
                 config_results_path,
                 tally_path
@@ -749,7 +749,7 @@ class TestCumulative(unittest.TestCase):
             return
 
         print("\nTest name: %s" % test_data["name"])
-        agora_results_bin_path = "python3 agora-results"
+        tally_pipes_bin_path = "python3 tally-pipes"
         tally_path = test.desborda_test.create_desborda_test(
             test_data,
             extra_options=dict(cumulative_number_of_checkboxes=checks),
@@ -765,7 +765,7 @@ class TestCumulative(unittest.TestCase):
             tally_results_dir_path = os.path.join(tally_path, 'results-1')
             os.mkdir(tally_results_dir_path)
             cmd = "%s -t %s -c %s -x %s -p %s -eid 12345 -s -o json" % (
-                agora_results_bin_path,
+                tally_pipes_bin_path,
                 tally_targz_path,
                 config_results_path,
                 tally_path,
