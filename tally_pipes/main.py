@@ -270,7 +270,12 @@ def main(pargs):
     # load config
     if pargs.config is not None:
       with codecs.open(pargs.config, 'r', encoding="utf-8") as f:
-          pipeline_info = json.loads(f.read())
+          pipeline_str = f.read()
+          try:
+            pipeline_info = json.loads(pipeline_str)
+          except Exception as e:
+            print(f"Error parsing json file whose contents are:\n'''{pipeline_str}'''")
+            raise e
     else:
       pipeline_info = DEFAULT_PIPELINE
 
