@@ -267,6 +267,12 @@ def create_ephemeral_tally(econfig_path):
     return tmp_dir
 
 def main(pargs):
+    from agora_tally.voting_systems.base import (
+        BlankVoteException,
+        ExplicitInvalidVoteException,
+        ImplicitInvalidVoteException
+    )
+
     # load config
     if pargs.config is not None:
       with codecs.open(pargs.config, 'r', encoding="utf-8") as f:
@@ -376,7 +382,8 @@ def main(pargs):
                 vote_json['question_num'] = question_num
                 vote_json['ballot_flags'] = dict(
                     blank_vote=False,
-                    null_vote=False
+                    null_vote=False,
+                    implicit_null_vote=False
                 )
                 if 'winners' in vote_json:
                     del vote_json['winners']
@@ -395,13 +402,20 @@ def main(pargs):
                         del vote_answer['winner_position']
 
                 # detect blank and null votes and mark accordingly
-                if vote == "BLANK_VOTE":
-                    vote_str += ["BLANK_VOTE"]
-                    vote_json['ballot_flags']['blank_vote'] = True
-                elif vote == "NULL_VOTE":
-                    vote_str += ["NULL_VOTE"]
-                    vote_json['ballot_flags']['null_vote'] = True
-                else:
+                if exception is not None:
+                    if isinstance(exception, BlankVoteException):
+                        vote_str += ["BLANK_VOTE"]
+                        vote_json['ballot_flags']['blank_vote'] = True
+                    elif isinstance(exception, ImplicitInvalidVoteException):
+                        vote_str += ["NULL_VOTE"]
+                        vote_json['ballot_flags']['implicit_null_vote'] = True
+                    elif isinstance(exception, ExplicitInvalidVoteException):
+                        vote_str += ["NULL_VOTE"]
+                        vote_json['ballot_flags']['null_vote'] = True
+                    else:
+                        vote_str += ["NULL_VOTE"]
+                        vote_json['ballot_flags']['implicit_null_vote'] = True
+                if vote is not None:
                     if question['tally_type'] != 'cumulative':
                         sorted_vote = sorted(
                             list(vote),
