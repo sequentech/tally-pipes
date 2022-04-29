@@ -18,7 +18,11 @@
 import os
 import json
 import tally_methods.tally
-from tally_methods.voting_systems.base import BlankVoteException
+from tally_methods.voting_systems.base import (
+    BlankVoteException,
+    ExplicitInvalidVoteException,
+    ImplicitInvalidVoteException
+)
 from collections import defaultdict
 
 def do_tallies(
@@ -49,12 +53,18 @@ def do_tallies(
 
             try:
                 vote = parse_vote(number, question, q_withdrawals)
-            except BlankVoteException as e:
-                exception = e
-                vote = "BLANK_VOTE"
-            except Exception as e:
-                exception = e
-                vote = "NULL_VOTE"
+            except BlankVoteException as error:
+                exception = error
+                vote = error.ballot
+            except ImplicitInvalidVoteException as error:
+                exception = error
+                vote = error.ballot
+            except ExplicitInvalidVoteException as error:
+                exception = error
+                vote = error.ballot
+            except Exception as error:
+                exception = error
+                vote = None
             ballots_printer(vote, question, tally.question_num, exception)
 
             if exception is not None:
