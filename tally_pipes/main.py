@@ -16,6 +16,7 @@
 # along with tally-pipes.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
+import re
 import copy
 import signal
 import json
@@ -180,6 +181,58 @@ def func_path_sanity_checks(func_path, pipes_whitelist):
         if len(val) == 0 or val.startswith("_"):
             raise Exception()
 
+def parse_version_string(version_str):
+    '''
+    Parses a semver string
+    '''
+    regex = re.match("^([0-9]+)\.([0-9]+)\.([0-9a-zA-Z_.-]+)$", version_str)
+    if not regex:
+        raise Exception('Invalid version string')
+
+    return dict(
+        major_version=int(regex.group(1)),
+        minor_version=int(regex.group(2)),
+        patch_version=regex.group(3)
+    )
+
+def is_compatible_version(software_version, config_version):
+    '''
+    Returns if a given software version is compatible with a given config
+    version.
+    '''
+    # Major version changes are incompatible
+    if software_version['major_version'] != config_version['major_version']:
+        return False
+
+    # Minor version changes are only compatible if software version is equal or
+    # greater than config version
+    if software_version['minor_version'] < config_version['minor_version']:
+        return False
+
+    # Any other version is compatible
+    return True
+
+def is_valid_version(pipeline_info):
+    '''
+    Returns true only if version is a valid compatible version
+    '''
+    if (
+        'version' not in pipeline_info or
+        type(pipeline_info['version']) is not str
+    ):
+        return False
+
+    try:
+        software_version = parse_version_string(VERSION)
+        pipe_version = parse_version_string(pipeline_info['version'])
+    except:
+        # if the version name does not follow semver, then we just compare the
+        # two version for an exact match. This is needed when using a version
+        # called `master` for `master` branch, for example.
+        return VERSION == pipeline_info['version']
+
+    return is_compatible_version(software_version, pipe_version)
+
 def execute_pipeline(pipeline_info, data_list, pipes_whitelist=None):
     '''
     Execute a pipeline of options. pipeline_info must be a list of
@@ -198,9 +251,7 @@ def execute_pipeline(pipeline_info, data_list, pipes_whitelist=None):
     # verify format
     if (
         type(pipeline_info) is not dict or
-        'version' not in pipeline_info or
-        type(pipeline_info['version']) is not str or
-        pipeline_info['version'] != VERSION or
+        not is_valid_version(pipeline_info) or
         'pipes' not in pipeline_info or
         type(pipeline_info['pipes']) is not list
     ):
