@@ -34,7 +34,7 @@ def remove_spaces(in_str):
 
 def has_input_format(in_str):
     # example: "A1f, B2m \nB3f"
-    m = re.fullmatch(r"((\s*[A-Z][0-9]+[fm]\s*,)*\s*[A-Z][0-9]+[fm]\s*\n)*(\s*[A-Z][0-9]+[fm]\s*,)*\s*[A-Z][0-9]+[fm]\s*\n?", in_str)
+    m = re.fullmatch(r"((\s*(<blank>|<null>|[A-Z][0-9]+[fm])\s*,)*\s*(<blank>|<null>|[A-Z][0-9]+[fm])\s*\n)*(\s*(<blank>|<null>|[A-Z][0-9]+[fm])\s*,)*\s*(<blank>|<null>|[A-Z][0-9]+[fm])\s*\n?", in_str)
     return m is not None
 
 def has_output_format(out_str):
@@ -42,7 +42,7 @@ def has_output_format(out_str):
     m = re.fullmatch(r"(\s*[A-Z][0-9]+[fm]\s*,\s*[0-9]+\s*\n)*\s*[A-Z][0-9]+[fm]\s*,\s*[0-9]+\s*\n?", out_str)
     return m is not None
 
-def encode_valid_ballot(
+def encode_ballot(
     text_ballot, 
     question
 ):
@@ -52,6 +52,7 @@ def encode_valid_ballot(
     ballot_question = copy.deepcopy(question)
     normal_choices_dict = dict()
     write_in_choices_dict = dict()
+    is_invalid_vote_flag = False
     for choice_index, text_choice in enumerate(text_ballot):
         if '#' in text_choice:
             answer_id, answer_text = text_choice.split('#')
@@ -60,13 +61,16 @@ def encode_valid_ballot(
             answer_id = None
             answer_text = text_choice
         if answer_id is None:
-            if answer_text in normal_choices_dict:
-                normal_choices_dict[answer_text]['count'] += 1
-            else:
-                normal_choices_dict[answer_text] = dict(
-                    count=1,
-                    choice_index=choice_index
-                )
+            if answer_text not in ['<blank>', '<null>']:
+                if answer_text in normal_choices_dict:
+                    normal_choices_dict[answer_text]['count'] += 1
+                else:
+                    normal_choices_dict[answer_text] = dict(
+                        count=1,
+                        choice_index=choice_index
+                    )
+            elif answer_text == '<null>':
+                is_invalid_vote_flag = True
         else:
             if answer_id in write_in_choices_dict:
                 write_in_choices_dict[answer_id]['count'] += 1
@@ -94,6 +98,9 @@ def encode_valid_ballot(
     
     ballot_encoder = NVotesCodec(ballot_question)
     raw_ballot = ballot_encoder.encode_raw_ballot()
+    # if it's an invalid ballot, set the invalid ballot flag
+    if is_invalid_vote_flag:
+        raw_ballot['choices'][0] = 1
     int_ballot = ballot_encoder.encode_to_int(raw_ballot)
     return str(int_ballot + 1)
 
@@ -253,6 +260,8 @@ def create_desborda_test(
             if len_ballot > max_num:
                 max_num = len_ballot
             for candidate in ballot:
+                if candidate in ['<blank>', '<null>']:
+                    continue
                 team = candidate[:1]
                 female = "f" == candidate[-1]
                 if team not in teams:
@@ -347,7 +356,7 @@ def create_desborda_test(
         counter += 1
         if counter % 1000 == 0:
             print("%i votes encoded" % counter)
-        encoded_ballot = encode_valid_ballot(
+        encoded_ballot = encode_ballot(
             text_ballot=ballot,
             question=question
         )
