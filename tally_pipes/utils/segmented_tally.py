@@ -39,6 +39,22 @@ def read_config(data):
     with open(questions_path, 'r', encoding="utf-8") as f:
         return json.loads(f.read())
 
+def get_public_keys(pks_str):
+    '''
+    Given a string containing a json with the public keys, obtain the public
+    keys in the desired format
+    '''
+    public_key_list = json.loads(pks_str)
+    return [
+        dict(
+            g=int(pub_key["g"]),
+            p=int(pub_key["p"]),
+            q=int(pub_key["q"]),
+            y=int(pub_key["y"])
+        )
+        for pub_key in public_key_list
+    ]
+
 def get_plaintexts_path(data, question_index, filename="plaintexts_json"):
     return glob.glob(
         os.path.join(
@@ -136,15 +152,17 @@ def apply_segmented_tally(data_list, segmented_election_config_path):
     #    consolidated results).
     # 3. untag the plaintexts, putting only the plaintexts of the appropriate
     #    category in each question.
-    election_config = open(segmented_election_config_path).read()
+    election_config = json.loads(open(segmented_election_config_path).read())
     category_names = election_config['configuration']['mixingCategorySegmentation']["categories"]
+    pub_keys = get_public_keys(election_config['pks'])
 
     assert len(data_list) == 1
     data = data_list[0]
     questions = read_config(data)
-    assert json.dumps(questions) == json.dumps(election_config['configuration']['questions'])
+
     # 1. obtain category primes for each question
-    for question in questions:
+    for question_index, question in enumerate(questions):
+        question['pub_keys'] = pub_keys[question_index]
         question['category_primes'] = get_category_primes(
             question,
             category_names
