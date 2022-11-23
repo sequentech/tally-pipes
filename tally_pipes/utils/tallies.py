@@ -20,7 +20,14 @@ import shutil
 from tally_pipes.utils.deterministic_tar import deterministic_tar_open, deterministic_tar_add
 
 
-def tar_tallies(data_list, config, tar_list, destdir, eid):
+def tar_tallies(
+    data_list,
+    config,
+    tar_list,
+    destdir,
+    election_id,
+    segmented_election_config_path=None
+):
     results_config = json.dumps(config)
     results = json.dumps(
         data_list[0]['results'],
@@ -31,8 +38,8 @@ def tar_tallies(data_list, config, tar_list, destdir, eid):
     )
 
     tempdir = tempfile.mkdtemp()
-    results_path = os.path.join(tempdir, "%d.results.json" % eid)
-    config_path = os.path.join(tempdir, "%d.config.results.json" % eid)
+    results_path = os.path.join(tempdir, "%d.results.json" % election_id)
+    config_path = os.path.join(tempdir, "%d.config.results.json" % election_id)
 
     with open(results_path, 'w') as f:
         f.write(results)
@@ -40,14 +47,25 @@ def tar_tallies(data_list, config, tar_list, destdir, eid):
     with open(config_path, 'w') as f:
         f.write(results_config)
 
-    paths = [results_path, config_path] + tar_list
+    extra_paths = []
+    if segmented_election_config_path is not None:
+        segmented_election_config = open(segmented_election_config).read()
+        temp_segmented_election_config_path = os.path.join(
+            tempdir,
+            "segmented_election_config.json" % election_id
+        )
+        extra_paths += ["segmented_election_config.json" % election_id]
+        with open(temp_segmented_election_config_path, 'w') as file:
+            file.write(segmented_election_config)
+
+    paths = [results_path, config_path] + extra_paths + tar_list
     arc_names = ["results.json", "config.json"] + [
       "%d.tar.gz" % int(os.path.dirname(tar2).split("/")[-1])
       for tar2 in tar_list
     ]
 
     # create tar
-    tar_path = os.path.join(destdir, "%d.tar" % eid)
+    tar_path = os.path.join(destdir, "%d.tar" % election_id)
     tar = deterministic_tar_open(tar_path, "w")
 
     for path, arc_name in zip(paths, arc_names):
