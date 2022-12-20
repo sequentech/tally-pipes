@@ -1,5 +1,5 @@
 # This file is part of tally-pipes.
-# Copyright (C) 2014-2016  Sequent Tech Inc <legal@sequentech.io>
+# Copyright (C) 2014-2022  Sequent Tech Inc <legal@sequentech.io>
 
 # tally-pipes is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -48,18 +48,20 @@ def tar_tallies(
         f.write(results_config)
 
     extra_paths = []
+    extra_arc_names = []
     if segmented_election_config_path is not None:
-        segmented_election_config = open(segmented_election_config).read()
+        segmented_election_config = open(segmented_election_config_path).read()
         temp_segmented_election_config_path = os.path.join(
             tempdir,
-            "segmented_election_config.json" % election_id
+            "segmented_election_config.json"
         )
-        extra_paths += ["segmented_election_config.json" % election_id]
+        extra_paths += [temp_segmented_election_config_path]
+        extra_arc_names += ["segmented_election_config.json"]
         with open(temp_segmented_election_config_path, 'w') as file:
             file.write(segmented_election_config)
 
     paths = [results_path, config_path] + extra_paths + tar_list
-    arc_names = ["results.json", "config.json"] + [
+    arc_names = ["results.json", "config.json"] + extra_arc_names + [
       "%d.tar.gz" % int(os.path.dirname(tar2).split("/")[-1])
       for tar2 in tar_list
     ]

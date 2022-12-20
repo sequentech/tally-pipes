@@ -56,17 +56,17 @@ def get_public_keys(pks_str):
     ]
 
 def get_plaintexts_path(data, question_index, filename="plaintexts_json"):
-    return glob.glob(
+    question_dir =  glob.glob(
         os.path.join(
             data['extract_dir'], 
             f"{question_index}-*",
-            filename
         )
     )[0]
+    return os.path.join(question_dir, filename)
 
-def get_plaintexts_file(data, question_index):
+def get_plaintexts_file(data, question_index, mode='r'):
     questions_path = get_plaintexts_path(data, question_index)
-    return open(questions_path, 'r', encoding="utf-8")
+    return open(questions_path, mode, encoding="utf-8")
 
 def get_category_primes(question, category_names):
     '''
@@ -114,10 +114,11 @@ def process_raw_ballot(raw_ballot_str, category_primes):
     dict of (category_name=>category_prime). Returns the category corresponding
     to this ballot, and the text representing the untagged ballot.
     '''
-    raw_ballot_int = int(raw_ballot_str)
+    # we assume raw_ballot is in the format of '"{int_number}"\n'
+    raw_ballot_int = int(raw_ballot_str[1:-2])
     for (category_name, category_prime) in category_primes.items():
         if raw_ballot_int % category_prime == 0:
-            untagged_ballot_int = raw_ballot_int / category_prime
+            untagged_ballot_int = f"\"{int(raw_ballot_int / category_prime)}\"\n"
             return category_name, untagged_ballot_int
 
     raise Exception(
@@ -232,7 +233,8 @@ def apply_segmented_tally(data_list, segmented_election_config_path):
                         question_index * (num_categories + 1)
                         + 1
                         + cat_index
-                    )
+                    ),
+                    mode='w'
                 )
             )
             for cat_index, category_name in enumerate(category_names)
