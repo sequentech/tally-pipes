@@ -20,19 +20,63 @@ from tally_pipes import main
 import argparse
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Process and show tally '
-                                     'results. If no config is specified, it '
-                                     'parses results in raw.')
-    parser.add_argument('-t', '--tally', nargs='*', help='tally path', default=[])
-    parser.add_argument('-e', '--election-config', nargs='*', help='Instead of specifying a tally, you can specify an json election config and an empty ephemeral tally with zero votes will be created. recommended to use together with the multipart.append_ballots pipe.', default=[])
-    parser.add_argument('-x', '--tar',   nargs='?', help='tar tallies output path')
-    parser.add_argument('-p', '--pipes-whitelist', help='path to the file containing the allowed pipes')
+    parser = argparse.ArgumentParser(
+        description=(
+            'Process and show tally results. If no config is specified, it '
+            'parses results in raw.'
+        )
+    )
+    parser.add_argument(
+        '-t',
+        '--tally',
+        nargs='*',
+        help='tally path',
+        default=[]
+    )
+    parser.add_argument(
+        '-e',
+        '--election-config',
+        nargs='*',
+        help=(
+            'Instead of specifying a tally, you can specify an json election '
+            'config and an empty ephemeral tally with zero votes will be '
+            'created. recommended to use together with the '
+            'multipart.append_ballots pipe.'
+        ),
+        default=[]
+    )
+    parser.add_argument(
+        '-x',
+        '--tar',
+        nargs='?',
+        help='tar tallies output path'
+    )
+    parser.add_argument(
+        '-p',
+        '--pipes-whitelist',
+        help='path to the file containing the allowed pipes'
+    )
     parser.add_argument('-c', '--config', help='config path')
     parser.add_argument('-eid', '--election-id', help='election id', type=int)
 
-    parser.add_argument('-s', '--stdout', help='print output to stdout',
-        action='store_true')
-    parser.add_argument('-o', '--output-format', help='select the output format',
-        default="json", choices=["json", "csv", "tsv", "pretty", "none", "pdf"])
+    parser.add_argument(
+        '-s',
+        '--stdout',
+        help='print output to stdout',
+        action='store_true'
+    )
+    parser.add_argument(
+        '-o',
+        '--output-format',
+        help='select the output format',
+        default="json",
+        choices=["json", "csv", "tsv", "pretty", "none", "pdf"]
+    )
+    parser.add_argument(
+        '--segmented-election-config',
+        help='Path to the election config of an election with segmented mixing',
+        required=False,
+        default=None
+    )
 
     main.main(parser.parse_args())

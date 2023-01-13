@@ -29,7 +29,6 @@ import time
 import random
 import re
 
-
 class Capturing:
     def __init__(self, *args, **kwargs):
         self.file_obj = open(*args, **kwargs)

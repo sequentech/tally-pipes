@@ -518,6 +518,13 @@ def main(pargs):
 
             data_list[0]['ballots_printer'] = ballots_printer
 
+        if pargs.segmented_election_config:
+            from tally_pipes.utils.segmented_tally import apply_segmented_tally
+            apply_segmented_tally(
+                data_list=data_list,
+                segmented_election_config_path=pargs.segmented_election_config
+            )
+
         execute_pipeline(
             pipeline_info,
             data_list,
@@ -539,7 +546,14 @@ def main(pargs):
         if pargs.tar and len(data_list) > 0 and 'results' in data_list[0]:
             data_list[0]['results']['results_dirname'] = priv_results_dirname
             from tally_pipes.utils.tallies import tar_tallies
-            tar_tallies(data_list, pipeline_info, pargs.tally, pargs.tar, pargs.election_id)
+            tar_tallies(
+                data_list,
+                pipeline_info,
+                pargs.tally,
+                pargs.tar,
+                pargs.election_id,
+                pargs.segmented_election_config
+            )
 
             # dump the results in CSV,JSON and PRETTY format in the
             # priv-results dir
