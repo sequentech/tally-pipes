@@ -1,0 +1,6194 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: POEditor.com\n"
+"Project-Id-Version: Sequent Tech Voting Platform\n"
+"Language: fr-ca\n"
+
+#: 
+msgid "yes"
+msgstr "oui"
+
+#: 
+msgid "no"
+msgstr "non"
+
+#: 
+msgid "eg"
+msgstr "eg."
+
+#: 
+msgid "next"
+msgstr "Suivant"
+
+#: 
+msgid "done"
+msgstr "Terminé"
+
+#: 
+msgid "loading"
+msgstr "Chargement..."
+
+#: 
+msgid "nomore"
+msgstr "Plus d'éléments"
+
+#: 
+msgid "registered"
+msgstr "enregistré"
+
+#: 
+msgid "created"
+msgstr "créé"
+
+#: 
+msgid "started"
+msgstr "commencé"
+
+#: 
+msgid "stopped"
+msgstr "arrêté"
+
+#: 
+msgid "tally_ok"
+msgstr "décompte fait"
+
+#: 
+msgid "results_ok"
+msgstr "résultats obtenus"
+
+#: 
+msgid "results_pub"
+msgstr "résultats publiés"
+
+#: 
+msgid "doing_tally"
+msgstr "faire le décompte"
+
+#: 
+msgid "tally_error"
+msgstr "erreur de décompte"
+
+#: 
+msgctxt "\"app\""
+msgid "name"
+msgstr "Tech séquence"
+
+#: 
+msgctxt "\"avCommon\""
+msgid "cancel"
+msgstr "Annuler"
+
+#: 
+msgctxt "\"avCommon\""
+msgid "poweredBy"
+msgstr "Alimenté par <strong><a href=\"__url__\" target=\"_blank\">__name__</a></strong>"
+
+#: 
+msgctxt "\"avCommon\""
+msgid "shareLink"
+msgstr "Tweeter cette élection !"
+
+#: 
+msgctxt "\"avCommon\""
+msgid "votingSystem"
+msgstr "Système de vote"
+
+#: 
+msgctxt "\"avCommon\".\"votings\""
+msgid "plurality-at-large"
+msgstr "Pluralité au sens large"
+
+#: 
+msgctxt "\"avCommon\".\"votings\""
+msgid "borda-nauru"
+msgstr "Le comte Borda de Nauru ou Borda Dowdall (1/n)"
+
+#: 
+msgctxt "\"avCommon\".\"votings\""
+msgid "borda"
+msgstr "Comte Borda (traditionnel)"
+
+#: 
+msgctxt "\"avCommon\".\"votings\""
+msgid "pairwise-beta"
+msgstr "Par paires (distribution bêta)"
+
+#: 
+msgctxt "\"avCommon\".\"votings\""
+msgid "desborda3"
+msgstr "DesBorda3"
+
+#: 
+msgctxt "\"avCommon\".\"votings\""
+msgid "desborda2"
+msgstr "DesBorda2"
+
+#: 
+msgctxt "\"avCommon\".\"votings\""
+msgid "desborda"
+msgstr "DesBorda"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "logout"
+msgstr "Déconnexion"
+
+#: 
+msgctxt "\"avBooth\".\"showPdf\""
+msgid "showPdfButton"
+msgstr "Afficher le PDF"
+
+#: 
+msgctxt "\"avBooth\".\"showPdf\""
+msgid "pdfTextDescription"
+msgstr "Veuillez lire le PDF avant de voter"
+
+#: 
+msgctxt "\"avBooth\".\"electionChooser\".\"hasVoted\""
+msgid "title"
+msgstr "Succès !"
+
+#: 
+msgctxt "\"avBooth\".\"electionChooser\".\"hasVoted\""
+msgid "description"
+msgstr "Vous avez voté dans toutes les élections que vous pouvez dans ce processus électoral."
+
+#: 
+msgctxt "\"avBooth\".\"electionChooser\".\"hasVoted\""
+msgid "hasSkipped"
+msgstr "Vous avez sauté certaines élections et voté dans toutes les autres. Pour voter dans les élections ignorées, connectez-vous à nouveau et vous pourrez voter dans ces élections. Les élections sautées sont :"
+
+#: 
+msgctxt "\"avBooth\".\"electionChooser\".\"cannotVote\""
+msgid "title"
+msgstr "Aucun justificatif"
+
+#: 
+msgctxt "\"avBooth\".\"electionChooser\".\"cannotVote\""
+msgid "description"
+msgstr "Pour une raison quelconque, vous êtes correctement connecté mais vous n'avez pas reçu les informations d'identification pour voter. Veuillez consulter les organisateurs d'élections."
+
+#: 
+msgctxt "\"avBooth\".\"electionChooser\".\"canVote\""
+msgid "title"
+msgstr "Choisissez une élection pour voter"
+
+#: 
+msgctxt "\"avBooth\".\"electionChooser\".\"canVote\""
+msgid "description"
+msgstr "Remarque : les élections désactivées signifient que vous avez déjà voté ou que vous n'avez pas la permission de voter."
+
+#: 
+msgctxt "\"avBooth\".\"demoModeModal\""
+msgid "header"
+msgstr "Cabine de vote démo"
+
+#: 
+msgctxt "\"avBooth\".\"demoModeModal\""
+msgid "body"
+msgstr "Vous entrez dans un isoloir de démonstration. <strong>Votre vote ne sera PAS exprimé</strong>. Cet isoloir est uniquement destiné à des fins de démonstration."
+
+#: 
+msgctxt "\"avBooth\".\"demoModeModal\""
+msgid "confirm"
+msgstr "J'accepte que mon vote ne soit PAS exprimé"
+
+#: 
+msgctxt "\"avBooth\".\"previewModeModal\""
+msgid "header"
+msgstr "Cabine de vote Live Preview"
+
+#: 
+msgctxt "\"avBooth\".\"previewModeModal\""
+msgid "body"
+msgstr "Vous entrez dans un isoloir de vote en direct. <strong>Votre vote ne sera PAS exprimé</strong>. Cet isoloir est uniquement destiné à des fins de démonstration."
+
+#: 
+msgctxt "\"avBooth\".\"previewModeModal\""
+msgid "confirm"
+msgstr "J'accepte que mon vote ne soit PAS exprimé"
+
+#: 
+msgctxt "\"avBooth\".\"hashForVoteNotCastModal\""
+msgid "header"
+msgstr "Le vote n'a pas eu lieu"
+
+#: 
+msgctxt "\"avBooth\".\"hashForVoteNotCastModal\""
+msgid "body"
+msgstr "Vous êtes sur le point de copier l'identifiant de suivi du scrutin, mais <strong>votre vote n'a pas encore été exprimé</strong>. Si vous essayez de suivre le bulletin, vous ne le trouverez pas.<br><br>La raison pour laquelle nous montrons l'identifiant de suivi du bulletin à ce stade est de vous permettre de vérifier l'exactitude du bulletin crypté avant de le voter. Si c'est la raison pour laquelle vous voulez copier l'identifiant de suivi, veuillez procéder à sa copie et ensuite procéder à la vérification du vote."
+
+#: 
+msgctxt "\"avBooth\".\"hashForVoteNotCastModal\""
+msgid "confirm"
+msgstr "J'accepte que mon vote n'ait PAS été exprimé"
+
+#: 
+msgctxt "\"avBooth\".\"hashForVoteNotCastModal\""
+msgid "cancel"
+msgstr "Annuler"
+
+#: 
+msgctxt "\"avBooth\".\"successDemoVoteNotCastModal\""
+msgid "header"
+msgstr "Démo cabine de vote"
+
+#: 
+msgctxt "\"avBooth\".\"successDemoVoteNotCastModal\""
+msgid "body"
+msgstr "Ceci est une démo de cabine de vote.<strong>Votre vote n'a PAS été exprimé</strong>. Cet isoloir est uniquement destiné à des fins de démonstration.<br><br>Donc, le suivi des bulletins ne fonctionnera pas. Pour effectuer un vrai vote, veuillez suivre la procédure d'authentification appropriée."
+
+#: 
+msgctxt "\"avBooth\".\"successDemoVoteNotCastModal\""
+msgid "confirm"
+msgstr "J'accepte que mon vote n'ait PAS été exprimé"
+
+#: 
+msgctxt "\"avBooth\".\"successDemoVoteNotCastModal\""
+msgid "cancel"
+msgstr "Annuler"
+
+#: 
+msgctxt "\"avBooth\".\"errors\""
+msgid "question-lambda-blank"
+msgstr "Question '__qtitle__' : aucune option sélectionnée. Vote blanc."
+
+#: 
+msgctxt "\"avBooth\".\"errors\""
+msgid "question-lambda-min"
+msgstr "Question '__qtitle__' : options __num_selected__ sélectionnées, inférieures au minimum __min__. Vote invalide."
+
+#: 
+msgctxt "\"avBooth\".\"errors\""
+msgid "question-lambda-max"
+msgstr "Question '__qtitle__' : options __num_selected__ sélectionnées, plus que le maximum __max__. Vote invalide."
+
+#: 
+msgctxt "\"avBooth\".\"errors\""
+msgid "question-lambda-panachage"
+msgstr "Question '__qtitle__' : a sélectionné des options dans plusieurs listes, mais ce n'est pas autorisé. Vote invalide."
+
+#: 
+msgctxt "\"avBooth\".\"errors\""
+msgid "question-lambda-repeated-writeins"
+msgstr "Question '__qtitle__' : noms de candidats répétés. Vote invalide."
+
+#: 
+msgctxt "\"avBooth\".\"errors\""
+msgid "question-lambda-writein-length"
+msgstr "Question '__qtitle__' : les entrées en écriture dépassent de __extra_bytes__ le maximum de __max__ chars. Nécessite une correction."
+
+#: 
+msgctxt "\"avBooth\".\"errors\""
+msgid "question-lambda-writeins-not-voted"
+msgstr "Question '__qtitle__' : Inscriptions fournies mais non votées : __write_ins__. Atypique."
+
+#: 
+msgctxt "\"avBooth\".\"errors\""
+msgid "question-lambda-writeins-not-provided"
+msgstr "Question '__qtitle__' : a sélectionné quelques réponses écrites mais aucun nom n'a été fourni. Atypique."
+
+#: 
+msgctxt "\"avBooth\".\"invalidAnswers\""
+msgid "header"
+msgstr "Vote invalide ou blanc"
+
+#: 
+msgctxt "\"avBooth\".\"invalidAnswers\""
+msgid "body"
+msgstr "Certaines de vos réponses peuvent rendre le bulletin d'une ou plusieurs questions invalide ou vide :"
+
+#: 
+msgctxt "\"avBooth\".\"invalidAnswers\""
+msgid "continue"
+msgstr "Accepter et continuer"
+
+#: 
+msgctxt "\"avBooth\".\"invalidAnswers\""
+msgid "cancel"
+msgstr "Retour et révision"
+
+#: 
+msgctxt "\"avBooth\".\"legal\""
+msgid "title"
+msgstr "Mentions légales"
+
+#: 
+msgctxt "\"avBooth\".\"legal\""
+msgid "contact"
+msgstr "contacter"
+
+#: 
+msgctxt "\"avBooth\".\"confirmAuditBallot\""
+msgid "header"
+msgstr "Voulez-vous vérifier le bulletin de vote ?"
+
+#: 
+msgctxt "\"avBooth\".\"confirmAuditBallot\""
+msgid "body"
+msgstr "L'audit du bulletin de vote l'annulera et vous devrez recommencer le processus de vote si vous voulez voter. Le processus d'audit du bulletin vous permet de vérifier qu'il est correctement encodé. Effectuer ce processus nécessite que vous ayez des connaissances techniques importantes, nous ne vous le recommandons donc pas si vous ne savez pas ce que vous faites.<br/><br/><strong>Si vous voulez juste voter, cliquez sur <u>Annulation</u> pour revenir à l'écran de révision du bulletin.</strong>"
+
+#: 
+msgctxt "\"avBooth\".\"confirmAuditBallot\""
+msgid "confirm"
+msgstr "Oui, je veux ANNULER mon bulletin pour le vérifier"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "instructionsTitle"
+msgstr "Instructions"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "closeWindow"
+msgstr "Terminer et fermer"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "goToNextElection"
+msgstr "Aller à l'élection suivante"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "planchaSelect"
+msgstr "tout sélectionner"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "planchaDeselect"
+msgstr "tout désélectionner"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "showSelectedOptionPoints"
+msgstr "(__points__ points)"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "showSelectedOptionPointsWriteIn"
+msgstr "(__points__ points, write-in)"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "showWriteIn"
+msgstr "(write-in)"
+
+#: 
+msgctxt "\"avBooth\".\"warnBallotParity\""
+msgid "header"
+msgstr "Papeleta no paritaria"
+
+#: 
+msgctxt "\"avBooth\".\"warnBallotParity\""
+msgid "body"
+msgstr "No puede continuarse porque la papeleta no es paritaria y en cremallera. Por favor, comprueba que tu selección esté compuesta de forma que detrás de una mujer luego va un hombre y así sucesivamente."
+
+#: 
+msgctxt "\"avBooth\".\"warnBallotParity\""
+msgid "continue"
+msgstr "Revisar mi papeleta"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "thisisATest"
+msgstr "<span class=\"glyphicon glyphicon-info-sign\" aria-hidden=\"true\"></span> <strong>Avertissement!</strong>Il s'agit d'une élection TEST"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "loadingElectionTitle"
+msgstr "Chargement de l'élection, veuillez patienter.."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "stepNumber"
+msgstr "step __num__ of __total__"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "stepAndQuestionNumber"
+msgstr "step __num__ of __total__, question __qnum__ of __qtotal__"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "questionNumber"
+msgstr "Question __qnum__ of __qtotal__"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "continueButton"
+msgstr "Continuer"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "startVoting"
+msgstr "Commencer à voter"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "stepsToVote"
+msgstr "Vous devez suivre les étapes suivantes pour déposer votre bulletin de vote :"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "selectOptionsTitle"
+msgstr "1. Sélectionnez vos options"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "selectOptionsText"
+msgstr "Répondez aux questions de l'élection une par une au fur et à mesure qu'elles sont affichées. De cette façon, vous configurerez vos préférences dans votre bulletin de vote."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "reviewOptionsTitle"
+msgstr "2. Consultez votre bulletin de vote"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "reviewOptionsText"
+msgstr "Une fois que vous aurez choisi vos préférences, nous procéderons à leur cryptage et vous verrez apparaître l'identifiant de suivi du scrutin. Vous recevrez également un résumé du contenu de votre vote pour examen."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "emitBallotTitle"
+msgstr "3. Déposez votre bulletin de vote"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "emitBallotText"
+msgstr "Vous pouvez le valider pour qu'il soit correctement enregistré. Vous pouvez également vérifier que votre bulletin a été correctement crypté."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "emitBallotTextNoAudit"
+msgstr "Vous pouvez le valider pour qu'il soit correctement enregistré."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "errorTitle"
+msgstr "Oups. Un problème est survenu"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "errorHtml"
+msgstr "<p>Le problème suivant est survenu (identifier __errorId__) : </p><p>__error__</p><p>Si vous pensez devoir nous contacter, vous pouvez le faire en envoyant un email à <a href=\"mailto:__email__\" target=\"_blank\">__email__</a>.</p>"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "errorLoadingImages"
+msgstr "Erreur de la cabine de vote. Images non chargées."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "errorLoadingElection"
+msgstr "Erreur de chargement de l'élection. Cela peut se produire pour de multiples raisons : le lien peut être invalide, vous pouvez l'avoir mal tapé ou le lien peut avoir été mal conçu. Veuillez réessayer de produire le lien. Enfin, le serveur peut être temporairement indisponible. Si c'est le cas, réessayez plus tard et si le problème persiste, veuillez nous contacter."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "errorLoadingElectionPubKeys"
+msgstr "Erreur de chargement des clés publiques de l'élection. Cela peut se produire pour de multiples raisons : le lien peut être invalide, vous pouvez l'avoir mal tapé ou le lien peut avoir été mal conçu. Veuillez réessayer de produire le lien. Enfin, le serveur peut être temporairement indisponible. Si c'est le cas, réessayez plus tard et si le problème persiste, veuillez nous contacter."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "errorSendingBallot"
+msgstr "Erreur d'envoi du bulletin. Il n'a pas été correctement envoyé. Veuillez réessayer dans un autre navigateur web plus à jour, et si le problème persiste, essayez de nous contacter. Désolé pour ce désagrément."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "errorCastingBallotUnknown"
+msgstr "Erreur non répertoriée lors du dépôt du bulletin de vote. Veuillez réessayer dans un autre navigateur web plus à jour, et si le problème persiste, essayez de nous contacter. Désolé pour ce désagrément."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "errorEncryptingBallotUnknown"
+msgstr "Erreur non répertoriée lors du cryptage des bulletins de vote. Veuillez réessayer dans un autre navigateur web plus à jour, et si le problème persiste, essayez de nous contacter. Désolé pour ce désagrément."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "errorElectionIsNotOpen"
+msgstr "L'élection n'est pas ouverte, vous ne pouvez donc pas voter. Désolé pour le désagrément."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "errorSendingBallotElectionNotOpen"
+msgstr "Le bulletin n'a pas pu être déposé car l'élection n'est pas ouverte. Désolé pour ce désagrément."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "couldntSendBallotUnauthorized"
+msgstr "Le vote n'a pas pu être effectué car le jeton d'authentification associé à ce lien est invalide. Nous sommes désolés pour ce désagrément. Si le problème persiste, veuillez essayer de nous contacter."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "errorEncrypting"
+msgstr "Il y a eu un problème lors du cryptage du bulletin et il n'a pas été possible de le lancer. Cela est probablement dû au fait que vous utilisez un navigateur web obsolète non pris en charge par notre logiciel. Veuillez réessayer dans un navigateur web différent et plus à jour, et si le problème persiste, veuillez nous contacter. Nous sommes désolés pour ce désagrément."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "errorEncoding"
+msgstr "<p>__msg__</p>Il y a eu un problème lors de l'encodage du bulletin et par conséquent votre bulletin n'a pas été déposé. Cela est probablement dû au fait que vous utilisez un navigateur Web obsolète non pris en charge par notre logiciel. Veuillez réessayer dans un navigateur web non pris en charge ou plus à jour, et si le problème persiste, veuillez nous contacter. Nous sommes désolés pour ce désagrément."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "sanityChecksFailed"
+msgstr "Il y a eu un problème lors des vérifications automatiques de l'encodage effectuées avant le scrutin, et par conséquent votre bulletin n'a pas été déposé. Ceci est probablement dû au fait que vous utilisez un navigateur web obsolète non pris en charge par notre logiciel. Veuillez réessayer dans un navigateur Web différent et plus à jour, et si le problème persiste, veuillez nous contacter. Nous sommes désolés pour ce désagrément."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "couldntSendBallotNotFound"
+msgstr "Le bulletin n'a pas pu être envoyé. Il se peut qu'il y ait un problème de connexion, ou que le serveur soit temporairement indisponible. Si c'est le cas, veuillez réessayer plus tard et si le problème persiste, veuillez nous contacter."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "questionSelectedOptionsTitle"
+msgstr "Options sélectionnées (__count__)"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "questionSelectedOptionsTitle_plural"
+msgstr "Options sélectionnées (__count__)"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "questionSelectedOptionsTitleOrdered"
+msgstr "Options sélectionnées (__count__) dans l'ordre, glisser-déposer pour le réorganiser"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "questionSelectedOptionsTitleOrdered_plural"
+msgstr "Options sélectionnées (__count__) dans l'ordre, glisser-déposer pour le réorganiser"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "questionAvailableOptionsTitle"
+msgstr "Options disponibles"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "numOptionsSelected"
+msgstr "__count__ options selected."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "numOptionsSelected_plural"
+msgstr "__count__ options selected."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "numOptionsSelected_plural_2"
+msgstr "__count__ options selected."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "noOptionsSelected"
+msgstr "Aucune option sélectionnée."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "numOptionsLimits"
+msgstr "Choisissez entre les options __min__ and __max__."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "filterOptionsPlaceholder"
+msgstr "filtre.."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "noResults"
+msgstr "aucun résultat trouvé.."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "numSelectedOptionsSmall"
+msgstr "__count__ selected"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "numSelectedOptionsSmall_plural"
+msgstr "__count__ selected"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "selectMoreOpts"
+msgstr "Sélectionnez au moins __min__ options."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "selectMoreOpts_plural"
+msgstr "Sélectionnez au moins __min__ options."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "maxSelectedLimitReached_singular"
+msgstr "N'oubliez pas que vous ne pouvez choisir qu'une seule option"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "maxSelectedLimitReached"
+msgstr "Le nombre maximum d'options sélectionnées est atteint (__max__). Pour sélectionner une option, il faut d'abord en désélectionner une autre."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "maxSelectedLimitTagReached"
+msgstr "Vous ne pouvez pas sélectionner plus d'options du type __tagName__ (máximo __max__). Pour en sélectionner une, veuillez d'abord en désélectionner une autre."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "maxSelectedLimitNoTagReached"
+msgstr "Vous ne pouvez pas sélectionner plus d'options qui ne sont pas du type __tagName__ (máximo __max__). Pour en sélectionner une, veuillez d'abord en désélectionner une autre."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "alreadySelectedDocumentType"
+msgstr "Vous ne pouvez pas sélectionner deux documents du même type, veuillez en désélectionner un."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "alreadySelectedPack"
+msgstr "Vous avez sélectionné une option liée à d'autres documents. Il n'est pas possible de les sélectionner de manière isolée."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "cantSelectPack"
+msgstr "Vous avez essayé de sélectionner une option liée qui ne peut pas être sélectionnée de manière isolée, et vous avez déjà une autre option sélectionnée."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "tooManyUserUpdates"
+msgstr "Votre bulletin n'a pas pu être déposé parce que vous avez changé trop de fois lors de cette élection. Par conséquent, votre dernier bulletin correctement déposé est celui qui comptera."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "removeSelectedItem"
+msgstr "cliquez pour désélectionner"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "removeSelectedItemShort"
+msgstr "désélectionner"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "dragSelectedItem"
+msgstr "glisser pour déplacer"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "dragSelectedItemShort"
+msgstr "déplacer"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "helpTitle"
+msgstr "Aide"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "helpText"
+msgstr "Texte d'aide"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "goBack"
+msgstr "Retourner à la cabine de vote"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "selectedOptionsFollow"
+msgstr "Les options __num__ que vous avez choisies sont :"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "selectedOptionFollow"
+msgstr "L'option que vous avez choisie est :"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "errorElectionUrl"
+msgstr "L'adresse introduite a un format erroné"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "reviewYourBallotTitle"
+msgstr "Le bulletin de vote n'a pas encore été envoyé : examinez-le d'abord"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "reviewYourBallotText"
+msgstr "Avant de voter, veuillez examiner le contenu de votre bulletin de vote"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "castTheBallot"
+msgstr "Déposez votre bulletin de vote"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "statusExecutingSanityChecks"
+msgstr "Vérification que le navigateur web est capable d'encoder le bulletin, veuillez patienter (__percentage__% completed)"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "statusEncryptingQuestion"
+msgstr "Cryptage des réponses à la question __questionNum__, veuillez patienter (__percentage__% completed)"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "statusVerifyingQuestion"
+msgstr "Vérification des réponses cryptées à la question __questionNum__, veuillez patienter (__percentage__% completed)"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "sendingBallot"
+msgstr "Envoi du bulletin au serveur, veuillez patienter (__percentage__% completed)"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "emptyAnswer"
+msgstr "<blank vote>"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "invalidAnswer"
+msgstr "Bulletin de vote marqué comme invalide"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "successTitle"
+msgstr "Vote effectué avec succès"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "successSubheader"
+msgstr "Vous avez correctement voté et votre bulletin est maintenant conservé dans notre urne électronique."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "completePacksTitle"
+msgstr "Packs complets"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "listOfDraftDocuments"
+msgstr "Documents (cliquez pour ouvrir)"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "selectedDocuments"
+msgstr "Documents (cliquez pour sélectionner)"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "alreadySelectedAPack"
+msgstr "Vous avez déjà sélectionné un pack. Retirez votre sélection pour pouvoir en sélectionner un autre"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "optionInCategoryAlreadySelected"
+msgstr "Pour pouvoir sélectionner un pack, veuillez désélectionner tout autre élément"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "cantSelectNormalOptionPackAlreadySelected"
+msgstr "Pour pouvoir sélectionner une option, veuillez désélectionner le pack que vous avez choisi"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "cantSelectPackNormalOptionAlreadySelected"
+msgstr "Pour pouvoir sélectionner un pack, désélectionnez les options que vous avez choisies"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "packLabel"
+msgstr "tout voter"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "accordionCategoryTitle"
+msgstr "Catégorie :"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "proposalsTitleClickToSelect"
+msgstr "Options (cliquez pour sélectionner) :"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "proposalsTitleClickToDeselect"
+msgstr "Options (cliquez pour désélectionner) :"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "notSelectableCell"
+msgstr "non inclus"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "clickToSelectCell"
+msgstr "cliquez pour sélectionner"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "clickToDeselectCell"
+msgstr "désélectionner x"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "draftIncludesList"
+msgstr "Includes __includeList__"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "dropdownOptionView"
+msgstr "Plus d'informations"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "filterOptionsPlaceholder2"
+msgstr "Rechercher le nom ou le candidat.."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "candidatesTitle"
+msgstr "Candidats"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "helpTextViewSingleCandidates"
+msgstr "Cliquez dans Aperçu pour sélectionner des candidats uniques"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "helpTextViewCell"
+msgstr "Cliquez dans une cellule pour la sélectionner entièrement"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "randomizeColumn"
+msgstr "Trier au hasard"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "firstCandidateOfMany"
+msgstr "__name__ et autres"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "numCandidatesSelected"
+msgstr "(__selected__ of __total__ selected)"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "cannotSelectAll"
+msgstr "Pour sélectionner toutes ces options, vous devez d'abord en désélectionner quelques-unes"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "totalsQuestionColumn"
+msgstr "(__selected__ of __count__ selected)"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "reviewBallotHashText"
+msgstr "Votre identifiant de suivi de scrutin est : <strong>__ballotHash__</strong>"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "auditTheBallot"
+msgstr "(Vérifier le bulletin de vote)"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "auditBallotTitle"
+msgstr "Vérifiez votre bulletin de vote"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "auditBallotSubtitle"
+msgstr "auditBallotSous-titre"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "auditBallotText"
+msgstr "<p>L'identifiant de suivi du scrutin est : <code>__ballotHash__</code></p><p><strong>La vérification du scrutin nécessite quelques connaissances techniques. Si vous ne les avez pas, vous pouvez simplement recommencer le processus de vote en cliquant sur le bouton ci-dessous.</strong></p><p>Pour vérifier votre bulletin de vote, vous devez:</p><ol><li>Copier et enregistrer dans un fichier votre bulletin de vote (cliquez pour le sélectionner):<br/><div class=\"code\" tabindex=\"0\" ng-click=\"selectDiv($event)\">__auditableBallot__</div></li><li>Suivre les étapes de <a href=\"https://github.com/sequentech/ballot-verifier/blob/master/README.md\" target=\"_blank\">ce tutoriel pour vérifier que le bulletin a été correctement crypté</a>.</li></ol><p>Pour des raisons de sécurité, si vous vérifiez le bulletin, il doit être annulé. Pour poursuivre le processus de vote, vous devez recommencer depuis le début.</p><p>"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "auditStartAgain"
+msgstr "Commencez à voter depuis le début"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "thisisADemoNotification"
+msgstr "<span class=\"glyphicon glyphicon-info-sign\" aria-hidden=\"true\"></span> <strong>Avertissement !</strong> Cabine de vote démo, les votes émis depuis cet isoloir ne compteront pas."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "thisisAPreviewNotification"
+msgstr "<span class=\"glyphicon glyphicon-info-sign\" aria-hidden=\"true\"></span> <strong>Avertissement !</strong> Cabine de vote test, les votes émis depuis cet isoloir ne compteront pas."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "successBallotHash"
+msgstr "Vous avez déposé votre bulletin de vote avec <strong><a href=\"__url__\" target=\"_blank\">__name__</a></strong>. L'idendifiant de votre bulletin est :<br/><br/></h3><a href=\"__ballotLocatorUrl__\" target=\"__target__\"><strong>__ballotHash__</strong></a><br/><br/>Vous pouvez utiliser votre identifiant de bulletin pour vérifier que votre bulletin a été correctement déposé <strong><a href=\"__ballotLocatorUrl__\" target=\"__target__\">en utilisant cette adresse</a></strong>."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "qrCodeAlt"
+msgstr "Code QR"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "successBallotQrCode"
+msgstr "Vous pouvez vérifier que votre bulletin a été correctement déposé en utilisant le code QR suivant :"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "successNoBallotHash"
+msgstr "Félicitations ! Vous avez voté avec <strong><a href=\"__url__\" target=\"_blank\">__name__</a></strong>."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "successSkippedCount"
+msgstr "Vous avez sauté les élections de __count__. Vous pouvez voter aux élections en vous connectant à nouveau."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "downloadBallotTicket"
+msgstr "Télécharger la confirmation PDF"
+
+#: 
+msgctxt "\"avBooth\".\"ballotTicket\""
+msgid "h3"
+msgstr "Confirmation du vote"
+
+#: 
+msgctxt "\"avBooth\".\"ballotTicket\""
+msgid "h4"
+msgstr "Votre vote a été émis correctement. Ce document justifie son émission."
+
+#: 
+msgctxt "\"avBooth\".\"ballotTicket\""
+msgid "tracker"
+msgstr "Suivi des bulletins de vote :"
+
+#: 
+msgctxt "\"avBooth\".\"ballotTicket\""
+msgid "title"
+msgstr "Titre de l'élection :"
+
+#: 
+msgctxt "\"avBooth\".\"ballotTicket\""
+msgid "id"
+msgstr "ID de l'élection :"
+
+#: 
+msgctxt "\"avBooth\".\"ballotTicket\""
+msgid "voterId"
+msgstr "ID de l'électeur :"
+
+#: 
+msgctxt "\"avBooth\".\"ballotTicket\""
+msgid "created"
+msgstr "Date d'enregistrement du bulletin de vote :"
+
+#: 
+msgctxt "\"avBooth\".\"ballotTicket\""
+msgid "link"
+msgstr "Lien pour le suivi des bulletins de vote :"
+
+#: 
+msgctxt "\"avBooth\".\"ballotTicket\""
+msgid "linkClickHere"
+msgstr "cliquez ici"
+
+#: 
+msgctxt "\"avBooth\".\"ballotTicket\""
+msgid "qrCode"
+msgstr "Vous pouvez utiliser le QR code suivant pour accéder au lien de suivi des bulletins de vote :"
+
+#: 
+msgctxt "\"avBooth\".\"ballotTicket\""
+msgid "isDemo"
+msgstr "Ce reçu de vote a été généré dans une cabine de vote démo. Le bulletin n'a PAS été déposé."
+
+#: 
+msgctxt "\"avBooth\""
+msgid "relatedLinksText"
+msgstr "Pour plus d'informations sur cette élection :"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "circleOptionExternalLink"
+msgstr "Voir les détails"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "voteInBlank"
+msgstr "Vote blanc"
+
+#: 
+msgctxt "\"avBooth\""
+msgid "openOptionLink"
+msgstr "Ouvrir le lien dans un nouvel onglet"
+
+#: 
+msgctxt "\"avBooth\".\"reviewScreen\""
+msgid "pair"
+msgstr "__one__ > __two__"
+
+#: 
+msgctxt "\"avBooth\".\"reviewScreen\""
+msgid "editAction"
+msgstr "Bulletin de vote"
+
+#: 
+msgctxt "\"avBooth\".\"simultaneousQuestions\""
+msgid "skipQuestion"
+msgstr "Sauter la ou les questions"
+
+#: 
+msgctxt "\"avBooth\".\"simultaneousQuestions\".\"skipQuestionModal\""
+msgid "header"
+msgstr "Voulez-vous sauter cette ou ces questions ?"
+
+#: 
+msgctxt "\"avBooth\".\"simultaneousQuestions\".\"skipQuestionModal\""
+msgid "body"
+msgstr "Veuillez confirmer que vous voulez sauter cette (ces) question(s). Vous pouvez voter pour la ou les questions ignorées en vous connectant à nouveau."
+
+#: 
+msgctxt "\"avBooth\".\"simultaneousQuestions\".\"skipQuestionModal\""
+msgid "confirm"
+msgstr "Confirmer et SAUTER cette(ces) question(s)"
+
+#: 
+msgctxt "\"avBooth\".\"pairwiseBeta\""
+msgid "web"
+msgstr "Web"
+
+#: 
+msgctxt "\"avBooth\".\"pairwiseBeta\""
+msgid "warning"
+msgstr "Cliquez pour choisir. comparaison __count__ of __max__ comparison done."
+
+#: 
+msgctxt "\"avBooth\".\"pairwiseBeta\""
+msgid "warning_plural"
+msgstr "Cliquez pour choisir. __count__ of __max__ comparison done."
+
+#: 
+msgctxt "\"avBooth\".\"confirmNullVote\""
+msgid "header"
+msgstr "Vote blanc"
+
+#: 
+msgctxt "\"avBooth\".\"confirmNullVote\""
+msgid "body"
+msgstr "Vous n'avez sélectionné aucune option dans certaines questions, ce qui équivaut à un vote en blanc."
+
+#: 
+msgctxt "\"avBooth\".\"confirmNullVote\""
+msgid "confirm"
+msgstr "Oui, je veux voter en blanc lorsque je ne sélectionne aucune option"
+
+#: 
+msgctxt "\"avBooth\".\"busy\""
+msgid "title"
+msgstr "Votre bulletin de vote sera..."
+
+#: 
+msgctxt "\"avBooth\".\"busy\""
+msgid "encryptedTitle"
+msgstr "crypté"
+
+#: 
+msgctxt "\"avBooth\".\"busy\""
+msgid "encryptedDescription"
+msgstr "afin que personne ne puisse savoir quelles options vous avez choisies"
+
+#: 
+msgctxt "\"avBooth\".\"busy\""
+msgid "castTitle"
+msgstr "annulé"
+
+#: 
+msgctxt "\"avBooth\".\"busy\""
+msgid "castDescription"
+msgstr "en utilisant un canal sécurisé et en vérifiant votre identité"
+
+#: 
+msgctxt "\"avBooth\".\"busy\""
+msgid "anonymizedTitle"
+msgstr "anonymisée"
+
+#: 
+msgctxt "\"avBooth\".\"busy\""
+msgid "anonymizedDescription"
+msgstr "afin que le décompte ne révèle pas dans quel sens vous avez voté"
+
+#: 
+msgctxt "\"avBooth\".\"tooFewAnswers\""
+msgid "header"
+msgstr "Choisissez d'autres options"
+
+#: 
+msgctxt "\"avBooth\".\"tooFewAnswers\""
+msgid "body"
+msgstr "Dans les questions suivantes, vous n'avez pas sélectionné autant d'options que le nombre minimum requis pour continuer :"
+
+#: 
+msgctxt "\"avBooth\".\"tooFewAnswers\""
+msgid "question"
+msgstr "Question '__title__' : vous avez choisi des options __selected__, mais vous devez choisir au moins des options __min__"
+
+#: 
+msgctxt "\"avBooth\".\"selectAllCategory\""
+msgid "header"
+msgstr "Sélectionnez toutes les options de la <strong>__category__</strong>?"
+
+#: 
+msgctxt "\"avBooth\".\"selectAllCategory\""
+msgid "body"
+msgstr "Hé ! Il semble que vous voulez sélectionner toutes les options de <strong>__category__</strong>"
+
+#: 
+msgctxt "\"avBooth\".\"selectAllCategory\""
+msgid "confirm"
+msgstr "Oui, sélectionnez-les"
+
+#: 
+msgctxt "\"avBooth\".\"selectAllCategory\""
+msgid "cancel"
+msgstr "Non"
+
+#: 
+msgctxt "\"avBooth\".\"selectAllCategory\""
+msgid "doNotShowAgain"
+msgstr "Ne plus me montrer cela"
+
+#: 
+msgid "continue"
+msgstr "Continuer"
+
+#: 
+msgid "ok"
+msgstr "Ok"
+
+#: 
+msgid "resumed"
+msgstr "Repris"
+
+#: 
+msgid "suspended"
+msgstr "Suspendu"
+
+#: 
+msgctxt "\"avCommon\".\"votings\""
+msgid "cumulative"
+msgstr "Cumulatif"
+
+#: 
+msgctxt "\"avAdmin\".\"profile\""
+msgid "title"
+msgstr "Profil"
+
+#: 
+msgctxt "\"avAdmin\".\"profile\""
+msgid "save"
+msgstr "Sauvegarder les changements"
+
+#: 
+msgctxt "\"avAdmin\".\"onboarding\".\"help_tour\""
+msgid "step0_help_title"
+msgstr "Aide"
+
+#: 
+msgctxt "\"avAdmin\".\"onboarding\".\"help_tour\""
+msgid "step0_help_content"
+msgstr "Si vous avez besoin d'une aide supplémentaire, vous pouvez cliquer ici pour l'obtenir. Vous pouvez <strong>relancer</strong> là aussi !"
+
+#: 
+msgctxt "\"avAdmin\".\"onboarding\".\"help_tour\""
+msgid "step1_chat_title"
+msgstr "Contactez-nous par chat"
+
+#: 
+msgctxt "\"avAdmin\".\"onboarding\".\"help_tour\""
+msgid "step1_chat_content"
+msgstr "Si vous avez des questions, nous nous ferons un plaisir de vous répondre rapidement par le biais du chat."
+
+#: 
+msgctxt "\"avAdmin\".\"onboarding\".\"dashboard_tour\""
+msgid "step0_test_title"
+msgstr "Élection test"
+
+#: 
+msgctxt "\"avAdmin\".\"onboarding\".\"dashboard_tour\""
+msgid "step0_test_content"
+msgstr "Vous avez créé une élection test. Les élections test ont une taille de recensement limitée et une élection réelle ne peut être créée qu'à partir d'une élection test dont le décompte a été effectué avec succès."
+
+#: 
+msgctxt "\"avAdmin\".\"onboarding\".\"dashboard_tour\""
+msgid "step1_real_title"
+msgstr "Véritable élection"
+
+#: 
+msgctxt "\"avAdmin\".\"onboarding\".\"dashboard_tour\""
+msgid "step1_real_content"
+msgstr "Une fois cette élection comptabilisée, vous pourrez créer une véritable élection en cliquant ici."
+
+#: 
+msgctxt "\"avAdmin\".\"onboarding\".\"dashboard_tour\""
+msgid "step2_status_title"
+msgstr "Statut électoral"
+
+#: 
+msgctxt "\"avAdmin\".\"onboarding\".\"dashboard_tour\""
+msgid "step2_status_content"
+msgstr "Cette section vous montre l'état de l'élection et un bouton pour faire passer l'élection à l'état suivant."
+
+#: 
+msgctxt "\"avAdmin\".\"onboarding\".\"dashboard_tour\""
+msgid "step3_start_title"
+msgstr "Commencez l'élection"
+
+#: 
+msgctxt "\"avAdmin\".\"onboarding\".\"dashboard_tour\""
+msgid "step3_start_content"
+msgstr "Cliquez sur ce bouton pour lancer l'élection et envoyer un email d'authentification à tous les recensements."
+
+#: 
+msgctxt "\"avAdmin\".\"onboarding\".\"hello_tour\""
+msgid "step0_create_title"
+msgstr "Créer une élection"
+
+#: 
+msgctxt "\"avAdmin\".\"onboarding\".\"hello_tour\""
+msgid "step0_create_content"
+msgstr "Commencez à créer une élection de test en cliquant sur le bouton <strong>Nouvelle élection</strong>. <br><br>Ou regardez la vidéo d'introduction:<br><iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/eTZ3TQw5G_c?rel=0&amp;showinfo=0\" frameborder=\"0\" allowfullscreen></iframe>"
+
+#: 
+msgctxt "\"avAdmin\".\"onboarding\".\"hello_tour\""
+msgid "step1_change_title"
+msgstr "Modifier le titre"
+
+#: 
+msgctxt "\"avAdmin\".\"onboarding\".\"hello_tour\""
+msgid "step1_change_content"
+msgstr "Vous pouvez maintenant modifier tous les détails de l'élection, par exemple vous pouvez modifier le titre de l'élection en cliquant sur titre ici."
+
+#: 
+msgctxt "\"avAdmin\".\"onboarding\".\"hello_tour\""
+msgid "step2_sidebar_title"
+msgstr "Barre latérale"
+
+#: 
+msgctxt "\"avAdmin\".\"onboarding\".\"hello_tour\""
+msgid "step2_sidebar_content"
+msgstr "Vous pouvez personnaliser l'élection en cliquant sur ces sections."
+
+#: 
+msgctxt "\"avAdmin\".\"onboarding\".\"hello_tour\""
+msgid "step3_review_title"
+msgstr "Revoir l'élection pour la créer"
+
+#: 
+msgctxt "\"avAdmin\".\"onboarding\".\"hello_tour\""
+msgid "step3_review_content"
+msgstr "Une fois que vous avez terminé de configurer l'élection, cliquez sur la section <strong>Créer l'élection</strong> pour revoir puis créer l'élection."
+
+#: 
+msgctxt "\"avAdmin\".\"onboarding\".\"hello_tour\""
+msgid "step4_create2_title"
+msgstr "Créer l'élection"
+
+#: 
+msgctxt "\"avAdmin\".\"onboarding\".\"hello_tour\""
+msgid "step4_create2_content"
+msgstr "<strong>Cliquez sur ce bouton</strong> pour créer l'élection. <br><br>Notez que l'élection ne sera pas créée tant que vous ne l'aurez pas fait, et pour des raisons de sécurité, elle ne sera pas modifiable par la suite."
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\""
+msgid "title"
+msgstr "Urnes de vote"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\""
+msgid "intro"
+msgstr "Liste des urnes et de leurs feuilles de pointage."
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\""
+msgid "manage"
+msgstr "Rechercher et filtrer les urnes"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\""
+msgid "filter"
+msgstr "Cherchez ici.."
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"tableColumn\""
+msgid "idColumnHeader"
+msgstr "Id"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"tableColumn\""
+msgid "nameColumnHeader"
+msgstr "Titre"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"tableColumn\""
+msgid "actionsColumnHeader"
+msgstr "Actions"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"tableColumn\""
+msgid "lastUpdateColumnHeader"
+msgstr "Dernière mise à jour"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"tableColumn\""
+msgid "versionColumnHeader"
+msgstr "Nombre de versions"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"tableColumn\""
+msgid "usernameColumnHeader"
+msgstr "Nom d'utilisateur"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"createBallotBox\""
+msgid "header"
+msgstr "Créer des urnes"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"createBallotBox\""
+msgid "body"
+msgstr "Ajoutez un nom d'urne par ligne. Il n'en créera pas si l'un d'eux existe déjà."
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"createBallotBox\""
+msgid "holder"
+msgstr "Nom de l'urne 1\n"
+"Nom de l'urne 2.."
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"createBallotBox\""
+msgid "button"
+msgstr "Confirmer et CREER les urnes"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"deleteBallotBox\""
+msgid "header"
+msgstr "Confirmer pour SUPPRIMER l'urne"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"deleteBallotBox\""
+msgid "body"
+msgstr "Pour confirmer que vous souhaitez supprimer l'urne box __name__ et toutes les feuilles de pointage qui s'y rapportent, écrivez 'SUPPRIMER' ci-dessous :"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"deleteBallotBox\""
+msgid "holder"
+msgstr "Écrivez SUPPRIMER ici pour confirmer.."
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"deleteBallotBox\""
+msgid "ok"
+msgstr "Confirmer et SUPPRIMER l'urne"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"deleteTallySheet\""
+msgid "header"
+msgstr "Confirmer pour SUPPRIMER la feuille de pointage"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"deleteTallySheet\""
+msgid "body"
+msgstr "Veuillez confirmer que vous voulez supprimer la feuille de pointage avec l'id __id__ for ballot box __name__, écrivez 'SUPPRIMER' ci-dessous :"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"deleteTallySheet\""
+msgid "holder"
+msgstr "Écrivez SUPPRIMER ici pour confirmer.."
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"deleteTallySheet\""
+msgid "ok"
+msgstr "Confirmer et SUPPRIMER la feuille de pointage"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"checkingBallotBox\""
+msgid "header"
+msgstr "Création d'urnes"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"checkingBallotBox\""
+msgid "checkingExisting"
+msgstr "Vérifier si une urne demandée existe déjà.."
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"checkingBallotBox\""
+msgid "hasExisting"
+msgstr "Aucune urne n'a été créée, car les suivantes existent déjà : "
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"checkingBallotBox\""
+msgid "errorCheckingExisting"
+msgstr "Une erreur s'est produite lors de la vérification des urnes existantes :"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"checkingBallotBox\""
+msgid "creatingBoxes"
+msgstr "Création des urnes : "
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"checkingBallotBox\""
+msgid "errorCreatingBoxes"
+msgstr "Erreur lors de la création de certaines urnes : "
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"checkingBallotBox\""
+msgid "success"
+msgstr "Toutes les urnes ont été créées avec succès."
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"checkingBallotBox\""
+msgid "button"
+msgstr "Fermer"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"writeTallySheet\""
+msgid "step0header"
+msgstr "Étape 1 sur 3 : Enregistrement de la feuille de pointage"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"writeTallySheet\""
+msgid "step1header"
+msgstr "Étape 2 sur 3 : Réviser et envoyer la feuille de pointage"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"writeTallySheet\""
+msgid "step2header"
+msgstr "Étape 3 sur 3 : Ajout réussi de la feuille de pointage"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"writeTallySheet\""
+msgid "reviewStep"
+msgstr "Veuillez examiner attentivement la feuille de pointage avant de l'envoyer"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"writeTallySheet\""
+msgid "ballotBoxLabel"
+msgstr "Nom de l'urne :"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"writeTallySheet\""
+msgid "registeredVotesLabel"
+msgstr "Nombre d'électeurs inscrits :"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"writeTallySheet\""
+msgid "voteCountLabel"
+msgstr "Nombre de votes :"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"writeTallySheet\""
+msgid "electionIdLabel"
+msgstr "Identifiant de l'élection :"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"writeTallySheet\""
+msgid "electionTitleLabel"
+msgstr "Titre de l'élection :"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"writeTallySheet\""
+msgid "observationsLabel"
+msgstr "Observaciones :"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"writeTallySheet\""
+msgid "continue"
+msgstr "Continuer et revoir"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"writeTallySheet\""
+msgid "blankVotesLabel"
+msgstr "Votes blancs :"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"writeTallySheet\""
+msgid "nullVotesLabel"
+msgstr "Votes nuls :"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"writeTallySheet\""
+msgid "mismatchedNumbersError"
+msgstr "Les chiffres ne s'additionnent pas ou sont invalides, veuillez les revoir"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"writeTallySheet\""
+msgid "mismatchTotalCount"
+msgstr "Le nombre de votes enregistrés et le nombre de votes saisis diffèrent"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"writeTallySheet\""
+msgid "send"
+msgstr "Confirmer et envoyer la feuille de pointage"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"writeTallySheet\""
+msgid "backAndEdit"
+msgstr "Revenir en arrière et modifier"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"writeTallySheet\""
+msgid "success"
+msgstr "Félicitations, vous avez réussi à ajouter la feuille de pointage !"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"writeTallySheet\""
+msgid "okClose"
+msgstr "Fermer"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"viewTallySheet\""
+msgid "header"
+msgstr "Afficher la feuille de pointage"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"viewTallySheet\""
+msgid "edit"
+msgstr "Editer et modifier la feuille de pointage"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\".\"modals\".\"viewTallySheet\""
+msgid "tallySheetIdLabel"
+msgstr "Identifiant de la feuille de pointage :"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\""
+msgid "viewTallySheetAction"
+msgstr "Afficher la feuille de pointage"
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\""
+msgid "writeTallySheetAction"
+msgstr "Écrire la feuille de pointage.."
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\""
+msgid "deleteTallySheetAction"
+msgstr "Supprimer la feuille de pointage.."
+
+#: 
+msgctxt "\"avAdmin\".\"ballotBox\""
+msgid "deleteBallotBoxAction"
+msgstr "Supprimer l'urne.."
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\""
+msgid "title"
+msgstr "Journal d'activité"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\""
+msgid "intro"
+msgstr "Liste des actions exécutées dans l'élection."
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\""
+msgid "manage"
+msgstr "Rechercher et filtrer le journal d'activité"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\""
+msgid "filter"
+msgstr "Cherchez ici.."
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\""
+msgid "filteredEmptyResults"
+msgstr "Aucun résultat pour ce filtre."
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"tableColumn\""
+msgid "idColumnHeader"
+msgstr "Id"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"tableColumn\""
+msgid "executerIdColumnHeader"
+msgstr "Id de l'exécuteur"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"tableColumn\""
+msgid "creationDateColumnHeader"
+msgstr "Créé à"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"tableColumn\""
+msgid "receiverIdColumnHeader"
+msgstr "Id du récepteur"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"tableColumn\""
+msgid "actionColumnHeader"
+msgstr "Description"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"tableColumn\""
+msgid "commentColumnHeader"
+msgstr "Commentaire"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"user\""
+msgid "activate"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>activated</strong> user <i>__receiver_username__ (__receiver_id__)</i>  dans l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a>"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"user\""
+msgid "deactivate"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>deactivated</strong> user <i>__receiver_username__ (__receiver_id__)</i> dans l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a>"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"user\""
+msgid "authenticate"
+msgstr "<i>__receiver_username__ (__receiver_id__)</i> <strong>authenticated</strong>  dans l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a>"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"user\""
+msgid "register"
+msgstr "<i>__receiver_username__ (__receiver_id__)</i> <strong>registered</strong>  dans l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a>"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"user\""
+msgid "successful-login"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>voted</strong>  dans l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a> __child_election__"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"user\""
+msgid "authenticate-otl"
+msgstr "<i>__executer_username__ (__executer_id__)</i> performed <strong>OTL authentication</strong> dans l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a>"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"user\""
+msgid "generate-auth-code"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>generated authentication code</strong> for __receiver_username__ (__receiver_id__)</i> dans l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a>"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"user\""
+msgid "send-auth"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>sent authentication codes</strong> to <i>__receiver_username__ (__receiver_id__)</i>  dans l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a>"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"user\""
+msgid "resend-authcode"
+msgstr "Il y a eu une demande pour <strong>envoyer des codes d'authentification</strong> à <i>__receiver_username__ (__receiver_id__)</i> dans l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a>"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"user\""
+msgid "added-to-census"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>additionné au recensement</strong> dans l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a> à <i>__receiver_username__(__receiver_id__)</i> __metadata__"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"user\""
+msgid "deleted-from-census"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>supprimé du recensement</strong> dans l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a> l'utilisateur __metadata__"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"user\""
+msgid "deleted-voted-from-census"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>supprimé du recensement</strong> dans l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a> l'utilisateur __metadata__ (<b>qui a voté</b>)"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"user\""
+msgid "reset-voter"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>remettre à zéro l'électeur</strong> <i>__receiver_username__ (__receiver_id__)</i> dans l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a>. Les données de l'électeur ont changé de __avant__ à __après__"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"authevent\""
+msgid "create"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>a créé</strong> l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a>"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"authevent\""
+msgid "callback"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>a reçu un rappel</strong> lors de l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a>"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"authevent\""
+msgid "edit"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>a édité</strong> l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a>"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"authevent\""
+msgid "start"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>a commencé</strong> l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a> __child_election__"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"authevent\""
+msgid "stop"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>a arrêté</strong> l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a> __child_election__"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"authevent\""
+msgid "suspend"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>a suspendu</strong> l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a> __child_election__"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"authevent\""
+msgid "resume"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>a repris</strong> l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a> __child_election__"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"authevent\""
+msgid "tally"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>a demandé le décompte</strong> de l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a> __child_election__ <i>__metadata__</i>"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"authevent\""
+msgid "tally_error"
+msgstr "<strong>erreur lors du lancement du décompte</strong> de l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a> __child_election__ <i>__metadata__</i>"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"authevent\""
+msgid "virtual_tally_error"
+msgstr "<strong>erreur lors du lancement du décompte virtuel</strong> de l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a> <i>__metadata__</i>"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"authevent\""
+msgid "tally_error_no_votes"
+msgstr "<strong>décompte non exécuté car il n'y a pas eu de votes</strong> lors de l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a> __child_election__ <i>__metadata__</i>"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"authevent\""
+msgid "calculate_results_success"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>résultats calculés</strong> pour l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a> __child_election__"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"authevent\""
+msgid "calculate_results_error"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>a tenté de calculer les résultats avec erreur</strong> pour l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a> __child_election__"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"authevent\""
+msgid "publish_results_success"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>a publié les résultats</strong> pour l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a> __child_election__"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"authevent\""
+msgid "publish_results_error"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>a tenté de publier les résultats avec erreur</strong> pour l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a> __child_election__"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"authevent\""
+msgid "unpublish_results_success"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>résultats non publiés</strong> pour l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a> __child_election__"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"authevent\""
+msgid "unpublish_results_error"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>a tenté de dépublier les résultats avec erreur</strong> pour l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a> __child_election__"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"authevent\""
+msgid "allow_tally_success"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>décompte autorisé</strong> pour l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a> __child_election__"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"authevent\""
+msgid "allow_tally_error"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>a tenté d'autoriser le décompte avec erreur</strong> pour l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a> __child_election__"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"authevent\""
+msgid "tally_started"
+msgstr "<strong>A démarré le décompte</strong> de l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a> __child_election__ <i>__metadata__</i>"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"authevent\""
+msgid "set_authenticate_otl_period"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>définir la période d'authentification OTL</strong> de l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a> __child_election__ <i>__metadata__</i>"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"authevent\""
+msgid "tally_error_during_tally"
+msgstr "<strong>erreur pendant le décompte</strong> de l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a> __child_election__"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"authevent\""
+msgid "tally_success"
+msgstr "<strong>Traitement réussi</strong> de l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a> __child_election__"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"authevent\""
+msgid "virtual_tally_success"
+msgstr "<strong>Traitement virtuel réussi</strong> de l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a>"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"authevent\""
+msgid "set_public_candidates_success"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>set public-candidates</strong> to __make_public__ for election <a href=\"/admin/dashboard/__event_id__\">__event_id__</a> __child_election__"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"authevent\""
+msgid "set_public_candidates_error"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>a tenté de définir le public/les candidats</strong> pour __make_public__ <strong>with error</strong> l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a> __child_election__"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"authevent\""
+msgid "delete"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>a supprimé</strong> l'élection __event_id__"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"authevent\""
+msgid "archive"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>a archivé</strong> l'élection __event_id__"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"authevent\""
+msgid "unarchive"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>a désarchivé</strong> l'élection __event_id__"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"ballotBox\""
+msgid "create"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>a créé</strong> l'urne <a href=\"/admin/ballot-box/__event_id__?view_ballot_box_name=__ballot_box_name__\">__ballot_box_name__</a> de l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a>"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"ballotBox\""
+msgid "delete"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>a supprimé</strong> l'urne <strong>__ballot_box_name__</strong> de l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a>"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"tallySheet\""
+msgid "create"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>a téléchargé</strong> a <a href=\"/admin/ballot-box/__event_id__?view_tally_sheet_id=__tally_sheet_id__&ballot_box_id=__ballot_box_id__\">la feuille de pointage</a> de l'urne <a href=\"/admin/ballot-box/__event_id__?view_ballot_box_name=__ballot_box_name__\">__ballot_box_name__</a> pour l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a>"
+
+#: 
+msgctxt "\"avAdmin\".\"activityLog\".\"action\".\"tallySheet\""
+msgid "delete"
+msgstr "<i>__executer_username__ (__executer_id__)</i> <strong>a supprimé</strong> a <a href=\"/admin/ballot-box/__event_id__?view_tally_sheet_from_action_id=__action_id__&ballot_box_name=__ballot_box_name__&ballot_box_id=__ballot_box_id__\">la feuille de pointage</a> de l'urne <a href=\"/admin/ballot-box/__event_id__?view_ballot_box_name=__ballot_box_name__\">__ballot_box_name__</a> pour l'élection <a href=\"/admin/dashboard/__event_id__\">__event_id__</a>"
+
+#: 
+msgctxt "\"avAdmin\".\"show_points_policy\""
+msgid "label"
+msgstr "Montrer les points"
+
+#: 
+msgctxt "\"avAdmin\".\"show_points_policy\""
+msgid "text"
+msgstr "Montrez les points que le bulletin de vote accorde à chaque option sélectionnée"
+
+#: 
+msgctxt "\"avAdmin\".\"setting\""
+msgid "helpTooltip"
+msgstr "Cliquez pour développer/coller le texte d'aide sur ce paramètre"
+
+#: 
+msgctxt "\"avAdmin\".\"cumulative\".\"number_of_checkboxes\""
+msgid "title"
+msgstr "Nombre de cases à cocher"
+
+#: 
+msgctxt "\"avAdmin\".\"cumulative\".\"number_of_checkboxes\""
+msgid "text"
+msgstr "Nombre de cases à cocher à afficher pour chaque réponse"
+
+#: 
+msgctxt "\"avAdmin\".\"shuffling_policy\""
+msgid "categories_label"
+msgstr "Ramdomiser les catégories"
+
+#: 
+msgctxt "\"avAdmin\".\"shuffling_policy\""
+msgid "categories_label_text"
+msgstr "Vérifier pour randomiser"
+
+#: 
+msgctxt "\"avAdmin\".\"shuffling_policy\""
+msgid "options_label"
+msgstr "Randomiser les options"
+
+#: 
+msgctxt "\"avAdmin\".\"shuffling_policy\""
+msgid "list_label"
+msgstr "Liste des catégories à randomiser"
+
+#: 
+msgctxt "\"avAdmin\".\"shuffling_policy\""
+msgid "list_muted"
+msgstr "Ajoutez ici les catégories pour mélanger leurs options"
+
+#: 
+msgctxt "\"avAdmin\".\"shuffling_policy\""
+msgid "list_placeholder"
+msgstr "Ajoutez le nom des catégories, séparées par une virgule"
+
+#: 
+msgctxt "\"avAdmin\".\"shuffling_policy\""
+msgid "dont-shuffle"
+msgstr "Ne mélangez pas les options. Tous les électeurs verront les options dans le même ordre dans l'isoloir"
+
+#: 
+msgctxt "\"avAdmin\".\"shuffling_policy\""
+msgid "shuffle-all"
+msgstr "Mélangez toutes les options. Chaque électeur verra les options de cette question dans un ordre différent dans l'isoloir. S'il y a différentes catégories, elles seront également aléatoires."
+
+#: 
+msgctxt "\"avAdmin\".\"shuffling_policy\""
+msgid "shuffle-some"
+msgstr "Mélangez les options d'une liste sélectionnée de catégories."
+
+#: 
+msgctxt "\"avAdmin\".\"results\""
+msgid "downloadData"
+msgstr "Télécharger les données"
+
+#: 
+msgctxt "\"avAdmin\".\"results\""
+msgid "downloadBallotsCsv"
+msgstr "Télécharger la feuille de calcul des bulletins de vote (format CSV)"
+
+#: 
+msgctxt "\"avAdmin\".\"results\""
+msgid "downloadBallotsJson"
+msgstr "Télécharger les bulletins de vote (format JSON)"
+
+#: 
+msgctxt "\"avAdmin\".\"results\""
+msgid "downloadResultsCsv"
+msgstr "Télécharger les résultats des élections (format CSV)"
+
+#: 
+msgctxt "\"avAdmin\".\"results\""
+msgid "downloadResultsJson"
+msgstr "Télécharger les résultats des élections (format JSON)"
+
+#: 
+msgctxt "\"avAdmin\".\"results\""
+msgid "downloadResultsPretty"
+msgstr "Télécharger les résultats des élections (format texte)"
+
+#: 
+msgctxt "\"avAdmin\".\"results\""
+msgid "downloadResultsPDF"
+msgstr "Télécharger les résultats des élections (format PDF)"
+
+#: 
+msgctxt "\"avAdmin\".\"topbar\""
+msgid "home"
+msgstr "Accueil"
+
+#: 
+msgctxt "\"avAdmin\".\"topbar\""
+msgid "features"
+msgstr "Caractéristiques"
+
+#: 
+msgctxt "\"avAdmin\".\"topbar\""
+msgid "help"
+msgstr "Aide"
+
+#: 
+msgctxt "\"avAdmin\".\"topbar\""
+msgid "freesignup"
+msgstr "Inscription gratuite"
+
+#: 
+msgctxt "\"avAdmin\".\"topbar\""
+msgid "login"
+msgstr "Entrer"
+
+#: 
+msgctxt "\"avAdmin\".\"topbar\""
+msgid "logout"
+msgstr "déconnexion"
+
+#: 
+msgctxt "\"avAdmin\""
+msgid "learnMore"
+msgstr "En savoir plus.."
+
+#: 
+msgctxt "\"avAdmin\".\"adminFields\""
+msgid "title"
+msgstr "Champs administratifs"
+
+#: 
+msgctxt "\"avAdmin\".\"adminFields\""
+msgid "intro"
+msgstr "Champs administratifs"
+
+#: 
+msgctxt "\"avAdmin\".\"adminFields\""
+msgid "maxError"
+msgstr "__value__ est supérieure à __max__"
+
+#: 
+msgctxt "\"avAdmin\".\"adminFields\""
+msgid "minError"
+msgstr "__value__ est inférieure à __max__"
+
+#: 
+msgctxt "\"avAdmin\".\"adminFields\""
+msgid "textError"
+msgstr "erreur sur le texte __value__"
+
+#: 
+msgctxt "\"avAdmin\".\"adminFields\""
+msgid "emailError"
+msgstr "erreur sur l'email __value__"
+
+#: 
+msgctxt "\"avAdmin\".\"adminFields\""
+msgid "numberError"
+msgstr "__value__ doit être un nombre"
+
+#: 
+msgctxt "\"avAdmin\".\"adminFields\""
+msgid "requiredError"
+msgstr "Valeur manquante dans un champ obligatoire"
+
+#: 
+msgctxt "\"avAdmin\".\"sidebar\""
+msgid "elections"
+msgstr "Élections"
+
+#: 
+msgctxt "\"avAdmin\".\"sidebar\""
+msgid "newel"
+msgstr "Nouvelle élection"
+
+#: 
+msgctxt "\"avAdmin\".\"sidebar\""
+msgid "import"
+msgstr "Importation"
+
+#: 
+msgctxt "\"avAdmin\".\"sidebar\""
+msgid "currentel"
+msgstr "Élection actuelle"
+
+#: 
+msgctxt "\"avAdmin\".\"sidebar\""
+msgid "dashboard"
+msgstr "Tableau de bord"
+
+#: 
+msgctxt "\"avAdmin\".\"sidebar\""
+msgid "activityLog"
+msgstr "Journal d'activité"
+
+#: 
+msgctxt "\"avAdmin\".\"sidebar\""
+msgid "basic"
+msgstr "Détails de base"
+
+#: 
+msgctxt "\"avAdmin\".\"sidebar\""
+msgid "questions"
+msgstr "Questions"
+
+#: 
+msgctxt "\"avAdmin\".\"sidebar\""
+msgid "censusConfig"
+msgstr "Configuration du recensement"
+
+#: 
+msgctxt "\"avAdmin\".\"sidebar\""
+msgid "census"
+msgstr "Données de recensement"
+
+#: 
+msgctxt "\"avAdmin\".\"sidebar\""
+msgid "successAction"
+msgstr "Action succès"
+
+#: 
+msgctxt "\"avAdmin\".\"sidebar\""
+msgid "auth"
+msgstr "Authentification"
+
+#: 
+msgctxt "\"avAdmin\".\"sidebar\""
+msgid "tally"
+msgstr "Décompte"
+
+#: 
+msgctxt "\"avAdmin\".\"sidebar\""
+msgid "tasks"
+msgstr "Tâches"
+
+#: 
+msgctxt "\"avAdmin\".\"sidebar\""
+msgid "create"
+msgstr "Créer une élection"
+
+#: 
+msgctxt "\"avAdmin\".\"sidebar\""
+msgid "myAccount"
+msgstr "Mon compte"
+
+#: 
+msgctxt "\"avAdmin\".\"sidebar\""
+msgid "billinfo"
+msgstr "Informations sur la facturation"
+
+#: 
+msgctxt "\"avAdmin\".\"sidebar\""
+msgid "billhistory"
+msgstr "Historique de facturation"
+
+#: 
+msgctxt "\"avAdmin\".\"sidebar\""
+msgid "ballotBox"
+msgstr "Urnes de vote"
+
+#: 
+msgctxt "\"avAdmin\".\"sidebar\""
+msgid "buy"
+msgstr "Acheter des crédits"
+
+#: 
+msgctxt "\"avAdmin\".\"sidebar\""
+msgid "adminFields"
+msgstr "Champs administratifs"
+
+#: 
+msgctxt "\"avAdmin\".\"elections\""
+msgid "filter"
+msgstr "Filtre..."
+
+#: 
+msgctxt "\"avAdmin\".\"elections\".\"list\""
+msgid "all"
+msgstr "Actif"
+
+#: 
+msgctxt "\"avAdmin\".\"elections\".\"list\""
+msgid "archived"
+msgstr "Archivé"
+
+#: 
+msgctxt "\"avAdmin\".\"elections\""
+msgid "test"
+msgstr "test"
+
+#: 
+msgctxt "\"avAdmin\".\"elections\""
+msgid "draft"
+msgstr "brouillon"
+
+#: 
+msgctxt "\"avAdmin\".\"elections\""
+msgid "real"
+msgstr "réel"
+
+#: 
+msgctxt "\"avAdmin\".\"elections\""
+msgid "status"
+msgstr "Statut"
+
+#: 
+msgctxt "\"avAdmin\".\"elections\""
+msgid "participation"
+msgstr "Participation"
+
+#: 
+msgctxt "\"avAdmin\".\"elections\".\"useDraftModal\""
+msgid "title"
+msgstr "Voulez-vous charger le projet d'élection ?"
+
+#: 
+msgctxt "\"avAdmin\".\"elections\".\"useDraftModal\""
+msgid "body"
+msgstr "Cette action chargera le projet d'élection avec le titre '__title__'. Cette action chargera ce projet et les modifications ultérieures de sa configuration réécriront le projet enregistré. Souhaitez-vous poursuivre ?"
+
+#: 
+msgctxt "\"avAdmin\".\"elections\".\"eraseDraftModal\""
+msgid "title"
+msgstr "Voulez-vous effacer le projet d'élection ?"
+
+#: 
+msgctxt "\"avAdmin\".\"elections\".\"eraseDraftModal\""
+msgid "body"
+msgstr "Cette action effacera le projet d'élection avec le titre '__title__'. Cette action ne peut pas être annulée. Souhaitez-vous poursuivre ?"
+
+#: 
+msgctxt "\"avAdmin\".\"action\""
+msgid "create"
+msgstr "créer"
+
+#: 
+msgctxt "\"avAdmin\".\"action\""
+msgid "start"
+msgstr "commencer"
+
+#: 
+msgctxt "\"avAdmin\".\"action\""
+msgid "stop"
+msgstr "arrêter"
+
+#: 
+msgctxt "\"avAdmin\".\"action\""
+msgid "tally"
+msgstr "décompte"
+
+#: 
+msgctxt "\"avAdmin\".\"action\""
+msgid "publish"
+msgstr "publier"
+
+#: 
+msgctxt "\"avAdmin\".\"import\""
+msgid "desc"
+msgstr "L'importation d'une élection depuis un csv vous permet de gérer et d'automatiser la création des détails des élections depuis une source externe. <a href=\"https://docs.google.com/spreadsheets/d/1WTzswqiuRllZIm90A-SBQ0kbVYDQI1jZvKcvL8ruMIY/edit?usp=sharing\" target=\"_blank\">Découvrez-en plus sur le format CSV des élections ici</a>. Si vous souhaitez créer plusieurs élections à la fois, vous pouvez utiliser l'API ou nous contacter."
+
+#: 
+msgctxt "\"avAdmin\".\"import\""
+msgid "file"
+msgstr "Sélectionnez le fichier"
+
+#: 
+msgctxt "\"avAdmin\".\"import\""
+msgid "dropFilesHere"
+msgstr "Déposez le fichier CSV ici"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\""
+msgid "writeInResults"
+msgstr "(Écrire)"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\""
+msgid "chilldrenResultsTitle"
+msgstr "Sélectionnez les résultats de l'élection à afficher :"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\""
+msgid "createRealElection"
+msgstr "Créer une élection réelle"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\""
+msgid "duplicateElection"
+msgstr "Élection en double"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\""
+msgid "sendAuthCodes"
+msgstr "Envoyer codes d'authentification"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\""
+msgid "donow"
+msgstr "cliquez pour le faire maintenant"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\""
+msgid "census"
+msgstr "Recensement"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\""
+msgid "questions"
+msgstr "Questions"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\""
+msgid "answers"
+msgstr "Réponses"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\""
+msgid "status"
+msgstr "Statut"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\""
+msgid "authentication"
+msgstr "Authentification"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\""
+msgid "electionid"
+msgstr "Identité électorale"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\""
+msgid "authorities"
+msgstr "Autorités"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\""
+msgid "create"
+msgstr "Créez"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\""
+msgid "start"
+msgstr "Commencer à voter"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\""
+msgid "stop"
+msgstr "Arrêtez de voter"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\""
+msgid "tally"
+msgstr "Décompte"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\""
+msgid "calculate"
+msgstr "Calculer les résultats"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\""
+msgid "publish"
+msgstr "Publier les résultats"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\""
+msgid "calculateAgain"
+msgstr "Calculer à nouveau les résultats"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\""
+msgid "doingtally"
+msgstr "Faire le décompte"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\""
+msgid "results"
+msgstr "Résultats"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\""
+msgid "blankvotes"
+msgstr "Votes blancs"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\""
+msgid "nullvotes"
+msgstr "Votes nuls"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\""
+msgid "optiosequent"
+msgstr "Votes aux options"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\""
+msgid "option"
+msgstr "Candidature"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\""
+msgid "votes"
+msgstr "Votes"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\""
+msgid "winner"
+msgstr "Position du gagnant"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\""
+msgid "publicResultsUrl"
+msgstr "Url des résultats publics"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\""
+msgid "electionPublic"
+msgstr "Site public des élections"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\""
+msgid "censussend"
+msgstr "Envoi correct du recensement"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\""
+msgid "preview"
+msgstr "Cabine de vote démo"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"actions\""
+msgid "actionsLabel"
+msgstr "Actions"
+
+#. What do you mean by "social"
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"actions\""
+msgid "changeSocial"
+msgstr "Modifier le social..."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"actions\""
+msgid "sendAuthCodes"
+msgstr "Envoyer les codes d'authentification..."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"actions\""
+msgid "archiveElection"
+msgstr "Archive des élections..."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"actions\""
+msgid "unarchiveElection"
+msgstr "élection non archivée..."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"actions\""
+msgid "tally"
+msgstr "Décompte du lancement..."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"actions\""
+msgid "allowTally"
+msgstr "Permet de lancer le décompte..."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"actions\""
+msgid "calculateResults"
+msgstr "Calculer les résultats..."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"actions\""
+msgid "editChildrenParent"
+msgstr "Modifier les élections des enfants et des parents..."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"actions\""
+msgid "startElection"
+msgstr "Début de l'élection..."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"actions\""
+msgid "stopElection"
+msgstr "Arrêtez l'élection..."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"actions\""
+msgid "publishResults"
+msgstr "Publier les résultats..."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"actions\""
+msgid "unpublishResults"
+msgstr "Dépublier les résultats..."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"actions\""
+msgid "suspendElection"
+msgstr "Suspendre l'élection..."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"actions\""
+msgid "resumeElection"
+msgstr "Reprendre l'élection.."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"actions\""
+msgid "makeCandidatesPublic"
+msgstr "Rendre les candidats publics..."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"actions\""
+msgid "makeCandidatesPrivate"
+msgstr "Rendez les candidats privés..."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"actions\""
+msgid "launchKeyDistributionCeremony"
+msgstr "Lancer la distribution des clés pour la cérémonie"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"actions\""
+msgid "launchOpeningCeremony"
+msgstr "Cérémonie d'ouverture du lancement"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"actions\""
+msgid "enableOtlPeriod"
+msgstr "Activer la période Otl..."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"actions\""
+msgid "disableOtlPeriod"
+msgstr "Désactiver la période Otl..."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\""
+msgid "createHeader"
+msgstr "Créer une élection"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\""
+msgid "createBody"
+msgstr "Pour créer l'élection, sa configuration est envoyée aux autorités électorales et celles-ci créent les clés publiques de cryptage de l'élection. Après cela, l'élection n'est plus modifiable. Avant de le faire, veuillez vérifier que la configuration est correcte (par exemple en jetant un coup d'œil à la cabine de vote de démonstration). Si vous devez modifier l'élection après cela, vous devrez en créer une nouvelle."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\""
+msgid "confirmCreateButton"
+msgstr "Confirmer et CREER l'élection"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\""
+msgid "createRealHeader"
+msgstr "Créer une véritable élection"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\""
+msgid "createRealBody"
+msgstr "Il s'agit d'une élection de test. Pour des raisons de sécurité, les élections réelles ne peuvent être créées qu'à partir d'élections de test réussies. Vous devez compléter le processus d'élection jusqu'à l'étape de publication des résultats."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\""
+msgid "confirmCreateRealButton"
+msgstr "Confirmer et créer une véritable élection"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\""
+msgid "calculateResultsHeader"
+msgstr "Calculer les résultats"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\""
+msgid "calculateResultsBody"
+msgstr "L'élection a été comptabilisée et l'étape suivante consiste à calculer les résultats. Bien que l'élection ne puisse être comptabilisée qu'une seule fois, les résultats de l'élection peuvent être calculés autant de fois que vous le souhaitez avant de les publier."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\""
+msgid "calculateResultsButton"
+msgstr "Confirmer et CALCULER les résultats"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\""
+msgid "calculateResultsSuccess"
+msgstr "Calcul des résultats demandé"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\""
+msgid "startHeader"
+msgstr "Début de l'élection"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\""
+msgid "startBody"
+msgstr "Sachez qu'une fois que vous avez lancé les élections, les électeurs pourront voter jusqu'à ce que l'élection soit arrêtée"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\""
+msgid "confirmStartButton"
+msgstr "Confirmer et démarrer l'élection"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\""
+msgid "stopHeader"
+msgstr "Arrêt de l'élection"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\""
+msgid "stopBody"
+msgstr "Une fois que vous aurez arrêté l'élection, les gens ne pourront plus voter.  Veuillez en être conscient et faire preuve de prudence"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\""
+msgid "confirmStopButton"
+msgstr "Confirmer et arrêter l'élection"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\""
+msgid "tallyHeader"
+msgstr "Décompte de l'élection"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\""
+msgid "tallyIntro"
+msgstr "Le processus de décompte est géré par les autorités électorales et peut prendre un certain temps, en fonction du nombre de votes. Il implique un processus cryptographique mathématiquement vérifiable qui anonymise et obtient le contenu de chaque vote."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\""
+msgid "askFilterBallots"
+msgstr "Avant de lancer le décompte, vous devez choisir le jeu de bulletins à utiliser pour le décompte. Il est très important que vous <strong>choisissiez soigneusement, car une fois qu'un décompte a été effectué, vous ne pouvez pas lancer un autre décompte</strong> avec un deuxième ensemble de bulletins. <br/><br/>Voici les options dont vous disposez :"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"censusDumpMode\""
+msgid "allHeader"
+msgstr "Compter tous les bulletins de vote"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"censusDumpMode\""
+msgid "allDescription"
+msgstr "Même si un électeur a été retiré du recensement ou est marqué comme non actif, si cet électeur a déposé un bulletin de vote, il sera compté."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"censusDumpMode\""
+msgid "activeHeader"
+msgstr "Ne comptabilisez que les bulletins de vote actifs dans le recensement actuel"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"censusDumpMode\""
+msgid "activeDescription"
+msgstr "<strong>Ne choisissez cette option que si vous savez ce que vous faites</strong>. Les bulletins correspondant à des personnes qui ne sont pas incluses dans le recensement, ou ceux correspondant à des personnes inactives dans le recensement <strong>seront écartés et non comptés</strong>."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"censusDumpMode\""
+msgid "chooseChildrenToTally"
+msgstr "Choisissez les élections à comptabiliser :"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\""
+msgid "confirmTallyButton"
+msgstr "Confirmer et DECOMPTER l'élection"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\""
+msgid "tallyActiveHeader"
+msgstr "Ne comptabiliser que les électeurs actifs"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\""
+msgid "tallyActiveIntro"
+msgstr "Nous commencerons à télécharger tous les électeurs pour détecter ceux qui sont actifs et ne procéderons au décompte que si vous confirmez que vous voulez le faire. <strong>Cette décision est définitive</strong>, le logiciel ne permet pas d'annuler un décompte ou d'en faire un second avec un ensemble différent de bulletins. <br/><br/>Pour modifier la liste des utilisateurs actifs, annulez ce paramètre et modifiez le statut actif dans le menu latéral Données de recensement. Si vous ne voulez pas faire le décompte, fermez simplement cette boîte de dialogue."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\""
+msgid "downloadingCensus"
+msgstr "Personnes __downloaded__ of __total__ téléchargées dans le recensement"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\""
+msgid "confirmTallyActiveButton"
+msgstr "Confirmer et DECOMPTER __totalActive__ out of __total__ les électeurs éligibles"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\""
+msgid "launchTallySuccess"
+msgstr "Décompte lancé avec succès"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\""
+msgid "publishResultsHeader"
+msgstr "Publier les résultats des élections"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\""
+msgid "publishResultsBody"
+msgstr "Actuellement, seuls les administrateurs des élections ont accès aux résultats calculés des élections. Lorsque vous publierez les résultats, ceux-ci seront rendus publics pour que tout le monde puisse les voir."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\""
+msgid "confirmPublishResultsButton"
+msgstr "Confirmer et PUBLIER les résultats des élections"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"launchSelfTestTask\""
+msgid "header"
+msgstr "Lancer l'auto-test"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"launchSelfTestTask\""
+msgid "body"
+msgstr "Cette action lancera en arrière-plan l'auto-test. Cela peut prendre du temps, mais vous vérifier l'avancement."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"launchSelfTestTask\""
+msgid "confirmButton"
+msgstr "Lancer l'auto-test"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"cancelTask\""
+msgid "header"
+msgstr "Annuler la tâche"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"cancelTask\""
+msgid "body"
+msgstr "Cette action annule l'exécution de la tâche."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"cancelTask\""
+msgid "confirmButton"
+msgstr "ANNULER la tâche"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"enableOtlPeriod\""
+msgid "header"
+msgstr "Activer la période OTL"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"enableOtlPeriod\""
+msgid "body"
+msgstr "Cette action permettra aux électeurs d'obtenir leur code d'authentification à l'aide du lien à utilisation unique (OTL) qu'ils ont reçu."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"enableOtlPeriod\""
+msgid "confirmButton"
+msgstr "ACTIVER la période OTL"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"enableOtlPeriod\""
+msgid "success"
+msgstr "La période OTL a été activée avec succès."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"disableOtlPeriod\""
+msgid "header"
+msgstr "Désactiver la période OTL"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"disableOtlPeriod\""
+msgid "body"
+msgstr "Cette action empêchera les électeurs d'obtenir leur code d'authentification à l'aide du lien à utilisation unique (OTL) qu'ils ont reçu, car l'OTL ne leur permettra pas de suivre le processus tant qu'il sera désactivé."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"disableOtlPeriod\""
+msgid "confirmButton"
+msgstr "DESACTIVER la période OTL"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"disableOtlPeriod\""
+msgid "success"
+msgstr "La période OTL a été désactivée avec succès."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"changeSocial\""
+msgid "header"
+msgstr "Modifier les boutons de partage des réseaux sociaux"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"changeSocial\""
+msgid "confirmButton"
+msgstr "Confirmer et SAUVEGARDER la configuration des réseaux sociaux"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"changeSocial\""
+msgid "title"
+msgstr "Boutons de réseaux sociaux"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"changeSocial\""
+msgid "new"
+msgstr "Nouveau bouton"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"changeSocial\""
+msgid "socialNetworkLabel"
+msgstr "Réseau social"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"changeSocial\""
+msgid "buttonTextLabel"
+msgstr "Bouton texte"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"changeSocial\""
+msgid "socialMessageLabel"
+msgstr "Texte de partage"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"changeSocial\""
+msgid "socialMessagePlaceholder"
+msgstr "Texte à partager sur les réseaux sociaux (use __URL__pour l'url d'élection par défaut)"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"changeSocial\""
+msgid "buttonTextPlaceholder"
+msgstr "Texte pour le bouton de partage (il peut être vide)"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"changeSocial\""
+msgid "nameLabel"
+msgstr "Nom"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"changeSocial\""
+msgid "infoHeader"
+msgstr "Configuration sauvegardée"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"changeSocial\""
+msgid "infoBody"
+msgstr "La configuration des boutons de réseaux sociaux a été enregistrée avec succès."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"changeSocial\""
+msgid "socialUrlLabel"
+msgstr "Lien"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"changeSocial\""
+msgid "socialUrlPlaceholder"
+msgstr "Lien de l'élection à partager sur les réseaux sociaux (use __URL__ pour l'url de l'élection par défaut)"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"editCalculateResultsJsonModal\""
+msgid "editJson"
+msgstr "Modifier JSON"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"editCalculateResultsJsonModal\""
+msgid "title"
+msgstr "Modifier le calcul des résultats Json"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"editCalculateResultsJsonModal\""
+msgid "body"
+msgstr "Cette boîte de dialogue vous permet de modifier le calcul des résultats json. Ne l'utilisez que si vous savez ce que vous faites."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"editCalculateResultsJsonModal\""
+msgid "confirmEdit"
+msgstr "Montage final"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"keysDistributionIntro\""
+msgid "header"
+msgstr "Cérémonie de distribution des clés (étape 1 de __total__)"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"keysDistributionIntro\""
+msgid "bodyMessage"
+msgstr "Lors de cette cérémonie, chaque administrateur téléchargera sa partie des clés privées pour le processus électoral. Chaque bénéficiaire suivra les étapes suivantes : <ul> <li>Connexion</li> <li>Téléchargement des clés privées</li> <li>Vérification des clés privées</li> <li>Suppression des clés privées</li></ul>"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"keysDistributionIntro\""
+msgid "confirmButton"
+msgstr "Démarrage"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"openingIntro\""
+msgid "header"
+msgstr "Cérémonie d'ouverture (étape 1 de __total__)"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"openingIntro\""
+msgid "bodyMessage"
+msgstr "Lors de cette cérémonie, chaque bénéficiaire restaurera sa partie des clés privées pour le processus électoral. Chaque bénéficiaire suivra les étapes suivantes : <ul> <li>Connexion</li> <li>Vérifier les clés privées</li> <li>Restaurer les clés privées</li> </ul>"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"openingIntro\""
+msgid "confirmButton"
+msgstr "Début"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"loginTrustee\""
+msgid "header"
+msgstr "Connectez-vous avec votre id __trustee_id__ (Etape __step__ of __total__)"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"loginTrustee\""
+msgid "loginButton"
+msgstr "Connexion"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"loginTrustee\""
+msgid "bodyMessage"
+msgstr "Afin de poursuivre, vous devez vous connecter avec les informations d'identification qui vous sont données."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"downloadShare\""
+msgid "header"
+msgstr "Télécharger le partage de clé privée pour les bénéficiaires __trustee_id__ (Etape __step__ of __total__)"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"downloadShare\""
+msgid "bodyMessage"
+msgstr "Téléchargez le partage des clés privées pour les élections. Veuillez le télécharger au moins sur deux appareils différents."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"downloadShare\""
+msgid "downloadButton"
+msgstr "Télécharger la clé privée"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"downloadShare\""
+msgid "nextButton"
+msgstr "Étape suivante"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"downloadShare\""
+msgid "operationSuccess"
+msgstr "Les clés privées ont été téléchargées avec succès."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"secureShare\""
+msgid "header"
+msgstr "Partage de clé privée sécurisée pour les bénéficiaires __trustee_id__ (Etape __step__ of __total__)"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"secureShare\""
+msgid "bodyMessage"
+msgstr "Pour des raisons de sécurité, veuillez déplacer la clé privée sur au moins deux clés USB différentes."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"secureShare\""
+msgid "nextButton"
+msgstr "Étape suivante"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"secureShare\""
+msgid "backButton"
+msgstr "Retour aux clés de téléchargement"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"secureShare\""
+msgid "firstCheckbox"
+msgstr "Première copie sécurisée"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"secureShare\""
+msgid "secondCheckbox"
+msgstr "Deuxième copie sécurisée"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"checkShare\""
+msgid "bodyMessage"
+msgstr "Téléchargez le fichier avec les clés privées pour vérifier son contenu :"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"checkShare\""
+msgid "header"
+msgstr "Vérifier le partage de clé privée pour les bénéficiaires __trustee_id__ (Etape __step__ of __total__)"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"checkShare\""
+msgid "selectFileButton"
+msgstr "Sélectionnez le fichier de clés privées"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"checkShare\""
+msgid "orDropFileText"
+msgstr "Ou déposez le fichier ici"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"checkShare\""
+msgid "verificationSuccess"
+msgstr "SUCCÈS ! Clés privées vérifiées."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"checkShare\""
+msgid "verificationFailure"
+msgstr "ÉCHEC ! Échec de la vérification de la clé privée."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"checkShare\""
+msgid "nextButton"
+msgstr "Étape suivante"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"checkShare\""
+msgid "keysDistributionBackButton"
+msgstr "Retour aux clés de téléchargement"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"deleteShare\""
+msgid "bodyMessage"
+msgstr "Supprimez la part des clés privées pour cette autorité."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"deleteShare\""
+msgid "header"
+msgstr "Supprimer le partage de clé privée pour le bénéficiaire __trustee_id__ (Etape __step__ of __total__)"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"deleteShare\""
+msgid "deleteShareButton"
+msgstr "Supprimer les clés privées"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"deleteShare\""
+msgid "operationSuccess"
+msgstr "Le partage des clés privées a été supprimé avec succès"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"deleteShare\""
+msgid "nextButton"
+msgstr "Étape suivante"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"deleteShare\""
+msgid "finishButton"
+msgstr "Finir"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"restoreShare\""
+msgid "bodyMessage"
+msgstr "Restaurer le partage des clés privées pour cette autorité."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"restoreShare\""
+msgid "header"
+msgstr "Restaurer le partage de clé privée pour le bénéficiaire __trustee_id__ (Etape __step__ of __total__)"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"restoreShare\""
+msgid "deleteShareButton"
+msgstr "Restaurer les clés privées"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"restoreShare\""
+msgid "operationSuccess"
+msgstr "Le partage des clés privées a été restauré avec succès"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"restoreShare\""
+msgid "nextButton"
+msgstr "Étape suivante"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"restoreShare\""
+msgid "finishButton"
+msgstr "Finir"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"finishCeremony\""
+msgid "header"
+msgstr "Cérémonie achevée avec succès (Etape __total__ of __total__)"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"finishCeremony\""
+msgid "keysDistributionBodyMessage"
+msgstr "La cérémonie de distribution des clés est terminée et toutes les clés privées ont été retirées des serveurs."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"finishCeremony\""
+msgid "openingBodyMessage"
+msgstr "La cérémonie d'ouverture est terminée et toutes les clés privées ont été restaurées sur les serveurs."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"keysCeremonies\".\"finishCeremony\""
+msgid "closeButton"
+msgstr "Fermer"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"sendAuthCodes\".\"editMessageStep\""
+msgid "header"
+msgstr "Envoyer les codes d'authentification (Etape __step__ of __total__)"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"sendAuthCodes\".\"editMessageStep\""
+msgid "helpInfo"
+msgstr "Cette action enverra un message à tous les électeurs inscrits dans le recensement. Notez que l'envoi de nombreux messages peut être considéré comme du SPAM, alors procédez avec prudence. De plus, veuillez revoir le message qui sera envoyé avant de procéder."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"sendAuthCodes\".\"editMessageStep\""
+msgid "sendButton"
+msgstr "Réviser le message avant d'envoyer les codes d'authentification à TOUS les recensements"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"sendAuthCodes\".\"editMessageStep\""
+msgid "sendSelectedButton"
+msgstr "Réviser le message avant d'envoyer les codes d'authentification aux utilisateurs SÉLECTIONNÉS"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"sendAuthCodes\".\"editMessageStep\""
+msgid "filterTitle"
+msgstr "Filtre"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"sendAuthCodes\".\"editMessageStep\""
+msgid "filterDescription"
+msgstr "Envoyez cet email à une partie du recensement, soit ceux qui ont déjà voté, soit ceux qui n'ont pas encore voté."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"sendAuthCodes\".\"editMessageStep\""
+msgid "forceCreateOtp"
+msgstr "Force à créer et à envoyer un nouveau lien a usage unique (OTL) pour chaque récepteur du message, invalidant les OTL précédents."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"sendAuthCodes\".\"editMessageStep\".\"filterOptions\""
+msgid "none"
+msgstr "Envoyer à tout le monde"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"sendAuthCodes\".\"editMessageStep\".\"filterOptions\""
+msgid "voted"
+msgstr "Envoyer à ceux qui ont voté"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"sendAuthCodes\".\"editMessageStep\".\"filterOptions\""
+msgid "not_voted"
+msgstr "Envoyer à ceux qui n'ont pas encore voté"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"sendAuthCodes\".\"confirmStep\""
+msgid "header"
+msgstr "Envoyer les codes d'authentification (Étape __step__ of __total__)"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"sendAuthCodes\".\"confirmStep\""
+msgid "helpInfo"
+msgstr "Vous enverrez l'authentification aux __voters__ électeurs. Veuillez vérifier que tout est correct. En cas de problème, veuillez nous contacter à __email__ ou en nous appelant au __tlf__."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"sendAuthCodes\".\"confirmStep\""
+msgid "sendButton"
+msgstr "Confirmez et envoyez les messages"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"sendAuthCodes\".\"confirmStep\""
+msgid "invalidMsg"
+msgstr "Oui, je veux envoyer ces messages sans code d'authentification / URL"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"sendAuthCodes\".\"confirmStep\""
+msgid "messageHeader"
+msgstr "Aperçu"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"sendAuthCodes\".\"confirmStep\""
+msgid "editMessageAction"
+msgstr "Modifier"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"sendAuthCodes\".\"confirmStep\""
+msgid "unknownError"
+msgstr "Les messages n'ont pas été envoyés ni facturés. Une erreur inconnue s'est produite lors de l'envoi des messages. Si ce problème persiste, veuillez nous contacter pour le résoudre à __email__ ou en nous appelant au __tlf__."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"archive\""
+msgid "header"
+msgstr "Confirmer l'élection de l'archive"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"archive\""
+msgid "body"
+msgstr "Cette action archivera l'élection. Elle échouera si l'élection est déjà archivée. L'archivage d'une élection supprime l'élection de la liste des élections dans l'interface d'administration, mais on peut toujours y accéder à partir de la liste des élections archivées. Elle peut également être désarchivée ultérieurement."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"archive\""
+msgid "confirmButton"
+msgstr "Archives des élections"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"archive\""
+msgid "success"
+msgstr "L'élection a été archivée avec succès"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"unarchive\""
+msgid "header"
+msgstr "Confirmer l'élection de désarchivage"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"unarchive\""
+msgid "body"
+msgstr "Cette action désarchivera l'élection. Elle échouera si l'élection n'est pas actuellement dans un état archivé. Le désarchivage d'une élection la fait réapparaître dans la liste des élections de l'interface d'administration. Elle peut également être ré-archivée ultérieurement."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"unarchive\""
+msgid "confirmButton"
+msgstr "Désachiver l'election"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"unarchive\""
+msgid "success"
+msgstr "Élection désarchivée avec succès"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"makeCandidatesPublic\""
+msgid "header"
+msgstr "Confirmer rend les candidats publics"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"makeCandidatesPublic\""
+msgid "body"
+msgstr "Cette action rendra les options des candidats de l'élection publiques pour que tout le monde puisse les voir. Vous pouvez revenir sur cette action plus tard."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"makeCandidatesPublic\""
+msgid "confirmButton"
+msgstr "Rendre les candidats publics"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"makeCandidatesPublic\""
+msgid "success"
+msgstr "Candidats aux élections rendus publics avec succès"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"makeCandidatesPrivate\""
+msgid "header"
+msgstr "Confirmer rend les candidats privés"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"makeCandidatesPrivate\""
+msgid "body"
+msgstr "Cette action rendra les options des candidats de l'élection privées, afin que seuls les électeurs authentifiés puissent les voir. Vous pouvez revenir sur cette action plus tard."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"makeCandidatesPrivate\""
+msgid "confirmButton"
+msgstr "Rendre les candidats privés"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"makeCandidatesPrivate\""
+msgid "success"
+msgstr "Les candidats aux élections ont été mis en privé avec succès"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"editChildrenParent\""
+msgid "header"
+msgstr "Modifier les informations relatives aux élections des enfants et des parents"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"editChildrenParent\""
+msgid "body"
+msgstr "Editez dans la zone de text le parent_id et children_election_info en JSON."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"editChildrenParent\""
+msgid "confirmButton"
+msgstr "Envoyer les données mises à jour"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"editChildrenParent\""
+msgid "success"
+msgstr "Mise à jour réussie des informations sur les enfants et les parents"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"unpublishResults\""
+msgid "header"
+msgstr "Dépublier les résultats des élections"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"unpublishResults\""
+msgid "body"
+msgstr "Les résultats électoraux n'apparaîtront pas sur le site public de cette élection."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"unpublishResults\""
+msgid "confirmButton"
+msgstr "Confirmer et dépublier les résultats électoraux"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"unpublishResults\""
+msgid "success"
+msgstr "Les résultats électoraux ont été dépubliés avec succès"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"allowTally\""
+msgid "header"
+msgstr "Permettre de faire le décompte des élections"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"allowTally\""
+msgid "body"
+msgstr "Après l'exécution de cette action, tout administrateur autorisé à exécuter un décompte pourra le faire."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"allowTally\""
+msgid "confirmButton"
+msgstr "Permettre de faire le décompte des élections"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"allowTally\""
+msgid "success"
+msgstr "Autorisé à faire le décompte des élections"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"generatePDFAuthCodes\""
+msgid "header"
+msgstr "Générer le code d'authentification de l'électeur en PDF"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"generatePDFAuthCodes\""
+msgid "body"
+msgstr "Générer le code d'authentification PDF pour l'électeur sélectionné. Même si l'électeur n'a pas rempli les champs à remplir, il pourra voter en utilisant ce code et le lien dans le PDF."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"generatePDFAuthCodes\""
+msgid "confirmButton"
+msgstr "GENERER le code d'authentification de l'électeur en PDF"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"resetVoterToPreRegistration\""
+msgid "header"
+msgstr "Remettre l'électeur dans l'état de pré-enregistrement"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"resetVoterToPreRegistration\""
+msgid "body"
+msgstr "Réinitialiser l'électeur à l'état de pré-enregistrement. Cela signifie que tout champ qui a été rempli par l'électeur pendant l'inscription sera réinitialisé, mais que les données qui faisaient partie du recensement pendant la préinscription ne changeront pas. Vous pouvez ajouter ci-dessous un commentaire expliquant pourquoi vous exécutez cette action pour cet électeur :"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"resetVoterToPreRegistration\""
+msgid "confirmButton"
+msgstr "REMETTRE L'ELECTEUR à l'état de pré-enregistrement"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"suspend\""
+msgid "header"
+msgstr "Suspendre la période de vote des élections"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"suspend\""
+msgid "body"
+msgstr "La suspension d'une élection interrompt temporairement la période de vote, empêchant les électeurs de voter. Cependant, vous pouvez ensuite reprendre la période de vote et cela peut se produire plusieurs fois."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"suspend\""
+msgid "confirmButton"
+msgstr "SUSPENDRE la période de vote des élections"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"suspend\""
+msgid "success"
+msgstr "La période de vote des élections a été suspendue avec succès."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"resume\""
+msgid "header"
+msgstr "Reprise de la période de vote des élections"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"resume\""
+msgid "body"
+msgstr "La reprise de l'élection lorsqu'elle a été suspendue temporairement permettra aux électeurs de voter à nouveau."
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"resume\""
+msgid "confirmButton"
+msgstr "REPRENDRE la période de vote des élections"
+
+#: 
+msgctxt "\"avAdmin\".\"dashboard\".\"modals\".\"resume\""
+msgid "success"
+msgstr "La période de vote a repris avec succès."
+
+#: 
+msgctxt "\"avAdmin\".\"basic\""
+msgid "intro"
+msgstr "La création d'une élection nécessite plusieurs étapes, mais ce n'est pas difficile. Cela ne vous prendra que 5 minutes. Veuillez lire le manuel d'information dont le lien se trouve dans l'icône d'aide de la barre de navigation supérieure."
+
+#: 
+msgctxt "\"avAdmin\".\"basic\".\"title\""
+msgid "label"
+msgstr "Titre"
+
+#: 
+msgctxt "\"avAdmin\".\"basic\".\"title\""
+msgid "placeholder"
+msgstr "eg.Nouveau conseil d'administration"
+
+#: 
+msgctxt "\"avAdmin\".\"basic\".\"title\""
+msgid "labelH3"
+msgstr "__index__. Titre de l'élection : __title__"
+
+#: 
+msgctxt "\"avAdmin\".\"basic\".\"description\""
+msgid "label"
+msgstr "Description"
+
+#: 
+msgctxt "\"avAdmin\".\"basic\".\"description\""
+msgid "placeholder"
+msgstr "La description s'affiche"
+
+#: 
+msgctxt "\"avAdmin\".\"basic\".\"logo_url\""
+msgid "label"
+msgstr "Logo personnalisé"
+
+#: 
+msgctxt "\"avAdmin\".\"basic\".\"logo_url\""
+msgid "placeholder"
+msgstr "URL pour un logo personnalisé pour cette élection. La taille maximale recommandée est de 150x150 px."
+
+#: 
+msgctxt "\"avAdmin\".\"basic\".\"layout\""
+msgid "label"
+msgstr "Mise en page"
+
+#: 
+msgctxt "\"avAdmin\".\"basic\".\"layout\""
+msgid "placeholder"
+msgstr "Spécifie comment l'ensemble de l'élection sera affiché"
+
+#: 
+msgctxt "\"avAdmin\".\"basic\".\"layouts\""
+msgid "simple"
+msgstr "Simple"
+
+#: 
+msgctxt "\"avAdmin\".\"basic\".\"layouts\""
+msgid "2questions-conditional"
+msgstr "Oui/Non"
+
+#: 
+msgctxt "\"avAdmin\".\"basic\".\"layouts\""
+msgid "pcandidates-election"
+msgstr "Candidats au tableau"
+
+#: 
+msgctxt "\"avAdmin\".\"basic\".\"theme\""
+msgid "label"
+msgstr "Thème"
+
+#: 
+msgctxt "\"avAdmin\".\"basic\".\"theme\""
+msgid "placeholder"
+msgstr "A quoi ressemblera l'élection ?"
+
+#: 
+msgctxt "\"avAdmin\".\"basic\".\"themes\""
+msgid "default"
+msgstr "Par défaut"
+
+#: 
+msgctxt "\"avAdmin\".\"basic\".\"themes\""
+msgid "podemos"
+msgstr "Violet"
+
+#: 
+msgctxt "\"avAdmin\".\"basic\""
+msgid "questionOptionsSummary"
+msgstr "<strong>__num_answers__</strong> candidats. Les électeurs choisissent entre <strong>__min__</strong> et <strong>__max</strong> options et il y a <strong>__num_winners__</strong> gagnants. La méthode de décompte est <strong>__tally_method__</strong>. Randomisez les catégories : <strong>shuffle_categories</strong>, randomiser toutes les options : <strong>shuffle_all_options</strong>."
+
+#: 
+msgctxt "\"avAdmin\".\"basic\""
+msgid "censusSize"
+msgstr "__num__ personnes"
+
+#: 
+msgctxt "\"avAdmin\".\"basic\""
+msgid "registerAndCreateElection"
+msgstr "Il faut non seulement enregistrer l'élection, mais aussi la créer auprès des autorités électorales. Cela signifie que vous ne pourrez pas modifier l'élection."
+
+#: 
+msgctxt "\"avAdmin\".\"basic\".\"num_successful_logins_allowed\""
+msgid "label"
+msgstr "Nombre de votes par électeur"
+
+#: 
+msgctxt "\"avAdmin\".\"basic\".\"num_successful_logins_allowed\""
+msgid "placeholder"
+msgstr "Nombre maximum de fois où les électeurs sont autorisés à voter. Seul leur dernier vote comptera. Si ce nombre est égal à zéro, les électeurs pourront voter autant de fois qu'ils le souhaitent"
+
+#: 
+msgctxt "\"avAdmin\".\"basic\".\"num_successful_logins_allowed\""
+msgid "minError"
+msgstr "Le nombre de revotes possibles est __num_successful_logins_allowed__ mais il devrait être de 0 ou plus"
+
+#: 
+msgctxt "\"avAdmin\".\"basic\".\"num_successful_logins_allowed\""
+msgid "inputError"
+msgstr "__num_successful_logins_allowed__ n'est pas un nombre"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\""
+msgid "new"
+msgstr "Nouvelle question"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"winners\""
+msgid "label"
+msgstr "Nombre de gagnants"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"winners\""
+msgid "placeholder"
+msgstr "Combien de gagnants doit-il y avoir ? Le minimum est 1 et le maximum est le nombre d'options"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"winners\""
+msgid "numOptionsError"
+msgstr "Il y a des __winners__ gagnants mais seulement des __cands__ candidats"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"winners\""
+msgid "minError"
+msgstr "Il doit y avoir au moins 1 gagnant"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"min\""
+msgid "label"
+msgstr "Nombre minimum d'options sélectionnées"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"min\""
+msgid "placeholder"
+msgstr "Combien d'options un électeur doit-il sélectionner dans cette question ? Le minimum est zéro, ce qui permettrait des votes blancs"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"min\""
+msgid "maxError"
+msgstr "Le nombre minimum de candidatures pouvant être choisies peut être au maximum de __max__"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"min\""
+msgid "minError"
+msgstr "Ne peut être négatif"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"max\""
+msgid "label"
+msgstr "Nombre maximum d'options sélectionnées"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"max\""
+msgid "placeholder"
+msgstr "Combien d'options un électeur peut-il sélectionner dans cette question ?"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"max\""
+msgid "numOptionsError"
+msgstr "Les électeurs peuvent choisir jusqu'à __max__ candidatures, mais il n'y a que __cands__ candidatures"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"max\""
+msgid "minError"
+msgstr "Doit être au moins 1 "
+
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"random\""
+msgid "label"
+msgstr "Randomiser l'ordre des options"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"random\""
+msgid "placeholder"
+msgstr "Lorsque la randomisation de l'ordre des options est active, chaque électeur verra les options de cette question dans un ordre différent dans l'isoloir"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"candidates\""
+msgid "label"
+msgstr "Candidats"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"candidates\""
+msgid "placeholder"
+msgstr "Options de candidats pouvant être votées pour cette question"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"candidates\""
+msgid "minError"
+msgstr "Il doit y avoir au moins un candidat"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\""
+msgid "newopt"
+msgstr "Nouveau nom de l'option"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"layout\""
+msgid "label"
+msgstr "Mise en page"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"layout\""
+msgid "placeholder"
+msgstr "Indiquez comment la question sera affichée"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"layout\""
+msgid "accordion"
+msgstr "Normal"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"layout\""
+msgid "circles"
+msgstr "Images avec détails"
+
+#. "accordion' like the instrument?
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"layout\""
+msgid "conditional-accordion"
+msgstr "Accordéon conditionnel"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"layout\""
+msgid "simultaneous-questions"
+msgstr "Questions simultanées"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"layout\""
+msgid "cumulative-tally-help"
+msgstr "La méthode de décompte cumulatif n'est prise en charge que pour les questions simultanées"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"option\""
+msgid "textFieldLabel"
+msgstr "Texte"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"option\""
+msgid "textFieldPlaceholder"
+msgstr "Texte de l'option du candidat"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"option\""
+msgid "detailsFieldLabel"
+msgstr "Détails"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"option\""
+msgid "detailsFieldPlaceholder"
+msgstr "Informations plus détaillées sur l'option du candidat"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"option\""
+msgid "categoryFieldLabel"
+msgstr "Catégorie"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"option\""
+msgid "categoryFieldPlaceholder"
+msgstr "Utilisé pour regrouper les candidats en équipes dans certaines mises en page"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"option\""
+msgid "urlFieldLabel"
+msgstr "Url"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"option\""
+msgid "urlFieldPlaceholder"
+msgstr "https://example.com"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"option\""
+msgid "imageUrlFieldLabel"
+msgstr "Url de l'image"
+
+#: 
+msgctxt "\"avAdmin\".\"questions\".\"option\""
+msgid "imageUrlFieldPlaceholder"
+msgstr "https://example.com/path/to/image.jpg"
+
+#: 
+msgctxt "\"avAdmin\".\"censusConfig\""
+msgid "intro"
+msgstr "Le recensement précise qui peut voter et les détails dont nous avons besoin de la part de chaque électeur. Vous pouvez le configurer ici"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "intro"
+msgstr "Le recensement précise qui peut voter et les détails dont nous avons besoin de la part de chaque électeur. Vous pouvez le gérer ici"
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"reg\""
+msgid "label"
+msgstr "Inscription"
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"reg\""
+msgid "placeholder"
+msgstr "Comment le recensement est-il généré ?"
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"census\""
+msgid "open"
+msgstr "Inscription ouverte"
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"census\""
+msgid "openDescription"
+msgstr "Les recensements peuvent non seulement être générés par les administrateurs électoraux, mais aussi les individus peuvent s'inscrire en suivant le processus d'authentification."
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"census\""
+msgid "close"
+msgstr "Enregistrement fermé"
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"census\""
+msgid "closeDescription"
+msgstr "Le recensement est généré par les administrateurs. Les tiers ne peuvent pas s'inscrire au recensement."
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"modals\""
+msgid "comment"
+msgstr "Commentaire"
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"modals\""
+msgid "csvLoadingHeader"
+msgstr "Chargement du CSV dans le recensement"
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"modals\""
+msgid "csvLoadingBody"
+msgstr "Veuillez cliquer sur le bouton démarrage du téléchargement pour ajouter les utilisateurs du CSV au recensement. Veuillez attendre que le processus soit terminé et ne fermez pas cette fenêtre."
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"modals\""
+msgid "csvLoadingStartButton"
+msgstr "Commencez à télécharger MAINTENANT"
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"modals\""
+msgid "addCsvHeader"
+msgstr "Ajouter le CSV au recensement"
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"modals\""
+msgid "addCsvBody"
+msgstr "Ici, vous pouvez ajouter plusieurs personnes à la fois. Le format est CSV, une personne par ligne. Utilisez le point-virgule pour séparer les champs, dans l'ordre. Notez qu'aucune validation des données n'est effectuée, c'est donc à vous d'insérer des données valides."
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"modals\""
+msgid "addCsvTextareaPlaceholder"
+msgstr "un électeur par ligne, conservez l'ordre des champs"
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"modals\""
+msgid "confirmAddCsvButton"
+msgstr "Confirmer et ajouter le CSV au recensement"
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"modals\""
+msgid "addPersonHeader"
+msgstr "Ajouter une personne au recensement"
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"modals\""
+msgid "addPersonBody"
+msgstr "Ajoutez manuellement une seule personne au recensement. Notez qu'aucune validation des données n'est effectuée, c'est donc à vous d'insérer des données valides."
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"modals\""
+msgid "addPersonChildrenElections"
+msgstr "Sélectionnez les élections des enfants dans lesquelles cette personne peut voter :"
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"modals\""
+msgid "confirmAddPersonButton"
+msgstr "Confirmez et ajoutez la personne au recensement"
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"modals\""
+msgid "removePeopleHeader"
+msgstr "Retirer les personnes sélectionnées du recensement"
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"modals\""
+msgid "removePeopleBody"
+msgstr "Le retrait du recensement des __num__ personnes sélectionnées est irréversible. Notez que cela ne supprimera pas leurs votes s'ils ont voté."
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"modals\""
+msgid "confirmRemovePeopleButton"
+msgstr "Confirmer et retirer du recensement les __num__ personnes sélectionnées"
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"modals\""
+msgid "activatePeopleHeader"
+msgstr "Activez les personnes sélectionnées dans le recensement"
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"modals\""
+msgid "activatePeopleBody"
+msgstr "Activer le __num__ de personnes sélectionnées. Cela permettra à ces personnes de voter"
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"modals\""
+msgid "confirmActivatePeopleButton"
+msgstr "Confirmer et activer les __num__ de personnes sélectionnées dans le recensement"
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"modals\""
+msgid "deactivatePeopleHeader"
+msgstr "Désactiver les personnes sélectionnées du recensement"
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"modals\""
+msgid "deactivatePeopleBody"
+msgstr "Désactiver le __num__ de personnes sélectionnées. Cela ne permettra PAS à ces personnes de voter"
+
+#: 
+#, fuzzy
+msgctxt "\"avAdmin\".\"census\".\"modals\""
+msgid "confirmDeactivatePeopleButton"
+msgstr "Confirmer et désactiver les __num__ de personnes sélectionnées dans le recensement"
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"modals\""
+msgid "exportAllCensusHeader"
+msgstr "Exportation de tous les recensements en CSV"
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"modals\""
+msgid "exportAllCensusBody"
+msgstr "Vous pouvez télécharger ici l'ensemble du recensement au format CSV (Comma Separated Values), afin de pouvoir le traiter ailleurs. Il y a __total__ personnes dans votre recensement. En fonction de la taille du recensement, le processus de téléchargement de l'ensemble du recensement peut prendre un certain temps. Une fois qu'il est terminé, vous serez invité à télécharger le recensement. Si vous avez un filtre actif, ce filtre sera également appliqué au fichier CSV téléchargé."
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"modals\""
+msgid "confirmexportAllCensusButton"
+msgstr "Confirmer et télécharger le recensement, avec __total__ personnes"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "addPersonAction"
+msgstr "Ajouter une personne..."
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "addCsvAction"
+msgstr "Ajouter le CSV au recensement..."
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "activateAction"
+msgstr "Activez __num__ personnes sélectionnées..."
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "deactivateAction"
+msgstr "Désactiver __num__ personnes sélectionnées..."
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "filteredEmptyResults"
+msgstr "Aucune personne ne correspond au filtre actuel."
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "emptyCensus"
+msgstr "Le recensement est actuellement vide. Vous pouvez ajouter des personnes via le bouton Actions."
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "removedCensusSuccessfully"
+msgstr "Suppression réussie de certaines personnes du recensement"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "activatedCensusSuccessfully"
+msgstr "Activation réussie des personnes sélectionnées dans le recensement"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "deactivatedCensusSuccessfully"
+msgstr "Désactivation réussie des personnes sélectionnées dans le recensement"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "generatePDFAuthCodesSuccess"
+msgstr "Code d'authentification PDF pour un électeur généré avec succès."
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "resetVoterToPreRegistrationSuccess"
+msgstr "Réinitialisation réussie de l'électeur à l'état de pré-enregistrement."
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "sentCodesSuccessfully"
+msgstr "Envoi des codes d'authentification avec succès"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "viewActivityOneAction"
+msgstr "Afficher le journal des activités"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "activateOneAction"
+msgstr "Activer"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "deactivateOneAction"
+msgstr "Désactiver"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "removeCensusOneAction"
+msgstr "Retirer"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "sendAuthCodesOneAction"
+msgstr "Envoyer les codes d'authentification"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "generatePDFAuthCodesAction"
+msgstr "Générer le code d'authentification PDF"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "resetVoterToPreRegistration"
+msgstr "Remettre l'électeur dans l'état de pré-enregistrement"
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"generatePDFAuthCodes\""
+msgid "header"
+msgstr "Vos identifiants d'authentification sont :"
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"generatePDFAuthCodes\""
+msgid "username"
+msgstr "Nom d'utilisateur :"
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"generatePDFAuthCodes\""
+msgid "userId"
+msgstr "Id. utilisateur :"
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"generatePDFAuthCodes\""
+msgid "authCode"
+msgstr "Code d'authentification :"
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"generatePDFAuthCodes\""
+msgid "codeCreated"
+msgstr "Temps de création du code :"
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"generatePDFAuthCodes\""
+msgid "authLink"
+msgstr "Lien d'authentification :"
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"generatePDFAuthCodes\""
+msgid "qrCode"
+msgstr "Code QR pour le lien d'authentification :"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "voted"
+msgstr "voté"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "notVoted"
+msgstr "non voté"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "votedColumnHeader"
+msgstr "Voté ?"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "childrenVotedColumnHeader"
+msgstr "Voté en"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "activeColumnHeader"
+msgstr "Actif ?"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "hasActivityColumnHeader"
+msgstr "Actions exécutées ?"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "censusadd"
+msgstr "Électeurs ajoutés au recensement"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "actionsDropdown"
+msgstr "Actions"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "childrenElections"
+msgstr "Élections autorisées aux enfants"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "selectAllShownAction"
+msgstr "Sélectionner toutes les personnes affichées"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "deselectAllShownAction"
+msgstr "Désélectionner toutes les personnes affichées"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "exportCensusAction"
+msgstr "Exporter tous les recensements en CSV.."
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "removeCensusAction"
+msgstr "Supprimer __num__ personnes sélectionnées.."
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "sendAuthCodesAction"
+msgstr "Envoyer les codes d'authentification à __num__ sélectionné.."
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "idColumnHeader"
+msgstr "Id"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "creationDateHeader"
+msgstr "Date de création"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "selectedColumnHeader"
+msgstr "Sélectionner"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "emailOption"
+msgstr "email"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "passwordOption"
+msgstr "mot de passe"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "codeOption"
+msgstr "code"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "textOption"
+msgstr "texte"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "tlfOption"
+msgstr "tel"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "dateOption"
+msgstr "date"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "intOption"
+msgstr "int"
+
+#. Can you tell me more about this?
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "boolOption"
+msgstr "bool"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "captchaOption"
+msgstr "captcha"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "textareaOption"
+msgstr "textarea"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "dictOption"
+msgstr "Valeur-clé"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "fieldTypeLabel"
+msgstr "Type"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "fieldRegExLabel"
+msgstr "Expression régulière"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "fieldRegExPlaceholder"
+msgstr "Utilisateurs avancés uniquement - Exemple : ^(1000|1010)$"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "fieldMinLabel"
+msgstr "Min"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "fieldMaxLabel"
+msgstr "Max"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "fieldNameLabel"
+msgstr "Nom du champ"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "fieldNamePlaceholder"
+msgstr "Exemple : Nom et prénom"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "fieldHelpLabel"
+msgstr "Texte d'aide"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "fieldHelpPlaceholder"
+msgstr "Exemple : Insérez votre prénom et votre nom de famille"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "fieldRequiredLabel"
+msgstr "Requis"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "fieldAutofillLabel"
+msgstr "Remplissage automatique"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "fieldUniqueLabel"
+msgstr "Unique"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "fieldRequiredAuthLabel"
+msgstr "Vérifié par rapport au recensement dans l'authentification"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "fieldMatchCensusOnRegistrationLabel"
+msgstr "Vérifié par rapport au recensement lors de l'enregistrement (uniquement pour le pré-enregistrement)"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "fieldFillIfEmptyOnRegistrationLabel"
+msgstr "Requis à l'inscription, mais peut être vide à la préinscription"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "fieldPrivateLabel"
+msgstr "Privé (seuls les administrateurs peuvent voir et utiliser ce champ)"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "extraFieldsHeader"
+msgstr "Champs supplémentaires"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "extraFieldsInfo"
+msgstr "Ici, vous pouvez définir des champs supplémentaires dans le recensement de manière polyvalente. Cela vous permet de faire toute une série de choses : ajouter des contrôles supplémentaires par rapport au recensement dans le cadre d'une inscription fermée, enregistrer de nouveaux champs dans le cadre d'une inscription ouverte, etc."
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"fields\""
+msgid "label"
+msgstr "Champs supplémentaires"
+
+#: 
+msgctxt "\"avAdmin\".\"census\".\"fields\""
+msgid "placeholder"
+msgstr "Champs supplémentaires du votant"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "configurationHeader"
+msgstr "Configuration"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "manage"
+msgstr "Gérer le recensement"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "name"
+msgstr "Nom"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "required"
+msgstr "Requis"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "add"
+msgstr "Ajouter un nouveau champ"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "nonEditableField"
+msgstr "(Requis par la méthode d'authentification)"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "manualAdd"
+msgstr "Ajout manuel"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "export"
+msgstr "Exportation"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "image"
+msgstr "Voir l'image"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "imageModalTitle"
+msgstr "Voir l'image"
+
+#: 
+msgctxt "\"avAdmin\".\"census\""
+msgid "imageModalClose"
+msgstr "Fermer"
+
+#: 
+msgctxt "\"avAdmin\".\"tasks\""
+msgid "intro"
+msgstr "Lancer des tâches d'arrière-plan, par exemple une tâche d'auto-test de déploiement."
+
+#: 
+msgctxt "\"avAdmin\".\"tasks\""
+msgid "manage"
+msgstr "Gérer les tâches"
+
+#: 
+msgctxt "\"avAdmin\".\"tasks\""
+msgid "actionsDropdown"
+msgstr "Actions"
+
+#: 
+msgctxt "\"avAdmin\".\"tasks\".\"table\""
+msgid "id"
+msgstr "Id"
+
+#: 
+msgctxt "\"avAdmin\".\"tasks\".\"table\""
+msgid "name"
+msgstr "Nom"
+
+#: 
+msgctxt "\"avAdmin\".\"tasks\".\"table\""
+msgid "lastUpdate"
+msgstr "Dernière mise à jour"
+
+#: 
+msgctxt "\"avAdmin\".\"tasks\".\"table\""
+msgid "status"
+msgstr "Statut"
+
+#: 
+msgctxt "\"avAdmin\".\"tasks\".\"table\""
+msgid "empty"
+msgstr "Vous n'avez pas encore lancé de tâche.<br><br>Vous pouvez cliquer dans le menu déroulant <strong>'Actions'</strong> pour lancer une <strong>Tâche d'auto-test</strong>."
+
+#: 
+msgctxt "\"avAdmin\".\"tasks\".\"commands\".\"launchSelfTestTask\""
+msgid "actionName"
+msgstr "Lancer l'auto-test.."
+
+#: 
+msgctxt "\"avAdmin\".\"tasks\".\"commands\".\"launchSelfTestTask\""
+msgid "successMessage"
+msgstr "L'auto-test a été lancé avec succès."
+
+#: 
+msgctxt "\"avAdmin\".\"tasks\".\"commands\".\"cancelTask\""
+msgid "actionName"
+msgstr "Annuler la tâche.."
+
+#: 
+msgctxt "\"avAdmin\".\"tasks\".\"commands\".\"cancelTask\""
+msgid "successMessage"
+msgstr "Annulation de tâche demandée."
+
+#: 
+msgctxt "\"avAdmin\".\"tasks\".\"commands\".\"viewTaskLogs\""
+msgid "actionName"
+msgstr "Afficher les journaux des tâches et les métadonnées"
+
+#: 
+msgctxt "\"avAdmin\".\"tasks\".\"commands\".\"viewTaskLogs\""
+msgid "header"
+msgstr "Afficher les journaux des tâches et les métadonnées"
+
+#: 
+msgctxt "\"avAdmin\".\"tasks\".\"commands\".\"viewTaskLogs\""
+msgid "metadata"
+msgstr "Métadonnées"
+
+#: 
+msgctxt "\"avAdmin\".\"tasks\".\"commands\".\"viewTaskLogs\""
+msgid "console"
+msgstr "Console"
+
+#: 
+msgctxt "\"avAdmin\".\"tasks\".\"commands\".\"viewTaskLogs\""
+msgid "close"
+msgstr "Fermer"
+
+#: 
+msgctxt "\"avAdmin\".\"tasks\".\"commands\".\"viewTaskLogs\""
+msgid "emptyLogs"
+msgstr "[Journal de sortie vide]"
+
+#: 
+msgctxt "\"avAdmin\".\"tasks\".\"commands\".\"viewTaskLogs\""
+msgid "autoscrollLabel"
+msgstr "Autoscroll vers la sortie inférieure de la console"
+
+#: 
+msgctxt "\"avAdmin\".\"tasks\".\"commands\".\"viewTaskLogs\""
+msgid "errorLogsHeader"
+msgstr "Erreurs :"
+
+#: 
+msgctxt "\"avAdmin\".\"auth\""
+msgid "intro"
+msgstr "L'authentification est le moyen utilisé pour s'assurer qu'un électeur est bien celui qu'il prétend être. Ici, vous devez trouver un équilibre entre sécurité, convivialité et coût"
+
+#: 
+msgctxt "\"avAdmin\".\"auth\""
+msgid "auth"
+msgstr "Méthode d'authentification"
+
+#: 
+msgctxt "\"avAdmin\".\"auth\".\"auths\""
+msgid "email"
+msgstr "Email"
+
+#: 
+msgctxt "\"avAdmin\".\"auth\".\"auths\""
+msgid "email-otp"
+msgstr "OTP email"
+
+#: 
+msgctxt "\"avAdmin\".\"auth\".\"auths\""
+msgid "email-and-password"
+msgstr "Email et mot de passe"
+
+#: 
+msgctxt "\"avAdmin\".\"auth\".\"auths\""
+msgid "sms"
+msgstr "SMS"
+
+#: 
+msgctxt "\"avAdmin\".\"auth\".\"auths\""
+msgid "sms-otp"
+msgstr "OTP SMS"
+
+#: 
+msgctxt "\"avAdmin\".\"auth\".\"auths\""
+msgid "dnie"
+msgstr "iD électronique espagnol (eDNI)"
+
+#: 
+msgctxt "\"avAdmin\".\"auth\".\"auths\""
+msgid "user-and-password"
+msgstr "Utilisateur et mot de passe"
+
+#: 
+msgctxt "\"avAdmin\".\"auth\".\"auths\""
+msgid "smart-link"
+msgstr "Smart Link"
+
+#: 
+msgctxt "\"avAdmin\".\"auth\""
+msgid "sms"
+msgstr "Message SMS"
+
+#: 
+msgctxt "\"avAdmin\".\"auth\""
+msgid "smstemp"
+msgstr "Modèle utilisé dans le SMS à envoyer à l'utilisateur. Utilisez __CODE__ pour insérer le code SMS et __URL__ pour l'url d'authentification, ou __URL2__ pour insérer un lien qui inclut le code"
+
+#: 
+msgctxt "\"avAdmin\".\"auth\""
+msgid "smsdef"
+msgstr "Voici votre code de vote : __CODE__"
+
+#: 
+msgctxt "\"avAdmin\".\"auth\""
+msgid "email"
+msgstr "Message email"
+
+#: 
+msgctxt "\"avAdmin\".\"auth\""
+msgid "emailsub"
+msgstr "Objet du mail"
+
+#: 
+msgctxt "\"avAdmin\".\"auth\""
+msgid "emailtemp"
+msgstr "Modèle utilisé dans le lien mail à envoyer à l'utilisateur. Utilisez __CODE__ pour insérer le code de connexion et __URL__ pour insérer le lien d'élection, ou _URL2__ pour insérer un lien qui inclut le code"
+
+#: 
+msgctxt "\"avAdmin\".\"auth\""
+msgid "emailsubdef"
+msgstr "Votez maintenant avec __name__"
+
+#: 
+msgctxt "\"avAdmin\".\"auth\""
+msgid "emaildef"
+msgstr "Votez sur __URL__ avec le code __CODE__"
+
+#: 
+msgctxt "\"avAdmin\".\"auth\""
+msgid "slugKeys"
+msgstr "Utilisez les clés suivantes pour insérer les champs supplémentaires des utilisateurs dans le message : __slug_list__"
+
+#: 
+msgctxt "\"avAdmin\".\"columnFilter\""
+msgid "sort"
+msgstr "Trier :"
+
+#: 
+msgctxt "\"avAdmin\".\"columnFilter\""
+msgid "filter"
+msgstr "Filtre :"
+
+#: 
+msgctxt "\"avAdmin\".\"columnFilter\""
+msgid "minDate"
+msgstr "De :"
+
+#: 
+msgctxt "\"avAdmin\".\"columnFilter\""
+msgid "maxDate"
+msgstr "À :"
+
+#: 
+msgctxt "\"avAdmin\".\"columnFilter\""
+msgid "noFilter"
+msgstr "-"
+
+#: 
+msgctxt "\"avAdmin\".\"columnFilter\""
+msgid "noSort"
+msgstr "-"
+
+#: 
+msgctxt "\"avAdmin\".\"columnFilter\""
+msgid "sortAsc"
+msgstr "Asc"
+
+#: 
+msgctxt "\"avAdmin\".\"columnFilter\""
+msgid "sortDesc"
+msgstr "Desc"
+
+#: 
+msgctxt "\"avAdmin\".\"columnFilter\""
+msgid "min"
+msgstr "min"
+
+#: 
+msgctxt "\"avAdmin\".\"columnFilter\""
+msgid "max"
+msgstr "max"
+
+#: 
+msgctxt "\"avAdmin\".\"create\""
+msgid "summary"
+msgstr "Résumé : création d'élections __num__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\""
+msgid "summary__plural"
+msgstr "Résumé : création d'élections __num__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\""
+msgid "create"
+msgstr "Créer les élections"
+
+#: 
+msgctxt "\"avAdmin\".\"create\""
+msgid "creating"
+msgstr "Création de l'authentification pour l'élection __title__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\""
+msgid "setChildrenElectionInfo"
+msgstr "Définition des informations électorales des enfants pour l'élection (id : __id__) __title__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\""
+msgid "addBallotBoxes"
+msgstr "Créer des urnes pour les élections (id : __id__) __title__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\""
+msgid "census"
+msgstr "Ajout du recensement (id : __id__) __title__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\""
+msgid "ballot_boxes"
+msgstr "Ajout d'urnes (id : __id__) __title__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\""
+msgid "reg"
+msgstr "Enregistrement de l'élection (id : __id__) __title__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\""
+msgid "creatingEl"
+msgstr "Création d'une élection (id : __id__) __title__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\""
+msgid "logHeader"
+msgstr "Journal de bord"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"actions\""
+msgid "actionsLabel"
+msgstr "Actions"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"actions\""
+msgid "editJson"
+msgstr "Modifier JSON"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"actions\""
+msgid "livePreview"
+msgstr "Aperçu en direct"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"editElectionJsonModal\""
+msgid "title"
+msgstr "Modifier l'élection Json"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"editElectionJsonModal\""
+msgid "body"
+msgstr "Cette boîte de dialogue vous permet de modifier le json de l'élection. Ne l'utilisez que si vous savez ce que vous faites."
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"editElectionJsonModal\""
+msgid "confirmEdit"
+msgstr "Modification finale"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "lambda-live-preview-parent-children"
+msgstr "IDs d'élection manquants pour une élection parents-enfants"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-is-array-questions"
+msgstr "Election '__eltitle__' : la liste des questions n'est pas un tableau"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-lambda-success-action-url-mode"
+msgstr "Election '__eltitle__' : url action succès invalide"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-lambda-min-email-msg"
+msgstr "Election '__eltitle__' : la longueur du message email est de __len__ caractères, mais elle doit être d'au moins __min__ caractères"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-lambda-max-email-msg"
+msgstr "Election '__eltitle__' : la longueur du message email est de __len__ caractères, dépassant le maximum de __max__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-lambda-min-email-title"
+msgstr "Election '__eltitle__' : la longueur du titre de l'email est de __len__ caractères, mais elle doit être d'au moins __min__ caractères"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-lambda-max-email-title"
+msgstr "Election '__eltitle__' : la longueur du titre de l'email est de __len__ caractères, dépassant le maximum de __max__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-lambda-min-sms-msg"
+msgstr "Élection '__eltitle__' : la longueur du message SMS est de __len__ caractères, mais elle doit être d'au moins __min__ caractères"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-lambda-max-sms-msg"
+msgstr "Election '__eltitle__' : la longueur du message sms est de __len__ caractères, dépassant le maximum de __max__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-lambda-checkable-lists-invalid-layout"
+msgstr "Élection '__eltitle__' : Il y a une question avec enable_checkable_lists et une mise en page de question invalide"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-lambda-checkable-lists-categories-mismatch"
+msgstr "Élection '__eltitle__' : Il y a une question avec enable_checkable_lists mais il n'y a pas de réponse pour chaque catégorie"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-array-length-min-questions"
+msgstr "Élection '__eltitle__' : il doit y avoir au moins __min__ questions mais il n'y a que __num__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-array-length-max-questions"
+msgstr "Élection '__eltitle__' : il doit y avoir au maximum __max__ questions mais il y a __num__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-array-length-max-description"
+msgstr "Election '__eltitle__' : la longueur de la description est __num__, dépassant le maximum de __max__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-is-string-description"
+msgstr "Election '__eltitle__' : la description n'est pas une chaîne de caractères"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-array-length-max-title"
+msgstr "Election '__eltitle__' : la longueur du titre est __num__, dépassant le maximum de __max__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-is-string-title"
+msgstr "Election '__eltitle__' : le titre n'est pas une chaîne de caractères"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-question-array-length-max-description"
+msgstr "Election '__eltitle__', question '__qtitle__' : la longueur de la description est __num__, dépassant le maximum de __max__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-question-is-string-description"
+msgstr "Élection '__eltitle__', question '__qtitle__' : la description n'est pas une chaîne de caractères"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-question-array-length-max-title"
+msgstr "Election '__eltitle__', question '__qtitle__' : la longueur du titre est __num__, dépassant le maximum de __max__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-question-is-string-title"
+msgstr "Élection '__eltitle__', question '__qtitle__' : le titre n'est pas une chaîne de caractères"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-question-lambda-invalid-answer-ids"
+msgstr "Election '__eltitle__', question '__qtitle__' : les identifiants de réponse ne sont pas valides, veuillez vérifier qu'ils commencent par 0 et qu'il ne manque aucun chiffre entre les deux"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-question-answer-array-length-max-text"
+msgstr "Élection '__eltitle__', question '__qtitle__', answer '__atext__' : la longueur du texte est __num__, dépassant le maximum de __max__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-question-answer-lambda-text"
+msgstr "Élection ''__eltitle__', question '__qtitle__', answer '__atext__' and answer id '__aid__ : la longueur du texte est vide, mais il ne s'agit pas d'un espace de texte"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-question-answer-is-string-text"
+msgstr "Élection ''__eltitle__', question '__qtitle__', answer '__atext__' : le texte n'est pas une chaîne de caractères"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-question-answer-array-length-min-text"
+msgstr "Élection '__eltitle__', question '__qtitle__', answer '__atext__' : la longueur du texte est __num__, mais il doit comporter au moins __min__ caractères"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-question-answer-array-length-max-details"
+msgstr "Election ''__eltitle__', question '__qtitle__', answer '__atext__': la longueur des détails est __num__, dépassant le maximum de __max__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-question-answer-is-string-details"
+msgstr "Élection __eltitle__', question '__qtitle__', answer '__atext__' : les détails ne sont pas une chaîne de caractères"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-question-answer-array-length-max-category"
+msgstr "Élection '__eltitle__', question '__qtitle__', answer '__atext__' : la longueur de la catégorie est __num__, dépassant le maximum de __max__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-question-answer-is-string-category"
+msgstr "Élection ''__eltitle__', question '__qtitle__', answer '__atext__' : la catégorie n'est pas une chaîne de caractères"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-question-is-array-answers"
+msgstr "Election '__eltitle__' : la liste des réponses n'est pas un tableau"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-question-is-int-min"
+msgstr "Élection '__eltitle__', question '__qtitle__' : le nombre minimum de candidats qu'un électeur peut choisir n'est pas un nombre entier ou valide"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-question-lambda-max"
+msgstr "Election '__eltitle__', question '__qtitle__' : le nombre maximum de candidats qu'un électeur peut choisir n'est pas valide"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-question-is-int-num-winners"
+msgstr "Élection '__eltitle__', question '__qtitle__' : le nombre de gagnants n'est pas un nombre entier"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-question-array-length-min-answers"
+msgstr "Élection '__eltitle__', question '__qtitle__' : il doit y avoir au moins __min__ réponses, mais il n'y a que __num__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-question-array-length-max-answers"
+msgstr "Élection '__eltitle__', question '__qtitle__' : il doit y avoir au maximum __max__ réponses, mais il y en a __num__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-question-int-size-min-min"
+msgstr "Élection '__eltitle__', question '__qtitle__' : le nombre minimum de candidats qu'un électeur peut choisir doit être un nombre entier positif, mais c'est __valeur__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-question-int-size-max-min"
+msgstr "Élection '__eltitle__', question '__qtitle__' : le nombre minimum de candidats qu'un électeur peut choisir est __valeur__, mais ne peut être supérieur au maximum qui est __max__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-question-int-size-min-max"
+msgstr "Election '__eltitle__', question '__qtitle__' : le nombre maximum de candidats qu'un électeur peut choisir est __value__, mais doit être supérieur ou égal au minimum qui est __min__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-question-int-size-max-max"
+msgstr "Élection '__eltitle__', question '__qtitle__' : le nombre maximum de candidats qu'un électeur peut choisir est __valeur__, mais ne peut être supérieur au nombre de candidats qui est __max__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-question-int-size-min-num-winners"
+msgstr "Élection '__eltitle__', question '__qtitle__' : il doit y avoir au moins un gagnant, mais c'est __value__ à la place"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-question-int-size-max-num-winners"
+msgstr "Élection '__eltitle__', question '__qtitle__' : le nombre de gagnants est __value__, mais ne peut être supérieur au nombre de réponses qui est __max__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-census-createel-unknown"
+msgstr "Election, une erreur inconnue s'est produite lors de l'ajout du recensement après la création de l'élection : __message__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-census-is-array-admin-fields"
+msgstr "Election '__eltitle__' : admin_fields doit être un tableau"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-census-array-length-max-admin-fields"
+msgstr "Election '__eltitle__' : la longueur du tableau admin_fields est de __len__, dépassant le maximum de __max__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-census-lambda-admin-fields-int-type-value"
+msgstr "Election '__eltitle__' : les champs admin suivants sont de type entier mais leurs valeurs ne sont pas des entiers : __admin_names__."
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-census-lambda-admin-fields-email-type-value"
+msgstr "Election '__eltitle__' : les champs d'administration suivants ont des valeurs d'email invalides : __admin_names__."
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-census-lambda-admin-fields-int-min-value"
+msgstr "Élection '__eltitle__' : les champs admin suivants de type entier ont une valeur inférieure à leur valeur minimale autorisée : __admin_names__."
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-census-lambda-admin-fields-int-max-value"
+msgstr "Election '__eltitle__' : il y a au moins un champ dans les champs admin de type int dont la valeur est supérieure à la valeur maximale autorisée"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-census-lambda-admin-fields-string-type-value"
+msgstr "Election '__eltitle__' : les champs admin suivants sont de type chaîne mais leurs valeurs ne sont pas des chaînes : __admin_names__."
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-census-lambda-admin-fields-required-value"
+msgstr "Election '__eltitle__' : ces champs d'administration sont obligatoires mais ils sont vides : __admin_names__."
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-census-lambda-admin-fields-string-value-array-length"
+msgstr "Election '__eltitle__' : les champs admin suivants de type chaîne ont une longueur de caractères qui a dépassé le maximum autorisé de __max__ caractères : __admin_names__."
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-census-lambda-admin-fields-email-value-array-length"
+msgstr "Élection '__eltitle__' : les champs admin suivants de type email ont une longueur de chaîne de caractères qui a dépassé le maximum autorisé de __max__ characters: __admin_names__."
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-census-admin-fields-is-string-if-defined-placeholder"
+msgstr "Élection '__eltitle__' : le champ admin __fname__ doit être une chaîne de caractères"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-census-admin-fields-array-length-if-defined-max-placeholder"
+msgstr "Election '__eltitle__' : la longueur de l'espace réservé au champ d'administration __fname__ est de __len__ characters, dépassant le maximum de __max__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-census-admin-fields-is-string-label"
+msgstr "Élection '__eltitle__' : le libellé du champ admin __fname__ doit être une chaîne de caractères"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-census-admin-fields-array-length-max-label"
+msgstr "Election '__eltitle__' : la longueur de l'étiquette du champ d'administration __fname__ est de __len__ characters, dépassant le maximum de __max__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-census-admin-fields-is-string-if-defined-description"
+msgstr "Election '__eltitle__' : le champ d'administration __fname__ la description doit être une chaîne de caractères"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-census-admin-fields-array-length-if-defined-max-description"
+msgstr "Election '__eltitle__' : la longueur de la description du champ admin __fname__ est de __len__ characters, dépassant le maximum de __max__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-census-admin-fields-is-string-name"
+msgstr "Élection '__eltitle__' : le nom du champ admin __fname__ doit être une chaîne de caractères"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-census-admin-fields-array-length-max-name"
+msgstr "Election '__eltitle__' : la longueur du nom du champ admin __fname__ est de __len__ characters, dépassant le maximum de __max__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-census-admin-fields-is-string-type"
+msgstr "Élection '__eltitle__' : le champ d'administration __fname__ doit être une chaîne"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-census-admin-fields-array-length-max-type"
+msgstr "Election '__eltitle__' : la longueur du type du champ d'administration __fname__ est de __len__ characters, dépassant le maximum de __max__"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-census-admin-fields-lambda-min-number"
+msgstr "Election '__eltitle__' : le champ admin __fname__ min doit être un nombre"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-census-admin-fields-lambda-max-number"
+msgstr "Election '__eltitle__' : le champ admin __fname__ max doit être un nombre"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-census-admin-fields-lambda-step-number"
+msgstr "Election '__eltitle__' : le champ d'administration __fname__ step doit être un nombre"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-census-admin-fields-lambda-required-boolean"
+msgstr "Election '__eltitle__' : le champ admin __fname__ requis doit être un booléen"
+
+#: 
+msgctxt "\"avAdmin\".\"create\".\"errors\""
+msgid "election-census-admin-fields-lambda-private-boolean"
+msgstr "Election '__eltitle__' : le champ d'administration __fname__ privé doit être un booléen"
+
+#: 
+msgctxt "\"avAdmin\".\"successAction\""
+msgid "modeIntro"
+msgstr "Dès qu'un utilisateur s'inscrit ou s'authentifie, une action doit être exécutée. Habituellement, elle est redirigée vers la cabine de vote de l'élection correspondante, mais elle peut aussi être configurée pour charger une URL externe. Ceci est utile si vous l'utilisez uniquement pour enregistrer le recensement et non pour une élection active."
+
+#: 
+msgctxt "\"avAdmin\".\"successAction\""
+msgid "voteModeTitle"
+msgstr "Charger la cabine de vote de l'élection"
+
+#: 
+msgctxt "\"avAdmin\".\"successAction\""
+msgid "voteModeDescription"
+msgstr "Chargez la cabine de vote correspondante à l'élection pour que la personne puisse voter."
+
+#: 
+msgctxt "\"avAdmin\".\"successAction\""
+msgid "urlModeTitle"
+msgstr "Rediriger vers l'URL"
+
+#: 
+msgctxt "\"avAdmin\".\"successAction\""
+msgid "urlModeDescription"
+msgstr "Charger une URL que vous pouvez spécifier. Seules les urls https sont autorisées."
+
+#: 
+msgctxt "\"avAdmin\".\"successAction\""
+msgid "urlModePlaceholder"
+msgstr "https://example.com/foo/bar"
+
+#: 
+msgctxt "\"avAdmin\".\"successAction\""
+msgid "invalidUrl"
+msgstr "URL invalide. Exemple d'URL valide : https://example.com/foo/bar"
+
+#: 
+msgctxt "\"avAdmin\".\"childrenElections\""
+msgid "main"
+msgstr "Principale élection"
+
+#: 
+msgctxt "\"avElection\""
+msgid "thisisATest"
+msgstr "<span class=\"glyphicon glyphicon-info-sign\" aria-hidden=\"true\"></span> <strong>Avertissement !</strong>Il s'agit d'une élection TEST"
+
+#: 
+msgctxt "\"avElection\""
+msgid "ballotLocatorTitle"
+msgstr "Localisez votre bulletin de vote"
+
+#: 
+msgctxt "\"avElection\""
+msgid "ballotLocatorSubtitle"
+msgstr "Élection : __titre__"
+
+#: 
+msgctxt "\"avElection\""
+msgid "inputLocatorPlaceholder"
+msgstr "Présentez ici votre numéro de traçage de bulletins de vote"
+
+#: 
+msgctxt "\"avElection\""
+msgid "ballotLocatorPTitle"
+msgstr "Suivi des bulletins de vote"
+
+#: 
+msgctxt "\"avElection\""
+msgid "searchLocatorButton"
+msgstr "Trouvez votre bulletin de vote"
+
+#: 
+msgctxt "\"avElection\""
+msgid "locatorDescription"
+msgstr "Lorsque vous déposez votre bulletin de vote, le traceur de bulletins vous est présenté et vous permet de le suivre sans révéler l'intention de l'électeur. Ici, vous pouvez introduire ce traceur de bulletin et découvrir si un bulletin crypté particulier a été effectivement déposé avec succès."
+
+#: 
+msgctxt "\"avElection\""
+msgid "locatorFoundText"
+msgstr "Bulletin trouvé ! En effet, le bulletin avec le numéro de traçage <strong>__locator__</strong> a été déposé correctement. Le texte du bulletin crypté est le suivant :"
+
+#: 
+msgctxt "\"avElection\""
+msgid "locatorSearchingStatus"
+msgstr "<span class=\"text-primary\">Localiser le numéro de traçage de bulletins de vote..</span>"
+
+#: 
+msgctxt "\"avElection\""
+msgid "locatorFoundStatus"
+msgstr "<span class=\"text-success\">Numéro de traçage de bulletins de vote trouvé !</span>"
+
+#: 
+msgctxt "\"avElection\""
+msgid "locatorNotFoundStatus"
+msgstr "<span class=\"text-danger\">Numéro de traçage de bulletins de vote introuvable : <strong>__locator__</strong></span>"
+
+#: 
+msgctxt "\"avElection\""
+msgid "locatorInfoText"
+msgstr "Exemple de numéro de traçage de bulletin de vote : 78a319dbd699c5d6ff08ca08990b395e593bcb8282a7660417a50d0ee470503f"
+
+#: 
+msgctxt "\"avElection\""
+msgid "resultsLoadingText"
+msgstr "Résultats du chargement"
+
+#: 
+msgctxt "\"avElection\""
+msgid "errorLoadingText"
+msgstr "Erreur de chargement des résultats. Peut-être qu'ils n'ont pas été publiés, que vous n'avez pas les permissions ou que l'élection n'existe pas."
+
+#: 
+msgctxt "\"avElection\""
+msgid "defaultShareText"
+msgstr "Votez sur __title__ avec @__handle__ __url__"
+
+#: 
+msgctxt "\"avElection\""
+msgid "resultsHeader"
+msgstr "__title__ : Résultats"
+
+#: 
+msgctxt "\"avElection\""
+msgid "resultsTableNPositionHeader"
+msgstr "Nombre de votes par poste :"
+
+#: 
+msgctxt "\"avElection\""
+msgid "resultsTableCandidateHeader"
+msgstr "Candidature"
+
+#: 
+msgctxt "\"avElection\""
+msgid "resultsTableVotesHeader"
+msgstr "Votes"
+
+#: 
+msgctxt "\"avElection\""
+msgid "resultsTableVotesPercentageHeader"
+msgstr "résultatsTableVotesPercentageHeader"
+
+#: 
+msgctxt "\"avElection\""
+msgid "resultsTablePositionHeader"
+msgstr "Position"
+
+#: 
+msgctxt "\"avElection\""
+msgid "resultsLastUpdated"
+msgstr "Dernière mise à jour : __date__"
+
+#: 
+msgctxt "\"avElection\""
+msgid "resultsSummary"
+msgstr "Résumé du scrutin"
+
+#: 
+msgctxt "\"avElection\""
+msgid "totalNumberOfVotes"
+msgstr "Nombre total de votes :"
+
+#: 
+msgctxt "\"avElection\""
+msgid "validVotes"
+msgstr "Votes aux options :"
+
+#: 
+msgctxt "\"avElection\""
+msgid "blankVotes"
+msgstr "Votes blancs :"
+
+#: 
+msgctxt "\"avElection\""
+msgid "nullVotes"
+msgstr "Votes nuls :"
+
+#: 
+msgctxt "\"avElection\""
+msgid "stateNotPublished"
+msgstr "Désolé : les résultats ne peuvent être affichés car ils n'ont pas encore été publiés."
+
+#: 
+msgctxt "\"avElection\""
+msgid "errorLoadingQuestionTest"
+msgstr "Disposition des questions inconnues"
+
+#: 
+msgctxt "\"avElection\".\"public\""
+msgid "homeText"
+msgstr "Accueil"
+
+#: 
+msgctxt "\"avElection\".\"public\""
+msgid "resultsTitle"
+msgstr "Résultats"
+
+#: 
+msgctxt "\"avElection\".\"public\""
+msgid "chooseElectionResults"
+msgstr "Sélectionnez les résultats de l'élection à afficher :"
+
+#: 
+msgctxt "\"avElection\".\"public\""
+msgid "loadingText"
+msgstr "Chargement de l'élection"
+
+#: 
+msgctxt "\"avElection\".\"public\""
+msgid "voteLink"
+msgstr "Vote"
+
+#: 
+msgctxt "\"avElection\".\"public\""
+msgid "censusQueryLink"
+msgstr "Requête de recensement"
+
+#: 
+msgctxt "\"avElection\".\"public\""
+msgid "loadingDataText"
+msgstr "Cargando datos.."
+
+#: 
+msgctxt "\"avElection\".\"public\""
+msgid "errorNotFoundText"
+msgstr "Erreur de chargement de l'information."
+
+#: 
+msgctxt "\"avElection\".\"public\""
+msgid "errorLoadingText"
+msgstr "Erreur de chargement de l'élection. Il se peut que cette élection n'existe pas, ou qu'elle n'ait pas encore été publiée."
+
+#: 
+msgctxt "\"avElection\".\"public\""
+msgid "faqsLink"
+msgstr "FAQs"
+
+#: 
+msgctxt "\"avElection\".\"public\""
+msgid "authoritiesLink"
+msgstr "Autorités"
+
+#: 
+msgctxt "\"avElection\".\"public\""
+msgid "overviewLink"
+msgstr "Vue d'ensemble"
+
+#: 
+msgctxt "\"avElection\".\"public\""
+msgid "technicalOverviewLink"
+msgstr "Aperçu technique"
+
+#: 
+msgctxt "\"avElection\".\"public\""
+msgid "demoVotingBoothLink"
+msgstr "Cabine de vote démo"
+
+#: 
+msgctxt "\"avElection\".\"public\""
+msgid "voteNowLink"
+msgstr "Votez maintenant"
+
+#: 
+msgctxt "\"avElection\".\"public\""
+msgid "answers"
+msgstr "__count__ candidats"
+
+#: 
+msgctxt "\"avElection\".\"public\""
+msgid "answers_plural"
+msgstr "__count__ candidats"
+
+#: 
+msgctxt "\"avElection\".\"public\""
+msgid "answersRandomized"
+msgstr "__count__ candidats (dans un ordre aléatoire)"
+
+#: 
+msgctxt "\"avElection\".\"public\""
+msgid "answersRandomized_plural"
+msgstr "__count__ candidats (dans un ordre aléatoire)"
+
+#: 
+msgctxt "\"avElection\".\"public\""
+msgid "questionsTitle"
+msgstr "Questions"
+
+#: 
+msgctxt "\"avElection\".\"public\""
+msgid "questionInfoText"
+msgstr "Les votants choisiront entre <strong>__min__</strong> et <strong>__max</strong> candidats. <strong>__numWinners__</strong> gagnants."
+
+#: 
+msgctxt "\"avElection\".\"public\""
+msgid "votingSystemText"
+msgstr "Système de vote : <strong>__method__</strong>."
+
+#: 
+msgctxt "\"avElection\".\"public\""
+msgid "status-registered"
+msgstr "Statut : <strong>élection enregistrée</strong>"
+
+#: 
+msgctxt "\"avElection\".\"public\""
+msgid "status-created"
+msgstr "Statut : <strong>élection créée</strong>"
+
+#: 
+msgctxt "\"avElection\".\"public\""
+msgid "status-started"
+msgstr "Statut : <strong>élections commencée</strong>"
+
+#: 
+msgctxt "\"avElection\".\"public\""
+msgid "status-suspended"
+msgstr "Statut : <strong>élection suspendue</strong>"
+
+#: 
+msgctxt "\"avElection\".\"public\""
+msgid "status-resumed"
+msgstr "Statut : <strong>élection reprise</strong>"
+
+#: 
+msgctxt "\"avElection\".\"public\""
+msgid "status-stopped"
+msgstr "Statut : <strong>élection arrêtée</strong>"
+
+#: 
+msgctxt "\"avElection\".\"public\""
+msgid "status-doing_tally"
+msgstr "Statut : <strong>décompte en cours</strong>"
+
+#: 
+msgctxt "\"avElection\".\"public\""
+msgid "status-tally_ok"
+msgstr "Statut : <strong>décompte effectué</strong>"
+
+#: 
+msgctxt "\"avElection\".\"public\""
+msgid "status-results_ok"
+msgstr "Statut : <strong>résultats calculés</strong>"
+
+#: 
+msgctxt "\"avElection\".\"public\""
+msgid "status-results_pub"
+msgstr "Statut : <strong>résultats publiés</strong>"
+
+#: 
+msgctxt "\"avElection\".\"authorities\""
+msgid "loading"
+msgstr "Erreur de chargement des autorités."
+
+#: 
+msgctxt "\"avElection\".\"authorities\""
+msgid "title"
+msgstr "Autorités électorales"
+
+#: 
+msgctxt "\"avElection\".\"authorities\""
+msgid "intro"
+msgstr "Les autorités électorales jouent un rôle clé. La force du système de sécurité utilisé dans cette élection réside dans un système de sécurité partagé similaire à celui des scrutateurs dans une élection traditionnelle, où la clé de cryptage de l'élection est générée de manière distribuée par de multiples autorités électorales indépendantes, qui garantissent le secret du vote et sont en fait chargées de faire le décompte. Ce sont les autorités électorales :"
+
+#: 
+msgctxt "\"avElection\".\"resultsDirective\""
+msgid "ballotLocatorLink"
+msgstr "Suivi des bulletins de vote"
+
+#: 
+msgctxt "\"avElection\".\"resultsDirective\""
+msgid "verifiableResultsLink"
+msgstr "Décompte vérifiable"
+
+#: 
+msgctxt "\"avElection\".\"verifyResults\""
+msgid "title"
+msgstr "Décompte électoral vérifiable"
+
+#: 
+msgctxt "\"avElection\".\"verifyResults\""
+msgid "subtitle"
+msgstr "Élection : __titre__"
+
+#: 
+msgctxt "\"avElection\".\"verifyResults\""
+msgid "stateNotPublished"
+msgstr "Désolé. Le décompte des élections ne peut être vérifié car les résultats des élections n'ont pas encore été publiés."
+
+#: 
+msgctxt "\"avElection\".\"verifyResults\""
+msgid "stateLoading"
+msgstr "Chargement de l'élection : veuillez patienter.."
+
+#. Do you need the translation of that part: 
+#. 
+#. * extracted to /tmp/tmp9c2r5e3jtally<br/>
+#. * extracted raw tally to /tmp/tmp9c2r5e3jtally/tally-raw-0<br/>
+#. * running ['./tally-pipes', '-t', '/tmp/tmp9c2r5e3jtally/0.tar.gz', '-c', '/tmp/tmp9c2r5e3jtally/config.json', '-s', '-o', 'json']<br/>
+#. * results hash verification OK<br/>
+#. * processing /tmp/tmp9c2r5e3jtally/tally-raw-0<br/>
+#. # Results ##########################################<br/>
+#. total number of votes (including blank/invalid votes): 37<br/>
+#. Question #1: Secretario General<br/>
+#. <br/>
+#. number of options available: 2<br/>
+#. <br/>
+#. Raw winning options (position):<br/>
+#. ...<br/>
+#. <br/>
+#. <br/>
+#. ####################################################<br/>
+#. <br/>
+#. * verifying proofs of knowledge of the plaintexts...<br/>
+#. * ..finished. Verified 37 votes (0 invalid)<br/>
+#. * proofs of knowledge of plaintexts OK (0 invalid)<br/>
+#. * running './pverify.sh .rnd /tmp/tmp9c2r5e3jtally/tally-raw-0'<br/>
+#. * initializing random source..Successfully initialized random source!<br/>
+#. * begin proof verification on '/tmp/tmp9c2r5e3jtally/tally-raw-0'<br/>
+#. * processing /tmp/tmp9c2r5e3jtally/tally-raw-0/0-089b56b3-3ffc-4f91-ace5-eef571162d8c..<br/>
+#. *<br/>
+#. * ============ Read and derive common values. ====================<br/>
+#. * 150101 18:46:10 Read joint public key... * done.<br/>
+#. * 150101 18:46:11 Read individual El Gamal public keys... * done.<br/>
+#. * 150101 18:46:11 Verify relation between public keys... * done.<br/>
+#. * 150101 18:46:11 Read input ciphertexts... * done.<br/>
+#. * 150101 18:46:11 Derive independent generators... * done.<br/>
+#. *<br/>
+#. * ============ Verify shuffle of Party 1. ========================<br/>
+#. * 150101 18:46:11 Read output of Party 1... * done.<br/>
+#. * 150101 18:46:11 Verify proof of shuffle... * done.<br/>
+#. *<br/>
+#. * ============ Verify shuffle of Party 2. ========================<br/>
+#. * 150101 18:46:12 Read output of Party 2... * done.<br/>
+#. * 150101 18:46:12 Verify proof of shuffle... * done.<br/>
+#. *<br/>
+#. * ============ Verify decryption of Party 1. =====================<br/>
+#. * 150101 18:46:12 Read decryption factors... * done.<br/>
+#. * 150101 18:46:12 Verify decryption proof... * done.<br/>
+#. *<br/>
+#. * ============ Verify decryption of Party 2. =====================<br/>
+#. * 150101 18:46:13 Read decryption factors... * done.<br/>
+#. * 150101 18:46:13 Verify decryption proof... * done.<br/>
+#. *<br/>
+#. * ============ Verify finalization. ==============================<br/>
+#. * 150101 18:46:13 Decrypt using verified decryption factors... * done.<br/>
+#. * 150101 18:46:13 Read and verify plaintexts... * done.<br/>
+#. *<br/>
+#. * Verification completed SUCCESSFULLY after 0h 0m 4s.<br/>
+#. * verification is OK<br/>
+#. * processing question_dir 0-089b56b3-3ffc-4f91-ace5-eef571162d8c<br/>
+#. * running '/tmp/tmp.J9d7GWUECw/election-verifier/vmnc.sh .rnd -plain -outi json proofs/PlaintextElements.bt plaintexts_json2'<br/>
+#. * initializing random source..Successfully initialized random source!<br/>
+#. * calling mixnet interface with vmnc .rnd  -plain -outi json proofs/PlaintextElements.bt plaintexts_json2..<br/>
+#. * vmnc call succeeded<br/>
+#. * plaintexts_json verification OK<br/>
+#. * running '/tmp/tmp.J9d7GWUECw/election-verifier/vmnc.sh .rnd -ciphs -ini json ciphertexts_json ciphertexts_raw'<br/>
+#. * calling mixnet interface with vmnc .rnd  -ciphs -ini json ciphertexts_json ciphertexts_raw..<br/>
+#. * vmnc call succeeded<br/>
+#. * ciphertexts_json verification OK<br/>
+#. <br/>
+#. </code>
+#: 
+#, fuzzy
+msgctxt "\"avElection\".\"verifyResults\""
+msgid "verifyText"
+msgstr "<p>Dans cette page, nous décrirons le processus par lequel il est possible de vérifier que le résultat d'une élection est valide. Chaque électeur peut vérifier que son bulletin de vote est inclus dans le décompte, et peut également vérifier mathématiquement le résultat du décompte.</p><p>\n"
+"\n"
+"<strong>Pour effectuer cette vérification, il est nécessaire d'avoir une formation technique. Si vous ne l'avez pas, nous vous recommandons d'exécuter ce processus de vérification avec l'aide d'une personne ayant une formation technique.</strong></p><p>\n"
+"\n"
+"La première chose dont vous avez besoin pour vérifier le décompte est de télécharger le &quot;election-verifier&quot; logiciel. C'est le programme qui effectue les vérifications nécessaires sur une élection de __name__. Vous pouvez télécharger le vérificateur d'élection ici:<p>\n"
+"\n"
+"<p>\n"
+"\n"
+"<p><a href=\"{{verifier.link}}\" target=\"_blank\">vérificateur d'élection</a><span class=\"special\"> (sha256sum : {{verifier.hash}})</span></p>\n"
+"\n"
+"<p>ou vous pouvez <a href=\"https://github.com/sequetech/election-verifier\">l'installer manuellement à partir du code source, en suivant les instructions de github</a>.</p><p >\n"
+"\n"
+"elections-verifier a été testé pour fonctionner sous Linux et nécessite :</p>\n"
+"<ul>\n"
+"<li>Un système d'exploitation Linux 64 bits.</li>\n"
+"<li>Python 3.3 ou ultérieur</li>\n"
+"<li>Java v7 ou installé ultérieurement.</li>\n"
+"<li>uuencode (\"sudo apt-get install sharutils\" dans Debian/Ubuntu).</li>\n"
+"</ul>\n"
+"\n"
+"<p>Le fichier qui contient les données de l'élection, que nous appelons habituellement \"tally.tar\" est le suivant :</p>\n"
+"\n"
+"<p><a class=\"tally-link\" href=\"{{publicURL}}{{electionId}}/{{electionId}}.tar\" target=\"_blank\">Décompte des élections ({{electionId}}.tar )</a></p>\n"
+"\n"
+"<p>Pour vérifier le décompte, vous pouvez simplement exécuter:</p>\n"
+"\n"
+"<p>\n"
+"<code>\n"
+"sh election-verifier {{electionId}}.tar\n"
+"</code>\n"
+"</p>\n"
+"\n"
+"<p>Le résultat de cette exécution ressemblera à ce qui suit:</p>\n"
+"\n"
+"<code>\n"
+"sh election-verifier {{electionId}}.tar<br/><br/>\n"
+"\n"
+"* extracted to /tmp/tmp9c2r5e3jtally<br/>\n"
+"* extracted raw tally to /tmp/tmp9c2r5e3jtally/tally-raw-0<br/>\n"
+"* running ['./tally-pipes', '-t', '/tmp/tmp9c2r5e3jtally/0.tar.gz', '-c', '/tmp/tmp9c2r5e3jtally/config.json', '-s', '-o', 'json']<br/>\n"
+"* results hash verification OK<br/>\n"
+"* processing /tmp/tmp9c2r5e3jtally/tally-raw-0<br/>\n"
+"# Results ##########################################<br/>\n"
+"total number of votes (including blank/invalid votes): 37<br/>\n"
+"Question #1: Secretario General<br/>\n"
+"<br/>\n"
+"number of options available: 2<br/>\n"
+"<br/>\n"
+"Raw winning options (position):<br/>\n"
+"...<br/>\n"
+"<br/>\n"
+"<br/>\n"
+"####################################################<br/>\n"
+"<br/>\n"
+"* verifying proofs of knowledge of the plaintexts...<br/>\n"
+"* ..finished. Verified 37 votes (0 invalid)<br/>\n"
+"* proofs of knowledge of plaintexts OK (0 invalid)<br/>\n"
+"* running './pverify.sh .rnd /tmp/tmp9c2r5e3jtally/tally-raw-0'<br/>\n"
+"* initializing random source..Successfully initialized random source!<br/>\n"
+"* begin proof verification on '/tmp/tmp9c2r5e3jtally/tally-raw-0'<br/>\n"
+"* processing /tmp/tmp9c2r5e3jtally/tally-raw-0/0-089b56b3-3ffc-4f91-ace5-eef571162d8c..<br/>\n"
+"*<br/>\n"
+"* ============ Read and derive common values. ====================<br/>\n"
+"* 150101 18:46:10 Read joint public key... * done.<br/>\n"
+"* 150101 18:46:11 Read individual El Gamal public keys... * done.<br/>\n"
+"* 150101 18:46:11 Verify relation between public keys... * done.<br/>\n"
+"* 150101 18:46:11 Read input ciphertexts... * done.<br/>\n"
+"* 150101 18:46:11 Derive independent generators... * done.<br/>\n"
+"*<br/>\n"
+"* ============ Verify shuffle of Party 1. ========================<br/>\n"
+"* 150101 18:46:11 Read output of Party 1... * done.<br/>\n"
+"* 150101 18:46:11 Verify proof of shuffle... * done.<br/>\n"
+"*<br/>\n"
+"* ============ Verify shuffle of Party 2. ========================<br/>\n"
+"* 150101 18:46:12 Read output of Party 2... * done.<br/>\n"
+"* 150101 18:46:12 Verify proof of shuffle... * done.<br/>\n"
+"*<br/>\n"
+"* ============ Verify decryption of Party 1. =====================<br/>\n"
+"* 150101 18:46:12 Read decryption factors... * done.<br/>\n"
+"* 150101 18:46:12 Verify decryption proof... * done.<br/>\n"
+"*<br/>\n"
+"* ============ Verify decryption of Party 2. =====================<br/>\n"
+"* 150101 18:46:13 Read decryption factors... * done.<br/>\n"
+"* 150101 18:46:13 Verify decryption proof... * done.<br/>\n"
+"*<br/>\n"
+"* ============ Verify finalization. ==============================<br/>\n"
+"* 150101 18:46:13 Decrypt using verified decryption factors... * done.<br/>\n"
+"* 150101 18:46:13 Read and verify plaintexts... * done.<br/>\n"
+"*<br/>\n"
+"* Verification completed SUCCESSFULLY after 0h 0m 4s.<br/>\n"
+"* verification is OK<br/>\n"
+"* processing question_dir 0-089b56b3-3ffc-4f91-ace5-eef571162d8c<br/>\n"
+"* running '/tmp/tmp.J9d7GWUECw/election-verifier/vmnc.sh .rnd -plain -outi json proofs/PlaintextElements.bt plaintexts_json2'<br/>\n"
+"* initializing random source..Successfully initialized random source!<br/>\n"
+"* calling mixnet interface with vmnc .rnd  -plain -outi json proofs/PlaintextElements.bt plaintexts_json2..<br/>\n"
+"* vmnc call succeeded<br/>\n"
+"* plaintexts_json verification OK<br/>\n"
+"* running '/tmp/tmp.J9d7GWUECw/election-verifier/vmnc.sh .rnd -ciphs -ini json ciphertexts_json ciphertexts_raw'<br/>\n"
+"* calling mixnet interface with vmnc .rnd  -ciphs -ini json ciphertexts_json ciphertexts_raw..<br/>\n"
+"* vmnc call succeeded<br/>\n"
+"* ciphertexts_json verification OK<br/>\n"
+"<br/>\n"
+"</code>\n"
+"\n"
+"<p></p>\n"
+"<p>La chose la plus importante est que la commande se termine en disant &quot;OK&quot;. S'il y a un échec, la commande ne finira pas de dire \"OK but FAILED\". Nous allons maintenant énumérer les étapes impliquées dans la vérification. Pour des raisons techniques, la commande ne suit pas exactement le même ordre que celui indiqué ici, mais nous les listons toujours de cette façon pour plus de clarté:</p>\n"
+"<ol>\n"
+"<li>Extraire le fichier dans un répertoire dont le chemin est imprimé à l'écran</li><li>\n"
+"Afficher brièvement à l'écran les données les plus importantes du décompte: le nombre de votes et la liste des options gagnantes (PAS dans l'ordre).</li><li>\n"
+"Lisez le fichier result_json qui correspond aux résultats du décompte indiqué à l'étape précédente et procédez au hash.</li><li>\n"
+"Lire les clés publiques avec lesquelles les bulletins de vote ont été chiffrés (file pubkeys_json)</li><li>\n"
+"Lisez les bulletins de vote à partir du fichier ciphertexts_json et vérifiez la validité des preuves mathématiques Zero Knownledge Proofs (ZKP) qui prouvent que la personne qui a chiffré le bulletin de vote connaissait le contenu en texte du bulletin de vote.</li><li>\n"
+"L'étape suivante consiste à vérifier certains éléments de chaque question. Chaque question est cryptée séparément, et donc le décompte et certaines vérifications sont également effectués séparément:<ol><li>\n"
+"Vérifiez qu'en commençant par le scrutin du fichier &quot;ciphertexts_json&quot; il peut être obtenu le bulletin de vote crypté au format brut. Un hachage des deux fichiers est effectué et il est vérifié que le résultat est le même. Si cette vérification échoue, le script imprime à l'écran &quot;ciphertexts_json verification FAILED&quot;.</li><li>\n"
+"Lisez les preuves ZKP qui prouvent mathématiquement qu'à partir des bulletins de vote cryptés de cette question, le résultat est les bulletins de vote décryptés au format brut. Si ces preuves échouent, le script imprime &quot;la vérification ÉCHEC&quot;.</li><li>\n"
+"Vérifiez que les bulletins décryptés au format brut peuvent être convertis dans les bulletins de résultat au format texte du fichier &quot;plaintexts_json&quot;. Un hachage des deux fichiers est créé et il est vérifié que les deux correspondent. Si cette vérification échoue, le script affiche &quot;ciphertexts_json verification FAILED&quot;.\n"
+"</li><li>\n"
+"Lisez le fichier qui contient les votes décryptés et calculez le décompte de l'élection à partir de ces données.</li><li>\n"
+"Vérifiez que le hachage de ce fichier correspond au hachage de result_json obtenu à l'étape 3. Si la comparaison échoue, le script imprime &quot;tally verification FAILED&quot;.</li>\n"
+"</p>\n"
+"<p>Comme on peut le voir, <strong>il est mathématiquement et univoquement prouvé</strong> qu'à partir des bulletins de vote cryptés, le décompte des élections est correct. Certaines questions pourraient être soulevées: d'où viennent tous ces bulletins de vote ? mon bulletin de vote est-il inclus?</p><p>\n"
+"\n"
+"Tout d'abord, nous devons dire que le système de vote implique la nécessité d'une certaine confiance dans les organisations organisant l'élection, surtout qu'il est supposé qu'aucun bourrage d'urnes ne s'est produit. Il s'agit d'une limitation (reflétée dans <a href=\"https://sequetech.io/static/generic_tech_overview_20_08_15.pdf\">l'aperçu technique</a>, section 6.3.3) qui découle du fait que les bulletins de vote ne sont pas numériques signés, et ils ne le sont pas car très peu de personnes disposent d'un certificat numérique qu'ils peuvent facilement utiliser lors d'une élection de ce type. Dans d'autres pays européens comme par exemple l'Estonie, <a href=\"http://www.vvk.ee/ vote-methodes-in-estonia/engindex/statistics\">l'e-ID semble être largement utilisée et donc 24,3 % de l'électorat a voté par Internet lors des élections de 2011</a>.</p><p>\n"
+"\n"
+"Néanmoins, il peut être prouvé mathématiquement que votre bulletin de vote individuel, celui que vous avez émis en tant qu'électeur, est inclus dans la liste des bulletins de vote cryptés, dans cette liste que nous avons vérifiée pour générer le résultat électoral correct. Pour vérifier votre vote, vous devez avoir enregistré le suivi des bulletins de vote, qui n'est qu'un hachage du bulletin de vote. </p><p>\n"
+"\n"
+"Ce suivi des bulletins de vote apparaît à l'écran lorsque vous avez terminé le processus de vote de l'isoloir. Si vous n'avez pas enregistré votre outil de suivi des bulletins de vote, n'oubliez pas que vous devez l'enregistrer si vous souhaitez pouvoir effectuer cette vérification. </p><p>\n"
+"\n"
+"Pour vérifier que votre bulletin de vote est inclus dans le décompte, il vous suffit d'exécuter la même commande que précédemment, en ajoutant en paramètre votre outil de suivi des bulletins:</p>\n"
+"\n"
+"<code>\n"
+"sh election-verifier {{electionId}}.tar [ballot-tracker]\n"
+"</code>"
+
+#: 
+msgctxt "\"avElection\".\"legal\""
+msgid "title"
+msgstr "Mentions légales"
+
+#: 
+msgctxt "\"avElection\".\"legal\""
+msgid "contact"
+msgstr "contacter"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "loginHeader"
+msgstr "Se connecter pour voter"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "adminLoginHeader"
+msgstr "Se connecter à la console d'administration"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "censusQueryHeader"
+msgstr "Vérifier si vous êtes dans le recensement"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "checkCensusButton"
+msgstr "Vérifier le recensement"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "otlHeader"
+msgstr "Obtenir le code d'authentification"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "otlButton"
+msgstr "Obtenir le code d'authentification"
+
+#: 
+msgctxt "\"avRegistration\".\"otlStatus\""
+msgid "querying"
+msgstr "Authentification, veuillez patienter.."
+
+#: 
+msgctxt "\"avRegistration\".\"otlStatus\""
+msgid "success"
+msgstr "Votre code d'authentification est <strong>__code__</strong>. Veuillez le noter quelque part, car vous devrez effectuer une connexion et, pour des raisons de sécurité, il s'agit d'un lien à usage unique qui ne vous permettra pas de le récupérer à nouveau. Conservez ce code d'authentification et utilisez-le plus tard lorsque la période de vote sera ouverte."
+
+#: 
+msgctxt "\"avRegistration\".\"otlStatus\""
+msgid "fail"
+msgstr "Il y a eu une erreur dans l'authentification. Cela pourrait avoir plusieurs causes et pour des raisons de sécurité, nous ne pouvons pas révéler laquelle :<ul><li>L'OTL pourrait être invalide.</li><li>Vous pourriez avoir fourni des données incorrectes, veuillez vérifier.</li><li>La période d'authentification de l'OTL pourrait être terminée ou ne pas avoir commencé.</li><li>Autres raisons</li></ul><p>Veuillez réessayer plus tard. Si cela continue à se produire et que vous pensez que cela ne devrait pas, veuillez contacter les administrateurs électoraux.</p>"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "censusQuerying"
+msgstr "Veuillez patienter, vérification du recensement.."
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "censusSuccess"
+msgstr "Félicitations ! Vous êtes dans le recensement et vous allez pouvoir voter."
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "censusFail"
+msgstr "Oups ! Nous ne vous avons pas localisé dans le recensement.<br>Veuillez vérifier que :<ul><li>Vous faites bien partie du recensement. Veuillez examiner la documentation pour voir si vous remplissez toutes les conditions pour être un électeur éligible.</li><li>Vous avez saisi toutes les données correctement. Veuillez vérifier attentivement les données saisies.</li><ul><p>Si vous pensez toujours qu'il y a un problème quelconque, veuillez contacter le support.</p>"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "helpRegisterForm"
+msgstr "Pour pouvoir voter, vous devez d'abord vous inscrire. Certains champs sont obligatoires, veuillez donc lire attentivement les informations d'aide."
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "helpAdminRegisterForm"
+msgstr "Pour pouvoir créer des élections, vous devez d'abord vous enregistrer. Veuillez lire attentivement les informations d'aide."
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "registerFormHelpTitle"
+msgstr "S'inscrire pour voter"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "registerAdminFormHelpTitle"
+msgstr "S'inscrire pour créer des élections"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "fillValidFormText"
+msgstr "Pour pouvoir envoyer le formulaire, veuillez d'abord remplir correctement tous les champs."
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "invalidRegisterData"
+msgstr "Une erreur s'est produite lors de l'enregistrement avec les données que vous avez fournies. <strong>Il est fort probable que vous soyez déjà inscrit, <a href=\"__url__\">accédez en utilisant vos informations d'identification en cliquant ici</a></strong>. Il est possible que l'élection soit terminée. Vérifiez tout ce qui précède, et si vous continuez à avoir des problèmes dans l'enregistrement, revoyez les données que vous avez fournies, ou contactez les administrateurs des élections,"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "invalidRegisterDNI"
+msgstr "Nous n'avons pas pu vous enregistrer avec les données que vous avez fournies. <strong>Vous avez inséré un numéro d'identification invalide</strong>. Veuillez le vérifier."
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "logout"
+msgstr "Déconnexion"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "emailLabel"
+msgstr "Email"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "usernameLabel"
+msgstr "Nom d'utilisateur"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "codePlaceholder"
+msgstr "Insérez le code"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "codeHelp"
+msgstr "Veuillez utiliser le dernier code que nous vous avons envoyé. Le code aura 8 caractères alphanumériques."
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "noCodeReceivedQuestion"
+msgstr "Vous n'avez pas encore reçu votre code ?"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "sendCodeAgain"
+msgstr "Envoyer à nouveau le code"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "telLabel"
+msgstr " Numéro de téléphone mobile"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "telInvalid"
+msgstr " Numéro de téléphone non valide. Exemple de numéro valide : +34666666666"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "telPlaceholder"
+msgstr "Exemple : +34666666666"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "telHelp"
+msgstr "Uniquement des chiffres, sans espace ni trait d'union. Utilisez toujours le préfixe international du téléphone de votre pays, par exemple +44 pour le Royaume-Uni ou +34 pour l'Espagne."
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "errorSendingAuthCode"
+msgstr "Erreur d'envoi du code. Vérifiez que vous avez écrit correctement toutes les données, ou peut-être avez-vous envoyé le code trop de fois. Si le problème persiste, contactez l'organisation."
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "codeLabel"
+msgstr "Code d'authentification"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "emailPlaceholder"
+msgstr "john@example.com"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "passwordLabel"
+msgstr "Mot de passe"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "passwordPlaceholder"
+msgstr "mot de passe"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "notRegisteredYet"
+msgstr "Vous n'êtes pas encore inscrit ?"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "registerHere"
+msgstr "Inscrivez-vous ici"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "fewMinutes"
+msgstr "Cela ne prend que quelques minutes"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "createElection"
+msgstr "Vous cherchez à créer une élection ?"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "takeLook"
+msgstr "Jetez un coup d'œil à"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "step"
+msgstr "guide étape par étape"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "forgotPassword"
+msgstr "Vous avez oublié votre mot de passe ?"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "loginButton"
+msgstr "Entrer"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "registerHeader"
+msgstr "S'inscrire pour voter"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "registerAdminHeader"
+msgstr "Inscription"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "registerButton"
+msgstr "S'inscrire"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "namePlaceholder"
+msgstr "nom"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "surnamePlaceholder"
+msgstr "nom de famille"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "tlfPlaceholder"
+msgstr "téléphone"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "dniPlaceholder"
+msgstr "CNI"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "alreadyRegistered"
+msgstr "Déjà inscrit ?"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "helpAlreadyRegisteredForm"
+msgstr "Peut-être êtes-vous déjà inscrit et ce dont vous avez réellement besoin, c'est de vous authentifier."
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "loginHere"
+msgstr "Accéder en utilisant mes informations d'identification, je me suis déjà enregistré auparavant"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "tlfError"
+msgstr "Numéro de téléphone non valide"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "dniError"
+msgstr "Exemple de numéro de CNI 594323676543"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "emailError"
+msgstr "adresse email non valide"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "telError"
+msgstr "Numéro de téléphone non valide"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "validateHeader"
+msgstr "Valider le code"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "validateButton"
+msgstr "Valider"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "loadingRegistration"
+msgstr "Chargement"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "successRegistration"
+msgstr "Succès"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "errorRegistration"
+msgstr "Erreur"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "otpHelp"
+msgstr "Vous recevrez un message avec le code d'authentification à l'étape suivante"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "invalidCredentials"
+msgstr "L'authentification a échoué, peut-être pour l'une des raisons suivantes :\n"
+"- Les informations d'identification ne sont pas valides\n"
+"- L'utilisateur n'est pas actif\n"
+"- L'utilisateur a dépassé le nombre maximum de revotes autorisés pour cette élection\n"
+"- Il y a un problème technique dans le serveur\n"
+"Si le problème persiste, veuillez contacter le service d'assistance à l'adresse __support__"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "invalidDataRegEx"
+msgstr "Données non valides"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "invalidDni"
+msgstr "CNI invalide"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "dniHelp"
+msgstr "Indiquez une CNI valide. Exemples : 653456987634"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "imageHelp"
+msgstr "Ajoutez une image au format jpg ou png"
+
+#: 
+msgctxt "\"avRegistration\""
+msgid "invalidImage"
+msgstr "Image non valide"
+
+#: 
+msgctxt "\"avDocumentation\".\"legal\""
+msgid "title"
+msgstr "Mentions légales"
+
+#: 
+msgctxt "\"avDocumentation\".\"documentation\""
+msgid "title"
+msgstr "Documentation"
+
+#: 
+msgctxt "\"avDocumentation\".\"documentation\""
+msgid "first_line"
+msgstr "Vous pouvez trouver plus d'informations sur cette élection dans les liens suivants :"
+
+#: 
+msgctxt "\"avDocumentation\".\"documentation\""
+msgid "faq"
+msgstr "Questions fréquemment posées"
+
+#: 
+msgctxt "\"avDocumentation\".\"documentation\""
+msgid "overview"
+msgstr "Aperçu général"
+
+#: 
+msgctxt "\"avDocumentation\".\"documentation\""
+msgid "authorities"
+msgstr "Liste des autorités"
+
+#: 
+msgctxt "\"avDocumentation\".\"documentation\""
+msgid "technical"
+msgstr "Description technique"
+
+#: 
+msgctxt "\"avDocumentation\".\"documentation\""
+msgid "security_contact"
+msgstr "Contact sécurité"
+
+#: 
+msgctxt "\"avCommon\""
+msgid "showVersion"
+msgstr "Version : __version__"
+
+#: 
+msgctxt "\"avCommon\".\"showVersionModal\""
+msgid "mainVersion"
+msgstr "Version principale"
+
+#: 
+msgctxt "\"avCommon\".\"showVersionModal\""
+msgid "header"
+msgstr "Informations sur la version"
+
+#: 
+msgctxt "\"avCommon\".\"showVersionModal\""
+msgid "body"
+msgstr "Informations sur la version des référentiels utilisés dans ce déploiement:<br><br><ul>__versionList__</ul>"
+
+#: 
+msgctxt "\"avCommon\".\"showVersionModal\""
+msgid "confirmButton"
+msgstr "Fermer"
+
+#: 
+msgctxt "\"avCommon\".\"foot\""
+msgid "contact"
+msgstr "Contact"
+
+#: 
+msgctxt "\"avCommon\".\"foot\""
+msgid "contactsupport"
+msgstr "Contacter le support"
+
+#: 
+msgctxt "\"avCommon\".\"foot\""
+msgid "contactsales"
+msgstr "Contacter les ventes"
+
+#: 
+msgctxt "\"avCommon\".\"foot\""
+msgid "callsales"
+msgstr "Ventes : "
+
+#: 
+msgctxt "\"avCommon\".\"foot\""
+msgid "aboutus"
+msgstr "A propos de nous"
+
+#: 
+msgctxt "\"avCommon\".\"foot\""
+msgid "pricing"
+msgstr "Fixation des prix"
+
+#: 
+msgctxt "\"avCommon\".\"foot\""
+msgid "technology"
+msgstr "Technologie"
+
+#: 
+msgctxt "\"avCommon\".\"foot\""
+msgid "solutions"
+msgstr "Solutions"
+
+#: 
+msgctxt "\"avCommon\".\"foot\""
+msgid "adminManual"
+msgstr "Manuel de l'administrateur"
+
+#: 
+msgctxt "\"avCommon\".\"foot\""
+msgid "electionTypes"
+msgstr "Types d'élections"
+
+#: 
+msgctxt "\"avCommon\".\"foot\""
+msgid "primaries"
+msgstr "Primaires et élections des candidats"
+
+#: 
+msgctxt "\"avCommon\".\"foot\""
+msgid "participatoryBudgeting"
+msgstr "Budget participatif"
+
+#: 
+msgctxt "\"avCommon\".\"foot\""
+msgid "referendums"
+msgstr "Référendums et consultations"
+
+#: 
+msgctxt "\"avCommon\".\"foot\""
+msgid "professional"
+msgstr "Professionnels et syndicats"
+
+#: 
+msgctxt "\"avCommon\".\"foot\""
+msgid "universities"
+msgstr "Universités"
+
+#: 
+msgctxt "\"avCommon\".\"foot\""
+msgid "legal"
+msgstr "Mentions légales"
+
+#: 
+msgctxt "\"avCommon\".\"foot\""
+msgid "tos"
+msgstr "Durée de service"
+
+#: 
+msgctxt "\"avCommon\".\"foot\""
+msgid "cookies"
+msgstr "Politique en matière de cookies"
+
+#: 
+msgctxt "\"avCommon\".\"foot\""
+msgid "privacy"
+msgstr "Politique de confidentialité"
+
+#: 
+msgctxt "\"avCommon\".\"foot\""
+msgid "securitycontact"
+msgstr "Contact sécurité"
+
+#: 
+msgctxt "\"avCommon\".\"foot\""
+msgid "communitywebsite"
+msgstr "Site web communautaire"
+
+#: tally_pipes/pipes/pdf.py:175
+msgid "Detailed and question by question results of the election {election_id} titled <u>\"{election_title}\"</u>."
+msgstr "Résultats détaillés et question par question de l'élection {election_id} intitulée <u>\"{election_title}\"</u>."
+
+#: tally_pipes/pipes/pdf.py:182
+msgid "Results of the election tally {election_id} - {election_title}"
+msgstr "Résultats du décompte des élections {election_id} - {election_title}"
+
+#: tally_pipes/pipes/pdf.py:262
+msgid "Question {question_index}: {question_title}"
+msgstr "Question {question_index}: {question_title}"
+
+#: tally_pipes/pipes/pdf.py:274
+msgid "Configuration Data"
+msgstr "Données de configuration"
+
+#: tally_pipes/pipes/pdf.py:287
+msgid "First past the post, Plurality or Plurality at Large"
+msgstr "Uninominal majoritaire à un tour, Pluralité ou Pluralité en général"
+
+#: tally_pipes/pipes/pdf.py:290
+msgid "Cumulative voting"
+msgstr "Vote cumulatif"
+
+#: tally_pipes/pipes/pdf.py:291
+msgid "Borda Nauru or Borda Dowdall (1/n)"
+msgstr "Borda Nauru ou Borda Dowdall (1/n)"
+
+#: tally_pipes/pipes/pdf.py:293
+msgid "Pairwise comparison (beta distribution)"
+msgstr "Comparaison par paires (distribution bêta)"
+
+#: tally_pipes/pipes/pdf.py:294
+msgid "Desborda3"
+msgstr "Desborda3"
+
+#: tally_pipes/pipes/pdf.py:295
+msgid "Desborda2"
+msgstr "Desborda2"
+
+#: tally_pipes/pipes/pdf.py:296
+msgid "Desborda"
+msgstr "Desborda"
+
+#: tally_pipes/pipes/pdf.py:301
+msgid "Tally system"
+msgstr "Système de pointage"
+
+#: tally_pipes/pipes/pdf.py:308
+msgid "Minimum number of options a voter can select"
+msgstr "Nombre minimum d'options qu'un électeur peut sélectionner"
+
+#: tally_pipes/pipes/pdf.py:315
+msgid "Maximum number of options a voter can select"
+msgstr "Nombre maximum d'options qu'un électeur peut sélectionner"
+
+#: tally_pipes/pipes/pdf.py:322
+msgid "Number of winning options"
+msgstr "Nombre d'options gagnantes"
+
+#: tally_pipes/pipes/pdf.py:329
+msgid "Options appear in the voting booth in random order"
+msgstr "Les options apparaissent dans l'isoloir dans un ordre aléatoire"
+
+#: tally_pipes/pipes/pdf.py:333
+msgid "Yes"
+msgstr "Oui"
+
+#: tally_pipes/pipes/pdf.py:338
+msgid "No"
+msgstr "Non"
+
+#: tally_pipes/pipes/pdf.py:359
+msgid "Participation in question {question_index}"
+msgstr "Participation à la question {question_index}"
+
+#: tally_pipes/pipes/pdf.py:377
+msgid "Total number of votes cast"
+msgstr "Nombre total de suffrages exprimés"
+
+#: tally_pipes/pipes/pdf.py:381
+msgid "Blank votes"
+msgstr "Votes blancs"
+
+#: tally_pipes/pipes/pdf.py:383
+msgid "{blank_votes} ({percentage:.2%} over the total number of votes)"
+msgstr "{blank_votes} ({percentage:.2%} sur le nombre total de votes)"
+
+#: tally_pipes/pipes/pdf.py:394
+msgid "Null votes"
+msgstr "Votes nuls"
+
+#: tally_pipes/pipes/pdf.py:396
+msgid "{null_votes} ({percentage:.2%} over the total number of votes)"
+msgstr "{null_votes} ({percentage:.2%} sur le nombre total de votes)"
+
+#: tally_pipes/pipes/pdf.py:408
+msgid "Total number of votes for options"
+msgstr "Nombre total de votes pour les options"
+
+#: tally_pipes/pipes/pdf.py:412
+msgid "{valid_votes} ({percentage:.2%} over the total number of votes)"
+msgstr "{valid_votes} ({percentage:.2%} sur le nombre total de votes)"
+
+#: tally_pipes/pipes/pdf.py:424
+msgid "Voting period start date"
+msgstr "Date de début de la période de vote"
+
+#: tally_pipes/pipes/pdf.py:439
+msgid "Voting period end date"
+msgstr "Date de fin de la période de vote"
+
+#: tally_pipes/pipes/pdf.py:453
+msgid "Tally end date"
+msgstr "Date de fin de comptage"
+
+#: tally_pipes/pipes/pdf.py:479
+msgid "Candidate results"
+msgstr "Résultats des candidats"
+
+#: tally_pipes/pipes/pdf.py:515
+msgid "Name"
+msgstr "Nom"
+
+#: tally_pipes/pipes/pdf.py:519
+msgid "Points"
+msgstr "Points"
+
+#: tally_pipes/pipes/pdf.py:523
+msgid "Winning position"
+msgstr "Position gagnante"
+
+#: tally_pipes/pipes/pdf.py:540 tally_pipes/pipes/pdf.py:561
+#: tally_pipes/pipes/pretty_print.py:126
+#: tally_pipes/pipes/pretty_print.py:153
+#: tally_pipes/pipes/pretty_print.py:176
+msgid "{candidate_text} (Write-in)"
+msgstr "{candidate_text} (Write-in)"
+
