@@ -27,7 +27,7 @@ import codecs
 import uuid
 
 
-VERSION = "7.3.0"
+VERSION = "7.4.0"
 
 DEFAULT_PIPELINE = dict(
     version=VERSION,
