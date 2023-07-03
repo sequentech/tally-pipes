@@ -25,7 +25,7 @@ class SdistI18n(sdist):
 
 setup(
     name='tally-pipes',
-    version='master',
+    version='9.0.0',
     author='Sequent Tech Inc',
     author_email='contact@sequentech.io',
     packages=['tally_pipes', 'tally_pipes.pipes'],
@@ -41,6 +41,6 @@ setup(
         'requests==2.31.0',
         'Babel==2.9.1',
         'pytz==2021.3',
-        'tally-methods @ git+https://github.com/sequentech/tally-methods.git@master'
+        'tally-methods @ git+https://github.com/sequentech/tally-methods.git@9.0.0'
     ]
 )
