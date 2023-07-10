@@ -157,6 +157,18 @@ def _header_footer(canvas, doc, hide_logo):
     # Release the canvas
     canvas.restoreState()
 
+def custom_i18n(parent, key, langs):
+    translation = ''
+    key_i18n = key + '_i18n'
+    if key_i18n in parent:
+        for lang in langs:
+            if lang in parent[key_i18n]:
+                translation = parent[key_i18n][lang]
+                break
+    if not translation and key in parent:
+        translation = parent[key]
+    return translation
+
 def pdf_print(election_results, config_folder, election_id):
     from reportlab.lib import colors
     from reportlab.platypus import (
@@ -197,6 +209,7 @@ def pdf_print(election_results, config_folder, election_id):
         os.path.abspath(os.path.dirname(__file__)), 
         'locale'
     )
+    languages = election_results.get('pdf', dict()).get('languages', [])
     translate = gettext.translation(
         'pipes', 
         localedir, 
@@ -206,7 +219,7 @@ def pdf_print(election_results, config_folder, election_id):
     _ = translate.gettext
     try:
         jsonconfig = get_election_cfg(election_id)
-        election_title = remove_html(jsonconfig['payload']['configuration']['title'])
+        election_title = remove_html(custom_i18n(jsonconfig['payload']['configuration'],'title', languages))
     except:
         election_title = ""
 
@@ -338,7 +351,7 @@ def pdf_print(election_results, config_folder, election_id):
             gen_text(
                 _('Question {question_index}: {question_title}').format(
                     question_index=i+1,
-                    question_title=remove_html(question['title'])
+                    question_title=remove_html(custom_i18n(question, 'title', languages))
                 ),
                 size=15,
                 bold=True,
@@ -685,7 +698,7 @@ def pdf_print(election_results, config_folder, election_id):
             ]
         )
         for answer in winners:
-            answer_text = remove_html(answer['text'])
+            answer_text = remove_html(custom_i18n(answer, 'text', languages))
             if dict(title='isWriteInResult', url='true') in answer.get('urls', []):
                 answer_text = _('{candidate_text} (Write-in)').format(
                     candidate_text=answer_text
@@ -713,7 +726,7 @@ def pdf_print(election_results, config_folder, election_id):
                 ]
             )
         for loser in losers:
-            loser_text = remove_html(loser['text'])
+            loser_text = remove_html(custom_i18n(loser, 'text', languages))
             if dict(title='isWriteInResult', url='true') in loser.get('urls', []):
                 loser_text = _('{candidate_text} (Write-in)').format(
                     candidate_text=loser_text
