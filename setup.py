@@ -37,7 +37,7 @@ setup(
     setup_requires=['Babel'],
     cmdclass={'sdist': SdistI18n},
     install_requires=[
-        'reportlab==3.5.55',
+        'reportlab==3.6.13',
         'requests==2.31.0',
         'Babel==2.9.1',
         'pytz==2021.3',
