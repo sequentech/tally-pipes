@@ -38,7 +38,7 @@ setup(
     cmdclass={'sdist': SdistI18n},
     install_requires=[
         'reportlab==3.6.13',
-        'requests==2.31.0',
+        'requests==2.32.0',
         'Babel==2.9.1',
         'pytz==2021.3',
         'tally-methods @ git+https://github.com/sequentech/tally-methods.git@master'
